@@ -1,0 +1,6 @@
+{
+  "name": "Ahoj Česko — Чех хэлний ярианы апп",
+  "description": "Чех хэлний энгийн ба удаан дуудлагатай үг, өгүүлбэр, харилцан ярианы аудио дасгалын Монгол хэл дээрх iPhone PWA апп.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
