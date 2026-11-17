@@ -1,0 +1,327 @@
+{
+  "version": "v0.9.8",
+  "mode": "prototype_data_not_for_publication",
+  "lesson": {
+    "id": "CZ-A0-M01-L01",
+    "title": "Анхны өдөр — танилцах",
+    "mission": "Мэндэлж, нэрээ хэлээд бусдын нэрийг эелдгээр асуу.",
+    "items": [
+      {
+        "id": "CZ-A0-M01-L01-PH001",
+        "cs": "Dobrý den.",
+        "mn": "Сайн байна уу.",
+        "source": "A0/M01/L01",
+        "status": "editorial_draft_native_pending"
+      },
+      {
+        "id": "CZ-A0-M01-L01-PH002",
+        "cs": "Jmenuji se …",
+        "mn": "Намайг … гэдэг.",
+        "source": "A0/M01/L01",
+        "status": "editorial_draft_native_pending"
+      },
+      {
+        "id": "CZ-A0-M01-L01-PH003",
+        "cs": "Jak se jmenujete?",
+        "mn": "Таныг хэн гэдэг вэ?",
+        "source": "A0/M01/L01",
+        "status": "editorial_draft_native_pending"
+      },
+      {
+        "id": "CZ-A0-M01-L01-PH004",
+        "cs": "Jsem z Mongolska.",
+        "mn": "Би Монголынх.",
+        "source": "A0/M01/L01",
+        "status": "editorial_draft_native_pending"
+      },
+      {
+        "id": "CZ-A0-M01-L01-PH005",
+        "cs": "Nerozumím.",
+        "mn": "Би ойлгохгүй байна.",
+        "source": "A0/M01/L01",
+        "status": "editorial_draft_native_pending"
+      },
+      {
+        "id": "CZ-A0-M01-L01-PH006",
+        "cs": "Můžete to prosím zopakovat?",
+        "mn": "Та үүнийг дахин хэлж өгч болох уу?",
+        "source": "A0/M01/L01",
+        "status": "editorial_draft_native_pending"
+      }
+    ]
+  },
+  "story": {
+    "id": "KLIC17",
+    "title": "Klíč číslo 17",
+    "chapter": "01 · Nový dům",
+    "sentences": [
+      {
+        "id": "CZ-0001",
+        "cs": "Dobrý den.",
+        "mn": "Сайн байна уу.",
+        "match_ids": [
+          "CZ-A0-M01-L01-PH001",
+          "CZ-A0-M01-L02-PH006"
+        ],
+        "qa_status": "pending",
+        "review_note": ""
+      },
+      {
+        "id": "CZ-0002",
+        "cs": "Dobré ráno.",
+        "mn": "Өглөөний мэнд.",
+        "match_ids": [],
+        "qa_status": "pending",
+        "review_note": ""
+      },
+      {
+        "id": "CZ-0003",
+        "cs": "Dobrý večer.",
+        "mn": "Оройн мэнд.",
+        "match_ids": [],
+        "qa_status": "pending",
+        "review_note": ""
+      },
+      {
+        "id": "CZ-0004",
+        "cs": "Dobrou noc.",
+        "mn": "Сайхан амраарай.",
+        "match_ids": [],
+        "qa_status": "pending",
+        "review_note": ""
+      },
+      {
+        "id": "CZ-0005",
+        "cs": "Ahoj, jak se máš?",
+        "mn": "Сайн уу, сайн уу?",
+        "match_ids": [],
+        "qa_status": "pending",
+        "review_note": "Орчуулга дахин нягтлах шаардлагатай: “jak se máš?” нь “чи сайн байна уу?” гэсэн асуулт."
+      },
+      {
+        "id": "CZ-0006",
+        "cs": "Mám se dobře, děkuji.",
+        "mn": "Би сайн, баярлалаа.",
+        "match_ids": [],
+        "qa_status": "pending",
+        "review_note": ""
+      },
+      {
+        "id": "CZ-0007",
+        "cs": "A co vy?",
+        "mn": "Харин та?",
+        "match_ids": [],
+        "qa_status": "pending",
+        "review_note": ""
+      },
+      {
+        "id": "CZ-0008",
+        "cs": "Těší mě.",
+        "mn": "Танилцсандаа таатай байна.",
+        "match_ids": [
+          "CZ-A0-M07-L01-PH006",
+          "CZ-A1-M01-L01-PH006"
+        ],
+        "qa_status": "pending",
+        "review_note": ""
+      },
+      {
+        "id": "CZ-0009",
+        "cs": "Rád vás poznávám.",
+        "mn": "Тантай танилцсандаа баяртай байна.",
+        "match_ids": [],
+        "qa_status": "pending",
+        "review_note": ""
+      },
+      {
+        "id": "CZ-0010",
+        "cs": "Jak se jmenujete?",
+        "mn": "Таныг хэн гэдэг вэ?",
+        "match_ids": [
+          "CZ-A0-M01-L01-PH003"
+        ],
+        "qa_status": "pending",
+        "review_note": ""
+      },
+      {
+        "id": "CZ-0011",
+        "cs": "Jmenuji se Enkhbat.",
+        "mn": "Намайг Энхбат гэдэг.",
+        "match_ids": [],
+        "qa_status": "pending",
+        "review_note": ""
+      },
+      {
+        "id": "CZ-0012",
+        "cs": "Jak vám mám říkat?",
+        "mn": "Би таныг юу гэж дуудах вэ?",
+        "match_ids": [],
+        "qa_status": "pending",
+        "review_note": ""
+      },
+      {
+        "id": "CZ-0013",
+        "cs": "Můžeme si tykat?",
+        "mn": "Бид бие биедээ «чи» гэж хандаж болох уу?",
+        "match_ids": [],
+        "qa_status": "pending",
+        "review_note": ""
+      },
+      {
+        "id": "CZ-0014",
+        "cs": "Odkud jste?",
+        "mn": "Та хаанаас ирсэн бэ?",
+        "match_ids": [
+          "CZ-A1-M02-L01-PH003"
+        ],
+        "qa_status": "pending",
+        "review_note": ""
+      },
+      {
+        "id": "CZ-0015",
+        "cs": "Jsem z Mongolska.",
+        "mn": "Би Монголоос ирсэн.",
+        "match_ids": [
+          "CZ-A0-M01-L01-PH004",
+          "CZ-A1-M02-L01-PH004",
+          "CZ-A1-M02-L03-PH003"
+        ],
+        "qa_status": "pending",
+        "review_note": ""
+      },
+      {
+        "id": "CZ-0016",
+        "cs": "Žiju v České republice.",
+        "mn": "Би Чех улсад амьдардаг.",
+        "match_ids": [],
+        "qa_status": "pending",
+        "review_note": ""
+      },
+      {
+        "id": "CZ-0017",
+        "cs": "Jsem tady nový.",
+        "mn": "Би энд шинээр ирсэн.",
+        "match_ids": [],
+        "qa_status": "pending",
+        "review_note": ""
+      },
+      {
+        "id": "CZ-0018",
+        "cs": "Mluvím trochu česky.",
+        "mn": "Би чехээр бага зэрэг ярьдаг.",
+        "match_ids": [],
+        "qa_status": "pending",
+        "review_note": ""
+      },
+      {
+        "id": "CZ-0019",
+        "cs": "Ještě se učím česky.",
+        "mn": "Би чех хэл сурч байгаа.",
+        "match_ids": [],
+        "qa_status": "pending",
+        "review_note": ""
+      },
+      {
+        "id": "CZ-0020",
+        "cs": "Rozumíte mi?",
+        "mn": "Та намайг ойлгож байна уу?",
+        "match_ids": [],
+        "qa_status": "pending",
+        "review_note": ""
+      }
+    ]
+  },
+  "glossary": {
+    "ahoj": {
+      "mn": "Сайн уу / Баяртай",
+      "lemma": "ahoj",
+      "grammar": "Албан бус мэндлэх, салах үг",
+      "note": "Нөхцөлөөс хамаарна"
+    },
+    "dobrý": {
+      "mn": "сайн",
+      "lemma": "dobrý",
+      "grammar": "Тэмдэг нэр",
+      "note": "den-тэй нийлж мэндчилгээ болдог"
+    },
+    "den": {
+      "mn": "өдөр",
+      "lemma": "den",
+      "grammar": "Эр хүйстэй нэр үг",
+      "note": "Dobrý den = Сайн байна уу"
+    },
+    "jmenuji": {
+      "mn": "намайг … гэдэг",
+      "lemma": "jmenovat se",
+      "grammar": "1-р бие, ганц тоо",
+      "note": "jmenovat se бүтнээр сурах"
+    },
+    "se": {
+      "mn": "өөрийгөө заах богино хэлбэр",
+      "lemma": "se",
+      "grammar": "Буцах төлөөний үг",
+      "note": "Jmenuji se бүтцэд хамт хэрэглэнэ"
+    },
+    "jak": {
+      "mn": "яаж / хэрхэн",
+      "lemma": "jak",
+      "grammar": "Асуух дайвар үг",
+      "note": "Jak se jmenujete? = Таныг хэн гэдэг вэ?"
+    },
+    "jmenujete": {
+      "mn": "(таныг) гэдэг",
+      "lemma": "jmenovat se",
+      "grammar": "2-р бие, олон тоо / хүндэтгэлийн хэлбэр",
+      "note": "Эелдэг асуулт"
+    },
+    "jsem": {
+      "mn": "би ... байна",
+      "lemma": "být",
+      "grammar": "1-р бие, ганц тооны одоо цаг",
+      "note": "Яг ирж буй үйл явдлыг заахгүй"
+    },
+    "z": {
+      "mn": "-аас / -ээс",
+      "lemma": "z",
+      "grammar": "Genitive (харьяалахын тийн ялгал) шаарддаг угтвар үг",
+      "note": "Jsem z Mongolska = би Монголоос"
+    },
+    "mongolska": {
+      "mn": "Монгол улсаас",
+      "lemma": "Mongolsko",
+      "grammar": "Genitive (харьяалахын тийн ялгал), ганц тоо",
+      "note": "Улсын нэрийн хувирсан хэлбэр"
+    },
+    "nerozumím": {
+      "mn": "Би ойлгохгүй байна",
+      "lemma": "rozumět",
+      "grammar": "Үгүйсгэсэн, 1-р бие, ганц тоо",
+      "note": "Nerozumím = Ойлгосонгүй"
+    },
+    "klíč": {
+      "mn": "түлхүүр / эрэг чангалах түлхүүр",
+      "lemma": "klíč",
+      "grammar": "Эр хүйстэй нэр үг",
+      "note": "Утга нь хэрэглээний нөхцөлөөс шалтгаална"
+    },
+    "prosím": {
+      "mn": "гуйя / өгнө үү / зүгээр",
+      "lemma": "prosit",
+      "grammar": "Эелдэг хэллэг",
+      "note": "Нөхцөлөөс хамаарна"
+    },
+    "děkuji": {
+      "mn": "баярлалаа",
+      "lemma": "děkovat",
+      "grammar": "1-р бие, ганц тоо",
+      "note": "Эелдэг талархал"
+    }
+  },
+  "qa_gate": {
+    "native": false,
+    "mn_editor": false,
+    "audio": false,
+    "publishing": false,
+    "scoring": false
+  }
+}
