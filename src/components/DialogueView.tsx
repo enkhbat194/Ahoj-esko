@@ -6,14 +6,18 @@ import {
   Pause,
   Play,
   Plus,
+  Sparkles,
   Upload,
   UserCheck,
   Volume2,
 } from 'lucide-react';
 import type { Dialogue, DialogueLine, TopicId } from '../types/lesson';
+import { KLIC17_GLOSSARY } from '../data/klic17Story';
 import { TOPICS } from '../data/starterCurriculum';
 import { getAudioBlob } from '../utils/audioStorage';
 import { playCzechAudio, stopAllPlayback } from '../utils/audioPlayer';
+import { CZECH_GENDER_COLORS } from '../utils/learnerProfile';
+import { lookupGlossaryEntry, tokenizeCzechSentence } from '../utils/storyReaderLogic';
 import { formatDuration } from '../utils/studyLogic';
 
 interface DialogueViewProps {
@@ -47,6 +51,7 @@ export const DialogueView: React.FC<DialogueViewProps> = ({
 }) => {
   const [selectedId, setSelectedId] = useState<string>(dialogues[0]?.id ?? '');
   const [hideTranslation, setHideTranslation] = useState(false);
+  const [showGenderColors, setShowGenderColors] = useState(true);
   const [roleplaySpeakerB, setRoleplaySpeakerB] = useState(false);
   const [playingLineId, setPlayingLineId] = useState<string | null>(null);
   const [sequenceRunning, setSequenceRunning] = useState(false);
@@ -524,7 +529,7 @@ export const DialogueView: React.FC<DialogueViewProps> = ({
               )}
 
               {/* Practice Mode Toggles */}
-              <div className="grid grid-cols-2 sm:flex sm:flex-wrap items-center gap-2 pt-0.5">
+              <div className="flex flex-wrap items-center gap-2 pt-0.5">
                 <motion.button
                   whileTap={{ scale: 0.97 }}
                   type="button"
@@ -553,6 +558,21 @@ export const DialogueView: React.FC<DialogueViewProps> = ({
                 >
                   <UserCheck className="w-3.5 h-3.5 shrink-0" />
                   <span className="truncate">Дүрд тоглох</span>
+                </motion.button>
+
+                <motion.button
+                  whileTap={{ scale: 0.97 }}
+                  type="button"
+                  onClick={() => setShowGenderColors((v) => !v)}
+                  aria-pressed={showGenderColors}
+                  className={`min-h-[40px] px-3 py-1.5 rounded-xl text-xs font-semibold inline-flex items-center justify-center gap-1.5 cursor-pointer ${
+                    showGenderColors
+                      ? 'bg-[#007AFF]/12 dark:bg-[#0A84FF]/22 text-[#007AFF] dark:text-[#64D2FF]'
+                      : 'bg-white dark:bg-[#3A3A3C] text-[#1C1C1E] dark:text-white'
+                  }`}
+                >
+                  <Sparkles className="w-3.5 h-3.5 shrink-0" />
+                  <span className="truncate">Хүйсийн өнгө</span>
                 </motion.button>
               </div>
             </div>
@@ -584,8 +604,29 @@ export const DialogueView: React.FC<DialogueViewProps> = ({
                             </>
                           )}
                         </div>
-                        <p className="text-base sm:text-lg font-semibold text-[#1C1C1E] dark:text-white">
-                          {line.czech}
+                        <p className="text-base sm:text-lg font-semibold text-[#1C1C1E] dark:text-white leading-snug">
+                          {showGenderColors
+                            ? tokenizeCzechSentence(line.czech).map((token, tIdx) => {
+                                if (!token.isWord) {
+                                  return <React.Fragment key={tIdx}>{token.text}</React.Fragment>;
+                                }
+                                const entry = lookupGlossaryEntry(token.text, KLIC17_GLOSSARY);
+                                if (!entry?.nounGender) {
+                                  return <React.Fragment key={tIdx}>{token.text}</React.Fragment>;
+                                }
+                                const gSpec = CZECH_GENDER_COLORS[entry.nounGender];
+                                return (
+                                  <span
+                                    key={tIdx}
+                                    title={`${entry.lemma} — ${gSpec.labelMn} (${entry.mn})`}
+                                    className="underline decoration-2 underline-offset-4"
+                                    style={{ textDecorationColor: gSpec.hex }}
+                                  >
+                                    {token.text}
+                                  </span>
+                                );
+                              })
+                            : line.czech}
                         </p>
                         <p className="text-xs font-mono text-[#007AFF] dark:text-[#64D2FF]">[{line.phonetic}]</p>
                         {!hideTranslation && line.mongolian && (

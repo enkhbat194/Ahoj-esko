@@ -153,6 +153,9 @@ export const STARTER_CARDS: VocabCard[] = [
     audioIds: {},
     mastered: false,
     practiceCount: 0,
+    lemmaGroup: 'zastavka',
+    nounGender: 'feminine',
+    qaStatus: 'draft_ai',
   },
   {
     id: 'card-11',
@@ -165,6 +168,9 @@ export const STARTER_CARDS: VocabCard[] = [
     audioIds: {},
     mastered: false,
     practiceCount: 0,
+    lemmaGroup: 'jizdenka',
+    nounGender: 'feminine',
+    qaStatus: 'draft_ai',
   },
   {
     id: 'card-12',

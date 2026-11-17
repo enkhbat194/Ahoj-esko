@@ -19,12 +19,15 @@ import { matchFilenameToCurriculum } from '../utils/audioMatcher';
 import { playCzechAudio } from '../utils/audioPlayer';
 import { filterCards, formatBytes } from '../utils/studyLogic';
 import type { TokenUsageMetrics } from '../utils/tokenPricing';
+import type { ParsedDriveCard } from '../utils/driveCurriculumParser';
 import { appendClientUsageLog } from '../utils/usageMonitor';
+import { GoogleDriveProjectPanel } from './GoogleDriveProjectPanel';
 
 interface AudioLibraryViewProps {
   cards: VocabCard[];
   dialogues: Dialogue[];
   audioMetaList: StoredAudioMeta[];
+  initialSection?: 'drive' | 'add' | 'batch' | 'list';
   onAddCard: (
     card: Omit<VocabCard, 'id' | 'audioIds' | 'mastered' | 'practiceCount'>,
     files: Partial<Record<AudioSlotType, File>>
@@ -42,6 +45,11 @@ interface AudioLibraryViewProps {
   ) => Promise<void>;
   onImportBackup: (data: { cards?: VocabCard[]; dialogues?: Dialogue[] }) => void;
   onResetCurriculum: () => void;
+  onImportDriveCurriculum: (
+    cards: ParsedDriveCard[],
+    dialogues: Omit<Dialogue, 'id'>[]
+  ) => void;
+  onImportDriveAudioFiles: (files: File[]) => Promise<void>;
 }
 
 interface PendingBatchItem {
@@ -63,6 +71,7 @@ export const AudioLibraryView: React.FC<AudioLibraryViewProps> = ({
   cards,
   dialogues,
   audioMetaList,
+  initialSection = 'drive',
   onAddCard,
   onAttachAudio,
   onRemoveCardAudio,
@@ -70,6 +79,8 @@ export const AudioLibraryView: React.FC<AudioLibraryViewProps> = ({
   onBatchAttach,
   onImportBackup,
   onResetCurriculum,
+  onImportDriveCurriculum,
+  onImportDriveAudioFiles,
 }) => {
   // Add Card Form State
   const [topicId, setTopicId] = useState<TopicId>('custom');
@@ -95,7 +106,9 @@ export const AudioLibraryView: React.FC<AudioLibraryViewProps> = ({
 
   // Matrix search
   const [query, setQuery] = useState('');
-  const [mobileSection, setMobileSection] = useState<'add' | 'batch' | 'list'>('add');
+  const [mobileSection, setMobileSection] = useState<'drive' | 'add' | 'batch' | 'list'>(
+    initialSection
+  );
 
   const filteredCards = useMemo(() => filterCards(cards, { query }), [cards, query]);
 
@@ -275,9 +288,10 @@ export const AudioLibraryView: React.FC<AudioLibraryViewProps> = ({
   return (
     <div className="space-y-5 lg:space-y-6">
       {/* Mobile Section Switcher (iOS Segmented Control) */}
-      <div className="lg:hidden grid grid-cols-3 gap-1 p-1 bg-[#E5E5EA]/90 dark:bg-[#1C1C1E] rounded-xl">
+      <div className="lg:hidden grid grid-cols-4 gap-1 p-1 bg-[#E5E5EA]/90 dark:bg-[#1C1C1E] rounded-xl">
         {(
           [
+            { id: 'drive', label: 'Drive' },
             { id: 'add', label: 'Шинэ карт' },
             { id: 'batch', label: 'Олон файл' },
             { id: 'list', label: 'Бүх карт' },
@@ -289,7 +303,7 @@ export const AudioLibraryView: React.FC<AudioLibraryViewProps> = ({
               key={tab.id}
               type="button"
               onClick={() => setMobileSection(tab.id)}
-              className={`relative min-h-[36px] px-2 py-1.5 rounded-lg text-xs font-semibold transition-colors whitespace-nowrap cursor-pointer ${
+              className={`relative min-h-[36px] px-1.5 py-1.5 rounded-lg text-[11px] font-semibold transition-colors whitespace-nowrap cursor-pointer ${
                 active
                   ? 'text-[#1C1C1E] dark:text-white'
                   : 'text-[#8E8E93] hover:text-[#1C1C1E] dark:hover:text-white'
@@ -306,6 +320,14 @@ export const AudioLibraryView: React.FC<AudioLibraryViewProps> = ({
             </button>
           );
         })}
+      </div>
+
+      {/* Read-Only Google Drive Project Folder Explorer */}
+      <div className={mobileSection === 'drive' ? 'block' : 'hidden lg:block'}>
+        <GoogleDriveProjectPanel
+          onImportDriveCurriculum={onImportDriveCurriculum}
+          onImportDriveAudioFiles={onImportDriveAudioFiles}
+        />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">

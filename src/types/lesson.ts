@@ -2,6 +2,30 @@ export type TopicId = 'greetings' | 'cafe' | 'transport' | 'work' | 'custom';
 
 export type AudioSlotType = 'wordNormal' | 'wordSlow' | 'sentenceNormal' | 'sentenceSlow';
 
+export type LearnerSelfForm = 'masculine' | 'feminine';
+
+export type ContentQaStatus = 'draft_ai' | 'qa_review' | 'native_approved';
+
+export type CzechNounGender =
+  | 'masculine_animate'
+  | 'masculine_inanimate'
+  | 'feminine'
+  | 'neuter';
+
+export type TutorMode = 'coach' | 'conversation' | 'exam';
+
+export type SrsGrade = 'again' | 'hard' | 'good' | 'easy';
+
+export interface SrsCardState {
+  intervalDays: number;
+  dueAt: number;
+  lastReviewedAt?: number;
+  repetitions: number;
+  lapses: number;
+  lastGrade?: SrsGrade;
+  buriedUntilDay?: string;
+}
+
 export interface TopicInfo {
   id: TopicId;
   nameMn: string;
@@ -21,6 +45,15 @@ export interface VocabCard {
   mastered: boolean;
   practiceCount: number;
   lastPracticedAt?: number;
+  canonicalId?: string;
+  lemmaGroup?: string;
+  qaStatus?: ContentQaStatus;
+  nounGender?: CzechNounGender;
+  selfFormVariants?: {
+    masculine: string;
+    feminine: string;
+  };
+  srs?: SrsCardState;
 }
 
 export interface DialogueLine {
@@ -31,6 +64,8 @@ export interface DialogueLine {
   phonetic: string;
   mongolian: string;
   audioId?: string;
+  personaGender?: LearnerSelfForm;
+  qaStatus?: ContentQaStatus;
 }
 
 export interface Dialogue {
@@ -40,6 +75,7 @@ export interface Dialogue {
   titleCz: string;
   situationMn: string;
   fullAudioId?: string;
+  qaStatus?: ContentQaStatus;
   lines: DialogueLine[];
 }
 
@@ -51,4 +87,42 @@ export interface StoredAudioMeta {
   createdAt: number;
 }
 
-export type ActiveTab = 'practice' | 'dialogues' | 'ai' | 'topics' | 'library';
+export type ActiveTab = 'today' | 'learn' | 'story' | 'review' | 'profile';
+
+export type LearnSubTab = 'mission' | 'dialogues' | 'ai' | 'topics';
+
+export interface StoryGlossaryEntry {
+  lemma: string;
+  lemmaGroup: string;
+  mn: string;
+  phonetic: string;
+  grammar: string;
+  note: string;
+  nounGender?: CzechNounGender;
+  topicId?: TopicId;
+  qaStatus: ContentQaStatus;
+}
+
+export interface StorySentence {
+  id: string;
+  cs: string;
+  mn: string;
+  speaker: string;
+  delivery: 'spoken' | 'practice' | string;
+  lessonIds: string[];
+  reviewNote?: string;
+}
+
+export interface StoryChapter {
+  chapter: number;
+  titleCs: string;
+  band: string;
+  sentences: StorySentence[];
+}
+
+export interface StoryProgressState {
+  readSentenceIds: string[];
+  knownWords: string[];
+  lastChapter: number;
+}
+

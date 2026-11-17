@@ -415,16 +415,23 @@ async function startServer() {
     if (!enforceBudgetLimit('/api/ai/tutor', res)) return;
 
     try {
-      const { scenario, history, userMessage } = req.body as {
+      const { scenario, history, userMessage, mode, learnerGender, missionContext } = req.body as {
         scenario?: string;
         history?: Array<{ role: 'user' | 'assistant'; czech: string }>;
         userMessage?: string;
+        mode?: 'coach' | 'conversation' | 'exam';
+        learnerGender?: 'masculine' | 'feminine';
+        missionContext?: string;
       };
 
       if (!userMessage || !userMessage.trim()) {
         res.status(400).json({ error: 'Мессеж хоосон байна.' });
         return;
       }
+
+      const activeMode: 'coach' | 'conversation' | 'exam' =
+        mode === 'coach' || mode === 'exam' ? mode : 'conversation';
+      const genderTag = learnerGender === 'feminine' ? 'female' : 'male';
 
       const ai = getAIClient();
       // Only send last 4 compact turns (Czech text only) to cut context tokens cleanly
@@ -435,18 +442,25 @@ async function startServer() {
 
       const prompt = [
         `Сэдэв: ${scenario || 'Прага яриа'}`,
+        missionContext ? `Даалгавар: ${missionContext}` : '',
         compactHistory || '',
-        `Сурагч: ${userMessage.trim()}`,
+        `Сурагч (${genderTag}, горим=${activeMode}): ${userMessage.trim()}`,
       ]
         .filter(Boolean)
         .join('\n');
 
+      const modeRule =
+        activeMode === 'exam'
+          ? 'EXAM MODE: Reply strictly in character in natural Czech. Leave suggestedReplyCzech and suggestedReplyMn empty strings "". Accept valid Czech paraphrases fulfilling the mission as intentMatched=true. Limit coachingTipMn to 1-2 short Mongolian Cyrillic points.'
+          : activeMode === 'coach'
+            ? 'COACH MODE: Be warmly supportive. Accept valid paraphrases fulfilling communicative intent (intentMatched=true), explain up to 1-2 key points in Mongolian Cyrillic coachingTipMn, and give a helpful suggestedReplyCzech + suggestedReplyMn matching learner gender.'
+            : 'CONVERSATION MODE: Natural Prague dialogue flow. Accept paraphrases that succeed communicatively (intentMatched=true), mention only high-impact correction in Mongolian Cyrillic coachingTipMn, provide natural suggestedReplyCzech + suggestedReplyMn matching learner gender.';
+
       const { response, usedModel } = await generateLowCostContent(ai, {
         contents: prompt,
-        maxOutputTokens: 320,
+        maxOutputTokens: 340,
         config: {
-          systemInstruction:
-            'You are a Prague Czech roleplay partner & Czech coach for a Mongolian learner. Stay in character: replyCzech must be 1 natural Czech scenario reply (never talk about Mongolian grammar in replyCzech). replyPhonetic = Mongolian Cyrillic sound guide. replyMongolian = Mongolian translation. coachingTipMn = 1 concise tip strictly in Mongolian Cyrillic explaining any Czech grammar/case mistake (e.g., jednu kávu). suggestedReplyCzech + suggestedReplyMn = next natural Czech reply + Mongolian.',
+          systemInstruction: `Prague Czech roleplay partner for a ${genderTag} Mongolian learner (respect learner self gender when relevant: Mongol vs Mongolka). ${modeRule} replyCzech = 1 natural Czech reply (never discuss grammar in replyCzech). replyPhonetic = Mongolian Cyrillic sound guide. replyMongolian = Mongolian Cyrillic translation.`,
           responseMimeType: 'application/json',
           responseSchema: {
             type: Type.OBJECT,
@@ -455,6 +469,7 @@ async function startServer() {
               replyPhonetic: { type: Type.STRING },
               replyMongolian: { type: Type.STRING },
               hasError: { type: Type.BOOLEAN },
+              intentMatched: { type: Type.BOOLEAN },
               coachingTipMn: { type: Type.STRING },
               suggestedReplyCzech: { type: Type.STRING },
               suggestedReplyMn: { type: Type.STRING },
@@ -464,6 +479,7 @@ async function startServer() {
               'replyPhonetic',
               'replyMongolian',
               'hasError',
+              'intentMatched',
               'coachingTipMn',
               'suggestedReplyCzech',
               'suggestedReplyMn',
@@ -472,7 +488,21 @@ async function startServer() {
         },
       });
 
-      const parsed = JSON.parse((response.text ?? '{}').trim());
+      const parsed = JSON.parse((response.text ?? '{}').trim()) as {
+        replyCzech?: string;
+        replyPhonetic?: string;
+        replyMongolian?: string;
+        hasError?: boolean;
+        intentMatched?: boolean;
+        coachingTipMn?: string;
+        suggestedReplyCzech?: string;
+        suggestedReplyMn?: string;
+      };
+      if (activeMode === 'exam') {
+        parsed.suggestedReplyCzech = '';
+        parsed.suggestedReplyMn = '';
+      }
+
       const durationMs = Date.now() - startedAt;
       const usage = buildTokenUsageMetrics({
         chatUsage: response.usageMetadata as GeminiRawUsageMetadata | undefined,
@@ -896,6 +926,9 @@ async function startServer() {
         speakCoaching,
         voiceName,
         conversationId,
+        mode,
+        learnerGender,
+        missionContext,
       } = req.body as {
         audioBase64?: string;
         mimeType?: string;
@@ -904,12 +937,19 @@ async function startServer() {
         speakCoaching?: boolean;
         voiceName?: string;
         conversationId?: string;
+        mode?: 'coach' | 'conversation' | 'exam';
+        learnerGender?: 'masculine' | 'feminine';
+        missionContext?: string;
       };
 
       if (!audioBase64) {
         res.status(400).json({ error: 'Аудио бичлэг хоосон байна.' });
         return;
       }
+
+      const activeMode: 'coach' | 'conversation' | 'exam' =
+        mode === 'coach' || mode === 'exam' ? mode : 'conversation';
+      const genderTag = learnerGender === 'feminine' ? 'female' : 'male';
 
       const ai = getAIClient();
       const compactHistory = (history ?? [])
@@ -919,8 +959,9 @@ async function startServer() {
 
       const prompt = [
         `Сэдэв: ${scenario || 'Прага яриа'}`,
+        missionContext ? `Даалгавар: ${missionContext}` : '',
         compactHistory || '',
-        'Listen to student audio. Transcribe exact spoken Czech/Mongolian in studentTranscript. Set recognitionUncertainty=true if audio is ambiguous. Set hasError=true only for real grammar/pronunciation mistakes (explain concisely in Mongolian Cyrillic coachingTipMn). Reply naturally in 1 Czech sentence (replyCzech + replyPhonetic + replyMongolian + suggestedReplyCzech + suggestedReplyMn).',
+        `Listen to ${genderTag} student audio (mode=${activeMode}). Transcribe spoken words in studentTranscript. Set recognitionUncertainty=true if audio is ambiguous. Accept valid paraphrases fulfilling communicative intent (intentMatched=true). Set hasError=true only for real mistakes (max 1-2 short points in Mongolian Cyrillic coachingTipMn). Reply in 1 Czech sentence (replyCzech + replyPhonetic + replyMongolian + ${activeMode === 'exam' ? 'empty "" suggestedReplyCzech + "" suggestedReplyMn' : 'suggestedReplyCzech + suggestedReplyMn'}).`,
       ]
         .filter(Boolean)
         .join('\n');
@@ -939,14 +980,14 @@ async function startServer() {
         },
         maxOutputTokens: 360,
         config: {
-          systemInstruction:
-            'Prague Czech roleplay partner & Czech coach for a Mongolian speaker. Transcribe studentTranscript accurately, separate recognitionUncertainty from real Czech errors. replyCzech = 1 natural Czech scenario reply. replyMongolian and coachingTipMn MUST be in Mongolian Cyrillic. Return JSON.',
+          systemInstruction: `Prague Czech roleplay partner & Czech coach for a ${genderTag} Mongolian speaker (respect gender forms like Mongol vs Mongolka). Transcribe studentTranscript accurately, separate recognitionUncertainty from real Czech errors. replyCzech = 1 natural Czech scenario reply. replyMongolian and coachingTipMn MUST be in Mongolian Cyrillic. Return JSON.`,
           responseMimeType: 'application/json',
           responseSchema: {
             type: Type.OBJECT,
             properties: {
               studentTranscript: { type: Type.STRING },
               hasError: { type: Type.BOOLEAN },
+              intentMatched: { type: Type.BOOLEAN },
               recognitionUncertainty: { type: Type.BOOLEAN },
               coachingTipMn: { type: Type.STRING },
               replyCzech: { type: Type.STRING },
@@ -958,6 +999,7 @@ async function startServer() {
             required: [
               'studentTranscript',
               'hasError',
+              'intentMatched',
               'recognitionUncertainty',
               'coachingTipMn',
               'replyCzech',
@@ -973,6 +1015,7 @@ async function startServer() {
       const parsed = JSON.parse((response.text ?? '{}').trim()) as {
         studentTranscript?: string;
         hasError?: boolean;
+        intentMatched?: boolean;
         recognitionUncertainty?: boolean;
         coachingTipMn?: string;
         replyCzech?: string;
@@ -981,6 +1024,10 @@ async function startServer() {
         suggestedReplyCzech?: string;
         suggestedReplyMn?: string;
       };
+      if (activeMode === 'exam') {
+        parsed.suggestedReplyCzech = '';
+        parsed.suggestedReplyMn = '';
+      }
 
       const replyCzech = (parsed.replyCzech || '').trim() || 'Můžete to prosím zopakovat?';
       const coachingText = (parsed.coachingTipMn || '').trim();
@@ -1073,6 +1120,115 @@ async function startServer() {
       const { status, message } = formatGeminiError(err);
       recordUsageEntry({
         endpoint: '/api/ai/voice-tutor',
+        usedModel: PRIMARY_TEXT_MODEL,
+        inputTokens: 0,
+        outputTokens: 0,
+        thinkingTokens: 0,
+        cachedTokens: 0,
+        totalTokens: 0,
+        ttsAudioGenerated: false,
+        requestDurationMs: Date.now() - startedAt,
+        cacheHit: false,
+        estimatedCostUsd: 0,
+        apiError: message,
+      });
+      res.status(status).json({ error: message });
+    }
+  });
+
+  // 6. Low-Cost Extract Czech-Mongolian Cards & Spec Summary from Read-Only Google Drive Document Text
+  app.post('/api/ai/extract-drive-curriculum', async (req, res) => {
+    const startedAt = Date.now();
+    if (!enforceBudgetLimit('/api/ai/extract-drive-curriculum', res)) return;
+
+    try {
+      const { text, fileName } = req.body as { text?: string; fileName?: string };
+      if (!text || !text.trim()) {
+        res.status(400).json({ error: 'Уншсан баримтын текст хоосон байна.' });
+        return;
+      }
+
+      const ai = getAIClient();
+      const boundedText = text.trim().slice(0, 10000);
+      const { response, usedModel } = await generateLowCostContent(ai, {
+        contents: `Document: "${fileName || 'Google Drive file'}"\n\n${boundedText}`,
+        maxOutputTokens: 900,
+        config: {
+          systemInstruction:
+            'Extract Czech-Mongolian learning materials from the project document as JSON. summaryMn = 2 concise sentences in Mongolian Cyrillic summarizing what this document defines/contains. cards = up to 10 Czech-Mongolian vocabulary cards found or illustrated in the document (czechWord, phoneticHint in Mongolian Cyrillic, mongolianWord, czechSentence, mongolianSentence, topicId in [greetings,cafe,transport,work,custom]). If no Czech vocab exists, return cards: [].',
+          responseMimeType: 'application/json',
+          responseSchema: {
+            type: Type.OBJECT,
+            properties: {
+              summaryMn: { type: Type.STRING },
+              cards: {
+                type: Type.ARRAY,
+                items: {
+                  type: Type.OBJECT,
+                  properties: {
+                    topicId: { type: Type.STRING },
+                    czechWord: { type: Type.STRING },
+                    phoneticHint: { type: Type.STRING },
+                    mongolianWord: { type: Type.STRING },
+                    czechSentence: { type: Type.STRING },
+                    mongolianSentence: { type: Type.STRING },
+                  },
+                  required: [
+                    'czechWord',
+                    'phoneticHint',
+                    'mongolianWord',
+                    'czechSentence',
+                    'mongolianSentence',
+                  ],
+                },
+              },
+            },
+            required: ['summaryMn', 'cards'],
+          },
+        },
+      });
+
+      const parsed = JSON.parse((response.text ?? '{}').trim()) as {
+        summaryMn?: string;
+        cards?: Array<{
+          topicId?: string;
+          czechWord: string;
+          phoneticHint: string;
+          mongolianWord: string;
+          czechSentence: string;
+          mongolianSentence: string;
+        }>;
+      };
+      const durationMs = Date.now() - startedAt;
+      const usage = buildTokenUsageMetrics({
+        chatUsage: response.usageMetadata as GeminiRawUsageMetadata | undefined,
+        usedModel,
+        durationMs,
+      });
+
+      recordUsageEntry({
+        endpoint: '/api/ai/extract-drive-curriculum',
+        usedModel,
+        inputTokens: usage.inputTokens,
+        outputTokens: usage.outputTokens,
+        thinkingTokens: usage.thinkingTokens,
+        cachedTokens: usage.cachedTokens,
+        totalTokens: usage.totalTokens,
+        ttsAudioGenerated: false,
+        requestDurationMs: durationMs,
+        cacheHit: false,
+        estimatedCostUsd: usage.estimatedCostUsd,
+      });
+
+      res.json({
+        summaryMn: parsed.summaryMn ?? '',
+        cards: Array.isArray(parsed.cards) ? parsed.cards : [],
+        usage,
+      });
+    } catch (err) {
+      const { status, message } = formatGeminiError(err);
+      recordUsageEntry({
+        endpoint: '/api/ai/extract-drive-curriculum',
         usedModel: PRIMARY_TEXT_MODEL,
         inputTokens: 0,
         outputTokens: 0,

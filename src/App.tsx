@@ -1,26 +1,67 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { AnimatePresence, MotionConfig, motion } from 'motion/react';
-import { BookOpen, Bot, FileAudio, Headphones, MessageSquare, Moon, Sun } from 'lucide-react';
+import { BookOpen, Compass, GraduationCap, Layers, Moon, Sun, User } from 'lucide-react';
 import type {
   ActiveTab,
   AudioSlotType,
   Dialogue,
+  LearnerSelfForm,
+  LearnSubTab,
+  SrsGrade,
   StoredAudioMeta,
+  StoryProgressState,
   TopicId,
+  TutorMode,
   VocabCard,
 } from './types/lesson';
 import { STARTER_CARDS, STARTER_DIALOGUES } from './data/starterCurriculum';
+import { KLIC17_GLOSSARY } from './data/klic17Story';
 import { deleteAudioBlob, listAudioMetadata, saveAudioFile } from './utils/audioStorage';
+import type { ParsedDriveCard } from './utils/driveCurriculumParser';
+import { loadStoredLearnerGender, saveStoredLearnerGender } from './utils/learnerProfile';
+import {
+  appendIdempotentReviewEvent,
+  applySiblingBury,
+  loadReviewEvents,
+  saveReviewEvents,
+  scheduleNextSrsState,
+  type ReviewEventRecord,
+} from './utils/srsScheduler';
+import { loadStoryProgress, lookupGlossaryEntry } from './utils/storyReaderLogic';
+import { TodayDashboardView } from './components/TodayDashboardView';
+import { LearnHubView } from './components/LearnHubView';
+import { StoryReaderView } from './components/StoryReaderView';
 import { PracticeView } from './components/PracticeView';
-import { DialogueView } from './components/DialogueView';
-import { AITutorView } from './components/AITutorView';
-import { TopicsView } from './components/TopicsView';
-import { AudioLibraryView } from './components/AudioLibraryView';
+import { ProfileView } from './components/ProfileView';
 import { OfflineIndicator, PWAInstallButton } from './components/PWAInstallModal';
 
 const CARDS_STORAGE_KEY = 'ahoj_cesko_cards_v1';
 const DIALOGUES_STORAGE_KEY = 'ahoj_cesko_dialogues_v1';
 const THEME_STORAGE_KEY = 'ahoj_cesko_theme_v1';
+
+const STARTER_CARD_MAP = new Map(STARTER_CARDS.map((card) => [card.id, card]));
+
+function enrichCardMetadata(card: VocabCard): VocabCard {
+  const starterMatch = STARTER_CARD_MAP.get(card.id);
+  const glossaryMatch = !card.nounGender ? lookupGlossaryEntry(card.czechWord, KLIC17_GLOSSARY) : null;
+  const nounGender = card.nounGender ?? starterMatch?.nounGender ?? glossaryMatch?.nounGender;
+  const lemmaGroup = card.lemmaGroup ?? starterMatch?.lemmaGroup ?? glossaryMatch?.lemmaGroup;
+  const qaStatus = card.qaStatus ?? starterMatch?.qaStatus ?? glossaryMatch?.qaStatus;
+
+  if (
+    nounGender === card.nounGender &&
+    lemmaGroup === card.lemmaGroup &&
+    qaStatus === card.qaStatus
+  ) {
+    return card;
+  }
+  return {
+    ...card,
+    ...(nounGender ? { nounGender } : {}),
+    ...(lemmaGroup ? { lemmaGroup } : {}),
+    ...(qaStatus ? { qaStatus } : {}),
+  };
+}
 
 function loadStoredTheme(): 'light' | 'dark' {
   try {
@@ -37,7 +78,9 @@ function loadStoredCards(): VocabCard[] {
     const raw = localStorage.getItem(CARDS_STORAGE_KEY);
     if (!raw) return STARTER_CARDS;
     const parsed = JSON.parse(raw) as VocabCard[];
-    return Array.isArray(parsed) && parsed.length > 0 ? parsed : STARTER_CARDS;
+    return Array.isArray(parsed) && parsed.length > 0
+      ? parsed.map(enrichCardMetadata)
+      : STARTER_CARDS;
   } catch {
     return STARTER_CARDS;
   }
@@ -55,12 +98,34 @@ function loadStoredDialogues(): Dialogue[] {
 }
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState<ActiveTab>('practice');
+  const [activeTab, setActiveTab] = useState<ActiveTab>('today');
+  const [learnSubTab, setLearnSubTab] = useState<LearnSubTab>('mission');
+  const [profileSection, setProfileSection] = useState<'general' | 'library'>('general');
   const [selectedTopic, setSelectedTopic] = useState<TopicId | 'all'>('all');
   const [theme, setTheme] = useState<'light' | 'dark'>(loadStoredTheme);
+  const [learnerGender, setLearnerGender] = useState<LearnerSelfForm>(loadStoredLearnerGender);
+  const [storyProgress, setStoryProgress] = useState<StoryProgressState>(loadStoryProgress);
   const [cards, setCards] = useState<VocabCard[]>(loadStoredCards);
   const [dialogues, setDialogues] = useState<Dialogue[]>(loadStoredDialogues);
+  const [reviewEvents, setReviewEvents] = useState<ReviewEventRecord[]>(loadReviewEvents);
   const [audioMetaList, setAudioMetaList] = useState<StoredAudioMeta[]>([]);
+  const [librarySection, setLibrarySection] = useState<'drive' | 'add' | 'batch' | 'list'>('drive');
+  const [missionLaunch, setMissionLaunch] = useState<{
+    scenarioId: string;
+    mode: TutorMode;
+    nonce: number;
+  } | null>(null);
+
+  const cardsRef = useRef(cards);
+  const reviewEventsRef = useRef(reviewEvents);
+
+  useEffect(() => {
+    cardsRef.current = cards;
+  }, [cards]);
+
+  useEffect(() => {
+    reviewEventsRef.current = reviewEvents;
+  }, [reviewEvents]);
 
   useEffect(() => {
     const isDark = theme === 'dark';
@@ -92,6 +157,14 @@ export default function App() {
     }
   }, [dialogues]);
 
+  useEffect(() => {
+    saveStoredLearnerGender(learnerGender);
+  }, [learnerGender]);
+
+  useEffect(() => {
+    saveReviewEvents(reviewEvents);
+  }, [reviewEvents]);
+
   const refreshAudioMeta = useCallback(async () => {
     const list = await listAudioMetadata();
     setAudioMetaList(list);
@@ -115,6 +188,91 @@ export default function App() {
           : card
       )
     );
+  }, []);
+
+  const handleReviewSrsCard = useCallback(
+    (cardId: string, grade: SrsGrade, eventId: string) => {
+      if (reviewEventsRef.current.some((e) => e.eventId === eventId)) {
+        return;
+      }
+      const target = cardsRef.current.find((c) => c.id === cardId);
+      if (!target) return;
+
+      const now = Date.now();
+      const nextSrs = scheduleNextSrsState(target.srs, grade, now);
+
+      const { events: nextEvents } = appendIdempotentReviewEvent(reviewEventsRef.current, {
+        eventId,
+        cardId,
+        lemmaGroup: target.lemmaGroup,
+        grade,
+        reviewedAtUtc: now,
+        intervalDays: nextSrs.intervalDays,
+        dueAtUtc: nextSrs.dueAt,
+      });
+      reviewEventsRef.current = nextEvents;
+      setReviewEvents(nextEvents);
+
+      const updated = cardsRef.current.map((card) =>
+        card.id === cardId
+          ? {
+              ...card,
+              srs: nextSrs,
+              practiceCount: card.practiceCount + 1,
+              lastPracticedAt: now,
+              mastered:
+                grade === 'again'
+                  ? false
+                  : grade === 'easy' && nextSrs.repetitions >= 3
+                    ? true
+                    : card.mastered,
+            }
+          : card
+      );
+      const buriedUpdated = applySiblingBury(updated, cardId, now);
+      cardsRef.current = buriedUpdated;
+      setCards(buriedUpdated);
+    },
+    []
+  );
+
+  const handleAddCanonicalPhrasesToDeck = useCallback(
+    (incoming: Omit<VocabCard, 'id' | 'audioIds' | 'mastered' | 'practiceCount'>[]): number => {
+      const now = Date.now();
+      const current = cardsRef.current;
+      const existingCanonical = new Set(current.map((c) => c.canonicalId).filter(Boolean));
+      const existingWords = new Set(current.map((c) => c.czechWord.trim().toLowerCase()));
+      const additions: VocabCard[] = [];
+      for (let i = 0; i < incoming.length; i++) {
+        const item = incoming[i];
+        if (item.canonicalId && existingCanonical.has(item.canonicalId)) continue;
+        if (!item.canonicalId && existingWords.has(item.czechWord.trim().toLowerCase())) continue;
+        additions.push({
+          ...item,
+          id: `canonical-${item.canonicalId ?? i}-${now}`,
+          audioIds: {},
+          mastered: false,
+          practiceCount: 0,
+        });
+      }
+      if (additions.length > 0) {
+        const nextCards = [...additions, ...current];
+        cardsRef.current = nextCards;
+        setCards(nextCards);
+      }
+      return additions.length;
+    },
+    []
+  );
+
+  const handleLaunchMissionRoleplay = useCallback((mode: TutorMode) => {
+    setMissionLaunch({
+      scenarioId: 'a0-m01-l01',
+      mode,
+      nonce: Date.now(),
+    });
+    setLearnSubTab('ai');
+    setActiveTab('learn');
   }, []);
 
   const handleAttachAudio = useCallback(
@@ -267,15 +425,59 @@ export default function App() {
     setSelectedTopic('all');
   }, []);
 
-  const navItems: Array<{ id: ActiveTab; label: string; icon: typeof Headphones }> = [
-    { id: 'practice', label: 'Дасгал', icon: Headphones },
-    { id: 'dialogues', label: 'Яриа', icon: MessageSquare },
-    { id: 'ai', label: 'AI Багш', icon: Bot },
-    { id: 'topics', label: 'Сэдэв', icon: BookOpen },
-    { id: 'library', label: 'Аудио сан', icon: FileAudio },
+  const handleImportDriveCurriculum = useCallback(
+    (incomingCards: ParsedDriveCard[], incomingDialogues: Omit<Dialogue, 'id'>[]) => {
+      const now = Date.now();
+      if (incomingCards.length > 0) {
+        setCards((prev) => {
+          const existingWords = new Set(prev.map((c) => c.czechWord.trim().toLowerCase()));
+          const additions: VocabCard[] = incomingCards
+            .filter((c) => !existingWords.has(c.czechWord.trim().toLowerCase()))
+            .map((c, idx) => ({
+              ...c,
+              id: `custom-drive-${now}-${idx}`,
+              audioIds: {},
+              mastered: false,
+              practiceCount: 0,
+            }));
+          return [...additions, ...prev];
+        });
+      }
+      if (incomingDialogues.length > 0) {
+        setDialogues((prev) => {
+          const existingTitles = new Set(prev.map((d) => d.titleCz.trim().toLowerCase()));
+          const additions: Dialogue[] = incomingDialogues
+            .filter((d) => !existingTitles.has(d.titleCz.trim().toLowerCase()))
+            .map((d, idx) => ({
+              ...d,
+              id: `custom-drive-dlg-${now}-${idx}`,
+            }));
+          return [...additions, ...prev];
+        });
+      }
+    },
+    []
+  );
+
+  const handleImportDriveAudioFiles = useCallback(
+    async (files: File[]) => {
+      for (const file of files) {
+        await saveAudioFile(file);
+      }
+      await refreshAudioMeta();
+    },
+    [refreshAudioMeta]
+  );
+
+  const navItems: Array<{ id: ActiveTab; label: string; icon: typeof Compass }> = [
+    { id: 'today', label: 'Өнөөдөр', icon: Compass },
+    { id: 'learn', label: 'Сургалт', icon: GraduationCap },
+    { id: 'story', label: 'Зохиол', icon: BookOpen },
+    { id: 'review', label: 'Давтлага', icon: Layers },
+    { id: 'profile', label: 'Профайл', icon: User },
   ];
 
-  const isChatView = activeTab === 'ai';
+  const isChatView = activeTab === 'learn' && learnSubTab === 'ai';
 
   return (
     <MotionConfig reducedMotion="user">
@@ -288,10 +490,10 @@ export default function App() {
         <header className="sticky top-0 z-30 shrink-0 bg-[#F2F2F7]/85 dark:bg-black/80 backdrop-blur-xl border-b border-black/[0.08] dark:border-white/[0.1] pt-safe">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-12 lg:h-14 flex items-center justify-between gap-3 lg:gap-8">
             <a
-              href="#practice"
+              href="#today"
               onClick={(e) => {
                 e.preventDefault();
-                setActiveTab('practice');
+                setActiveTab('today');
               }}
               className="text-[17px] font-bold tracking-tight text-[#1C1C1E] dark:text-white whitespace-nowrap shrink-0"
             >
@@ -349,7 +551,28 @@ export default function App() {
           }
         >
           {isChatView ? (
-            <AITutorView />
+            <LearnHubView
+              subTab={learnSubTab}
+              onChangeSubTab={setLearnSubTab}
+              learnerGender={learnerGender}
+              onChangeLearnerGender={setLearnerGender}
+              cards={cards}
+              dialogues={dialogues}
+              onAddCanonicalPhrasesToDeck={handleAddCanonicalPhrasesToDeck}
+              onLaunchMissionRoleplay={handleLaunchMissionRoleplay}
+              missionLaunch={missionLaunch}
+              onAttachDialogueAudio={handleAttachDialogueAudio}
+              onAddDialogue={handleAddDialogue}
+              onStartTopicPractice={(topicId) => {
+                setSelectedTopic(topicId);
+                setActiveTab('review');
+              }}
+              onOpenDriveImport={() => {
+                setLibrarySection('drive');
+                setProfileSection('library');
+                setActiveTab('profile');
+              }}
+            />
           ) : (
             <AnimatePresence mode="wait" initial={false}>
               <motion.div
@@ -359,7 +582,68 @@ export default function App() {
                 exit={{ opacity: 0, y: -4 }}
                 transition={{ duration: 0.16, ease: [0.16, 1, 0.3, 1] }}
               >
-                {activeTab === 'practice' && (
+                {activeTab === 'today' && (
+                  <TodayDashboardView
+                    cards={cards}
+                    reviewEvents={reviewEvents}
+                    storyProgress={storyProgress}
+                    audioMetaList={audioMetaList}
+                    learnerGender={learnerGender}
+                    onChangeLearnerGender={setLearnerGender}
+                    onStartMission={() => {
+                      setLearnSubTab('mission');
+                      setActiveTab('learn');
+                    }}
+                    onLaunchRoleplay={handleLaunchMissionRoleplay}
+                    onOpenReview={() => setActiveTab('review')}
+                    onOpenStory={() => setActiveTab('story')}
+                    onOpenProfile={(sec = 'general') => {
+                      setProfileSection(sec);
+                      if (sec === 'library') setLibrarySection('drive');
+                      setActiveTab('profile');
+                    }}
+                  />
+                )}
+
+                {activeTab === 'learn' && (
+                  <LearnHubView
+                    subTab={learnSubTab}
+                    onChangeSubTab={setLearnSubTab}
+                    learnerGender={learnerGender}
+                    onChangeLearnerGender={setLearnerGender}
+                    cards={cards}
+                    dialogues={dialogues}
+                    onAddCanonicalPhrasesToDeck={handleAddCanonicalPhrasesToDeck}
+                    onLaunchMissionRoleplay={handleLaunchMissionRoleplay}
+                    missionLaunch={missionLaunch}
+                    onAttachDialogueAudio={handleAttachDialogueAudio}
+                    onAddDialogue={handleAddDialogue}
+                    onStartTopicPractice={(topicId) => {
+                      setSelectedTopic(topicId);
+                      setActiveTab('review');
+                    }}
+                    onOpenDriveImport={() => {
+                      setLibrarySection('drive');
+                      setProfileSection('library');
+                      setActiveTab('profile');
+                    }}
+                  />
+                )}
+
+                {activeTab === 'story' && (
+                  <StoryReaderView
+                    cards={cards}
+                    onAddStoryCardsToSrs={handleAddCanonicalPhrasesToDeck}
+                    onOpenSrsPractice={() => {
+                      setSelectedTopic('all');
+                      setActiveTab('review');
+                    }}
+                    onLaunchStoryRoleplay={() => handleLaunchMissionRoleplay('conversation')}
+                    onProgressUpdate={setStoryProgress}
+                  />
+                )}
+
+                {activeTab === 'review' && (
                   <PracticeView
                     cards={cards}
                     selectedTopic={selectedTopic}
@@ -367,32 +651,25 @@ export default function App() {
                     onToggleMastered={handleToggleMastered}
                     onRecordPractice={handleRecordPractice}
                     onAttachAudio={handleAttachAudio}
+                    learnerGender={learnerGender}
+                    onChangeLearnerGender={setLearnerGender}
+                    onReviewSrsCard={handleReviewSrsCard}
                   />
                 )}
 
-                {activeTab === 'dialogues' && (
-                  <DialogueView
-                    dialogues={dialogues}
-                    onAttachDialogueAudio={handleAttachDialogueAudio}
-                    onAddDialogue={handleAddDialogue}
-                  />
-                )}
-
-                {activeTab === 'topics' && (
-                  <TopicsView
-                    cards={cards}
-                    dialogueCount={dialogues.length}
-                    onStartTopicPractice={(topicId) => {
-                      setSelectedTopic(topicId);
-                      setActiveTab('practice');
-                    }}
-                  />
-                )}
-
-                {activeTab === 'library' && (
-                  <AudioLibraryView
+                {activeTab === 'profile' && (
+                  <ProfileView
+                    key={`${profileSection}-${librarySection}`}
+                    initialSection={profileSection}
+                    initialLibrarySection={librarySection}
+                    theme={theme}
+                    onToggleTheme={() => setTheme((prev) => (prev === 'light' ? 'dark' : 'light'))}
+                    learnerGender={learnerGender}
+                    onChangeLearnerGender={setLearnerGender}
                     cards={cards}
                     dialogues={dialogues}
+                    reviewEvents={reviewEvents}
+                    storyProgress={storyProgress}
                     audioMetaList={audioMetaList}
                     onAddCard={handleAddCard}
                     onAttachAudio={handleAttachAudio}
@@ -401,6 +678,12 @@ export default function App() {
                     onBatchAttach={handleBatchAttach}
                     onImportBackup={handleImportBackup}
                     onResetCurriculum={handleResetCurriculum}
+                    onImportDriveCurriculum={handleImportDriveCurriculum}
+                    onImportDriveAudioFiles={handleImportDriveAudioFiles}
+                    onOpenGenderFilteredVocab={() => {
+                      setLearnSubTab('topics');
+                      setActiveTab('learn');
+                    }}
                   />
                 )}
               </motion.div>

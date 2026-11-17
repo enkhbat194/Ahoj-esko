@@ -52,6 +52,7 @@ import {
   type UsageLogEntry,
   type UsageSummaryResponse,
 } from '../utils/usageMonitor';
+import type { LearnerSelfForm, TutorMode } from '../types/lesson';
 import { computeNormalizedRms, stepVadTracker, type VadTrackerState } from '../utils/vadLogic';
 
 interface TutorTurn {
@@ -62,6 +63,7 @@ interface TutorTurn {
   mongolian?: string;
   coachingTipMn?: string;
   hasError?: boolean;
+  intentMatched?: boolean;
   recognitionUncertainty?: boolean;
   suggestedReplyCzech?: string;
   suggestedReplyMn?: string;
@@ -72,7 +74,29 @@ type VoicePhase = 'idle' | 'listening' | 'thinking' | 'speaking';
 type VoicePersona = 'Zephyr' | 'Charon';
 type MonitorTab = 'usage' | 'memory';
 
-const SCENARIOS = [
+interface ScenarioDef {
+  id: string;
+  label: string;
+  missionContext?: string;
+  starterCz: string;
+  starterPhon: string;
+  starterMn: string;
+  suggestedCz: string;
+  suggestedMn: string;
+}
+
+const SCENARIOS: ScenarioDef[] = [
+  {
+    id: 'a0-m01-l01',
+    label: 'A0 L01: Анхны уулзалт',
+    missionContext:
+      'Эелдэг мэндлэх, өөрийн нэр болон Монголоос ирснээ хэлэх, ойлгоогүй үед дахин асуух.',
+    starterCz: 'Dobrý den! Jmenuji se Jana. Jak se jmenujete a odkud jste?',
+    starterPhon: 'Добрий дэн! Ймэнуйи сэ Яна. Як сэ ймэнуетэ а одкүд стэ?',
+    starterMn: 'Сайн байна уу! Намайг Яна гэдэг. Таныг хэн гэдэг вэ, хаанаас ирсэн бэ?',
+    suggestedCz: 'Dobrý den, jmenuji se Bat a jsem z Mongolska.',
+    suggestedMn: 'Сайн байна уу, намайг Бат гэдэг, би Монголоос ирсэн.',
+  },
   {
     id: 'cafe',
     label: 'Кафе дотор',
@@ -174,10 +198,32 @@ const MEMORY_STATUS_LABELS: Record<LearningMemoryStatus, string> = {
   Approved: 'Батлагдсан',
 };
 
-export const AITutorView: React.FC = () => {
-  const [selectedScenario, setSelectedScenario] = useState(SCENARIOS[0]);
+interface AITutorViewProps {
+  learnerGender?: LearnerSelfForm;
+  onChangeLearnerGender?: (gender: LearnerSelfForm) => void;
+  missionLaunch?: { scenarioId: string; mode: TutorMode; nonce: number } | null;
+}
+
+export const AITutorView: React.FC<AITutorViewProps> = ({
+  learnerGender = 'masculine',
+  onChangeLearnerGender,
+  missionLaunch,
+}) => {
+  const [selectedScenario, setSelectedScenario] = useState<ScenarioDef>(() => {
+    if (missionLaunch) {
+      return SCENARIOS.find((s) => s.id === missionLaunch.scenarioId) ?? SCENARIOS[0];
+    }
+    return SCENARIOS[1]; // cafe by default unless launched from Mission
+  });
+  const [tutorMode, setTutorMode] = useState<TutorMode>(() => missionLaunch?.mode ?? 'conversation');
   const [conversationId, setConversationId] = useState(() => `conv_${Date.now()}`);
-  const [turns, setTurns] = useState<TutorTurn[]>(() => [createStarterTurn(SCENARIOS[0])]);
+  const [turns, setTurns] = useState<TutorTurn[]>(() => [
+    createStarterTurn(
+      missionLaunch
+        ? SCENARIOS.find((s) => s.id === missionLaunch.scenarioId) ?? SCENARIOS[0]
+        : SCENARIOS[1]
+    ),
+  ]);
   const [sessionUsage, setSessionUsage] = useState<TokenUsageMetrics>(ZERO_USAGE);
   const [inputText, setInputText] = useState('');
   const [sttNotice, setSttNotice] = useState<string | null>(null);
@@ -208,6 +254,8 @@ export const AITutorView: React.FC = () => {
   const speakCoachingRef = useRef(speakCoaching);
   const voiceNameRef = useRef(voiceName);
   const selectedScenarioRef = useRef(selectedScenario);
+  const tutorModeRef = useRef(tutorMode);
+  const learnerGenderRef = useRef(learnerGender);
   const conversationIdRef = useRef(conversationId);
   const turnsRef = useRef(turns);
   const micStreamRef = useRef<MediaStream | null>(null);
@@ -229,8 +277,26 @@ export const AITutorView: React.FC = () => {
   }, [selectedScenario]);
 
   useEffect(() => {
+    tutorModeRef.current = tutorMode;
+  }, [tutorMode]);
+
+  useEffect(() => {
+    learnerGenderRef.current = learnerGender;
+  }, [learnerGender]);
+
+  useEffect(() => {
     conversationIdRef.current = conversationId;
   }, [conversationId]);
+
+  useEffect(() => {
+    if (!missionLaunch) return;
+    const found = SCENARIOS.find((s) => s.id === missionLaunch.scenarioId) ?? SCENARIOS[0];
+    setSelectedScenario(found);
+    setTutorMode(missionLaunch.mode);
+    setConversationId(`conv_${Date.now()}`);
+    setErrorMsg(null);
+    setTurns([createStarterTurn(found)]);
+  }, [missionLaunch]);
 
   useEffect(() => {
     turnsRef.current = turns;
@@ -351,6 +417,9 @@ export const AITutorView: React.FC = () => {
             audioBase64,
             mimeType: blob.type || 'audio/webm',
             scenario: selectedScenarioRef.current.label,
+            missionContext: selectedScenarioRef.current.missionContext,
+            mode: tutorModeRef.current,
+            learnerGender: learnerGenderRef.current,
             history: turnsRef.current.slice(-4).map((t) => ({
               role: t.role,
               czech: t.czech,
@@ -365,6 +434,7 @@ export const AITutorView: React.FC = () => {
           error?: string;
           studentTranscript?: string;
           hasError?: boolean;
+          intentMatched?: boolean;
           recognitionUncertainty?: boolean;
           coachingTipMn?: string;
           replyCzech?: string;
@@ -405,6 +475,7 @@ export const AITutorView: React.FC = () => {
           mongolian: data.replyMongolian,
           coachingTipMn: data.coachingTipMn,
           hasError: data.hasError,
+          intentMatched: Boolean(data.intentMatched),
           recognitionUncertainty: Boolean(data.recognitionUncertainty),
           suggestedReplyCzech: data.suggestedReplyCzech,
           suggestedReplyMn: data.suggestedReplyMn,
@@ -646,6 +717,9 @@ export const AITutorView: React.FC = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           scenario: selectedScenario.label,
+          missionContext: selectedScenario.missionContext,
+          mode: tutorMode,
+          learnerGender,
           // Token optimization: send only last 4 compact Czech turns
           history: turns.slice(-4).map((t) => ({
             role: t.role,
@@ -661,6 +735,7 @@ export const AITutorView: React.FC = () => {
         replyPhonetic?: string;
         replyMongolian?: string;
         hasError?: boolean;
+        intentMatched?: boolean;
         coachingTipMn?: string;
         suggestedReplyCzech?: string;
         suggestedReplyMn?: string;
@@ -682,6 +757,7 @@ export const AITutorView: React.FC = () => {
         phonetic: data.replyPhonetic,
         mongolian: data.replyMongolian,
         hasError: Boolean(data.hasError),
+        intentMatched: Boolean(data.intentMatched),
         coachingTipMn: data.coachingTipMn,
         suggestedReplyCzech: data.suggestedReplyCzech,
         suggestedReplyMn: data.suggestedReplyMn,
@@ -841,8 +917,65 @@ export const AITutorView: React.FC = () => {
             </div>
           </div>
 
-          {/* Voice & Coaching iOS Settings Group */}
+          {/* Voice, Roleplay Mode & Learner Gender iOS Settings Group */}
           <div className="rounded-2xl bg-white dark:bg-[#1C1C1E] border border-black/[0.06] dark:border-white/[0.08] divide-y divide-black/[0.06] dark:divide-white/[0.08]">
+            <div className="px-4 py-2.5 flex items-center justify-between gap-2">
+              <span className="text-[13px] font-medium text-[#1C1C1E] dark:text-[#F2F2F7]">
+                Roleplay горим
+              </span>
+              <div className="flex items-center p-0.5 rounded-lg bg-[#F2F2F7] dark:bg-[#2C2C2E]">
+                {(
+                  [
+                    { id: 'coach', label: 'Дэмжих' },
+                    { id: 'conversation', label: 'Яриа' },
+                    { id: 'exam', label: 'Шалгалт' },
+                  ] as const
+                ).map((m) => (
+                  <button
+                    key={m.id}
+                    type="button"
+                    onClick={() => setTutorMode(m.id)}
+                    className={`min-h-[28px] px-2 rounded-md text-[11px] font-semibold transition-colors cursor-pointer ${
+                      tutorMode === m.id
+                        ? 'bg-white dark:bg-[#3A3A3C] text-[#007AFF] dark:text-[#64D2FF] shadow-xs'
+                        : 'text-[#8E8E93]'
+                    }`}
+                  >
+                    {m.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {onChangeLearnerGender && (
+              <div className="px-4 py-2.5 flex items-center justify-between gap-3">
+                <span className="text-[13px] font-medium text-[#1C1C1E] dark:text-[#F2F2F7]">
+                  Миний хүйс
+                </span>
+                <div className="flex items-center p-0.5 rounded-lg bg-[#F2F2F7] dark:bg-[#2C2C2E]">
+                  {(
+                    [
+                      { id: 'masculine', label: 'Эрэгтэй' },
+                      { id: 'feminine', label: 'Эмэгтэй' },
+                    ] as const
+                  ).map((g) => (
+                    <button
+                      key={g.id}
+                      type="button"
+                      onClick={() => onChangeLearnerGender(g.id)}
+                      className={`min-h-[28px] px-2.5 rounded-md text-xs font-semibold transition-colors cursor-pointer ${
+                        learnerGender === g.id
+                          ? 'bg-white dark:bg-[#3A3A3C] text-[#007AFF] dark:text-[#64D2FF] shadow-xs'
+                          : 'text-[#8E8E93]'
+                      }`}
+                    >
+                      {g.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
             <div className="px-4 py-2.5 flex items-center justify-between gap-3">
               <span className="text-[13px] font-medium text-[#1C1C1E] dark:text-[#F2F2F7]">
                 Багшийн хоолой
@@ -1038,6 +1171,48 @@ export const AITutorView: React.FC = () => {
             </div>
           </div>
 
+          {/* Compact Mobile Mode & Learner Gender Switcher Strip */}
+          <div className="lg:hidden px-3.5 sm:px-5 py-1.5 border-t border-black/[0.05] dark:border-white/[0.06] flex items-center justify-between gap-2 bg-white dark:bg-[#1C1C1E]">
+            <div className="flex items-center p-0.5 rounded-lg bg-[#F2F2F7] dark:bg-[#2C2C2E]">
+              {(
+                [
+                  { id: 'coach', label: 'Дэмжих' },
+                  { id: 'conversation', label: 'Яриа' },
+                  { id: 'exam', label: 'Шалгалт' },
+                ] as const
+              ).map((m) => (
+                <button
+                  key={m.id}
+                  type="button"
+                  onClick={() => setTutorMode(m.id)}
+                  className={`min-h-[28px] px-2.5 rounded-md text-[11px] font-semibold transition-colors cursor-pointer ${
+                    tutorMode === m.id
+                      ? 'bg-white dark:bg-[#3A3A3C] text-[#007AFF] dark:text-[#64D2FF] shadow-2xs'
+                      : 'text-[#636366] dark:text-[#AEAEB2]'
+                  }`}
+                >
+                  {m.label}
+                </button>
+              ))}
+            </div>
+
+            {onChangeLearnerGender ? (
+              <button
+                type="button"
+                onClick={() =>
+                  onChangeLearnerGender(learnerGender === 'masculine' ? 'feminine' : 'masculine')
+                }
+                className="lg:hidden min-h-[28px] px-2.5 rounded-lg bg-[#F2F2F7] dark:bg-[#2C2C2E] text-[11px] font-semibold text-[#1C1C1E] dark:text-white shrink-0 cursor-pointer"
+              >
+                {learnerGender === 'feminine' ? 'Миний: Эм' : 'Миний: Эр'}
+              </button>
+            ) : (
+              <span className="text-[11px] text-[#8E8E93] hidden sm:inline">
+                {tutorMode === 'exam' ? 'Бэлэн хариулт нуусан' : 'Чөлөөт яриа'}
+              </span>
+            )}
+          </div>
+
           {/* Pinned Token & Estimated Cost Telemetry Strip */}
           <div className="px-3 sm:px-5 py-1.5 bg-[#F2F2F7]/75 dark:bg-black/40 border-t border-black/[0.05] dark:border-white/[0.06] flex items-center justify-between gap-2 text-[10.5px] sm:text-[11px] font-mono tabular-nums">
             <button
@@ -1230,7 +1405,7 @@ export const AITutorView: React.FC = () => {
                     </p>
                   )}
 
-                  {turn.coachingTipMn && (
+                  {(turn.coachingTipMn || turn.intentMatched) && (
                     <div
                       className={`text-xs pt-1.5 border-t flex items-start gap-1.5 ${
                         turn.hasError
@@ -1244,6 +1419,11 @@ export const AITutorView: React.FC = () => {
                         <CheckCircle2 className="w-3.5 h-3.5 shrink-0 mt-0.5 text-[#34C759]" />
                       )}
                       <span>
+                        {turn.intentMatched && (
+                          <strong className="font-semibold text-[#248A3D] dark:text-[#30D158] mr-1.5">
+                            Зорилго биеллээ ·
+                          </strong>
+                        )}
                         <strong className="font-semibold">
                           {turn.hasError ? 'Залруулга:' : 'Зөвлөгөө:'}
                         </strong>{' '}
@@ -1290,7 +1470,7 @@ export const AITutorView: React.FC = () => {
 
         {/* 3. Pinned Bottom Composer Dock */}
         <div className="shrink-0 border-t border-black/[0.06] dark:border-white/[0.08] bg-white/95 dark:bg-[#1C1C1E]/95 px-3 sm:px-4 py-2 space-y-1.5">
-          {lastAiTurn?.suggestedReplyCzech && !handsFreeActive && (
+          {tutorMode !== 'exam' && lastAiTurn?.suggestedReplyCzech && !handsFreeActive && (
             <div className="flex items-center justify-between gap-2 px-1">
               <p className="text-[11px] text-[#8E8E93] truncate min-w-0">
                 Санал:{' '}

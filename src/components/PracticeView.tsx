@@ -16,12 +16,20 @@ import {
   Volume2,
   Wand2,
 } from 'lucide-react';
-import type { AudioSlotType, TopicId, VocabCard } from '../types/lesson';
+import type {
+  AudioSlotType,
+  LearnerSelfForm,
+  SrsGrade,
+  TopicId,
+  VocabCard,
+} from '../types/lesson';
 import { TOPICS } from '../data/starterCurriculum';
 import { base64ToBlob, blobToBase64, playCzechAudio, stopAllPlayback } from '../utils/audioPlayer';
 import { filterCards, getNextCardIndex, type MasteryFilter } from '../utils/studyLogic';
 import type { TokenUsageMetrics } from '../utils/tokenPricing';
 import { appendClientUsageLog } from '../utils/usageMonitor';
+import { countDueAndBuried, formatUtcDayKey, SRS_ENGINE_LABEL } from '../utils/srsScheduler';
+import { CZECH_GENDER_COLORS, getQaStatusLabelMn, resolveCardDisplayCzech } from '../utils/learnerProfile';
 
 interface PracticeViewProps {
   cards: VocabCard[];
@@ -30,6 +38,9 @@ interface PracticeViewProps {
   onToggleMastered: (cardId: string) => void;
   onRecordPractice: (cardId: string) => void;
   onAttachAudio: (cardId: string, slot: AudioSlotType, file: File) => Promise<void>;
+  learnerGender: LearnerSelfForm;
+  onChangeLearnerGender: (gender: LearnerSelfForm) => void;
+  onReviewSrsCard: (cardId: string, grade: SrsGrade, eventId: string) => void;
 }
 
 interface SpeechEvalResult {
@@ -78,6 +89,9 @@ export const PracticeView: React.FC<PracticeViewProps> = ({
   onToggleMastered,
   onRecordPractice,
   onAttachAudio,
+  learnerGender,
+  onChangeLearnerGender,
+  onReviewSrsCard,
 }) => {
   const [masteryFilter, setMasteryFilter] = useState<MasteryFilter>('all');
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -154,7 +168,12 @@ export const PracticeView: React.FC<PracticeViewProps> = ({
 
     const isWord = slot === 'wordNormal' || slot === 'wordSlow';
     const isSlow = slot === 'wordSlow' || slot === 'sentenceSlow';
-    const text = isWord ? activeCard.czechWord : activeCard.czechSentence;
+    const displayWord = resolveCardDisplayCzech(activeCard, learnerGender);
+    const text = isWord
+      ? displayWord
+      : activeCard.selfFormVariants
+        ? displayWord
+        : activeCard.czechSentence;
     const primaryId = activeCard.audioIds[slot];
     const fallbackId = isSlow
       ? activeCard.audioIds[isWord ? 'wordNormal' : 'sentenceNormal']
@@ -455,11 +474,40 @@ export const PracticeView: React.FC<PracticeViewProps> = ({
       : TOPICS.find((t) => t.id === selectedTopic)?.nameMn ?? 'Сэдэв';
 
   const deckProgress = filtered.length === 0 ? 0 : (safeIndex + 1) / filtered.length;
+  const { dueCount, buriedCount } = useMemo(() => countDueAndBuried(cards), [cards]);
+  const todayUtcKey = formatUtcDayKey();
+
+  const handleGradeSrs = (grade: SrsGrade) => {
+    if (!activeCard) return;
+    const eventId = `rev_${activeCard.id}_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`;
+    onReviewSrsCard(activeCard.id, grade, eventId);
+    handleStep(1);
+  };
 
   return (
     <div className="space-y-3.5 sm:space-y-5">
+      {/* Honest Non-FSRS Smart SRS Status Header */}
+      <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-[#636366] dark:text-[#AEAEB2]">
+        <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+          <span className="font-semibold text-[#1C1C1E] dark:text-white">{SRS_ENGINE_LABEL}</span>
+          <span aria-hidden="true">·</span>
+          <span className="tabular-nums font-medium text-[#007AFF] dark:text-[#64D2FF]">
+            Өнөөдөр давтах: {dueCount}
+          </span>
+          {buriedCount > 0 && (
+            <>
+              <span aria-hidden="true">·</span>
+              <span className="tabular-nums">Хойшилсон: {buriedCount}</span>
+            </>
+          )}
+        </div>
+        <span className="text-[11px] text-[#8E8E93]">
+          Миний хэлбэр: {learnerGender === 'feminine' ? 'Эмэгтэй' : 'Эрэгтэй'}
+        </span>
+      </div>
+
       {/* Compact Single-Row Filter Bar on Mobile, Expanded Chips on Desktop */}
-      <div className="flex items-center justify-between gap-2 sm:gap-3">
+          <div className="flex items-center justify-between gap-2 sm:gap-3">
         <div className="md:hidden flex-1 min-w-0">
           <label htmlFor="mobile-topic-select" className="sr-only">
             Сэдэв сонгох
@@ -581,7 +629,7 @@ export const PracticeView: React.FC<PracticeViewProps> = ({
                 {/* Quiet Metadata + Slim Progress Line */}
                 <div className="space-y-2">
                   <div className="flex items-center justify-between gap-2 text-xs text-[#8E8E93]">
-                    <div className="flex items-center gap-1.5 min-w-0">
+                    <div className="flex items-center gap-1.5 min-w-0 flex-wrap">
                       <span className="font-medium text-[#1C1C1E] dark:text-[#F2F2F7] truncate">
                         {TOPICS.find((t) => t.id === activeCard.topicId)?.nameMn ?? topicName}
                       </span>
@@ -589,10 +637,50 @@ export const PracticeView: React.FC<PracticeViewProps> = ({
                       <span className="tabular-nums font-mono shrink-0">
                         {safeIndex + 1}/{filtered.length}
                       </span>
-                      <span aria-hidden="true" className="hidden sm:inline">·</span>
-                      <span className="hidden sm:inline tabular-nums shrink-0">
-                        Давтсан: {activeCard.practiceCount}
-                      </span>
+                      {activeCard.srs?.intervalDays ? (
+                        <>
+                          <span aria-hidden="true">·</span>
+                          <span className="tabular-nums shrink-0 text-[#007AFF] dark:text-[#64D2FF]">
+                            {activeCard.srs.intervalDays} хоног
+                          </span>
+                        </>
+                      ) : (
+                        <>
+                          <span aria-hidden="true" className="hidden sm:inline">·</span>
+                          <span className="hidden sm:inline tabular-nums shrink-0">
+                            Давтсан: {activeCard.practiceCount}
+                          </span>
+                        </>
+                      )}
+                      {activeCard.srs?.buriedUntilDay === todayUtcKey && (
+                        <>
+                          <span aria-hidden="true">·</span>
+                          <span className="text-[#9A5B00] dark:text-[#FFD60A]">Өнөөдөр хойшилсон</span>
+                        </>
+                      )}
+                      {activeCard.nounGender && (
+                        <>
+                          <span aria-hidden="true">·</span>
+                          <span
+                            className={`inline-flex items-center gap-1 font-medium shrink-0 ${
+                              CZECH_GENDER_COLORS[activeCard.nounGender].textClass
+                            }`}
+                          >
+                            <span
+                              className="w-2 h-2 rounded-full shrink-0"
+                              style={{ backgroundColor: CZECH_GENDER_COLORS[activeCard.nounGender].hex }}
+                              aria-hidden="true"
+                            />
+                            <span>{CZECH_GENDER_COLORS[activeCard.nounGender].shortLabel}</span>
+                          </span>
+                        </>
+                      )}
+                      {activeCard.qaStatus && (
+                        <span className="hidden sm:inline-flex items-center gap-1.5 text-[#8E8E93] whitespace-nowrap">
+                          <span aria-hidden="true">·</span>
+                          <span>{getQaStatusLabelMn(activeCard.qaStatus)}</span>
+                        </span>
+                      )}
                     </div>
 
                     <button
@@ -618,9 +706,34 @@ export const PracticeView: React.FC<PracticeViewProps> = ({
 
                 {/* Word Focus */}
                 <div className="space-y-1.5">
-                  <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#1C1C1E] dark:text-white">
-                    {activeCard.czechWord}
-                  </h1>
+                  <div className="flex items-start justify-between gap-2">
+                    <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#1C1C1E] dark:text-white">
+                      {resolveCardDisplayCzech(activeCard, learnerGender)}
+                    </h1>
+                    {activeCard.selfFormVariants && (
+                      <div className="flex items-center p-0.5 rounded-lg bg-[#F2F2F7] dark:bg-[#2C2C2E] shrink-0">
+                        {(
+                          [
+                            { id: 'masculine', label: 'Эр' },
+                            { id: 'feminine', label: 'Эм' },
+                          ] as const
+                        ).map((g) => (
+                          <button
+                            key={g.id}
+                            type="button"
+                            onClick={() => onChangeLearnerGender(g.id)}
+                            className={`min-h-[28px] px-2 rounded-md text-[11px] font-semibold cursor-pointer ${
+                              learnerGender === g.id
+                                ? 'bg-white dark:bg-[#3A3A3C] text-[#007AFF] dark:text-[#64D2FF] shadow-2xs'
+                                : 'text-[#8E8E93]'
+                            }`}
+                          >
+                            {g.label}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                   <p className="text-xs sm:text-sm font-mono text-[#007AFF] dark:text-[#64D2FF]">
                     [{activeCard.phoneticHint}]
                   </p>
@@ -687,7 +800,9 @@ export const PracticeView: React.FC<PracticeViewProps> = ({
                     Жишээ өгүүлбэр
                   </p>
                   <p className="text-base sm:text-xl font-semibold text-[#1C1C1E] dark:text-white leading-snug">
-                    {activeCard.czechSentence}
+                    {activeCard.selfFormVariants
+                      ? resolveCardDisplayCzech(activeCard, learnerGender)
+                      : activeCard.czechSentence}
                   </p>
                   <p
                     className={`text-xs sm:text-base transition-opacity duration-150 ${
@@ -923,6 +1038,37 @@ export const PracticeView: React.FC<PracticeViewProps> = ({
                   </AnimatePresence>
                 </div>
 
+                {/* Smart SRS 4-Grade Rating Bar (Idempotent + Sibling Burying) */}
+                <div className="border-t border-black/[0.06] dark:border-white/[0.08] pt-3.5 space-y-2">
+                  <div className="flex items-center justify-between text-[11px] text-[#8E8E93]">
+                    <span>Давтлагын үнэлгээ {activeCard.lemmaGroup ? `· бүлэг: ${activeCard.lemmaGroup}` : ''}</span>
+                    <span className="tabular-nums font-mono">
+                      {activeCard.srs?.lastGrade ? `Сүүлд: ${activeCard.srs.lastGrade}` : 'Шинэ карт'}
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-4 gap-2">
+                    {(
+                      [
+                        { id: 'again', label: 'Дахиад', hint: '10м', cls: 'bg-[#FF3B30]/10 text-[#D70015] dark:text-[#FF453A]' },
+                        { id: 'hard', label: 'Хэцүү', hint: '1х', cls: 'bg-[#FF9500]/12 text-[#9A5B00] dark:text-[#FFD60A]' },
+                        { id: 'good', label: 'Сайн', hint: '1–3х', cls: 'bg-[#007AFF]/12 text-[#007AFF] dark:text-[#64D2FF]' },
+                        { id: 'easy', label: 'Амархан', hint: '3–7х', cls: 'bg-[#34C759]/12 text-[#248A3D] dark:text-[#30D158]' },
+                      ] as const
+                    ).map((g) => (
+                      <motion.button
+                        key={g.id}
+                        whileTap={{ scale: 0.96 }}
+                        type="button"
+                        onClick={() => handleGradeSrs(g.id)}
+                        className={`min-h-[44px] px-2 py-1.5 rounded-2xl flex flex-col items-center justify-center leading-tight cursor-pointer transition-opacity hover:opacity-90 ${g.cls}`}
+                      >
+                        <span className="text-xs font-bold">{g.label}</span>
+                        <span className="text-[10px] font-mono opacity-80">{g.hint}</span>
+                      </motion.button>
+                    ))}
+                  </div>
+                </div>
+
                 {/* Primary Card Navigation & Mastery */}
                 <div className="border-t border-black/[0.06] dark:border-white/[0.08] pt-3.5 flex items-center justify-between gap-2.5">
                   <motion.button
@@ -1042,34 +1188,60 @@ export const PracticeView: React.FC<PracticeViewProps> = ({
                 </span>
               </div>
               <div className="max-h-64 overflow-y-auto divide-y divide-black/[0.05] dark:divide-white/[0.06]">
-                {filtered.map((card, idx) => (
-                  <button
-                    key={card.id}
-                    type="button"
-                    onClick={() => {
-                      stopAllPlayback();
-                      setSlideDirection(idx >= safeIndex ? 1 : -1);
-                      setActiveSlot(null);
-                      clearRecordingState();
-                      setCurrentIndex(idx);
-                    }}
-                    className={`w-full text-left py-2.5 px-3 rounded-xl flex items-center justify-between gap-3 transition-colors cursor-pointer ${
-                      idx === safeIndex
-                        ? 'bg-[#007AFF]/10 dark:bg-[#0A84FF]/20 text-[#007AFF] dark:text-[#64D2FF]'
-                        : 'hover:bg-[#F2F2F7] dark:hover:bg-[#2C2C2E] text-[#1C1C1E] dark:text-[#F2F2F7]'
-                    }`}
-                  >
-                    <div className="min-w-0">
-                      <p className="text-sm font-semibold truncate">{card.czechWord}</p>
-                      <p className="text-xs text-[#8E8E93] truncate">
-                        {card.mongolianWord}
-                      </p>
-                    </div>
-                    <span className="text-[11px] font-mono tabular-nums text-[#8E8E93] shrink-0">
-                      {card.mastered ? 'Мэддэг' : `${idx + 1}`}
-                    </span>
-                  </button>
-                ))}
+                {filtered.map((card, idx) => {
+                  const gSpec = card.nounGender ? CZECH_GENDER_COLORS[card.nounGender] : null;
+                  return (
+                    <button
+                      key={card.id}
+                      type="button"
+                      onClick={() => {
+                        stopAllPlayback();
+                        setSlideDirection(idx >= safeIndex ? 1 : -1);
+                        setActiveSlot(null);
+                        clearRecordingState();
+                        setCurrentIndex(idx);
+                      }}
+                      className={`w-full text-left py-2.5 px-3 rounded-xl flex items-center justify-between gap-3 transition-colors cursor-pointer ${
+                        idx === safeIndex
+                          ? 'bg-[#007AFF]/10 dark:bg-[#0A84FF]/20 text-[#007AFF] dark:text-[#64D2FF]'
+                          : 'hover:bg-[#F2F2F7] dark:hover:bg-[#2C2C2E] text-[#1C1C1E] dark:text-[#F2F2F7]'
+                      }`}
+                    >
+                      <div className="min-w-0">
+                        <div className="flex items-center gap-1.5 min-w-0">
+                          {gSpec && (
+                            <span
+                              className="w-2 h-2 rounded-full shrink-0"
+                              style={{ backgroundColor: gSpec.hex }}
+                              title={gSpec.labelMn}
+                              aria-hidden="true"
+                            />
+                          )}
+                          <p className="text-sm font-semibold truncate">
+                            {resolveCardDisplayCzech(card, learnerGender)}
+                          </p>
+                          {gSpec && (
+                            <span className={`text-[10px] font-medium shrink-0 ${gSpec.textClass}`}>
+                              · {gSpec.shortLabel}
+                            </span>
+                          )}
+                        </div>
+                        <p className="text-xs text-[#8E8E93] truncate">
+                          {card.mongolianWord}
+                        </p>
+                      </div>
+                      <span className="text-[11px] font-mono tabular-nums text-[#8E8E93] shrink-0">
+                        {card.srs?.buriedUntilDay === todayUtcKey
+                          ? 'Хойшилсон'
+                          : card.mastered
+                            ? 'Мэддэг'
+                            : card.srs?.intervalDays
+                              ? `${card.srs.intervalDays}х`
+                              : `${idx + 1}`}
+                      </span>
+                    </button>
+                  );
+                })}
               </div>
             </div>
           </aside>
