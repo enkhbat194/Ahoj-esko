@@ -28,6 +28,7 @@ import {
   type ReviewEventRecord,
 } from './utils/srsScheduler';
 import { loadStoryProgress, lookupGlossaryEntry } from './utils/storyReaderLogic';
+import { selectCanonicalCardsToAdd } from './utils/canonicalDeck';
 import { TodayDashboardView } from './components/TodayDashboardView';
 import { LearnHubView } from './components/LearnHubView';
 import { StoryReaderView } from './components/StoryReaderView';
@@ -238,25 +239,18 @@ export default function App() {
 
   const handleAddCanonicalPhrasesToDeck = useCallback(
     (incoming: Omit<VocabCard, 'id' | 'audioIds' | 'mastered' | 'practiceCount'>[]): number => {
-      const now = Date.now();
-      const current = cardsRef.current;
-      const existingCanonical = new Set(current.map((c) => c.canonicalId).filter(Boolean));
-      const existingWords = new Set(current.map((c) => c.czechWord.trim().toLowerCase()));
-      const additions: VocabCard[] = [];
-      for (let i = 0; i < incoming.length; i++) {
-        const item = incoming[i];
-        if (item.canonicalId && existingCanonical.has(item.canonicalId)) continue;
-        if (!item.canonicalId && existingWords.has(item.czechWord.trim().toLowerCase())) continue;
-        additions.push({
-          ...item,
-          id: `canonical-${item.canonicalId ?? i}-${now}`,
-          audioIds: {},
-          mastered: false,
-          practiceCount: 0,
-        });
+      const { additions, conflictingIds } = selectCanonicalCardsToAdd(
+        cardsRef.current,
+        incoming,
+        Date.now(),
+      );
+      if (conflictingIds.length > 0) {
+        // Existing SRS/audio progress must never be reused for another phrase.
+        console.warn('Canonical ID collisions blocked:', conflictingIds);
+        window.alert(`Агуулгын ID зөрчил илэрсэн тул ${conflictingIds.length} картыг нэмсэнгүй. Хуучин ахиц/аудиог хамгаалсан.`);
       }
       if (additions.length > 0) {
-        const nextCards = [...additions, ...current];
+        const nextCards = [...additions, ...cardsRef.current];
         cardsRef.current = nextCards;
         setCards(nextCards);
       }
