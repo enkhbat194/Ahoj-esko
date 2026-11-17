@@ -1,0 +1,25 @@
+name: Test Ahoj Cesko
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+      - name: Unit tests
+        run: npx tsx --test src/utils/*.test.ts
+      - name: Type check
+        run: npm run lint
+      - name: Build
+        run: npm run build

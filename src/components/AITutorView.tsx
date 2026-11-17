@@ -247,6 +247,7 @@ export const AITutorView: React.FC<AITutorViewProps> = ({
   const [limitDraft, setLimitDraft] = useState<UsageLimitConfig>(DEFAULT_USAGE_LIMITS);
   const [savingLimits, setSavingLimits] = useState(false);
   const [limitSavedMsg, setLimitSavedMsg] = useState<string | null>(null);
+  const [usageAdminToken, setUsageAdminToken] = useState(''); // Ephemeral; never persisted
   const [memoryItems, setMemoryItems] = useState<LearningMemoryItem[]>(() => loadLearningMemory());
 
   const messagesListRef = useRef<HTMLDivElement | null>(null);
@@ -826,7 +827,7 @@ export const AITutorView: React.FC<AITutorViewProps> = ({
     try {
       const res = await fetch('/api/ai/usage/limits', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', 'x-admin-token': usageAdminToken },
         body: JSON.stringify(limitDraft),
       });
       if (res.ok) {
@@ -834,6 +835,8 @@ export const AITutorView: React.FC<AITutorViewProps> = ({
         setServerSummary(updated);
         setLimitDraft(updated.limits);
         setLimitSavedMsg('Хязгаар хадгалагдлаа');
+      } else {
+        setLimitSavedMsg(res.status === 403 ? 'Админы токен дутуу эсвэл буруу байна' : 'Хязгаар хадгалахад алдаа гарлаа');
       }
     } catch {
       setLimitSavedMsg('Хязгаар хадгалахад алдаа гарлаа');
@@ -1718,9 +1721,20 @@ export const AITutorView: React.FC<AITutorViewProps> = ({
                           />
                         </label>
                       </div>
+                      <label className="block space-y-1">
+                        <span className="text-[11px] text-[#8E8E93]">Админы токен (серверийн AI_USAGE_ADMIN_TOKEN)</span>
+                        <input
+                          type="password"
+                          autoComplete="off"
+                          value={usageAdminToken}
+                          onChange={(e) => setUsageAdminToken(e.target.value)}
+                          placeholder="Зөвхөн энэ удаад ашиглана; хадгалахгүй"
+                          className="w-full min-h-[36px] rounded-xl bg-[#F2F2F7] dark:bg-[#1C1C1E] px-2.5 text-xs text-[#1C1C1E] dark:text-white"
+                        />
+                      </label>
                       <button
                         type="submit"
-                        disabled={savingLimits}
+                        disabled={savingLimits || !usageAdminToken}
                         className="w-full min-h-[36px] rounded-xl bg-[#007AFF] dark:bg-[#0A84FF] text-white text-xs font-semibold cursor-pointer disabled:opacity-50"
                       >
                         {savingLimits ? 'Хадгалж байна...' : 'Хязгаар хадгалах'}

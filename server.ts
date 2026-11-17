@@ -2,6 +2,7 @@ import 'dotenv/config';
 import { createServer } from 'http';
 import express from 'express';
 import path from 'path';
+import { timingSafeEqual } from 'node:crypto';
 import {
   GoogleGenAI,
   ThinkingLevel,
@@ -393,6 +394,15 @@ async function startServer() {
   });
 
   app.post('/api/ai/usage/limits', (req, res) => {
+    // Budget caps are server-owner settings; an anonymous user must never alter them.
+    const expectedToken = process.env.AI_USAGE_ADMIN_TOKEN;
+    const suppliedToken = req.get('x-admin-token') ?? '';
+    const expected = Buffer.from(expectedToken ?? '', 'utf8');
+    const supplied = Buffer.from(suppliedToken, 'utf8');
+    if (!expectedToken || expected.length !== supplied.length || !timingSafeEqual(expected, supplied)) {
+      res.status(403).json({ error: 'Админы эрх шаардлагатай. Серверт AI_USAGE_ADMIN_TOKEN тохируулна уу.' });
+      return;
+    }
     const body = req.body as Partial<UsageLimitConfig>;
     if (typeof body.dailyCostLimitUsd === 'number' && body.dailyCostLimitUsd >= 0) {
       usageLimits.dailyCostLimitUsd = body.dailyCostLimitUsd;
