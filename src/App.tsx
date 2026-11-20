@@ -600,6 +600,7 @@ export default function App() {
                 )}
 
                 {activeTab === 'profile' && (
+                  <>
                   <div className="flex justify-end mb-3">
                     <PWAInstallButton compact />
                   </div>
@@ -630,6 +631,7 @@ export default function App() {
                       setActiveTab('learn');
                     }}
                   />
+                  </>
                 )}
               </motion.div>
             </AnimatePresence>
