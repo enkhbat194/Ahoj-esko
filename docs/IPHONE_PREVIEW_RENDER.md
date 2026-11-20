@@ -33,3 +33,54 @@
 - No secrets in repo, static envVars or build.
 - Render URL should be logged only once the actual service is created and deployment becomes **live**.
 - Track status in https://github.com/enkhbat194/Ahoj-esko/issues/5
+
+## Dialogue pedagogy decision (2026-11-20)
+
+The first UI was **not** dialogic learning: 11 uninteractive scripted lines were
+displayed as a scrolling text wall. The redesigned preview uses **one turn at
+a time** and a gradual decrease of support:
+
+1. `explore`: identify the speaker, inspect **one** Czech turn and its meaning.
+2. `guided`: choose role A/B; read the partner turn; produce your own turn out
+   loud; optionally type; reveal original reference **after trying**; record
+   a *subjective* self-review.
+3. `challenge`: the Czech reference answer and Mongolian cues are hidden
+   until explicitly requested; respond without on-screen cribbing, then
+   self-review. No automatic correctness/CEFR or pronunciation grade.
+4. Learner work is keyed to exact `B01/B02-Txx` IDs with source SHA;
+   original Czech and Mongolian remain unchanged. UI cue for `Odkud jste?`
+   clarifies **"Та хаанаас ирсэн бэ?"**, but the source translation
+   **"Та хааных вэ?"** is retained, and Czech **"Odkud jste?"** is
+   grammatically correct in formal address.
+5. No AI teacher, native TTS or audio files are fabricated; local microphone
+   recording is temporary and remains on-device.
+
+Product and teaching references:
+
+- Pimsleur conversational context, graduated recall:
+  https://www.pimsleur.com/the-pimsleur-method/
+- Babbel contextual dialogues, spaced retrieval and feedback:
+  https://www.babbel.com/the-babbel-method
+- Busuu goal-driven conversational exchanges:
+  https://help.busuu.com/hc/en-us/articles/21862192336402-What-are-Busuu-Conversations-and-how-can-they-help-me-learn-a-language
+- Duolingo Adventures tasks/real-life scenarios:
+  https://blog.duolingo.com/adventures/
+- British Council roleplay, controlled to free speaking, self-correction:
+  https://www.teachingenglish.org.uk/professional-development/teachers/planning-lessons-and-courses/role-play
+
+### iPhone acceptance checklist
+
+- [ ] Opening the preview shows one active conversation turn, not all lines.
+- [ ] Both B01 and B02 load; A and B role choices display own and partner
+      turns correctly, without rewriting source content.
+- [ ] Switching explore/guided/challenge resets the visible turn.
+- [ ] A role turn requires a spoken/written **attempt** plus an explicit
+      post-reveal self-review before proceeding, not a fabricated AI grade.
+- [ ] In challenge mode the translation/reference is hidden by default.
+- [ ] Czech `Odkud jste?` is unchanged; the training cue is precise.
+- [ ] After Safari reload, chosen turn notes survive, as do all six
+      existing exercise responses and exit attempt.
+- [ ] Local iPhone microphone records and plays back, but audio does not
+      persist after leaving a training turn.
+- [ ] Offline PWA test after initial load. No API keys or production
+      backend requests. Verify deploy SHA, HTTP and device behavior.
