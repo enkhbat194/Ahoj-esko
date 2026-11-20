@@ -1,4 +1,5 @@
 import { L01_DATASET_SHA256, L01_ID, L01_WORKING_SOURCE, type L01Stage } from '../data/l01WorkingSource';
+import { sanitizeL01DialogueRecords, type L01TurnPracticeRecord } from './l01DialogueTraining';
 
 /**
  * Practice-progress record, NOT a score or source QA. Stays on this device.
@@ -10,6 +11,7 @@ export interface L01PracticeProgress {
   sourceSha256: string;
   stage: L01Stage;
   responses: Record<string, string>;
+  dialogueRecords: Record<string, L01TurnPracticeRecord>;
   revealedIds: string[];
   selfReviewedIds: string[];
   exitResponse: string;
@@ -22,7 +24,7 @@ export const L01_PROGRESS_KEY = 'ahoj_cesko_l01_v0920_practice_v1';
 export function createL01Progress(): L01PracticeProgress {
   return {
     schema: 1, lessonId: L01_ID, sourceSha256: L01_DATASET_SHA256,
-    stage: 'dialogue', responses: {}, revealedIds: [], selfReviewedIds: [],
+    stage: 'dialogue', responses: {}, dialogueRecords: {}, revealedIds: [], selfReviewedIds: [],
     exitResponse: '', exitAttempted: false, updatedAt: 0,
   };
 }
@@ -45,7 +47,9 @@ export function parseL01Progress(input: unknown): L01PracticeProgress | null {
   return {
     schema: 1, lessonId: L01_ID, sourceSha256: L01_DATASET_SHA256,
     stage: stages.includes(data.stage as L01Stage) ? data.stage as L01Stage : 'dialogue',
-    responses, revealedIds: filterIds(data.revealedIds),
+    responses,
+    dialogueRecords: sanitizeL01DialogueRecords(data.dialogueRecords),
+    revealedIds: filterIds(data.revealedIds),
     selfReviewedIds: filterIds(data.selfReviewedIds),
     exitResponse: typeof data.exitResponse === 'string' ? data.exitResponse.slice(0, 4000) : '',
     exitAttempted: data.exitAttempted === true && typeof data.exitResponse === 'string' && data.exitResponse.trim().length > 0,
