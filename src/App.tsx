@@ -30,6 +30,8 @@ import {
 import { loadStoryProgress, lookupGlossaryEntry } from './utils/storyReaderLogic';
 import { selectCanonicalCardsToAdd } from './utils/canonicalDeck';
 import { PremiumHomeView } from './components/PremiumHomeView';
+import { CzechAlphabetCourseView } from './components/CzechAlphabetCourseView';
+import { getAlphabetContinueTarget, loadAlphabetProgress } from './utils/alphabetProgress';
 import { PremiumBottomNav } from './components/PremiumBottomNav';
 import { premiumNavSelected, premiumNavTarget, type PremiumNavId } from './utils/premiumNavigation';
 import { LearnHubView } from './components/LearnHubView';
@@ -102,6 +104,7 @@ function loadStoredDialogues(): Dialogue[] {
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<ActiveTab>('today');
+  const [alphabetScreen, setAlphabetScreen] = useState<'overview' | 'resume' | null>(null);
   const [learnSubTab, setLearnSubTab] = useState<LearnSubTab>('mission');
   const [profileSection, setProfileSection] = useState<'general' | 'library'>('general');
   const [selectedTopic, setSelectedTopic] = useState<TopicId | 'all'>('all');
@@ -468,6 +471,7 @@ export default function App() {
   );
 
   const handlePremiumNavigate = (id: PremiumNavId) => {
+    if (id === 'home') setAlphabetScreen(null);
     const target = premiumNavTarget(id);
     if (target.learnSubTab) setLearnSubTab(target.learnSubTab);
     setActiveTab(target.activeTab);
@@ -537,14 +541,31 @@ export default function App() {
                 transition={{ duration: 0.16, ease: [0.16, 1, 0.3, 1] }}
               >
                 {activeTab === 'today' && (
-                  <PremiumHomeView
-                    onStartMission={() => {
-                      setLearnSubTab('mission');
-                      setActiveTab('learn');
-                    }}
-                    onLaunchRoleplay={handleLaunchMissionRoleplay}
-                    onOpenStory={() => setActiveTab('story')}
-                  />
+                  alphabetScreen ? (
+                    <CzechAlphabetCourseView
+                      key={alphabetScreen}
+                      startAt={alphabetScreen}
+                      onExit={() => setAlphabetScreen(null)}
+                      onContinueAfterAlphabet={() => {
+                        setAlphabetScreen(null);
+                        setLearnSubTab('mission');
+                        setActiveTab('learn');
+                      }}
+                    />
+                  ) : (
+                    <PremiumHomeView
+                      onOpenAlphabet={() => setAlphabetScreen('overview')}
+                      onContinueCourse={() => {
+                        const target = getAlphabetContinueTarget(loadAlphabetProgress());
+                        if (target) {
+                          setAlphabetScreen('resume');
+                        } else {
+                          setLearnSubTab('mission');
+                          setActiveTab('learn');
+                        }
+                      }}
+                    />
+                  )
                 )}
 
                 {activeTab === 'learn' && (
