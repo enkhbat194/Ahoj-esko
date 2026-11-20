@@ -31,7 +31,7 @@ import { loadStoryProgress, lookupGlossaryEntry } from './utils/storyReaderLogic
 import { selectCanonicalCardsToAdd } from './utils/canonicalDeck';
 import { PremiumHomeView } from './components/PremiumHomeView';
 import { CzechAlphabetCourseView } from './components/CzechAlphabetCourseView';
-import { getAlphabetContinueTarget, loadAlphabetProgress } from './utils/alphabetProgress';
+import { getPackContinueTarget, loadPackProgress } from './utils/alphabetPackProgress';
 import { PremiumBottomNav } from './components/PremiumBottomNav';
 import { premiumNavSelected, premiumNavTarget, type PremiumNavId } from './utils/premiumNavigation';
 import { LearnHubView } from './components/LearnHubView';
@@ -551,12 +551,17 @@ export default function App() {
                         setLearnSubTab('mission');
                         setActiveTab('learn');
                       }}
+                      onOpenAiTeacher={() => {
+                        setAlphabetScreen(null);
+                        setLearnSubTab('ai');
+                        setActiveTab('learn');
+                      }}
                     />
                   ) : (
                     <PremiumHomeView
                       onOpenAlphabet={() => setAlphabetScreen('overview')}
                       onContinueCourse={() => {
-                        const target = getAlphabetContinueTarget(loadAlphabetProgress());
+                        const target = getPackContinueTarget(loadPackProgress());
                         if (target) {
                           setAlphabetScreen('resume');
                         } else {
