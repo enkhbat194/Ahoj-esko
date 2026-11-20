@@ -117,13 +117,13 @@ export function readCanonicalCurriculumOverview(input: unknown): CanonicalCurric
     }
 
     const lessonId = str(candidate.lesson_id);
-    if (!takeId(lessonId, /^CZ-A[01]-M\\d{2}-L\\d{2}$/, 'lesson')) continue;
+    if (!takeId(lessonId, /^CZ-A[01]-M\d{2}-L\d{2}$/, 'lesson')) continue;
 
     const phraseIds: string[] = [];
     for (const phrase of objects(candidate.phrases)) {
       const id = str(phrase.content_id);
       if (!id.startsWith(lessonId + '-PH') ||
-          !takeId(id, /^CZ-A[01]-M\\d{2}-L\\d{2}-PH\\d+$/, 'phrase') ||
+          !takeId(id, /^CZ-A[01]-M\d{2}-L\d{2}-PH\d+$/, 'phrase') ||
           !str(phrase.cs_text) || !str(phrase.mn_working)) {
         validationErrors.push(`lesson ${lessonId}: invalid phrase or missing source text ${id}`);
         continue;
@@ -136,7 +136,7 @@ export function readCanonicalCurriculumOverview(input: unknown): CanonicalCurric
     for (const dialogue of objects(candidate.dialogues)) {
       const id = str(dialogue.dialogue_id);
       if (!id.startsWith(lessonId + '-B') ||
-          !takeId(id, /^CZ-A[01]-M\\d{2}-L\\d{2}-B\\d+$/, 'dialogue')) {
+          !takeId(id, /^CZ-A[01]-M\d{2}-L\d{2}-B\d+$/, 'dialogue')) {
         validationErrors.push(`lesson ${lessonId}: invalid dialogue ID ${id}`);
         continue;
       }
@@ -146,7 +146,7 @@ export function readCanonicalCurriculumOverview(input: unknown): CanonicalCurric
       for (const turn of objects(dialogue.turns)) {
         const turnId = str(turn.turn_id);
         if (!turnId.startsWith(id + '-T') ||
-            !takeId(turnId, /^CZ-A[01]-M\\d{2}-L\\d{2}-B\\d+-T\\d+$/, 'dialogue turn') ||
+            !takeId(turnId, /^CZ-A[01]-M\d{2}-L\d{2}-B\d+-T\d+$/, 'dialogue turn') ||
             !str(turn.cs) || !str(turn.mn)) {
           validationErrors.push(`dialogue ${id}: invalid turn ${turnId}`);
           continue;
@@ -159,7 +159,7 @@ export function readCanonicalCurriculumOverview(input: unknown): CanonicalCurric
     for (const exercise of objects(candidate.exercises)) {
       const id = str(exercise.exercise_id);
       if (!id.startsWith(lessonId + '-EX') ||
-          !takeId(id, /^CZ-A[01]-M\\d{2}-L\\d{2}-EX\\d+$/, 'exercise') ||
+          !takeId(id, /^CZ-A[01]-M\d{2}-L\d{2}-EX\d+$/, 'exercise') ||
           (str(exercise.lesson_id) && str(exercise.lesson_id) !== lessonId) ||
           !str(exercise.prompt_mn)) {
         validationErrors.push(`lesson ${lessonId}: invalid exercise or missing prompt ${id}`);
@@ -190,7 +190,7 @@ export function readCanonicalCurriculumOverview(input: unknown): CanonicalCurric
       const exit = candidate.exit_task;
       const id = str(exit.exit_id);
       if (id.startsWith(lessonId + '-EXIT') &&
-          takeId(id, /^CZ-A[01]-M\\d{2}-L\\d{2}-EXIT\\d+$/, 'exit') &&
+          takeId(id, /^CZ-A[01]-M\d{2}-L\d{2}-EXIT\d+$/, 'exit') &&
           (!str(exit.lesson_id) || str(exit.lesson_id) === lessonId) &&
           str(exit.source_prompt)) {
         const assessment = record(candidate.exit_assessment_v0912) ? candidate.exit_assessment_v0912 : {};
