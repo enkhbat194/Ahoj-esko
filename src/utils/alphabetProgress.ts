@@ -86,13 +86,20 @@ export function completeAlphabetStep(
   if (!validLetterId(letterId)||!Number.isInteger(step)||step<0||step>=ALPHABET_LESSON_STEP_COUNT
       ||state.lastVisited?.letterId !==letterId ||state.lastVisited.step !==step) return state;
   const prior = state.letters[letterId] ?? {visited:true,completedSteps:[],completedAt:null};
+  const previouslySeen = prior.completedAt !== null
+    && prior.completedSteps.length === ALPHABET_LESSON_STEP_COUNT;
   const completedSteps = [...new Set([...prior.completedSteps,step])].sort((a,b)=>a-b);
   const allDone = completedSteps.length === ALPHABET_LESSON_STEP_COUNT;
-  const nextStep = allDone
-    ? undefined
-    : step < ALPHABET_LESSON_STEP_COUNT-1
-      ? step+1
-      : VALID_STEPS.find(x=>!completedSteps.includes(x));
+  // Completed letters have a separate *review traversal*: do not
+  // return to the catalog after step one merely because all seven
+  // historical completion flags remain set.
+  const nextStep = previouslySeen
+    ? (step < ALPHABET_LESSON_STEP_COUNT-1 ? step+1 : undefined)
+    : allDone
+      ? undefined
+      : step < ALPHABET_LESSON_STEP_COUNT-1
+        ? step+1
+        : VALID_STEPS.find(x=>!completedSteps.includes(x));
   const nextLetters = {
     ...state.letters,[letterId]: {
       completedSteps,visited:true,completedAt: allDone ? (prior.completedAt ?? now) : null,
