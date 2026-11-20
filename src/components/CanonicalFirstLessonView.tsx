@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { AlertCircle, ArrowRight, Download, FileCheck2, Upload } from 'lucide-react';
+import { ArrowRight, Download, FileCheck2, Upload } from 'lucide-react';
 import type { TutorMode } from '../types/lesson';
 import { L01SelfRecorder } from './L01SelfRecorder';
+import { L01DialogueCoach } from './L01DialogueCoach';
 import { L01_WORKING_SOURCE, type L01Stage } from '../data/l01WorkingSource';
 import {
   createL01Progress, loadL01Progress, parseL01Progress,
@@ -32,7 +33,6 @@ export const CanonicalFirstLessonView: React.FC<{
   const [progress, setProgress] = useState<L01PracticeProgress>(loadL01Progress);
   const [storageError, setStorageError] = useState(false);
   const [message, setMessage] = useState('');
-  const [dialogueIndex, setDialogueIndex] = useState(0);
   const reviewedCount = reviewedL01Count(progress);
   const nextStageIndex = stages.findIndex((s) => s.id === progress.stage) + 1;
   const isLastStage = nextStageIndex === stages.length;
@@ -122,26 +122,7 @@ export const CanonicalFirstLessonView: React.FC<{
       )}
 
       {progress.stage === 'dialogue' && (
-        <section className={card + ' space-y-4'}>
-          <h2 className="text-base font-bold">Харилцан яриаг уншаад дүрүүдийн үгийг дагаж хэл</h2>
-          <div className="flex flex-wrap gap-2">
-            {L01_WORKING_SOURCE.dialogues.map((d, index) => (
-              <button className={dialogueIndex === index ? button : mutedButton} key={d.id}
-                onClick={() => setDialogueIndex(index)} type="button">{d.titleMn}</button>
-            ))}
-          </div>
-          {L01_WORKING_SOURCE.dialogues[dialogueIndex].turns.map((turn) => (
-            <div key={turn.id} className="rounded-2xl bg-[#F2F2F7] dark:bg-[#2C2C2E] p-3 space-y-1">
-              <span className="text-[11px] font-mono text-[#8E8E93]">Дүр {turn.speaker} · {turn.id.split('-').at(-1)}</span>
-              <p className="font-bold text-[#1C1C1E] dark:text-white">{turn.cs}</p>
-              <p className={subtle}>{turn.mn}</p>
-            </div>
-          ))}
-          <p className={subtle + ' flex gap-2 items-start'}>
-            <AlertCircle className="w-4 h-4 shrink-0" />
-            Gemini 3.8-ийн баталгаажсан эх-аудио одоогоор энэ хичээлийн ID-тай холбогдоогүй. Буруу аудио автоматаар тоглуулахгүй.
-          </p>
-        </section>
+        <L01DialogueCoach progress={progress} setProgress={setProgress} />
       )}
 
       {progress.stage === 'phrases' && (
