@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { AnimatePresence, MotionConfig, motion } from 'motion/react';
-import { BookOpen, Compass, GraduationCap, Layers, Moon, Sun, User } from 'lucide-react';
+import { Menu } from 'lucide-react';
 import type {
   ActiveTab,
   AudioSlotType,
@@ -29,7 +29,9 @@ import {
 } from './utils/srsScheduler';
 import { loadStoryProgress, lookupGlossaryEntry } from './utils/storyReaderLogic';
 import { selectCanonicalCardsToAdd } from './utils/canonicalDeck';
-import { TodayDashboardView } from './components/TodayDashboardView';
+import { PremiumHomeView } from './components/PremiumHomeView';
+import { PremiumBottomNav } from './components/PremiumBottomNav';
+import { premiumNavSelected, premiumNavTarget, type PremiumNavId } from './utils/premiumNavigation';
 import { LearnHubView } from './components/LearnHubView';
 import { StoryReaderView } from './components/StoryReaderView';
 import { PracticeView } from './components/PracticeView';
@@ -71,7 +73,7 @@ function loadStoredTheme(): 'light' | 'dark' {
   } catch {
     // Ignore storage access errors
   }
-  return 'light';
+  return 'dark';
 }
 
 function loadStoredCards(): VocabCard[] {
@@ -129,7 +131,7 @@ export default function App() {
   }, [reviewEvents]);
 
   useEffect(() => {
-    const isDark = theme === 'dark';
+    const isDark = theme === 'dark' || activeTab === 'today';
     document.documentElement.classList.toggle('dark', isDark);
     const themeMeta = document.querySelector('meta[name="theme-color"]');
     if (themeMeta) {
@@ -140,7 +142,7 @@ export default function App() {
     } catch {
       // Ignore storage quota errors
     }
-  }, [theme]);
+  }, [theme, activeTab]);
 
   useEffect(() => {
     try {
@@ -465,13 +467,11 @@ export default function App() {
     [refreshAudioMeta]
   );
 
-  const navItems: Array<{ id: ActiveTab; label: string; icon: typeof Compass }> = [
-    { id: 'today', label: 'Өнөөдөр', icon: Compass },
-    { id: 'learn', label: 'Сургалт', icon: GraduationCap },
-    { id: 'story', label: 'Зохиол', icon: BookOpen },
-    { id: 'review', label: 'Давтлага', icon: Layers },
-    { id: 'profile', label: 'Профайл', icon: User },
-  ];
+  const handlePremiumNavigate = (id: PremiumNavId) => {
+    const target = premiumNavTarget(id);
+    if (target.learnSubTab) setLearnSubTab(target.learnSubTab);
+    setActiveTab(target.activeTab);
+  };
 
   const isChatView = activeTab === 'learn' && learnSubTab === 'ai';
 
@@ -480,70 +480,28 @@ export default function App() {
       <div
         className={`${
           isChatView ? 'h-dvh overflow-hidden' : 'min-h-screen'
-        } bg-[#F2F2F7] dark:bg-black text-[#1C1C1E] dark:text-[#F2F2F7] flex flex-col`}
+        } ${activeTab === 'today' ? 'premium-app-surface' : 'bg-[#F2F2F7] dark:bg-black'} text-[#1C1C1E] dark:text-[#F2F2F7] flex flex-col`}
       >
-        {/* Classic iOS Translucent Top Navigation Bar */}
-        <header className="sticky top-0 z-30 shrink-0 bg-[#F2F2F7]/85 dark:bg-black/80 backdrop-blur-xl border-b border-black/[0.08] dark:border-white/[0.1] pt-safe">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-12 lg:h-14 flex items-center justify-between gap-3 lg:gap-8">
-            <a
-              href="#today"
-              onClick={(e) => {
-                e.preventDefault();
-                setActiveTab('today');
-              }}
-              className="text-[17px] font-bold tracking-tight text-[#1C1C1E] dark:text-white whitespace-nowrap shrink-0"
-            >
-              Ahoj Česko
-            </a>
-
-            <nav aria-label="Үндсэн цэс" className="hidden lg:flex items-center gap-6">
-              {navItems.map((item) => {
-                const active = activeTab === item.id;
-                return (
-                  <button
-                    key={item.id}
-                    type="button"
-                    onClick={() => setActiveTab(item.id)}
-                    className={`relative py-2.5 text-[14px] font-semibold transition-colors whitespace-nowrap shrink-0 cursor-pointer ${
-                      active
-                        ? 'text-[#007AFF] dark:text-[#0A84FF]'
-                        : 'text-[#8E8E93] hover:text-[#1C1C1E] dark:hover:text-white'
-                    }`}
-                  >
-                    {item.label}
-                    {active && (
-                      <motion.span
-                        layoutId="desktop-nav-underline"
-                        transition={{ type: 'spring', stiffness: 450, damping: 36 }}
-                        className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#007AFF] dark:bg-[#0A84FF] rounded-full"
-                      />
-                    )}
-                  </button>
-                );
-              })}
-            </nav>
-
-            <div className="flex items-center gap-2 shrink-0">
-              <motion.button
-                whileTap={{ scale: 0.92 }}
-                type="button"
-                onClick={() => setTheme((prev) => (prev === 'light' ? 'dark' : 'light'))}
-                aria-label={theme === 'light' ? 'Шөнийн горим асаах' : 'Өдрийн горим асаах'}
-                className="min-h-[36px] min-w-[36px] rounded-full border border-black/[0.08] dark:border-white/[0.12] bg-white dark:bg-[#1C1C1E] text-[#1C1C1E] dark:text-white hover:bg-black/[0.04] dark:hover:bg-white/[0.08] flex items-center justify-center cursor-pointer"
-              >
-                {theme === 'light' ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
-              </motion.button>
-              <PWAInstallButton compact />
-            </div>
-          </div>
+        {/* Calm top bar: only the menu, as requested. Theme/install live in Settings. */}
+        <header className="premium-minimal-header shrink-0" aria-label="Дээд удирдлага">
+          <button
+            type="button"
+            className="premium-menu-trigger"
+            aria-label="Цэс нээх"
+            onClick={() => setActiveTab('profile')}
+          >
+            <Menu size={22} strokeWidth={1.85} aria-hidden="true" />
+          </button>
         </header>
 
         {/* Main Content: Locked Flex Viewport on AI Chat Tab, Normal Flow Elsewhere */}
         <main
           className={
             isChatView
-              ? 'flex-1 min-h-0 max-w-6xl w-full mx-auto px-0 sm:px-6 lg:px-8 pt-0 sm:pt-4 pb-[calc(56px+max(0.5rem,env(safe-area-inset-bottom)))] lg:pb-4 overflow-hidden flex flex-col'
-              : 'flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-24 lg:pb-12'
+              ? 'flex-1 min-h-0 max-w-6xl w-full mx-auto px-0 sm:px-6 lg:px-8 pt-0 sm:pt-4 pb-[calc(95px+env(safe-area-inset-bottom))] overflow-hidden flex flex-col'
+              : activeTab === 'today'
+                ? 'flex-1 max-w-6xl w-full mx-auto px-3 sm:px-6 lg:px-8 pt-0 pb-[calc(104px+env(safe-area-inset-bottom))]'
+                : 'flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-[calc(106px+env(safe-area-inset-bottom))]'
           }
         >
           {isChatView ? (
@@ -579,25 +537,13 @@ export default function App() {
                 transition={{ duration: 0.16, ease: [0.16, 1, 0.3, 1] }}
               >
                 {activeTab === 'today' && (
-                  <TodayDashboardView
-                    cards={cards}
-                    reviewEvents={reviewEvents}
-                    storyProgress={storyProgress}
-                    audioMetaList={audioMetaList}
-                    learnerGender={learnerGender}
-                    onChangeLearnerGender={setLearnerGender}
+                  <PremiumHomeView
                     onStartMission={() => {
                       setLearnSubTab('mission');
                       setActiveTab('learn');
                     }}
                     onLaunchRoleplay={handleLaunchMissionRoleplay}
-                    onOpenReview={() => setActiveTab('review')}
                     onOpenStory={() => setActiveTab('story')}
-                    onOpenProfile={(sec = 'general') => {
-                      setProfileSection(sec);
-                      if (sec === 'library') setLibrarySection('drive');
-                      setActiveTab('profile');
-                    }}
                   />
                 )}
 
@@ -654,6 +600,10 @@ export default function App() {
                 )}
 
                 {activeTab === 'profile' && (
+                  <>
+                  <div className="flex justify-end mb-3">
+                    <PWAInstallButton compact />
+                  </div>
                   <ProfileView
                     key={`${profileSection}-${librarySection}`}
                     initialSection={profileSection}
@@ -681,49 +631,17 @@ export default function App() {
                       setActiveTab('learn');
                     }}
                   />
+                  </>
                 )}
               </motion.div>
             </AnimatePresence>
           )}
         </main>
 
-        {/* Classic iPhone Translucent Bottom Tab Bar */}
-        <nav
-          aria-label="Гар утасны доод цэс"
-          className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#F2F2F7]/90 dark:bg-black/85 backdrop-blur-xl border-t border-black/[0.08] dark:border-white/[0.12] pb-safe"
-        >
-          <div className="grid grid-cols-5 h-[56px]">
-            {navItems.map((item) => {
-              const Icon = item.icon;
-              const active = activeTab === item.id;
-              return (
-                <motion.button
-                  whileTap={{ scale: 0.92 }}
-                  key={item.id}
-                  type="button"
-                  onClick={() => setActiveTab(item.id)}
-                  className={`relative flex flex-col items-center justify-center gap-0.5 min-h-[44px] px-0.5 transition-colors cursor-pointer ${
-                    active
-                      ? 'text-[#007AFF] dark:text-[#0A84FF]'
-                      : 'text-[#8E8E93] hover:text-[#1C1C1E] dark:hover:text-white'
-                  }`}
-                >
-                  {active && (
-                    <motion.span
-                      layoutId="mobile-nav-indicator"
-                      transition={{ type: 'spring', stiffness: 450, damping: 36 }}
-                      className="absolute top-0 left-4 right-4 h-[2px] bg-[#007AFF] dark:bg-[#0A84FF] rounded-b-full"
-                    />
-                  )}
-                  <Icon className="w-[21px] h-[21px]" strokeWidth={active ? 2.2 : 1.75} aria-hidden="true" />
-                  <span className="text-[10px] font-medium tracking-tight whitespace-nowrap">
-                    {item.label}
-                  </span>
-                </motion.button>
-              );
-            })}
-          </div>
-        </nav>
+        <PremiumBottomNav
+          selected={premiumNavSelected(activeTab, learnSubTab)}
+          onNavigate={handlePremiumNavigate}
+        />
 
         <OfflineIndicator />
       </div>
