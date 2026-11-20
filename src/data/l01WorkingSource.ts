@@ -7,7 +7,7 @@
  */
 export const L01_DATASET_SHA256 = 'bf6de3f4872353d13768e79cb53299bfe1927ca3927209334df3e7e548860a03';
 export const L01_ID = 'CZ-A0-M01-L01';
-export type L01Stage = 'dialogue' | 'phrases' | 'practice' | 'exit';
+export type L01Stage = 'dialogue' | 'phrases' | 'pronunciation' | 'practice' | 'exit';
 
 export const L01_WORKING_SOURCE = {
   lessonId: L01_ID,
