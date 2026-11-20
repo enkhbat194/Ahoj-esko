@@ -103,3 +103,23 @@ test('after all 42 seven-step visual modules, continue moves to greeting; no fak
   assert.equal(L01_WORKING_SOURCE.qaStatus,'draft_ai');
   assert.equal(L01_WORKING_SOURCE.publishAllowed,false);
 });
+
+test('a seen letter can be reviewed through ALL seven steps without losing earlier completion',()=>{
+  let s=openAlphabetLetter(newAlphabetProgress(),'A',false,100);
+  for(let step=0;step<7;step++)s=completeAlphabetStep(s,'A',step,200+step);
+  assert.equal(getLetterStatus(s,'A'),'seen');
+  const oldCompletedAt=s.letters.A.completedAt;
+  s=openAlphabetLetter(s,'A',true,500);
+  assert.deepEqual(s.lastVisited,{letterId:'A',step:0});
+  for(let step=0;step<7;step++){
+    s=completeAlphabetStep(s,'A',step,600+step);
+    if(step<6){
+      assert.deepEqual(s.lastVisited,{letterId:'A',step:step+1},
+        'Repeating a completed letter must not immediately jump to the catalog');
+      assert.equal(getLetterStatus(s,'A'),'seen');
+    }
+  }
+  assert.equal(s.letters.A.completedAt,oldCompletedAt);
+  assert.equal(alphabetSeenCount(s),1);
+  assert.deepEqual(getAlphabetContinueTarget(s),{letterId:'Á',step:0});
+});
