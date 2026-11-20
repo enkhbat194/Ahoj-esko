@@ -1,0 +1,32 @@
+name: One-time alphabet feature branch cleanup
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: write
+jobs:
+  prune:
+    if: github.repository == 'enkhbat194/Ahoj-esko' && github.ref == 'refs/heads/main' && contains(github.event.head_commit.message, '[prune-alphabet-branch-20261120]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Delete only verified merged alphabet branch
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const owner = 'enkhbat194', repo = 'Ahoj-esko';
+            const source = 'feat/czech-alphabet-learning-engine-20261120';
+            const expected = '85ec2f6cf025a05610f504a896d1088c9759b12d';
+            const pr = (await github.rest.pulls.get({owner,repo,pull_number:13})).data;
+            if (!pr.merged_at || pr.state !== 'closed' || pr.head.ref !== source ||
+                pr.head.sha !== expected || pr.base.ref !== 'main') {
+              throw Error('PR #13 source or merged state differs');
+            }
+            const old = (await github.rest.repos.getBranch({owner,repo,branch:source})).data;
+            if (old.commit.sha !== expected || old.protected) throw Error('Branch moved/protected');
+            const preview = (await github.rest.repos.getBranch({
+              owner,repo,branch:'preview/ios-l01-render-static-20261120'
+            })).data;
+            if (!preview.commit.sha) throw Error('Render Preview source branch missing');
+            await github.rest.git.deleteRef({owner,repo,ref:'heads/'+source});
+            core.info('Deleted only exact merged source branch; main and preview preserved');
