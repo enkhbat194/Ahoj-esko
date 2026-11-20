@@ -6,7 +6,6 @@ import { PremiumBottomNav } from './components/PremiumBottomNav';
 import { PremiumHomeView } from './components/PremiumHomeView';
 import { CzechAlphabetCourseView } from './components/CzechAlphabetCourseView';
 import { getPackContinueTarget, loadPackProgress } from './utils/alphabetPackProgress';
-import { L01_WORKING_SOURCE } from './data/l01WorkingSource';
 import { KLIC17_CHAPTERS } from './data/klic17Story';
 import type { PremiumNavId } from './utils/premiumNavigation';
 
@@ -18,7 +17,6 @@ const navButton = 'min-h-[43px] inline-flex items-center gap-2 rounded-xl border
 
 export function IphonePreview() {
   const [view, setView] = useState<PreviewView>(() => linkedLesson() ? 'lesson' : 'home');
-  const [flipped, setFlipped] = useState<string[]>([]);
   const [notice, setNotice] = useState('');
 
   const openAi = () => {
@@ -111,23 +109,9 @@ export function IphonePreview() {
             )}
 
             {view === 'cards' && (
-              <section className={panel}>
-                <div className="text-[#EAC381] text-[11px] tracking-widest">ХЭЛЛЭГИЙН КАРТ · НООРОГ</div>
-                <h1 className="text-2xl font-serif">А0 · Эхний 6 хэллэг</h1>
-                <p className={secondary}>Карт дээр дарж Монгол утгыг нээ. Энэ бол iPhone Preview-ийн хувийн туршилт, албан оноо биш.</p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {L01_WORKING_SOURCE.phrases.map(p => {
-                    const open = flipped.includes(p.id);
-                    return <button type="button" key={p.id} aria-expanded={open}
-                      onClick={() => setFlipped(list => list.includes(p.id)?list.filter(x=>x!==p.id):[...list,p.id])}
-                      className="min-h-[117px] text-left rounded-2xl border border-[#C49B65]/30 bg-[#052226] p-4 space-y-2">
-                      <p className="text-lg font-semibold text-[#FFE8BA]">{p.cs}</p>
-                      {open && <p className="text-sm text-[#B5D0C6]">{p.mn}</p>}
-                      <span className="text-[10px] text-[#83A8A1]">{open?'Утгыг нуух':'Утгыг харах'}</span>
-                    </button>;
-                  })}
-                </div>
-              </section>
+              <div className="rounded-2xl bg-white dark:bg-[#1C1C1E] text-[#1C1C1E] dark:text-white p-2 sm:p-4">
+                <CanonicalCourseView openingStage="phrases" />
+              </div>
             )}
 
             {view === 'menu' && (
