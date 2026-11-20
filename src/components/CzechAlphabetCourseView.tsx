@@ -1,368 +1,300 @@
-import React, { useMemo, useState } from 'react';
-import { ArrowLeft, ArrowRight, BookOpen, Check, ChevronRight, RotateCcw, VolumeX } from 'lucide-react';
+import React, { useState } from 'react';
+import { ArrowLeft,ArrowRight,ChevronRight,RotateCcw,ShieldAlert,Volume2,VolumeX } from 'lucide-react';
 import {
-  ALPHABET_LESSON_STEP_COUNT, CZECH_ALPHABET_LETTERS, CZECH_ALPHABET_BY_ID,
-  isCzechLetterResponse, letterOptions, maskLetterInExample,
-} from '../data/czechAlphabetCourse';
+  CZECH_ALPHABET_PACKS,CZECH_ALPHABET_PACK_BY_ID,approvedAlphabetAudio,
+  type AlphabetAudioKind, type AlphabetPackStage,
+} from '../data/czechAlphabetPacks';
 import {
-  alphabetLessonAction, alphabetSeenCount, completeAlphabetStep,
-  getAlphabetContinueTarget, getLetterStatus, loadAlphabetProgress,
-  moveAlphabetStep, openAlphabetLetter, parseAlphabetProgress, saveAlphabetProgress, skipAlphabetStep,
-  type AlphabetProgressState,
-} from '../utils/alphabetProgress';
-import { LetterTracePad } from './LetterTracePad';
+  getPackContinueTarget,introduceNextLetter,lettersIntroducedCount,
+  loadPackProgress,openPack,packIntroducedCount,packIsCompleted,packReport,packsPassedCount,
+  safePackProgress,savePackProgress,scorePackAudioChoice,
+  type AlphabetPackProgress,
+} from '../utils/alphabetPackProgress';
 import '../alphabet-course.css';
+import '../alphabet-packs.css';
 
-const STEPS = [
-  'Үсэгтэй танилцах','Үг дотроос таних','Том, жижиг хэлбэр','Хуруугаар бичих',
-  'Үгэнд нөхөх','Санаж бичих','Эцсийн шалгалт',
-] as const;
-const STATUS_LABEL = {
-  unseen:'Үзээгүй',
-  in_progress:'Үргэлжилж байна',
-  seen:'Үзсэн',
-} as const;
+interface Props {
+  startAt: 'overview'|'resume';
+  onExit:()=>void;
+  onContinueAfterAlphabet:()=>void;
+  onOpenAiTeacher?:()=>void;
+}
 
-export const CzechAlphabetCourseView: React.FC<{
-  startAt: 'overview' | 'resume';
-  onExit: () => void;
-  onContinueAfterAlphabet: () => void;
-}> = ({startAt,onExit,onContinueAfterAlphabet}) => {
-  const [progress,setProgress]=useState<AlphabetProgressState>(loadAlphabetProgress);
-  const firstTarget = useMemo(()=>getAlphabetContinueTarget(progress),[]);
-  const [screen,setScreen]=useState<'overview'|'detail'|'runner'|'finished'>(
-    startAt==='resume' ? (firstTarget?'runner':'finished'):'overview',
-  );
-  const [selectedId,setSelectedId]=useState<string|null>(startAt==='resume'?firstTarget?.letterId??null:null);
-  const [choice,setChoice]=useState('');
-  const [secondChoice,setSecondChoice]=useState('');
-  const [typed,setTyped]=useState('');
-  const [traceAttempted,setTraceAttempted]=useState(false);
-  const [showHelp,setShowHelp]=useState(false);
-  const [feedback,setFeedback]=useState('');
-  const [storageError,setStorageError]=useState(false);
-  const [restoreMessage,setRestoreMessage]=useState('');
-
-  const letter = selectedId ? CZECH_ALPHABET_BY_ID.get(selectedId) : undefined;
-  const activeStep = letter&&progress.lastVisited?.letterId===letter.id ? progress.lastVisited.step:0;
-  const status=letter?getLetterStatus(progress,letter.id):'unseen';
-  const completed=alphabetSeenCount(progress);
-  const resume=getAlphabetContinueTarget(progress);
-
-  const persist=(next:AlphabetProgressState)=>{
-    setProgress(next);
-    setStorageError(!saveAlphabetProgress(next));
-  };
-  const resetForm=()=>{
-    setChoice('');setSecondChoice('');setTyped('');setTraceAttempted(false);
-    setShowHelp(false);setFeedback('');
-  };
-  const selectLetter=(id:string)=>{
-    setSelectedId(id);setScreen('detail');resetForm();
-  };
-  const startLetter=(id:string,repeat=false)=>{
-    persist(openAlphabetLetter(progress,id,repeat));
-    setSelectedId(id);setScreen('runner');resetForm();
-  };
-  const continueSaved=()=>{
-    const target=getAlphabetContinueTarget(progress);
-    if(!target){setScreen('finished');return;}
-    persist(moveAlphabetStep(progress,target.letterId,target.step));
-    setSelectedId(target.letterId);setScreen('runner');resetForm();
-  };
-  const goBack=()=>{
-    if(screen==='runner' && letter){
-      setScreen('detail');resetForm();return;
-    }
-    if(screen==='detail'||screen==='finished'){setScreen('overview');setSelectedId(null);resetForm();return;}
-    onExit();
-  };
-  const completeStep=()=>{
-    if(!letter)return;
-    const step=activeStep;
-    let valid=false;
-    switch(step){
-      case 0: valid=true;break;
-      case 1: valid=choice===letter.id;break;
-      case 2: valid=isCzechLetterResponse(choice,letter.id);break;
-      case 3: valid=traceAttempted;break;
-      case 4: valid=choice===letter.id;break;
-      case 5: valid=isCzechLetterResponse(typed,letter.id);break;
-      case 6: {
-        const done=progress.letters[letter.id]?.completedSteps??[];
-        if(done.some(x=>x<6) || done.length<6){
-          const missing=Array.from({length:6},(_,i)=>i).find(x=>!done.includes(x))??0;
-          persist(moveAlphabetStep(progress,letter.id,missing));
-          resetForm();
-          setFeedback('Алгассан алхмаа эхэлж гүйцээ. Алгасалтыг амжилттай болсон гэж тооцохгүй.');
-          return;
-        }
-        valid=isCzechLetterResponse(choice,letter.id) && secondChoice===letter.id;
-        break;
-      }
-    }
-    if(!valid){
-      setFeedback(step===3?'Эхлээд хуруугаараа бичиж үз.':'Хариулт тохирохгүй байна. Дахин оролдоорой.');
-      return;
-    }
-    const wasAlreadySeen=getLetterStatus(progress,letter.id)==='seen';
-    const next=completeAlphabetStep(progress,letter.id,step);
-    persist(next);
-    resetForm();
-    if(getLetterStatus(next,letter.id)==='seen' && (!wasAlreadySeen || step===ALPHABET_LESSON_STEP_COUNT-1)){
-      setScreen('detail');
-      setRestoreMessage(`${letter.upper}: 7/7 харааны ба бичгийн дасгал гүйцэтгэсэн. Дуудлагын үнэлгээ хийгдээгүй.`);
-    }
-  };
-  const skip=()=>{
-    if(!letter)return;
-    if(status==='seen' && activeStep===ALPHABET_LESSON_STEP_COUNT-1){
-      setScreen('detail');
-      resetForm();
-      return;
-    }
-    persist(skipAlphabetStep(progress,letter.id,activeStep));
-    resetForm();
-    setFeedback('Энэ алхмыг алгассан. Ахицын оноо нэмэгдэхгүй; дараа нь нөхөж хийнэ.');
-  };
-
-  const options=letter?letterOptions(letter.id):[];
-  const wordAnswer=letter?.exampleCs??'';
-  const progressSteps=letter?progress.letters[letter.id]?.completedSteps??[]:[];
-
-  const restoreProgress=async(file:File|undefined)=>{
-    if(!file)return;
-    try{
-      if(file.size>150000)throw Error('too large');
-      const parsed=parseAlphabetProgress(JSON.parse(await file.text()));
-      if(!parsed)throw Error('bad source/schema');
-      persist(parsed);
-      setRestoreMessage('Ахицын файл сэргээгдлээ. Үзсэн үсгүүдийн төлөв шинэчлэгдсэн.');
-    }catch{
-      setRestoreMessage('Сэргээсэнгүй: файл эвдэрсэн эсвэл сургалтын хувилбар тохирохгүй байна.');
-    }
-  };
-
-  const exportProgress=()=>{
-    const blob=new Blob([JSON.stringify(progress,null,2)],{type:'application/json'});
-    const url=URL.createObjectURL(blob);
-    const anchor=document.createElement('a');anchor.href=url;anchor.download='ahoj-czech-alphabet-progress.json';
-    document.body.appendChild(anchor);anchor.click();anchor.remove();
-    window.setTimeout(()=>URL.revokeObjectURL(url),1000);
-  };
-
-  return (
-    <div className="alphabet-course" data-testid="alphabet-course">
-      <header className="alphabet-course-header">
-        <button type="button" className="alphabet-back" onClick={goBack}
-          aria-label={screen==='overview'?'Нүүр рүү буцах':'Өмнөх хуудас руу буцах'}>
-          <ArrowLeft size={22}/>
-        </button>
-        <div>
-          <p className="alphabet-small">{screen==='runner'?'Үсгийн дадлага':'A0 · Чех хэлний эхлэл'}</p>
-          <h1>{screen==='overview'?'Чех цагаан толгой':screen==='finished'?'Цагаан толгой дууслаа':letter?.upper??'Үсэг'}</h1>
-        </div>
-        <span className="alphabet-count">{completed}/42</span>
-      </header>
-      {storageError&&<div role="alert" className="alphabet-error">Safari ахицыг хадгалж чадсангүй. JSON нөөц файл гаргаж хадгалаарай.</div>}
-      {restoreMessage && screen==='detail' && <p className="alphabet-hint" role="status">{restoreMessage}</p>}
-
-      {screen==='overview'&&(
-        <section className="alphabet-panel">
-          <p className="alphabet-small">Чех цагаан толгойн 42 үсэг · CH нэг үсэг</p>
-          <h2>Үзсэн, үзээгүй үсгүүд</h2>
-          <p className="alphabet-muted">Үсэг дээр дараад сурах, үргэлжлүүлэх эсвэл давтах. Үсэг «үзсэн» болсон нь зөвхөн харааны болон бичгийн дасгал дууссаныг илэрхийлнэ.</p>
-          <div className="alphabet-progress-track" role="progressbar" aria-valuemin={0} aria-valuemax={42} aria-valuenow={completed}
-            aria-label={`${completed}/42 үсгийг үзсэн`}>
-            <div style={{width:`${100*completed/42}%`}}/>
-          </div>
-          <div className="alphabet-status-legend">
-            <span>○ Үзээгүй</span><span>◐ Үргэлжилж байна</span><span>✓ Үзсэн</span>
-          </div>
-          <div className="alphabet-letter-grid">
-            {CZECH_ALPHABET_LETTERS.map(item=>{
-              const st=getLetterStatus(progress,item.id);
-              return <button type="button" key={item.id}
-                onClick={()=>selectLetter(item.id)}
-                className={`alphabet-letter-card ${st}`}
-                aria-label={`${item.upper} · ${STATUS_LABEL[st]}`}>
-                <strong>{item.upper}</strong><span>{item.lower}</span><small>{st==='seen'?'✓':st==='in_progress'?'◐':'○'}</small>
-              </button>;
-            })}
-          </div>
-          <div className="alphabet-course-actions">
-            <button type="button" className="alphabet-main-button" onClick={continueSaved}>
-              {completed===42?'Шалгасан үсгүүдийг харах':'Сүүлд үзсэнээс үргэлжлүүлэх'}
-              <ArrowRight size={19}/>
-            </button>
-            <button type="button" className="alphabet-outline-button" onClick={exportProgress}>Ахицын нөөц JSON татах</button>
-            <label className="alphabet-outline-button" style={{cursor:'pointer'}}>
-              Ахицын JSON файлаа сэргээх
-              <input type="file" accept=".json,application/json" className="sr-only"
-                onChange={e=>{void restoreProgress(e.currentTarget.files?.[0]);e.currentTarget.value='';}}/>
-            </label>
-            {restoreMessage&&<p className="alphabet-hint" role="status">{restoreMessage}</p>}
-          </div>
-          <div className="alphabet-muted">
-            <VolumeX size={16}/> Баталгаажсан Чех дуудлагын аудио хараахан холбогдоогүй. Авианы үнэлгээ гэж ойлгохгүй.
-          </div>
-        </section>
-      )}
-
-      {screen==='detail' && letter && (
-        <section className="alphabet-panel alphabet-detail">
-          <div className="alphabet-detail-letter">{letter.upper}<small>{letter.lower}</small></div>
-          <span className={`alphabet-status-label ${status}`}>{STATUS_LABEL[status]}</span>
-          <h2>{letter.exampleCs}</h2>
-          <p className="alphabet-muted">{letter.exampleMn}</p>
-          {letter.noteMn && <p className="alphabet-note">{letter.noteMn}</p>}
-          <p className="alphabet-muted">
-            {status==='seen'
-              ? 'Энэ үсгийн 7/7 харааны ба бичгийн дасгалыг үзсэн. Хүссэн үедээ давтаж болно.'
-              : status==='in_progress'
-                ? `Дуусгасан алхам: ${progressSteps.length}/7. Үргэлжлүүлэхэд хадгалсан алхмаас орно.`
-                : 'Энэ үсгийг харах, үгнээс таних, бичих, шалгах дасгалаар судална.'}
-          </p>
-          <button type="button" className="alphabet-main-button"
-            onClick={()=>startLetter(letter.id,status==='seen')}>
-            {alphabetLessonAction(status)}<ArrowRight size={19}/>
-          </button>
-          {status==='seen' && resume && (
-            <button type="button" className="alphabet-outline-button" onClick={continueSaved}>
-              Дараагийн үсгээ үргэлжлүүлэх <ChevronRight size={16}/>
-            </button>
-          )}
-        </section>
-      )}
-
-      {screen==='runner'&&letter&&(
-        <section className="alphabet-panel alphabet-runner" key={letter.id+':'+activeStep}>
-          <div className="alphabet-step-heading">
-            <div>
-              <p className="alphabet-small">{letter.id} · {STEPS[activeStep]}</p>
-              <h2>Алхам {activeStep+1}/{ALPHABET_LESSON_STEP_COUNT}</h2>
-            </div>
-            <span>{progressSteps.length}/7</span>
-          </div>
-          <div className="alphabet-progress-track">
-            <div style={{width:`${(activeStep+1)*100/ALPHABET_LESSON_STEP_COUNT}%`}} />
-          </div>
-          {activeStep===0 && (
-            <div className="alphabet-step-body">
-              <p className="alphabet-muted">Том ба жижиг үсгийн хэлбэрийг харьцуул.</p>
-              <div className="alphabet-letter-pair"><strong>{letter.upper}</strong><span>{letter.lower}</span></div>
-              <div className="alphabet-example"><small>Үгэнд орсон жишээ</small><strong>{wordAnswer}</strong><span>{letter.exampleMn}</span></div>
-              {letter.noteMn&&<p className="alphabet-note">{letter.noteMn}</p>}
-            </div>
-          )}
-          {activeStep===1 && (
-            <div className="alphabet-step-body">
-              <p className="alphabet-muted"><strong>{wordAnswer}</strong> үгэнд орсон шинэ үсгийг сонго.</p>
-              <div className="alphabet-large-word">{wordAnswer}</div>
-              <div className="alphabet-answer-grid">
-                {options.map(o=><button type="button" key={o} aria-pressed={choice===o}
-                  className={`alphabet-choice ${choice===o?'chosen':''}`} onClick={()=>{setChoice(o);setFeedback('');}}>{o}</button>)}
-              </div>
-            </div>
-          )}
-          {activeStep===2 && (
-            <div className="alphabet-step-body">
-              <p className="alphabet-muted"><strong>{letter.upper}</strong> үсгийн жижиг хэлбэрийг сонго.</p>
-              <div className="alphabet-large-word">{letter.upper}</div>
-              <div className="alphabet-answer-grid">
-                {options.map(o=><button type="button" key={o} aria-pressed={choice===CZECH_ALPHABET_BY_ID.get(o)?.lower}
-                  className={`alphabet-choice ${choice===CZECH_ALPHABET_BY_ID.get(o)?.lower?'chosen':''}`}
-                  onClick={()=>{setChoice(CZECH_ALPHABET_BY_ID.get(o)?.lower??'');setFeedback('');}}>
-                  {CZECH_ALPHABET_BY_ID.get(o)?.lower}
-                </button>)}
-              </div>
-            </div>
-          )}
-          {activeStep===3 && (
-            <div className="alphabet-step-body">
-              <p className="alphabet-muted">Загварыг дагуулан хуруугаараа бичиж үз. «CH» бол хоёр тэмдэгттэй нэг үсэг.</p>
-              <LetterTracePad key={letter.id} letter={letter.upper} onAttemptChange={setTraceAttempted}/>
-            </div>
-          )}
-          {activeStep===4 && (
-            <div className="alphabet-step-body">
-              <p className="alphabet-muted">Дутуу үсгийг нөхөж, үгийг гүйцээ.</p>
-              <div className="alphabet-large-word">{maskLetterInExample(letter)}</div>
-              <p className="alphabet-muted">{letter.exampleMn}</p>
-              <div className="alphabet-answer-grid">
-                {options.map(o=><button type="button" key={o} aria-pressed={choice===o}
-                  className={`alphabet-choice ${choice===o?'chosen':''}`} onClick={()=>{setChoice(o);setFeedback('');}}>{o}</button>)}
-              </div>
-            </div>
-          )}
-          {activeStep===5 && (
-            <div className="alphabet-step-body">
-              <p className="alphabet-muted">Жишээ үгийн дутуу тэмдэглэгээг санаад Чехээр бич.</p>
-              <div className="alphabet-large-word">{maskLetterInExample(letter)}</div>
-              <label htmlFor="alphabet-typing" className="alphabet-small">Дутуу үсэг:</label>
-              <input id="alphabet-typing" className="alphabet-typing" autoCapitalize="none" autoComplete="off"
-                maxLength={2} value={typed} onChange={e=>{setTyped(e.target.value);setFeedback('');}}
-                placeholder="Энд бич..." />
-              <button type="button" className="alphabet-outline-button" onClick={()=>setShowHelp(!showHelp)}>
-                {showHelp?'Нэмэлт тэмдэглэгээ нуух':'Чех гар байхгүй бол үсэг сонгох'}
-              </button>
-              {showHelp&&<div className="alphabet-answer-grid">
-                {options.map(o=><button type="button" key={o} className="alphabet-choice"
-                  onClick={()=>{setTyped(CZECH_ALPHABET_BY_ID.get(o)?.lower??'');setFeedback('');}}>{CZECH_ALPHABET_BY_ID.get(o)?.lower}</button>)}
-              </div>}
-            </div>
-          )}
-          {activeStep===6 && (
-            <div className="alphabet-step-body">
-              <p className="alphabet-muted">Эцсийн давтлага — хоёр сонголтыг хоёуланг зөв хий.</p>
-              <p className="alphabet-small">1. <strong>{letter.upper}</strong> үсгийн жижиг хэлбэр аль нь вэ?</p>
-              <div className="alphabet-answer-grid">
-                {options.map(o=><button type="button" key={o}
-                  className={`alphabet-choice ${choice===CZECH_ALPHABET_BY_ID.get(o)?.lower?'chosen':''}`}
-                  onClick={()=>{setChoice(CZECH_ALPHABET_BY_ID.get(o)?.lower??'');setFeedback('');}}>
-                  {CZECH_ALPHABET_BY_ID.get(o)?.lower}
-                </button>)}
-              </div>
-              <p className="alphabet-small">2. <strong>{maskLetterInExample(letter)}</strong> үгэнд ямар үсэг дутуу байна вэ?</p>
-              <div className="alphabet-answer-grid">
-                {options.map(o=><button type="button" key={o}
-                  className={`alphabet-choice ${secondChoice===o?'chosen':''}`}
-                  onClick={()=>{setSecondChoice(o);setFeedback('');}}>{o}</button>)}
-              </div>
-            </div>
-          )}
-          {feedback&&<p className="alphabet-feedback" role="status">{feedback}</p>}
-          <div className="alphabet-lesson-controls">
-            <button type="button" className="alphabet-outline-button"
-              disabled={activeStep===0}
-              onClick={()=>{persist(moveAlphabetStep(progress,letter.id,activeStep-1));resetForm();}}>
-              <ArrowLeft size={15}/> Буцах
-            </button>
-            <button type="button" className="alphabet-main-button" onClick={completeStep}>
-              {activeStep===6?'Шалгалтаа дуусгах':'Шалгах / Үргэлжлүүлэх'}
-              <Check size={18}/>
-            </button>
-          </div>
-          <button type="button" className="alphabet-skip" onClick={skip}>
-            Алгасах (дууссанд тооцохгүй) <ArrowRight size={15}/>
-          </button>
-          <p className="alphabet-muted"><VolumeX size={14}/> Баталгаажсан дуудлагын аудио холбогдоогүй. Харааны дасгалын дүнг дуудлагын оноо гэж үзэхгүй.</p>
-        </section>
-      )}
-
-      {screen==='finished'&&(
-        <section className="alphabet-panel alphabet-finished">
-          <Check size={50} color="#42D8C6"/>
-          <h2>42 үсгийн харааны дасгал дууссан</h2>
-          <p className="alphabet-muted">Чех үсгийн бичлэг, жишээ, таних дасгалыг үзсэн. Дуудлагын баталгаажсан аудио, шалгалтын хэсэг тусад нь батлагдах ёстой.</p>
-          <button type="button" className="alphabet-main-button" onClick={onContinueAfterAlphabet}>
-            Дараагийн бүлэг: Мэндчилгээ <ArrowRight size={19}/>
-          </button>
-          <button type="button" className="alphabet-outline-button" onClick={()=>setScreen('overview')}>
-            Үсгээ давтах <RotateCcw size={17}/>
-          </button>
-        </section>
-      )}
+function AudioCue({letterId,kind,onHeard,onError}:{
+  letterId:string;kind:AlphabetAudioKind;onHeard:()=>void;onError:()=>void;
+}){
+  const entry=approvedAlphabetAudio(letterId,kind);
+  const [broken,setBroken]=useState(false);
+  if(!entry||broken)return (
+    <div className="alphabet-pack-no-audio" role="status">
+      <VolumeX size={23} aria-hidden="true"/>
+      <div><strong>Баталгаажсан Чех аудио байхгүй</strong>
+        <p>Сонсголын шалгалтыг дуугүйгээр эсвэл англи үсгийн дуудлагаар орлуулахгүй.</p>
+      </div>
     </div>
   );
+  return <div className="alphabet-pack-audio">
+    <span><Volume2 size={20}/> Чех эх аудио · {kind==='letter_name'?'Үсгийн нэр':'Үг доторх авиа'}</span>
+    <audio key={entry.sourceId+kind} controls preload="none" src={entry.url}
+      onEnded={onHeard} onError={()=>{setBroken(true);onError();}} aria-label="Чех дуудлагын аудио тоглуулах"/>
+  </div>;
+}
+
+export const CzechAlphabetCourseView:React.FC<Props>=({
+  startAt,onExit,onContinueAfterAlphabet,onOpenAiTeacher,
+})=>{
+  const [data,setData]=useState<AlphabetPackProgress>(loadPackProgress);
+  const [screen,setScreen]=useState<'overview'|'runner'>(
+    startAt==='resume'&&getPackContinueTarget(loadPackProgress())?'runner':'overview',
+  );
+  const [selectedPack,setSelectedPack]=useState<string|null>(
+    startAt==='resume'?getPackContinueTarget(loadPackProgress())?.packId??null:null,
+  );
+  const [answer,setAnswer]=useState<string|null>(null);
+  const [notice,setNotice]=useState('');
+  const [manualReport,setManualReport]=useState(false);
+  const [reviewIndex,setReviewIndex]=useState<number|null>(null);
+  const [storageFailed,setStorageFailed]=useState(false);
+  const [audioError,setAudioError]=useState(false);
+  const [heard,setHeard]=useState(false);
+  const [restoredMessage,setRestoredMessage]=useState('');
+
+  const pack=selectedPack?CZECH_ALPHABET_PACK_BY_ID.get(selectedPack):undefined;
+  const step=data.last?.packId===selectedPack?data.last:null;
+  const stats=pack?packReport(data,pack.id):null;
+  const stage:AlphabetPackStage=step?.stage??'introduce';
+  const promptIndex=step?.index??0;
+  const cueLetter=pack?.letters[promptIndex];
+  const introduced=lettersIntroducedCount(data);
+  const passed=packsPassedCount(data);
+  const nextTarget=getPackContinueTarget(data);
+  const isReview=reviewIndex!==null;
+
+  const save=(next:AlphabetPackProgress)=>{
+    setData(next);setStorageFailed(!savePackProgress(next));
+  };
+  const clear=()=>{setAnswer(null);setNotice('');setAudioError(false);setHeard(false);setManualReport(false);setReviewIndex(null);};
+  const open=(id:string)=>{
+    const pack=CZECH_ALPHABET_PACK_BY_ID.get(id);if(!pack)return;
+    const completedIntro=packIntroducedCount(data,id)===pack.letters.length;
+    save(openPack(data,id));
+    setSelectedPack(id);setScreen('runner');clear();
+    if(completedIntro&&!packIsCompleted(data,id))setNotice('Энэ багцын 4–5 үсгийг үзсэн. Дараагийн алхам нь баталгаажсан сонсгол.');
+  };
+  const continueLesson=()=>{
+    const next=getPackContinueTarget(data);
+    if(!next){onContinueAfterAlphabet();return;}
+    open(next.packId);
+  };
+  const showOverview=()=>{clear();setSelectedPack(null);setScreen('overview');};
+  const finishIntro=()=>{
+    if(!pack)return;
+    const next=introduceNextLetter(data,pack.id);
+    if(next===data)return;
+    save(next);setAnswer(null);setNotice('');
+  };
+  const onChoose=(id:string)=>{
+    if(!pack||!cueLetter)return;
+    const kind:AlphabetAudioKind=stage==='listen_name'?'letter_name':'sound_in_word';
+    if(!approvedAlphabetAudio(cueLetter.id,kind)||audioError){
+      setNotice('Баталгаажсан аудио байхгүй үед сонголтыг үнэлэхгүй.');return;
+    }
+    if(!heard){setNotice('Аудиог эхнээс нь дуустал сонсоод хариулна уу.');return;}
+    const response=scorePackAudioChoice(data,pack.id,kind,cueLetter.id,id);
+    if(!response.scored){setNotice('Аудиог баталгаажуулж чадаагүй. Оноо тооцохгүй.');return;}
+    setAnswer(id);save(response.next);if(response.correct)setHeard(false);
+    setNotice(response.correct?'Зөв. Дараагийн авиаг сонсоорой.':'Дахин сонсоод сонгоорой. Энэ алдааг тайланд тэмдэглэнэ.');
+  };
+  const nextPack=()=>{
+    if(!pack)return;
+    const p=CZECH_ALPHABET_PACKS[pack.index+1];
+    if(p){open(p.id);return;}
+    showOverview();setRestoredMessage('Бүх 42 үсгийн танилцуулгыг үзсэн байж болно. Сонсгол ба AI үнэлгээ баталгаажаагүй байхад бүрэн төгссөн гэж тооцохгүй.');
+  };
+  const visibleReport=manualReport||stage==='report';
+  const introLetter=pack?.letters[isReview?(reviewIndex??0):Math.min(promptIndex,pack.letters.length-1)];
+  const audioKind:AlphabetAudioKind=stage==='listen_name'?'letter_name':'sound_in_word';
+  const audioPending=Boolean(cueLetter &&!approvedAlphabetAudio(cueLetter.id,audioKind));
+
+  const downloadBackup=()=>{
+    const text=JSON.stringify(data,null,2);
+    const url=URL.createObjectURL(new Blob([text],{type:'application/json'}));
+    const a=document.createElement('a');a.href=url;a.download='ahoj-alphabet-pack-progress.json';
+    document.body.appendChild(a);a.click();a.remove();
+    window.setTimeout(()=>URL.revokeObjectURL(url),1000);
+  };
+  const restoreBackup=async(file?:File)=>{
+    if(!file)return;
+    try{
+      if(file.size>120000)throw Error('oversize');
+      const next=safePackProgress(JSON.parse(await file.text()));
+      if(!next)throw Error('schema');
+      save(next);showOverview();setRestoredMessage('Ахиц сэргээгдлээ. Хуучин 7 алхамтын оноог сонсголын оноо болгож тооцоогүй.');
+    }catch{setRestoredMessage('Сэргээх боломжгүй: файлын загвар эсвэл хувилбар тохирохгүй байна.');}
+  };
+
+  return <div className="alphabet-course alphabet-pack-course" data-testid="alphabet-pack-course">
+    <header className="alphabet-course-header">
+      <button type="button" className="alphabet-back" onClick={screen==='runner'?showOverview:onExit}
+        aria-label="Буцах"><ArrowLeft size={23}/></button>
+      <div><p className="alphabet-small">A0 · ЦАГААН ТОЛГОЙ</p>
+        <h1>{screen==='overview'?'Үсгийн багцууд':pack?`Багц ${pack.index+1} · ${pack.letters.map(l=>l.upper).join(' ')}`:'Цагаан толгой'}</h1>
+      </div><span className="alphabet-count">{introduced}/42</span>
+    </header>
+
+    {storageFailed&&<p role="alert" className="alphabet-error">Safari ахицыг хадгалж чадсангүй. Нөөц файлаа татаж хадгалаарай.</p>}
+
+    {screen==='overview'&&<section className="alphabet-panel alphabet-packs-overview">
+      <div className="alphabet-pack-overview-header">
+        <div><p className="alphabet-small">Нийт 9 багц · Тус бүр 4–5 үсэг</p>
+          <h2>Богино багц, бодит дадлага</h2>
+        </div>
+        <span className="alphabet-pack-progress-pill">{passed}/9 шалгалт</span>
+      </div>
+      <p className="alphabet-muted">
+        Үсгийг дарааллаар үзнэ. Баталгаажсан аудио орж ирэхэд сонсоод таних, авиа тохируулах шалгалт идэвхжинэ.
+        Өмнөх 7 алхамтын ахицыг устгахгүй, гэхдээ сонсголын баталгаа гэж тооцохгүй.
+      </p>
+      <div className="alphabet-progress-track" role="progressbar" aria-valuenow={introduced} aria-valuemin={0}
+        aria-valuemax={42} aria-label={`${introduced} / 42 үсэг танилцуулсан`}>
+        <div style={{width:`${introduced/42*100}%`}}/>
+      </div>
+      <div className="alphabet-packs-grid">
+        {CZECH_ALPHABET_PACKS.map(p=>{
+          const count=packIntroducedCount(data,p.id),done=packIsCompleted(data,p.id);
+          return <button type="button" key={p.id} className={`alphabet-pack-card ${done?'passed':count?'started':''}`}
+            onClick={()=>open(p.id)} aria-label={`${p.index+1}-р багц: ${p.letters.map(l=>l.upper).join(', ')}. ${count}/${p.letters.length} танилцсан`}>
+            <div className="alphabet-pack-card-top"><small>БАГЦ {String(p.index+1).padStart(2,'0')}</small>
+              <span>{done?'Шалгасан':count===p.letters.length?'Сонсгол хүлээж байна':count?'Үргэлжлүүлэх':'Эхлэх'}</span></div>
+            <strong>{p.letters.map(l=>l.upper).join(' · ')}</strong>
+            <div className="alphabet-pack-card-bottom"><span>{count}/{p.letters.length} үсэг</span>
+              <ChevronRight size={19} /></div>
+          </button>;
+        })}
+      </div>
+      <button type="button" className="alphabet-main-button alphabet-wide" onClick={continueLesson}>
+        Сүүлд үзсэнээс үргэлжлүүлэх <ArrowRight size={19}/>
+      </button>
+      <div className="alphabet-pack-backups">
+        <button type="button" className="alphabet-outline-button" onClick={downloadBackup}>Ахицын JSON нөөц</button>
+        <label className="alphabet-outline-button">Ахиц сэргээх
+          <input type="file" accept="application/json,.json" className="sr-only" onChange={e=>{
+            void restoreBackup(e.currentTarget.files?.[0]);e.currentTarget.value='';
+          }}/>
+        </label>
+      </div>
+      {restoredMessage&&<p role="status" className="alphabet-note">{restoredMessage}</p>}
+    </section>}
+
+    {screen==='runner'&&pack&&<section className="alphabet-panel alphabet-pack-runner">
+      <div className="alphabet-pack-stagebar" role="list" aria-label="Нэг багцын 4 үе шат">
+        {[
+          ['introduce','Танилцах'],
+          ['listen_name','Сонсоод сонгох'],
+          ['match_sound','Авиа тохируулах'],
+          ['report','Дүгнэлт'],
+        ].map(([id,label],i)=><div key={id} role="listitem" className={`alphabet-pack-stage ${(visibleReport?id==='report':stage===id)?'active':''}`}>
+          <b>{i+1}</b><span>{label}</span>
+        </div>)}
+      </div>
+
+      {isReview&&introLetter&&<div className="alphabet-pack-intro">
+        <p className="alphabet-small">ЭНЭ БАГЦЫГ ДАВТАХ · {(reviewIndex??0)+1}/{pack.letters.length}</p>
+        <div className="alphabet-pack-letter-big">{introLetter.upper}<span>{introLetter.lower}</span></div>
+        <div className="alphabet-pack-example"><strong>{introLetter.exampleCs}</strong><span>{introLetter.exampleMn}</span></div>
+        {introLetter.noteMn&&<p className="alphabet-note">{introLetter.noteMn}</p>}
+        <div className="alphabet-pack-inline">
+          <button type="button" className="alphabet-outline-button" onClick={()=>setReviewIndex(Math.max(0,(reviewIndex??0)-1))}
+            disabled={reviewIndex===0}>Өмнөх</button>
+          <button type="button" className="alphabet-main-button" onClick={()=>{
+            if((reviewIndex??0)<pack.letters.length-1)setReviewIndex((reviewIndex??0)+1);
+            else setReviewIndex(null);
+          }}>{reviewIndex===pack.letters.length-1?'Давтлага хаах':'Дараагийн үсэг'}<ArrowRight size={17}/></button>
+        </div>
+      </div>}
+
+      {!isReview&&!visibleReport&&stage==='introduce'&&introLetter&&<div className="alphabet-pack-intro">
+        <p className="alphabet-small">ҮСЭГ ТАНИЛЦУУЛАХ · {promptIndex+1}/{pack.letters.length}</p>
+        <h2>Одоо {introLetter.upper} үсэг</h2>
+        <div className="alphabet-pack-letter-big">{introLetter.upper}<span>{introLetter.lower}</span></div>
+        <div className="alphabet-pack-example"><small>Жишээ үг</small><strong>{introLetter.exampleCs}</strong><span>{introLetter.exampleMn}</span></div>
+        {introLetter.noteMn&&<p className="alphabet-note">{introLetter.noteMn}</p>}
+        <p className="alphabet-muted">Танилцаж буй үсгийг дарааллаар харна. Бичих дасгалыг үсэг бүрээр албадахгүй.</p>
+        <button type="button" className="alphabet-main-button alphabet-wide" onClick={finishIntro}>
+          {promptIndex===pack.letters.length-1?'Үсгүүдийг үзэж дуусгах':'Дараагийн үсэг'}
+          <ArrowRight size={20}/>
+        </button>
+      </div>}
+
+      {!isReview&&!visibleReport&&(stage==='listen_name'||stage==='match_sound')&&<div className="alphabet-pack-quiz">
+        <p className="alphabet-small">{stage==='listen_name'?'ҮСГИЙН НЭРИЙГ СОНСОХ':'ҮГ ДАХЬ АВИАГ ЯЛГАХ'} · {promptIndex+1}/{pack.letters.length}</p>
+        <h2>{stage==='listen_name'?'Аль үсгийн нэр сонсогдов?':'Аль үсгийн авиа сонсогдов?'}</h2>
+        <AudioCue key={cueLetter?.id+stage} letterId={cueLetter?.id??''} kind={audioKind}
+          onHeard={()=>setHeard(true)} onError={()=>setAudioError(true)}/>
+        {!audioPending&&!audioError&&<div className="alphabet-pack-answer-grid">
+          {pack.letters.map(l=><button type="button" key={l.id} className={`alphabet-choice ${answer===l.id?'chosen':''}`}
+            onClick={()=>onChoose(l.id)}>{l.upper}</button>)}
+        </div>}
+        <p className="alphabet-muted">{stage==='listen_name'
+          ?'Чех үсгийн нэрийг сонсоод багцын 4–5 сонголтоос сонго.'
+          :'Үг доторх жишээ авиаг сонсож, ямар үсгээр илэрхийлснийг сонго.'}</p>
+        {(audioPending||audioError)&&<p className="alphabet-error">
+          Баталгаажсан Gemini 3.8 Flash TTS аудио байхгүй учир сонсголын оноо тооцохгүй.
+          Энэ хэсгийг дуугүйгээр зөв гэж тэмдэглэхгүй.
+        </p>}
+        {notice&&<p className="alphabet-note" role="status">{notice}</p>}
+        <div className="alphabet-pack-inline">
+          <button type="button" className="alphabet-outline-button" onClick={()=>{setManualReport(true);setNotice('')}}>
+            Одоогийн тайлан
+          </button>
+          <button type="button" className="alphabet-outline-button" onClick={()=>{setReviewIndex(0);setNotice('')}}>
+            Үсгүүдээ давтах <RotateCcw size={15}/>
+          </button>
+        </div>
+        {audioPending&&<button type="button" className="alphabet-main-button alphabet-wide" onClick={nextPack}>
+          {pack.index===CZECH_ALPHABET_PACKS.length-1?'Багцын жагсаалт руу':'Дараагийн багцын үсгүүдийг үзэх'}
+          <ArrowRight size={17}/>
+        </button>}
+      </div>}
+
+      {!isReview&&visibleReport&&stats&&<div className="alphabet-pack-report">
+        <p className="alphabet-small">БАГЦ {pack.index+1} · ҮНЭЛГЭЭНИЙ ТӨЛӨВ</p>
+        <h2>{stats.completed?'Сонсгол, авиа ялгалтын багц дууслаа':'Сонсголын эцсийн үнэлгээ хүлээгдэж байна'}</h2>
+        <div className="alphabet-pack-report-stats">
+          <div><b>{stats.visualIntroduced}/{stats.total}</b><span>Танилцсан үсэг</span></div>
+          <div><b>{stats.nameRecognized}/{stats.total}</b><span>Нэр таньсан</span></div>
+          <div><b>{stats.soundMatched}/{stats.total}</b><span>Авиа тохируулсан</span></div>
+        </div>
+        <section><h3>Анхаарах үсэг, авиа</h3>
+          <p>{stats.problemLetters.length?stats.problemLetters.join(' · '):
+            stats.completed?'Энэ багцын автомат сонголтод алдаа бүртгэгдээгүй.':
+              'Дуудлага сонсох шалгалт хийгдээгүй тул сул үсгийг тогтоох боломжгүй.'}</p>
+          <p className="alphabet-muted">{pack.contrastNoteMn}</p></section>
+        <section><h3>Давтах жишээ үгс</h3><div className="alphabet-pack-words">
+          {stats.practiceWords.map(item=><span key={item.id}><b>{item.cs}</b><small>{item.mn}</small></span>)}
+        </div></section>
+        <section><h3>Өгүүлбэрт хэрэглэх</h3>
+          <p>Үсэг, жишээ үг дээр ажиллаж байна. Өгүүлбэрийн хэрэглээг дараагийн «Мэндчилгээ» бүлгийн бодит даалгавраар шалгана.
+            Одоохондоо өгүүлбэрийн оноо байхгүй.</p>
+        </section>
+        <div className="alphabet-pack-ai-alert">
+          <ShieldAlert size={21}/><div><strong>AI багшийн үнэлгээ хараахан хийгдээгүй</strong>
+          <p>Яриа, дуу бичлэгийг бодитоор шинжилсэн AI багшийн баталгаажсан холболт байхгүй.
+            Энэ тайлан бол зөвхөн аппын бүртгэсэн үйлдлийн тайлан. AI оноо, 100% дуудлага гэж харуулахгүй.</p></div>
+        </div>
+        {onOpenAiTeacher&&<button type="button" className="alphabet-outline-button alphabet-wide" onClick={onOpenAiTeacher}>
+          AI багштай бие даан дадлага хийх <ArrowRight size={17}/></button>}
+        <button type="button" className="alphabet-main-button alphabet-wide" onClick={nextPack}>
+          {pack.index===CZECH_ALPHABET_PACKS.length-1?'Багцын жагсаалт':'Дараагийн багц'}
+          <ArrowRight size={18}/>
+        </button>
+        <button type="button" className="alphabet-outline-button alphabet-wide" onClick={()=>setManualReport(false)}>
+          Сонсголын дасгал руу буцах
+        </button>
+      </div>}
+
+      {!visibleReport&&!isReview&&stage==='listen_name'&&packIntroducedCount(data,pack.id)===pack.letters.length&&
+        <p className="alphabet-muted">Үсгийн нэр ба бодит авиа тусдаа. Суралцагчийн үйлдлийг аудиогүйгээр оноож болохгүй.</p>}
+    </section>}
+  </div>;
 };

@@ -2,11 +2,20 @@
 
 **Owner request (2026-11-20).** Home -> `Үе давах` always resumes a saved lesson step. `Цагаан толгой сурах` shows all letters and clearly distinguishes **unseen / in progress / seen** with learn/continue/repeat. Once the alphabet module is stable, future large themed units use the same progress and assessment engine.
 
-## 0. Letter foundational module — separately versioned; not a fabricated 73rd canonical lesson
+## 0. Revised alphabet module — nine short packs, NOT 294 separate tasks
 
-42 Czech letters (including `CH` after `H`). Extra Czech letters and accents: `á, č, ď, é, ě, í, ň, ó, ř, š, ť, ú, ů, ý, ž`. `q, w, x` commonly occur in loans. Core 7 **visual** stages per letter: observe -> find in Czech word -> uppercase/lowercase match -> trace with finger -> fill example word -> recall/type -> two-item check. An optional trace assistance does not auto-assess stroke accuracy. Each step is persistent, skip gives **no credit**; iPhone reload resumes exact letter/step. A letter marked `seen` indicates visual and spelling tasks, NOT native Czech pronunciation mastery.
+Owner's iPhone feedback (2026-11-20) supersedes the earlier 42 × 7 structure. The 42 Czech letters are grouped **in Czech alphabetical order into 9 packs**, each with **4–5 letters**. First: `A Á B C Č`, then `D Ď E É Ě`, etc. Each PACK is a lesson; each letter is a short introduction, **not** a stand-alone 7-step lesson.
 
-**Required for actual full phonological learning, not falsely claimed in preview:** certified Czech letter/phoneme/word audio from the approved Gemini 3.8 TTS pipeline, playback at learner choice, sound contrast (A/Á, E/É/Ě, U/Ú/Ů, R/Ř, S/Š, Z/Ž), phonetic/syllabic progression with editorial QA, recording + feedback validation, accessibility and real iPhone QA. Initial 42 × 7 = **294 visual steps**: this is intentionally transparent. For adult learners whose Latin literacy already exists, introduce a later evidence-based placement/fast track rather than forcing every trace forever; do not bypass checks silently.
+1. **Introduce:** display the 4–5 letters sequentially, one clear screen each, with example Czech word and verified orthographic note. Keep the English-derived word examples out of Czech content.
+2. **Listen and recognize the Czech LETTER NAME:** a validated Gemini 3.8 Flash TTS clip plays on user tap, then the user selects among the 4–5 learned letters. This is **not the same as phoneme recognition**.
+3. **Match the sound in a Czech word to the written letter:** play a separate approved sound-in-word audio clip and have the user identify the grapheme. Important cases: `C/Č`, `R/Ř`, `A/Á`, `S/Š`; `Ú/Ů` can represent the same sound but have different spelling and thus must not be a forced acoustic contrast.
+4. **Short pack report:** show observed correct/incorrect choices, confused letters and example words, and whether word-in-sentence use was evaluated. The AI teacher may provide a speaking evaluation only after **real authorized backend + real learner recording + validated rubric** are connected. Do **NOT** fabricate an AI score from a static website or letter tapping.
+
+**Verified audio is a mandatory dependency for stages 2–3.** There are currently zero published QA-approved per-letter `letter_name`/`sound_in_word` clips in the app repo. The first Preview can show all introductions and an honest locked audio gate, and permit preview of the next pack without awarding listening points. No browser voice substitution or invented sound. Audio source ID, kind, Czech phoneme context, model, exact text, WAV hash, QA state and publication decision must be bound to a manifest.
+
+**Progress:** `9 packs` with introduced/graduated/sound-test state and exact last position; the former 42×7 Safari progress is preserved as prior **visual familiarity only**, not falsely credited as an audio test. Versioned JSON backup/restore, no production reset. No need to repeat every letter's handwriting task for literate adult Mongolian learners.
+
+**Definition of completion:** Pack audio `letter_name` and `sound_in_word` checks passed, not mere 4–5 screens viewed. AI speaking assessment is a distinct competency; don't claim CEFR/native pronunciation certification from multiple choice. Letter and word review feed later sentence tasks inside the greetings module.
 
 ## 1. Greetings and social entry — first themed unit, build around usable utterances
 
