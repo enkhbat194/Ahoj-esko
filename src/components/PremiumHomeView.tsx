@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { ArrowRight, ChevronRight } from 'lucide-react';
 import { L01_WORKING_SOURCE } from '../data/l01WorkingSource';
 import { PremiumBookArtwork } from './PremiumBookArtwork';
-import { alphabetSeenCount, loadAlphabetProgress } from '../utils/alphabetProgress';
+import { getPackContinueTarget, lettersIntroducedCount, packsPassedCount, loadPackProgress } from '../utils/alphabetPackProgress';
+import { CZECH_ALPHABET_PACK_BY_ID } from '../data/czechAlphabetPacks';
 import '../premium-home.css';
 
 interface PremiumHomeViewProps {
@@ -24,16 +25,19 @@ export const PremiumHomeView: React.FC<PremiumHomeViewProps> = ({
       return true;
     }
   });
-  const [progress] = useState(loadAlphabetProgress);
-  const seen = alphabetSeenCount(progress);
-  const alphabetDone = seen === 42;
+  const [progress] = useState(loadPackProgress);
+  const seen = lettersIntroducedCount(progress);
+  const passed = packsPassedCount(progress);
+  const next = getPackContinueTarget(progress);
+  const nextPack = next ? CZECH_ALPHABET_PACK_BY_ID.get(next.packId) : undefined;
+  const alphabetDone = passed === 9;
   const heading = alphabetDone ? L01_WORKING_SOURCE.titleMn : 'Чех цагаан толгой';
   const caption = alphabetDone
     ? 'Dobrý den. · Jmenuji se …'
     : '42 үсэг · CH, Č, Š, Ř, Ž, Ě, Ů';
   const countLabel = alphabetDone
-    ? 'Цагаан толгойн харааны дасгал 42/42'
-    : `${seen}/42 үсгийн харааны ба бичгийн дасгалыг үзсэн`;
+    ? '9/9 багцын сонсгол ба авиа таних шалгалт баталгаажсан'
+    : `${seen}/42 үсэг танилцсан · ${passed}/9 багц сонсголоор шалгагдсан`;
 
   return (
     <div className={`premium-home ${playIntro ? 'premium-home--intro' : ''}`}
@@ -43,7 +47,7 @@ export const PremiumHomeView: React.FC<PremiumHomeViewProps> = ({
         <span className="premium-alphabet-symbol" aria-hidden="true">Aa</span>
         <span className="premium-alphabet-copy">
           <strong>Цагаан толгой сурах</strong>
-          <span>{seen}/42 үзсэн · Үзсэн, үзээгүй үсгээ сонго</span>
+          <span>{seen}/42 танилцсан · 4–5 үсгийн богино багцууд</span>
         </span>
         <ChevronRight size={24} strokeWidth={2} aria-hidden="true"/>
       </button>
@@ -72,7 +76,7 @@ export const PremiumHomeView: React.FC<PremiumHomeViewProps> = ({
         <p className="premium-home-footnote">
           {alphabetDone
             ? 'Дараагийн бүлэг: мэндлэх, нэрээ хэлэх, нэр асуух.'
-            : 'Сүүлд үзсэн үсгийн дуусаагүй алхмаас автоматаар үргэлжилнэ.'}
+            : nextPack ? `Багц ${nextPack.index+1}: ${nextPack.letters.map(l=>l.upper).join(' · ')}. ${next?.stage==='introduce'?'Үсэг танилцуулах': 'Сонсголын дасгал хүлээгдэж байна'}.` : 'Шалгах багц үлдээгүй.'}
         </p>
       </section>
     </div>
