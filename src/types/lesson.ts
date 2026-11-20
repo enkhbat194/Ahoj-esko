@@ -46,6 +46,7 @@ export interface VocabCard {
   practiceCount: number;
   lastPracticedAt?: number;
   canonicalId?: string;
+  lessonId?: string;
   lemmaGroup?: string;
   qaStatus?: ContentQaStatus;
   nounGender?: CzechNounGender;
@@ -75,6 +76,8 @@ export interface Dialogue {
   titleCz: string;
   situationMn: string;
   fullAudioId?: string;
+  canonicalId?: string;
+  lessonId?: string;
   qaStatus?: ContentQaStatus;
   lines: DialogueLine[];
 }
