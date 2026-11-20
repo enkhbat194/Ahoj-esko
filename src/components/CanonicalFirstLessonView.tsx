@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { AlertCircle, ArrowRight, Download, FileCheck2, Upload } from 'lucide-react';
 import type { TutorMode } from '../types/lesson';
+import { L01SelfRecorder } from './L01SelfRecorder';
 import { L01_WORKING_SOURCE, type L01Stage } from '../data/l01WorkingSource';
 import {
   createL01Progress, loadL01Progress, parseL01Progress,
@@ -11,8 +12,9 @@ import {
 const stages: Array<{ id: L01Stage; title: string }> = [
   { id: 'dialogue', title: '1. Харилцан яриа' },
   { id: 'phrases', title: '2. Хэллэг' },
-  { id: 'practice', title: '3. Дасгал' },
-  { id: 'exit', title: '4. Гарах сорил' },
+  { id: 'pronunciation', title: '3. Дуудлага' },
+  { id: 'practice', title: '4. Дасгал' },
+  { id: 'exit', title: '5. Гарах сорил' },
 ];
 
 const card = 'rounded-3xl bg-white dark:bg-[#1C1C1E] border border-black/[0.06] dark:border-white/[0.08] p-4 sm:p-6';
@@ -155,6 +157,29 @@ export const CanonicalFirstLessonView: React.FC<{
               )}
             </div>
           ))}
+        </section>
+      )}
+
+      {progress.stage === 'pronunciation' && (
+        <section className={card + ' space-y-4'}>
+          <h2 className="text-base font-bold">Үгээр бүлэглэн, дараа нь бүтнээр хэлэх</h2>
+          <p className={subtle}>
+            Доорх нь үгийн бүлэглэл; Чех хэлний авианы/үеийн шинжлэх ухаанч хуваалт биш.
+            Үеийн баталгаажсан аудио иртэл тийм тайлбар зохиож харуулахгүй.
+          </p>
+          {L01_WORKING_SOURCE.phrases.map((phrase) => (
+            <div key={phrase.id} className="rounded-2xl bg-[#F2F2F7] dark:bg-[#2C2C2E] p-3 space-y-2">
+              <p className="text-[11px] text-[#8E8E93] font-mono">{phrase.id}</p>
+              <div className="flex flex-wrap gap-1.5">
+                {phrase.cs.split(/\s+/).map((word, index) => (
+                  <span key={index} className="px-2 py-1 rounded-lg bg-white dark:bg-[#1C1C1E] text-sm font-semibold">{word}</span>
+                ))}
+              </div>
+              <p className="text-base font-bold">{phrase.cs}</p>
+              <p className={subtle}>{phrase.mn}</p>
+            </div>
+          ))}
+          <L01SelfRecorder />
         </section>
       )}
 
