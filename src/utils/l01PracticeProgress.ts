@@ -27,7 +27,7 @@ export function createL01Progress(): L01PracticeProgress {
   };
 }
 
-const stages: readonly L01Stage[] = ['dialogue', 'phrases', 'practice', 'exit'];
+const stages: readonly L01Stage[] = ['dialogue', 'phrases', 'pronunciation', 'practice', 'exit'];
 const allowedExerciseIds = new Set<string>(L01_WORKING_SOURCE.exercises.map((ex) => ex.id));
 
 export function parseL01Progress(input: unknown): L01PracticeProgress | null {
