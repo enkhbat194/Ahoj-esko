@@ -18,7 +18,7 @@ import type {
   TutorMode,
   VocabCard,
 } from '../types/lesson';
-import { CANONICAL_A0_M01_L01 } from '../data/canonicalL01';
+import { L01_WORKING_SOURCE } from '../data/l01WorkingSource';
 import { KLIC17_CHAPTERS } from '../data/klic17Story';
 import { CZECH_GENDER_COLORS, getQaStatusLabelMn } from '../utils/learnerProfile';
 import type { ReviewEventRecord } from '../utils/srsScheduler';
@@ -80,7 +80,7 @@ export const TodayDashboardView: React.FC<TodayDashboardViewProps> = ({
       <div className="flex flex-wrap items-center justify-between gap-2.5">
         <div className="space-y-0.5 min-w-0">
           <p className="text-xs font-medium text-[#8E8E93]">
-            Өнөөдрийн сургалт · {CANONICAL_A0_M01_L01.lessonId}
+            Өнөөдрийн сургалт · {L01_WORKING_SOURCE.lessonId}
           </p>
           <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-[#1C1C1E] dark:text-white">
             Ahoj! Өнөөдрийн чех хэлний дасгал
@@ -122,32 +122,32 @@ export const TodayDashboardView: React.FC<TodayDashboardViewProps> = ({
       >
         <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-[#8E8E93]">
           <span className="font-mono font-semibold text-[#007AFF] dark:text-[#64D2FF]">
-            {CANONICAL_A0_M01_L01.lessonId}
+            {L01_WORKING_SOURCE.lessonId}
           </span>
           <span className="flex items-center gap-1.5 flex-wrap">
-            <span>{CANONICAL_A0_M01_L01.estimatedMinutes}</span>
+            <span>5 шаттай туршилтын хичээл</span>
             <span aria-hidden="true">·</span>
             <span className="text-[#9A5B00] dark:text-[#FFD60A] font-medium">
-              {getQaStatusLabelMn(CANONICAL_A0_M01_L01.status)}
+              {getQaStatusLabelMn(L01_WORKING_SOURCE.qaStatus)}
             </span>
           </span>
         </div>
 
         <div className="space-y-1.5">
           <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#1C1C1E] dark:text-white leading-tight">
-            {CANONICAL_A0_M01_L01.titleMn}
+            {L01_WORKING_SOURCE.titleMn}
           </h2>
           <p className="text-sm text-[#636366] dark:text-[#AEAEB2] leading-relaxed max-w-2xl">
-            {CANONICAL_A0_M01_L01.missionMn}
+            {L01_WORKING_SOURCE.missionMn}
           </p>
         </div>
 
         {/* 3 Sequential Steps (Hairline inline) */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-1">
           {[
-            { num: '01', title: 'Сонсгол (vy / ty)', desc: 'Албан ба дотно мэндчилгээ' },
-            { num: '02', title: 'Хэллэг ба Хүйс', desc: 'Өөрийн хэлбэр ба 4 хүйсийн өнгө' },
-            { num: '03', title: 'AI Роль тоглох', desc: 'Анхны уулзалтын богино яриа' },
+            { num: '01', title: 'Эх яриа ба хэллэг', desc: 'Аудио баталгаажих хүртэл эх текстээр давтана' },
+            { num: '02', title: 'Дуудлага ба дасгал', desc: 'Өөрийн дууг түр бичиж сонсоно, хариултаа хадгална' },
+            { num: '03', title: 'Шинэ нөхцөлийн сорил', desc: 'Оролдлогыг хадгална; автомат дүн гаргахгүй' },
           ].map((step) => (
             <div
               key={step.num}
