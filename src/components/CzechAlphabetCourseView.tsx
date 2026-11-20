@@ -7,7 +7,7 @@ import {
 import {
   alphabetLessonAction, alphabetSeenCount, completeAlphabetStep,
   getAlphabetContinueTarget, getLetterStatus, loadAlphabetProgress,
-  moveAlphabetStep, openAlphabetLetter, saveAlphabetProgress, skipAlphabetStep,
+  moveAlphabetStep, openAlphabetLetter, parseAlphabetProgress, saveAlphabetProgress, skipAlphabetStep,
   type AlphabetProgressState,
 } from '../utils/alphabetProgress';
 import { LetterTracePad } from './LetterTracePad';
@@ -124,6 +124,19 @@ export const CzechAlphabetCourseView: React.FC<{
   const wordAnswer=letter?.exampleCs??'';
   const progressSteps=letter?progress.letters[letter.id]?.completedSteps??[]:[];
 
+  const restoreProgress=async(file:File|undefined)=>{
+    if(!file)return;
+    try{
+      if(file.size>150000)throw Error('too large');
+      const parsed=parseAlphabetProgress(JSON.parse(await file.text()));
+      if(!parsed)throw Error('bad source/schema');
+      persist(parsed);
+      setRestoreMessage('Ахицын файл сэргээгдлээ. Үзсэн үсгүүдийн төлөв шинэчлэгдсэн.');
+    }catch{
+      setRestoreMessage('Сэргээсэнгүй: файл эвдэрсэн эсвэл сургалтын хувилбар тохирохгүй байна.');
+    }
+  };
+
   const exportProgress=()=>{
     const blob=new Blob([JSON.stringify(progress,null,2)],{type:'application/json'});
     const url=URL.createObjectURL(blob);
@@ -177,6 +190,12 @@ export const CzechAlphabetCourseView: React.FC<{
               <ArrowRight size={19}/>
             </button>
             <button type="button" className="alphabet-outline-button" onClick={exportProgress}>Ахицын нөөц JSON татах</button>
+            <label className="alphabet-outline-button" style={{cursor:'pointer'}}>
+              Ахицын JSON файлаа сэргээх
+              <input type="file" accept=".json,application/json" className="sr-only"
+                onChange={e=>{void restoreProgress(e.currentTarget.files?.[0]);e.currentTarget.value='';}}/>
+            </label>
+            {restoreMessage&&<p className="alphabet-hint" role="status">{restoreMessage}</p>}
           </div>
           <div className="alphabet-muted">
             <VolumeX size={16}/> Баталгаажсан Чех дуудлагын аудио хараахан холбогдоогүй. Авианы үнэлгээ гэж ойлгохгүй.
