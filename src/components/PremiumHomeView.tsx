@@ -9,12 +9,13 @@ import '../premium-home.css';
 interface PremiumHomeViewProps {
   onOpenAlphabet: () => void;
   onContinueCourse: () => void;
+  onOpenLessons: () => void;
 }
 
 const BOOK_INTRO_SESSION_KEY = 'ahoj_book_intro_viewed_v1';
 
 export const PremiumHomeView: React.FC<PremiumHomeViewProps> = ({
-  onOpenAlphabet, onContinueCourse,
+  onOpenAlphabet, onContinueCourse, onOpenLessons,
 }) => {
   const [playIntro] = useState(() => {
     try {
@@ -73,6 +74,7 @@ export const PremiumHomeView: React.FC<PremiumHomeViewProps> = ({
         <button type="button" className="premium-start-btn" onClick={onContinueCourse}>
           <span>Үе давах</span><ArrowRight size={23} strokeWidth={1.8} aria-hidden="true"/>
         </button>
+        <button type="button" className="min-h-11 mt-2 underline text-[#EAC381]" onClick={onOpenLessons}>Ярианы хичээлүүд · A0–A1</button>
         <p className="premium-home-footnote">
           {alphabetDone
             ? 'Дараагийн бүлэг: мэндлэх, нэрээ хэлэх, нэр асуух.'

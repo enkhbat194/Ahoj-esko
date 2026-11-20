@@ -29,6 +29,7 @@ import {
 } from './utils/srsScheduler';
 import { loadStoryProgress, lookupGlossaryEntry } from './utils/storyReaderLogic';
 import { selectCanonicalCardsToAdd } from './utils/canonicalDeck';
+import { linkedLesson } from './utils/courseStorage';
 import { PremiumHomeView } from './components/PremiumHomeView';
 import { CzechAlphabetCourseView } from './components/CzechAlphabetCourseView';
 import { getPackContinueTarget, loadPackProgress } from './utils/alphabetPackProgress';
@@ -103,7 +104,7 @@ function loadStoredDialogues(): Dialogue[] {
 }
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState<ActiveTab>('today');
+  const [activeTab, setActiveTab] = useState<ActiveTab>(() => linkedLesson() ? 'learn' : 'today');
   const [alphabetScreen, setAlphabetScreen] = useState<'overview' | 'resume' | null>(null);
   const [learnSubTab, setLearnSubTab] = useState<LearnSubTab>('mission');
   const [profileSection, setProfileSection] = useState<'general' | 'library'>('general');
@@ -559,6 +560,7 @@ export default function App() {
                     />
                   ) : (
                     <PremiumHomeView
+                      onOpenLessons={() => { setLearnSubTab('mission'); setActiveTab('learn'); }}
                       onOpenAlphabet={() => setAlphabetScreen('overview')}
                       onContinueCourse={() => {
                         const target = getPackContinueTarget(loadPackProgress());
