@@ -165,9 +165,9 @@ export function readCanonicalCurriculumOverview(input: unknown): CanonicalCurric
         validationErrors.push(`lesson ${lessonId}: invalid exercise or missing prompt ${id}`);
         continue;
       }
-      const answerKey = record(exercise.answer_key_v0912) ? exercise.answer_key_v0912 : {};
-      const answerQa = record(exercise.answer_crossqa_v0917) ? exercise.answer_crossqa_v0917 : {};
-      const crossQa = record(exercise.cross_qa_v0916) ? exercise.cross_qa_v0916 : {};
+      const answerKey: Record<string, unknown> = record(exercise.answer_key_v0912) ? exercise.answer_key_v0912 : {};
+      const answerQa: Record<string, unknown> = record(exercise.answer_crossqa_v0917) ? exercise.answer_crossqa_v0917 : {};
+      const crossQa: Record<string, unknown> = record(exercise.cross_qa_v0916) ? exercise.cross_qa_v0916 : {};
       const proposedAnswer = str(answerQa.working_answer_proposal) || str(answerKey.working_text);
 
       exercises.push({
@@ -193,7 +193,7 @@ export function readCanonicalCurriculumOverview(input: unknown): CanonicalCurric
           takeId(id, /^CZ-A[01]-M\d{2}-L\d{2}-EXIT\d+$/, 'exit') &&
           (!str(exit.lesson_id) || str(exit.lesson_id) === lessonId) &&
           str(exit.source_prompt)) {
-        const assessment = record(candidate.exit_assessment_v0912) ? candidate.exit_assessment_v0912 : {};
+        const assessment: Record<string, unknown> = record(candidate.exit_assessment_v0912) ? candidate.exit_assessment_v0912 : {};
         const rubrics = objects(assessment.rubric).map((row) => ({
           criterion: str(row.criterion),
           descriptionMn: str(row.description_mn),
