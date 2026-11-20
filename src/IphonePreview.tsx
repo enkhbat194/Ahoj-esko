@@ -3,11 +3,13 @@ import { ArrowLeft, ArrowRight, BookOpen, Bot, Menu as MenuIcon } from 'lucide-r
 import { CanonicalFirstLessonView } from './components/CanonicalFirstLessonView';
 import { PremiumBottomNav } from './components/PremiumBottomNav';
 import { PremiumHomeView } from './components/PremiumHomeView';
+import { CzechAlphabetCourseView } from './components/CzechAlphabetCourseView';
+import { getAlphabetContinueTarget, loadAlphabetProgress } from './utils/alphabetProgress';
 import { L01_WORKING_SOURCE } from './data/l01WorkingSource';
 import { KLIC17_CHAPTERS } from './data/klic17Story';
 import type { PremiumNavId } from './utils/premiumNavigation';
 
-type PreviewView = 'home' | 'lesson' | 'read' | 'ai' | 'cards' | 'menu';
+type PreviewView = 'home' | 'alphabet_overview' | 'alphabet_resume' | 'lesson' | 'read' | 'ai' | 'cards' | 'menu';
 
 const panel = 'rounded-3xl border border-[#B28A54]/40 bg-[#092B2D] p-4 space-y-3 shadow-xl';
 const secondary = 'text-sm text-[#AAC4BC]';
@@ -29,7 +31,7 @@ export function IphonePreview() {
   };
 
   const selected: PremiumNavId =
-    view === 'lesson' || view === 'home' ? 'home' :
+    view === 'lesson' || view === 'home' || view === 'alphabet_overview' || view === 'alphabet_resume' ? 'home' :
     view === 'read' ? 'read' : view === 'cards' ? 'cards' : view === 'ai' ? 'ai' : 'menu';
 
   return (
@@ -44,13 +46,23 @@ export function IphonePreview() {
       <main className="relative flex-1 w-full max-w-3xl mx-auto px-3 sm:px-6 pb-[calc(100px+env(safe-area-inset-bottom))]">
         {view === 'home' && (
           <PremiumHomeView
-            onStartMission={() => setView('lesson')}
-            onLaunchRoleplay={openAi}
-            onOpenStory={() => setView('read')}
+            onOpenAlphabet={() => setView('alphabet_overview')}
+            onContinueCourse={() => {
+              const target = getAlphabetContinueTarget(loadAlphabetProgress());
+              setView(target ? 'alphabet_resume' : 'lesson');
+            }}
           />
         )}
 
-        {view !== 'home' && (
+        {(view === 'alphabet_overview' || view === 'alphabet_resume') && (
+          <CzechAlphabetCourseView key={view}
+            startAt={view === 'alphabet_resume' ? 'resume' : 'overview'}
+            onExit={() => setView('home')}
+            onContinueAfterAlphabet={() => setView('lesson')}
+          />
+        )}
+
+        {view !== 'home' && view !== 'alphabet_overview' && view !== 'alphabet_resume' && (
           <div className="pt-2 space-y-4">
             <button type="button" className={navButton} onClick={() => setView('home')}>
               <ArrowLeft className="w-4 h-4" /> Нүүр рүү
@@ -121,8 +133,11 @@ export function IphonePreview() {
                 <p className={secondary}>Ahoj Česko · iPhone загварын туршилт</p>
                 <p className={secondary}>Сургалтын эх: v0.9.20. Зөвхөн хяналтын/ноорог өгөгдөл. Бүрэн 72 хичээлийг энд идэвхжүүлээгүй.</p>
                 <div className="grid gap-2">
+                  <button type="button" className={navButton} onClick={() => setView('alphabet_overview')}>
+                    <BookOpen className="w-4 h-4"/> Чех цагаан толгой · 42 үсэг
+                  </button>
                   <button type="button" className={navButton} onClick={() => setView('lesson')}>
-                    <BookOpen className="w-4 h-4"/> A0 · Хичээл 01
+                    <BookOpen className="w-4 h-4"/> A0 · Мэндчилгээний хичээл
                   </button>
                   <button type="button" className={navButton} onClick={() => setView('read')}>Унших хэсэг</button>
                   <button type="button" className={navButton} onClick={() => setView('cards')}>Хэллэгийн карт</button>

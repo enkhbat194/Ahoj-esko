@@ -1,0 +1,66 @@
+/* Scope alphabet styles. 42 letters share a lightweight accessible learning engine. */
+.alphabet-course{color:#F9EDDE;width:100%;max-width:780px;margin:0 auto;padding:8px 0 25px;font-size:14px}
+.alphabet-course-header{display:flex;align-items:center;gap:13px;min-height:58px;margin-bottom:14px}
+.alphabet-back{width:44px;height:44px;flex:0 0 44px;display:grid;place-items:center;color:#FFE0A8;border:1px solid #BBA06C73;border-radius:50%;background:#073437;cursor:pointer}
+.alphabet-course-header>div{flex:1;min-width:0}
+.alphabet-course-header h1{font-size:clamp(19px,3vw,27px);font-weight:700;margin:0;line-height:1.18;color:#FEE8B9}
+.alphabet-small{color:#EFC27D;font-size:11px;letter-spacing:.055em;font-weight:650}
+.alphabet-count{min-width:53px;text-align:right;font-size:12px;color:#6DE3D2;letter-spacing:.03em}
+.alphabet-panel{border:1px solid rgba(190,149,85,.48);background:linear-gradient(137deg,#062F31 0%,#051D22 70%,#041317);border-radius:24px;padding:clamp(16px,4vw,26px);box-shadow:0 16px 45px #0006}
+.alphabet-panel h2{font-family:Georgia,serif;font-size:clamp(22px,4vw,31px);color:#FFE9BF;font-weight:600;line-height:1.2;margin:6px 0 11px}
+.alphabet-muted{font-size:12px;color:#AEC8C3;line-height:1.55;margin:9px 0}
+.alphabet-muted svg{display:inline;vertical-align:middle;margin-right:4px}
+.alphabet-progress-track{width:100%;height:8px;border-radius:999px;background:#4863636B;overflow:hidden;margin:14px 0 9px}
+.alphabet-progress-track>div{height:100%;border-radius:inherit;background:linear-gradient(90deg,#027B77,#36E2CE);transition:width .2s ease}
+.alphabet-status-legend{display:flex;flex-wrap:wrap;justify-content:space-between;gap:9px;color:#A3BAB5;font-size:11px;margin:14px 1px}
+.alphabet-letter-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+.alphabet-letter-card{position:relative;min-width:0;min-height:82px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:1px solid #6D777570;border-radius:16px;color:#F8E9CD;background:#092023;cursor:pointer;padding:10px 3px;transition:border-color .1s,background .1s}
+.alphabet-letter-card strong{font-family:Georgia,serif;font-size:clamp(25px,5vw,35px);font-weight:500;line-height:1.05}
+.alphabet-letter-card span{font-size:13px;color:#90A49F}
+.alphabet-letter-card small{position:absolute;right:8px;top:6px;font-size:12px;color:#688985}
+.alphabet-letter-card.seen{background:linear-gradient(140deg,#0B443F,#072A2C);border-color:#37D3BB}
+.alphabet-letter-card.seen small{color:#62E7D0}
+.alphabet-letter-card.in_progress{background:linear-gradient(140deg,#3B311E,#102A29);border-color:#E8B76E}
+.alphabet-letter-card.in_progress small{color:#E5BA71}
+.alphabet-letter-card:focus-visible,.alphabet-course button:focus-visible{outline:2px solid #64F6E2;outline-offset:2px}
+.alphabet-course-actions{display:grid;gap:10px;margin-top:20px}
+.alphabet-main-button,.alphabet-outline-button{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:48px;padding:10px 18px;border-radius:14px;font-weight:650;cursor:pointer;text-align:center}
+.alphabet-main-button{background:linear-gradient(108deg,#13665E,#04504A);border:1px solid #E0B76E;color:#FFE5B7;box-shadow:0 4px 17px #0005}
+.alphabet-outline-button{background:#0B2B2C;border:1px solid #5D938C8C;color:#C7E4DB}
+.alphabet-course button:disabled{opacity:.35;cursor:not-allowed}
+.alphabet-detail{text-align:center;display:flex;flex-direction:column;align-items:center;gap:10px}
+.alphabet-detail-letter{width:min(100%,310px);height:210px;border-radius:20px;border:1px solid #D0A46F55;background:radial-gradient(circle at 50% 40%,#0B4A47,#071C22 76%);display:flex;align-items:center;justify-content:center;gap:13px;font:normal clamp(84px,24vw,137px)/1 Georgia,serif;color:#FFE9B6;text-shadow:0 3px 25px #F9D69B47}
+.alphabet-detail-letter small{font-size:clamp(47px,14vw,80px);color:#6CDBCA}
+.alphabet-status-label{padding:6px 15px;border-radius:100px;font-size:12px;color:#D6E9DF;background:#19353A}
+.alphabet-status-label.seen{color:#7DFFE8;background:#0D4542}
+.alphabet-status-label.in_progress{color:#F4CB82;background:#4A351E}
+.alphabet-detail h2{margin:0}
+.alphabet-detail .alphabet-main-button,.alphabet-detail .alphabet-outline-button{width:100%}
+.alphabet-note{width:100%;border-radius:12px;background:#114444;border:1px solid #3C998D70;padding:12px 14px;color:#D3EEE8;font-size:12px;line-height:1.55}
+.alphabet-step-heading{display:flex;align-items:center;justify-content:space-between;gap:15px}
+.alphabet-step-heading h2{font-size:26px;margin:2px 0}
+.alphabet-step-heading>span{color:#A9C5C0;font-size:12px}
+.alphabet-step-body{display:flex;flex-direction:column;gap:13px;min-height:275px;justify-content:flex-start;padding-top:14px}
+.alphabet-large-word{font:normal clamp(41px,11vw,67px)/1.14 Georgia,serif;text-align:center;color:#FFE6AD;margin:20px 0;text-shadow:0 0 20px #F1B97D22;overflow-wrap:anywhere}
+.alphabet-letter-pair{display:flex;align-items:center;justify-content:center;gap:28px;margin:8px 0}
+.alphabet-letter-pair strong{font:normal clamp(85px,24vw,147px)/1 Georgia,serif;color:#FFE9BC}
+.alphabet-letter-pair span{font:italic clamp(65px,16vw,105px)/1 Georgia,serif;color:#45DAC5}
+.alphabet-example{display:flex;align-items:center;flex-direction:column;gap:3px;background:#092B2E;border:1px solid #4B867F64;border-radius:15px;padding:15px}
+.alphabet-example small{color:#95C1B8;font-size:11px}
+.alphabet-example strong{color:#FFE0AD;font-size:25px}
+.alphabet-example span{color:#A8C7C0;font-size:13px}
+.alphabet-answer-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.alphabet-choice{min-width:0;min-height:61px;border:1px solid #8DAD9A70;border-radius:15px;background:#10262B;color:#FFEDCD;font-size:23px;font-weight:600;cursor:pointer}
+.alphabet-choice.chosen{border-color:#58F0D8;background:#0C5652;color:#DAFFF6;box-shadow:0 0 0 1px #35D4BA55}
+.alphabet-typing{display:block;width:100%;min-height:54px;border:1px solid #E6BC7787;border-radius:12px;background:#072024;color:#FAEACB;padding:10px 14px;font-size:25px;text-align:center;outline:none}
+.alphabet-typing:focus{border-color:#54E6CD}
+.alphabet-lesson-controls{display:grid;grid-template-columns:1fr 2fr;gap:9px;margin-top:18px}
+.alphabet-skip{display:flex;align-items:center;justify-content:center;gap:5px;margin:14px auto 0;font-size:11px;color:#96B9B2;cursor:pointer;background:none;border:0}
+.alphabet-feedback,.alphabet-error{border:1px solid #EFC47C80;background:#382C1E;color:#F6D5A2;padding:12px;border-radius:11px;font-size:12px;line-height:1.5}
+.alphabet-trace-svg{width:min(100%,335px);height:auto;display:block;margin:0 auto;touch-action:none;border-radius:20px}
+.alphabet-trace-actions{display:flex;align-items:center;gap:9px;justify-content:space-between;margin-top:9px}
+.alphabet-help{color:#A9C6C0;font-size:11px}
+.alphabet-finished{text-align:center;display:flex;flex-direction:column;align-items:center;gap:16px}
+.alphabet-finished .alphabet-main-button{width:100%}
+@media(max-width:400px){.alphabet-letter-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.alphabet-letter-card{min-height:75px}.alphabet-lesson-controls{grid-template-columns:1fr}.alphabet-step-body{min-height:220px}}
+@media(prefers-reduced-motion:reduce){.alphabet-progress-track>div{transition:none}}

@@ -87,8 +87,10 @@ export const PremiumBookArtwork: React.FC<{ className?: string }> = ({ className
     <path d="M492 435 C548 345 618 324 717 304 L737 386 C641 378 553 414 492 435Z" stroke="#DCAB68" strokeOpacity=".53" strokeWidth="1.3"/>
     <path d="M515 420 C581 348 631 330 702 316" stroke="#D4A56A" strokeOpacity=".36" strokeWidth="1"/>
     {/* Page headings, original vector typography */}
-    <text x="316" y="358" fill="url(#book-goldtext)" fontFamily="Georgia, 'Times New Roman', serif" fontSize="120" fontWeight="400" transform="rotate(12 316 358)">A</text>
-    <text x="583" y="390" fill="url(#book-goldtext)" fontFamily="Georgia, 'Times New Roman', serif" fontSize="136" fontStyle="italic">a</text>
+    <g className="premium-book-letter-marks">
+      <text x="316" y="358" fill="url(#book-goldtext)" fontFamily="Georgia, 'Times New Roman', serif" fontSize="120" fontWeight="400" transform="rotate(12 316 358)">A</text>
+      <text x="583" y="390" fill="url(#book-goldtext)" fontFamily="Georgia, 'Times New Roman', serif" fontSize="136" fontStyle="italic">a</text>
+    </g>
     <path d="M457 471 Q463 489 473 482" stroke="#FFE8AE" strokeWidth="5" strokeLinecap="round"/>
     <path d="M147 433 C269 412 375 463 460 485 C565 447 675 414 764 432" stroke="#EFCB81" strokeWidth="3" strokeLinecap="round"/>
     {/* Orbiting light wraps across the book */}
