@@ -3,6 +3,8 @@ import type { Dialogue, TopicId, VocabCard } from '../types/lesson';
 export const DEFAULT_PROJECT_DRIVE_FOLDER_ID = '1TFTOQHQK7JKQFhueBI8LURbxRIdROhYj';
 
 export interface ParsedDriveCard {
+  // Provenance key for content/audio linking; never derive from display text alone.
+  canonicalId?: string;
   topicId: TopicId;
   czechWord: string;
   phoneticHint: string;
@@ -98,6 +100,9 @@ export function parseDriveCurriculumText(
           mongolianWord: String(c.mongolianWord).trim(),
           czechSentence: String(c.czechSentence ?? c.czechWord).trim(),
           mongolianSentence: String(c.mongolianSentence ?? c.mongolianWord).trim(),
+          ...(typeof c.canonicalId === 'string' && c.canonicalId.trim()
+            ? { canonicalId: c.canonicalId.trim() }
+            : {}),
         }));
 
       const dialogues: Omit<Dialogue, 'id'>[] = rawDialogues
@@ -139,6 +144,16 @@ export function parseDriveCurriculumText(
 
   if (looksLikeCsv) {
     const rows = lines.map(splitCsvLine);
+    const headerKeys = rows[0].map((c) => c.toLowerCase().replace(/[^a-z0-9]/g, ''));
+    // Audio production queues and QA manifests are not curriculum cards.
+    // Do not manufacture bogus vocabulary from source_id/request_id columns.
+    const looksLikeAudioManifest = headerKeys.some((key) =>
+      ['sourceid', 'requestid', 'batchid', 'audiosha256', 'audiotextkey'].includes(key)
+    );
+    if (looksLikeAudioManifest && !(headerKeys.includes('czechword') && headerKeys.includes('mongolianword'))) {
+      return { cards: [], dialogues: [], detectedFormat: 'unstructured' };
+    }
+    const canonicalIdColumn = headerKeys.indexOf('canonicalid');
     const firstRowLower = rows[0].map((c) => c.toLowerCase()).join(' ');
     const startIdx =
       firstRowLower.includes('czech') ||
@@ -162,6 +177,9 @@ export function parseDriveCurriculumText(
             mongolianWord: cols[2],
             czechSentence: cols[3] || cols[0],
             mongolianSentence: cols[4] || cols[2],
+            ...(canonicalIdColumn >= 0 && cols[canonicalIdColumn]?.trim()
+              ? { canonicalId: cols[canonicalIdColumn].trim() }
+              : {}),
           });
         }
       } else if (cols.length >= 3) {
