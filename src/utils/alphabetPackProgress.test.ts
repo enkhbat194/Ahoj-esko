@@ -3,6 +3,7 @@ import test from 'node:test';
 import {
   CZECH_ALPHABET_PACKS,CZECH_ALPHABET_PACK_BY_ID,
   APPROVED_ALPHABET_AUDIO,approvedAlphabetAudio,isPackAudioReady,
+  spellingRequiresWordContext,CONTEXT_REQUIRED_SPELLINGS,
 } from '../data/czechAlphabetPacks';
 import { CZECH_ALPHABET_LETTERS } from '../data/czechAlphabetCourse';
 import {
@@ -107,4 +108,16 @@ test('pack backup validates schema, sound claims, IDs, unsafe data',()=>{
   assert.deepEqual(corrupt.packs['CZ-ALPHA-P01'].introducedIds,['A','Á']);
   assert.equal(corrupt.packs['CZ-ALPHA-P01'].finishedAt,null);
   assert.deepEqual(corrupt.earlierVisualFamiliarIds,['A']);
+});
+
+test('Ú/Ů and I/Y spelling is contextual; do not assert unique sound-only answers',()=>{
+  assert.equal(CONTEXT_REQUIRED_SPELLINGS.length,3);
+  for(const letter of ['Ú','Ů','I','Y','Í','Ý']) {
+    assert.equal(spellingRequiresWordContext(letter),true,letter);
+  }
+  for(const letter of ['A','Á','C','Č','Ř','CH']) {
+    assert.equal(spellingRequiresWordContext(letter),false,letter);
+  }
+  assert.equal(CZECH_ALPHABET_PACKS[7].letters[0].id,'Ú');
+  assert.equal(CZECH_ALPHABET_PACKS[7].letters[1].id,'Ů');
 });

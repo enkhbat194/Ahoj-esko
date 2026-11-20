@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ArrowLeft,ArrowRight,ChevronRight,RotateCcw,ShieldAlert,Volume2,VolumeX } from 'lucide-react';
 import {
-  CZECH_ALPHABET_PACKS,CZECH_ALPHABET_PACK_BY_ID,approvedAlphabetAudio,
+  CZECH_ALPHABET_PACKS,CZECH_ALPHABET_PACK_BY_ID,approvedAlphabetAudio,spellingRequiresWordContext,
   type AlphabetAudioKind, type AlphabetPackStage,
 } from '../data/czechAlphabetPacks';
 import {
@@ -34,7 +34,7 @@ function AudioCue({letterId,kind,onHeard,onError}:{
     </div>
   );
   return <div className="alphabet-pack-audio">
-    <span><Volume2 size={20}/> Чех эх аудио · {kind==='letter_name'?'Үсгийн нэр':'Үг доторх авиа'}</span>
+    <span><Volume2 size={20}/> Чех эх аудио · {kind==='letter_name'?'Үсгийн нэр':'Жишээ үгийг бүтнээр'}</span>
     <audio key={entry.sourceId+kind} controls preload="none" src={entry.url}
       onEnded={onHeard} onError={()=>{setBroken(true);onError();}} aria-label="Чех дуудлагын аудио тоглуулах"/>
   </div>;
@@ -228,7 +228,7 @@ export const CzechAlphabetCourseView:React.FC<Props>=({
 
       {!isReview&&!visibleReport&&(stage==='listen_name'||stage==='match_sound')&&<div className="alphabet-pack-quiz">
         <p className="alphabet-small">{stage==='listen_name'?'ҮСГИЙН НЭРИЙГ СОНСОХ':'ҮГ ДАХЬ АВИАГ ЯЛГАХ'} · {promptIndex+1}/{pack.letters.length}</p>
-        <h2>{stage==='listen_name'?'Аль үсгийн нэр сонсогдов?':'Аль үсгийн авиа сонсогдов?'}</h2>
+        <h2>{stage==='listen_name'?'Аль үсгийн нэр сонсогдов?':'Сонссон үгэнд аль үсэг бичигдэх вэ?'}</h2>
         <AudioCue key={cueLetter?.id+stage} letterId={cueLetter?.id??''} kind={audioKind}
           onHeard={()=>setHeard(true)} onError={()=>setAudioError(true)}/>
         {!audioPending&&!audioError&&<div className="alphabet-pack-answer-grid">
@@ -237,11 +237,14 @@ export const CzechAlphabetCourseView:React.FC<Props>=({
         </div>}
         <p className="alphabet-muted">{stage==='listen_name'
           ?'Чех үсгийн нэрийг сонсоод багцын 4–5 сонголтоос сонго.'
-          :'Үг доторх жишээ авиаг сонсож, ямар үсгээр илэрхийлснийг сонго.'}</p>
+          :'Бүтэн Чех үгийг сонсоод түүний зөв бичлэгт аль үсэг ордгийг сонго. Ижил авиатай өөр үсэг байж болно.'}</p>
         {(audioPending||audioError)&&<p className="alphabet-error">
           Баталгаажсан Gemini 3.8 Flash TTS аудио байхгүй учир сонсголын оноо тооцохгүй.
           Энэ хэсгийг дуугүйгээр зөв гэж тэмдэглэхгүй.
         </p>}
+        {cueLetter && spellingRequiresWordContext(cueLetter.id) && stage==='match_sound' &&
+          <p className="alphabet-note">Энэ үсгийг ганц тусгаар авианаас таних боломжгүй байж болно.
+          Үг бүтнээрээ болон зөв бичих дүрмээр нь ялгана.</p>}
         {notice&&<p className="alphabet-note" role="status">{notice}</p>}
         <div className="alphabet-pack-inline">
           <button type="button" className="alphabet-outline-button" onClick={()=>{setManualReport(true);setNotice('')}}>
