@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import {
   CZECH_ALPHABET_PACKS,CZECH_ALPHABET_PACK_BY_ID,
-  APPROVED_ALPHABET_AUDIO,approvedAlphabetAudio,isPackAudioReady,
+  APPROVED_ALPHABET_AUDIO,PREVIEW_ALPHABET_AUDIO,availableAlphabetAudio,approvedAlphabetAudio,isPackAudioReady,
   spellingRequiresWordContext,CONTEXT_REQUIRED_SPELLINGS,
 } from '../data/czechAlphabetPacks';
 import { CZECH_ALPHABET_LETTERS } from '../data/czechAlphabetCourse';
@@ -44,20 +44,33 @@ test('pack intro is one sequential 4–5-letter learning unit; not 7 steps per l
   assert.equal(report.completed,false);
 });
 
-test('no Gemini approved audio => no fake listening score, AI report or completion',()=>{
+test('seven real Gemini preview clips never become native or AI pronunciation certification',()=>{
   assert.equal(APPROVED_ALPHABET_AUDIO.length,0);
+  assert.equal(PREVIEW_ALPHABET_AUDIO.length,7);
   const pack=CZECH_ALPHABET_PACKS[0];
   assert.equal(isPackAudioReady(pack,'letter_name'),false);
   assert.equal(isPackAudioReady(pack,'sound_in_word'),false);
   assert.equal(approvedAlphabetAudio('A','letter_name'),undefined);
+  assert.equal(availableAlphabetAudio('A','letter_name')?.qaStatus,'technical_preview');
+  assert.equal(availableAlphabetAudio('A','sound_in_word')?.qaStatus,'auto_transcript_pass');
+  assert.equal(availableAlphabetAudio('B','sound_in_word'),undefined);
+  assert.equal(availableAlphabetAudio('C','sound_in_word'),undefined);
+  assert.equal(availableAlphabetAudio('Č','sound_in_word'),undefined);
   let s=openPack(emptyPackProgress(),pack.id);
   for(let i=0;i<pack.letters.length;i++)s=introduceNextLetter(s,pack.id);
+  // Pure scorer can grade the actual audio-choice response, but this is
+  // NOT a pronunciation assessment. The UI requires complete playback.
   const result=scorePackAudioChoice(s,pack.id,'letter_name','A','A');
-  assert.equal(result.scored,false);
-  assert.equal(result.correct,false);
-  assert.deepEqual(result.next,s);
-  assert.equal(packIsCompleted(s,pack.id),false);
-  assert.equal(packReport(s,pack.id).hasAiAssessment,false);
+  assert.equal(result.scored,true);
+  assert.equal(result.correct,true);
+  assert.equal(packIsCompleted(result.next,pack.id),false);
+  assert.equal(packReport(result.next,pack.id).hasAiAssessment,false);
+  // Pack 2 has no generated audio; it must still be blocked.
+  let pending=openPack(emptyPackProgress(),'CZ-ALPHA-P02');
+  for(let i=0;i<5;i++)pending=introduceNextLetter(pending,'CZ-ALPHA-P02');
+  const blocked=scorePackAudioChoice(pending,'CZ-ALPHA-P02','letter_name','D','D');
+  assert.equal(blocked.scored,false);
+  assert.deepEqual(blocked.next,pending);
 });
 
 test('unseen packs can be visually previewed without falsely completing earlier blocked audio test',()=>{
