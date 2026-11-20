@@ -8,7 +8,7 @@ import type {
   TutorMode,
   VocabCard,
 } from '../types/lesson';
-import { LessonMissionView } from './LessonMissionView';
+import { CanonicalFirstLessonView } from './CanonicalFirstLessonView';
 import { DialogueView } from './DialogueView';
 import { AITutorView } from './AITutorView';
 import { TopicsView } from './TopicsView';
@@ -95,13 +95,7 @@ export const LearnHubView: React.FC<LearnHubViewProps> = ({
       </div>
 
       {subTab === 'mission' && (
-        <LessonMissionView
-          learnerGender={learnerGender}
-          onChangeLearnerGender={onChangeLearnerGender}
-          existingCards={cards}
-          onAddCanonicalPhrasesToDeck={onAddCanonicalPhrasesToDeck}
-          onLaunchMissionRoleplay={onLaunchMissionRoleplay}
-        />
+        <CanonicalFirstLessonView onLaunchMissionRoleplay={onLaunchMissionRoleplay} />
       )}
 
       {subTab === 'dialogues' && (
