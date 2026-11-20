@@ -238,3 +238,49 @@
   .premium-ai-orb>svg{width:43px;height:43px}
   .premium-ai-button{min-height:69px;transform:translateY(-7px)}
 }
+
+/* Calm home: NO carousel, NO infinite floating, NO repeated movement.
+ * The book opens once per browser session, and lettermarks emerge once.
+ * Keep hero short enough to reveal CTA above iPhone's fixed dock.
+ */
+.premium-home{overflow-x:clip;padding-top:4px}
+.premium-hero{height:clamp(215px,34dvh,365px);margin:0;overflow:hidden}
+.premium-book-svg{animation:none!important;transform:none;will-change:auto}
+.premium-hero-wave{display:none}
+.premium-current-lesson{margin-top:-4px}
+.premium-lesson-count{margin-top:13px}
+.premium-progress-track{margin-bottom:17px}
+.premium-home-footnote{font-size:11px;color:#9BB8AF;line-height:1.4;margin:13px 2px 2px;max-width:590px}
+.premium-home--intro .premium-book-svg{
+  animation:premium-book-unfold 1250ms cubic-bezier(.2,.72,.16,1) 1 both!important;
+  transform-origin:54% 76%;
+}
+.premium-home--intro .premium-book-letter-marks {
+  transform-box:fill-box;
+  transform-origin:center;
+  animation:premium-book-letters 780ms ease-out 900ms 1 both;
+}
+@keyframes premium-book-unfold{
+  0%{opacity:.75;transform:perspective(900px) scaleX(.16) scaleY(.7)}
+  45%{opacity:1;transform:perspective(900px) scaleX(.68) scaleY(.94)}
+  78%{transform:scaleX(1.025) scaleY(1.01)}
+  100%{opacity:1;transform:scale(1)}
+}
+@keyframes premium-book-letters{
+  0%{opacity:0;transform:translateY(42px) scale(.7)}
+  76%{opacity:1;transform:translateY(-5px) scale(1.04)}
+  100%{opacity:1;transform:translateY(0) scale(1)}
+}
+@media(max-width:420px){
+  .premium-hero{height:clamp(205px,33dvh,290px)}
+  .premium-current-lesson{margin-top:-1px}
+  .premium-lesson-tags{margin-bottom:7px}
+  .premium-lesson-subtitle{margin-top:6px}
+  .premium-lesson-count{margin-top:11px}
+  .premium-progress-track{margin-bottom:14px}
+  .premium-start-btn{min-height:52px}
+}
+@media(prefers-reduced-motion:reduce){
+  .premium-home--intro .premium-book-svg,
+  .premium-home--intro .premium-book-letter-marks{animation:none!important;opacity:1;transform:none}
+}
