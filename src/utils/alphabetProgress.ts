@@ -88,9 +88,11 @@ export function completeAlphabetStep(
   const prior = state.letters[letterId] ?? {visited:true,completedSteps:[],completedAt:null};
   const completedSteps = [...new Set([...prior.completedSteps,step])].sort((a,b)=>a-b);
   const allDone = completedSteps.length === ALPHABET_LESSON_STEP_COUNT;
-  const nextStep = step < ALPHABET_LESSON_STEP_COUNT-1
-    ? step+1
-    : VALID_STEPS.find(x=>!completedSteps.includes(x));
+  const nextStep = allDone
+    ? undefined
+    : step < ALPHABET_LESSON_STEP_COUNT-1
+      ? step+1
+      : VALID_STEPS.find(x=>!completedSteps.includes(x));
   const nextLetters = {
     ...state.letters,[letterId]: {
       completedSteps,visited:true,completedAt: allDone ? (prior.completedAt ?? now) : null,
