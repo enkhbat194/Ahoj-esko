@@ -1,10 +1,13 @@
-import type { Dialogue, TopicId, VocabCard } from '../types/lesson';
+import type { ContentQaStatus, Dialogue, TopicId, VocabCard } from '../types/lesson';
+import { parseCanonicalLessonsJson } from './canonicalLessonsParser';
 
 export const DEFAULT_PROJECT_DRIVE_FOLDER_ID = '1TFTOQHQK7JKQFhueBI8LURbxRIdROhYj';
 
 export interface ParsedDriveCard {
   // Provenance key for content/audio linking; never derive from display text alone.
   canonicalId?: string;
+  lessonId?: string;
+  qaStatus?: ContentQaStatus;
   topicId: TopicId;
   czechWord: string;
   phoneticHint: string;
@@ -88,6 +91,10 @@ export function parseDriveCurriculumText(
       const parsed = JSON.parse(trimmed) as
         | Partial<{ cards: VocabCard[]; dialogues: Dialogue[] }>
         | VocabCard[];
+      // Canonical A0/A1 curriculum has a lessons[] structure, not cards[].
+      // Convert as an explicitly DRAFT preview; never infer publication approval.
+      const canonicalLessons = parseCanonicalLessonsJson(parsed);
+      if (canonicalLessons) return canonicalLessons;
       const rawCards = Array.isArray(parsed) ? parsed : Array.isArray(parsed.cards) ? parsed.cards : [];
       const rawDialogues = !Array.isArray(parsed) && Array.isArray(parsed.dialogues) ? parsed.dialogues : [];
 
