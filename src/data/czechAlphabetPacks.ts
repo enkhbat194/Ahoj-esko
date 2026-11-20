@@ -52,11 +52,26 @@ export const CZECH_ALPHABET_PACK_VERSION='cz-alphabet-pack-v1';
  * immutable sha256, exact source id, private publication decision.
  */
 export type AlphabetAudioKind = 'letter_name'|'sound_in_word';
+
+/** Identical or overlapping Czech sounds cannot be uniquely discriminated
+ * from an isolated waveform. Spelling needs word context and Czech lexicon.
+ */
+export const CONTEXT_REQUIRED_SPELLINGS = [
+  ['Ú','Ů'],['I','Y'],['Í','Ý'],
+] as const;
+
+export function spellingRequiresWordContext(id:string):boolean{
+  return CONTEXT_REQUIRED_SPELLINGS.some(pair=>pair.includes(id as never));
+}
 export interface ApprovedAlphabetAudio {
   sourceId:string;
   kind:AlphabetAudioKind;
   url:string;
   sha256:string;
+  textSha256:string;
+  sourceVersion:typeof CZECH_ALPHABET_PACK_VERSION;
+  /** Exact Czech prompt audited for the generated recording. */
+  csExact:string;
   model:'gemini-3.8-flash-tts';
   qaStatus:'native_approved';
 }
@@ -68,8 +83,13 @@ export function approvedAlphabetAudio(letterId:string,kind:AlphabetAudioKind):Ap
   if (!CZECH_ALPHABET_LETTERS.some(l=>l.id===letterId))return undefined;
   return APPROVED_ALPHABET_AUDIO.find(a=>a.sourceId===`CZ-ALPHA-${letterId}` &&a.kind===kind
     &&a.model==='gemini-3.8-flash-tts' &&a.qaStatus==='native_approved'
+    &&a.sourceVersion===CZECH_ALPHABET_PACK_VERSION
+    &&a.csExact.trim().length>0
+    &&(kind==='letter_name'||a.csExact.toLocaleLowerCase('cs-CZ')===
+       CZECH_ALPHABET_LETTERS.find(l=>l.id===letterId)?.exampleCs.toLocaleLowerCase('cs-CZ'))
     &&/^\/[a-z0-9/_\-.]+\.(wav|mp3|ogg)$/i.test(a.url)
-    &&/^[a-f0-9]{64}$/.test(a.sha256));
+    &&/^[a-f0-9]{64}$/.test(a.sha256)
+    &&/^[a-f0-9]{64}$/.test(a.textSha256));
 }
 export function isPackAudioReady(pack:AlphabetPack,kind:AlphabetAudioKind):boolean{
   return pack.letters.every(l=>approvedAlphabetAudio(l.id,kind));
