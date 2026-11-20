@@ -5,7 +5,7 @@ import test from 'node:test';
 import {
   CZECH_ALPHABET_PACKS,CZECH_ALPHABET_PACK_BY_ID,
   APPROVED_ALPHABET_AUDIO,PREVIEW_ALPHABET_AUDIO,availableAlphabetAudio,approvedAlphabetAudio,isPackAudioReady,
-  spellingRequiresWordContext,CONTEXT_REQUIRED_SPELLINGS,
+  spellingRequiresWordContext,CONTEXT_REQUIRED_SPELLINGS,czechSentenceContainsWord,
 } from '../data/czechAlphabetPacks';
 import { CZECH_ALPHABET_LETTERS, maskLetterInExample } from '../data/czechAlphabetCourse';
 import {
@@ -153,7 +153,11 @@ test('Gemini Preview audio manifest has immutable source/text SHA, valid Czech e
     assert.ok(item.url.includes('/'+previewManifest.sourceCommit+'/'));
     const letter=CZECH_ALPHABET_LETTERS.find(l=>'CZ-ALPHA-'+l.id===item.sourceId);
     assert.ok(letter,key);
-    if(item.kind==='sound_in_word')assert.equal(item.csExact,letter?.exampleCs);
+    if(item.kind==='sound_in_word')assert.ok(
+      item.csExact===letter?.exampleCs ||
+      (item.targetWord===letter?.exampleCs &&
+        czechSentenceContainsWord(item.csExact,letter!.exampleCs))
+    );
     assert.equal(availableAlphabetAudio(letter!.id,item.kind)?.url,item.url);
   }
 });
@@ -170,4 +174,15 @@ test('audio-to-letter exercise masks ONE exact target grapheme in Czech word',()
     assert.equal(maskLetterInExample(letter),masked,id);
     assert.equal(masked.split('＿').length,2,id);
   }
+});
+
+test('context audio must contain the exact Czech example word as a whole token',()=>{
+  assert.equal(czechSentenceContainsWord('Jaká je cena?','cena'),true);
+  assert.equal(czechSentenceContainsWord('To je můj dům.','dům'),true);
+  assert.equal(czechSentenceContainsWord('Mám chuť na čaj.','chuť'),true);
+  assert.equal(czechSentenceContainsWord('Tohle je quinoa.','quinoa'),true);
+  assert.equal(czechSentenceContainsWord('Hledám cenu.','cena'),false);
+  assert.equal(czechSentenceContainsWord('cenami','cena'),false);
+  assert.equal(czechSentenceContainsWord('Název webu.','web'),false);
+  assert.equal(czechSentenceContainsWord('To je náš web.','web'),true);
 });

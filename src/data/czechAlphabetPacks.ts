@@ -73,6 +73,8 @@ export interface ApprovedAlphabetAudio {
   sourceVersion:typeof CZECH_ALPHABET_PACK_VERSION;
   /** Exact Czech prompt audited for the generated recording. */
   csExact:string;
+  /** Exact example word when csExact is a short contextual Czech sentence. */
+  targetWord?:string;
   model:'gemini-3.8-flash-tts';
   qaStatus:'native_approved';
 }
@@ -89,6 +91,12 @@ export interface PreviewAlphabetAudio extends Omit<ApprovedAlphabetAudio,'qaStat
 export const PREVIEW_ALPHABET_AUDIO:readonly PreviewAlphabetAudio[]=
   (previewManifest.clips as unknown as PreviewAlphabetAudio[]);
 
+export function czechSentenceContainsWord(sentence:string,word:string):boolean{
+  const normalized=sentence.normalize('NFC').toLocaleLowerCase('cs-CZ');
+  const target=word.normalize('NFC').toLocaleLowerCase('cs-CZ');
+  return normalized.split(/[^\p{L}\p{M}]+/u).includes(target);
+}
+
 export function availableAlphabetAudio(letterId:string,kind:AlphabetAudioKind):
   ApprovedAlphabetAudio|PreviewAlphabetAudio|undefined{
   const letter=CZECH_ALPHABET_LETTERS.find(l=>l.id===letterId);
@@ -101,8 +109,13 @@ export function availableAlphabetAudio(letterId:string,kind:AlphabetAudioKind):
       ||a.sourceVersion!==CZECH_ALPHABET_PACK_VERSION
       ||a.csExact.trim().length===0||!/^[a-f0-9]{64}$/.test(a.sha256)
       ||!/^[a-f0-9]{64}$/.test(a.textSha256))return false;
-    if(kind==='sound_in_word' && a.csExact.toLocaleLowerCase('cs-CZ')!==
-       letter.exampleCs.toLocaleLowerCase('cs-CZ'))return false;
+    if(kind==='sound_in_word'){
+      const exactWord=a.csExact.normalize('NFC').toLocaleLowerCase('cs-CZ')===
+        letter.exampleCs.normalize('NFC').toLocaleLowerCase('cs-CZ');
+      const validContext=a.targetWord===letter.exampleCs &&
+        czechSentenceContainsWord(a.csExact,letter.exampleCs);
+      if(!exactWord&&!validContext)return false;
+    }
     if(a.qaStatus==='native_approved'){
       return /^\/[a-z0-9/_\-.]+\.(wav|mp3|ogg)$/i.test(a.url);
     }
