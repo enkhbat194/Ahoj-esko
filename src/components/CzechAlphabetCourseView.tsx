@@ -10,6 +10,7 @@ import {
   safePackProgress,savePackProgress,scorePackAudioChoice,
   type AlphabetPackProgress,
 } from '../utils/alphabetPackProgress';
+import { maskLetterInExample } from '../data/czechAlphabetCourse';
 import '../alphabet-course.css';
 import '../alphabet-packs.css';
 
@@ -232,7 +233,12 @@ export const CzechAlphabetCourseView:React.FC<Props>=({
 
       {!isReview&&!visibleReport&&(stage==='listen_name'||stage==='match_sound')&&<div className="alphabet-pack-quiz">
         <p className="alphabet-small">{stage==='listen_name'?'ҮСГИЙН НЭРИЙГ СОНСОХ':'ҮГ ДАХЬ АВИАГ ЯЛГАХ'} · {promptIndex+1}/{pack.letters.length}</p>
-        <h2>{stage==='listen_name'?'Аль үсгийн нэр сонсогдов?':'Сонссон үгэнд аль үсэг бичигдэх вэ?'}</h2>
+        <h2>{stage==='listen_name'?'Аль үсгийн нэр сонсогдов?':'Жишээ үгийн дутуу үсгийг сонго'}</h2>
+        {stage==='match_sound'&&cueLetter&&<div className="alphabet-pack-example alphabet-pack-masked-word">
+          <small>Аудиод гарч буй жишээ үг</small>
+          <strong>{maskLetterInExample(cueLetter)}</strong>
+          <span>Дутуу тэмдэгтэд тохирох үсгийг сонгоно.</span>
+        </div>}
         <AudioCue key={cueLetter?.id+stage} letterId={cueLetter?.id??''} kind={audioKind}
           onHeard={()=>setHeard(true)} onError={()=>setAudioError(true)}/>
         {!audioPending&&!audioError&&<div className="alphabet-pack-answer-grid">
@@ -244,7 +250,7 @@ export const CzechAlphabetCourseView:React.FC<Props>=({
           Үсэг сонгох дасгалын оноо нь таны дуудлага, ярих чадварын AI үнэлгээ биш.</p>}
         <p className="alphabet-muted">{stage==='listen_name'
           ?'Чех үсгийн нэрийг сонсоод багцын 4–5 сонголтоос сонго.'
-          :'Бүтэн Чех үгийг сонсоод түүний зөв бичлэгт аль үсэг ордгийг сонго. Ижил авиатай өөр үсэг байж болно.'}</p>
+          :'Жишээ үгийг сонсоод дэлгэц дээрх хоосон зайд тохирох үсгийг сонго. Үгийн бусад үсгийг таах шаардлагагүй.'}</p>
         {(audioPending||audioError)&&<p className="alphabet-error">
           Энэ үсгийн автоматаар шалгасан Gemini 3.8 Flash TTS аудио бэлэн биш тул сонсголын оноо тооцохгүй.
           Энэ хэсгийг дуугүйгээр зөв гэж тэмдэглэхгүй.
