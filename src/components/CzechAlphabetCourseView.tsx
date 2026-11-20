@@ -121,12 +121,6 @@ export const CzechAlphabetCourseView: React.FC<{
   };
 
   const options=letter?letterOptions(letter.id):[];
-  const visualExamples=letter?[
-    letter.exampleCs,
-    ...CZECH_ALPHABET_LETTERS.filter(x=>x.id!==letter.id
-      && !x.exampleCs.toLocaleLowerCase('cs-CZ').includes(letter.lower))
-      .slice(0,3).map(x=>x.exampleCs),
-  ]:[];
   const wordAnswer=letter?.exampleCs??'';
   const progressSteps=letter?progress.letters[letter.id]?.completedSteps??[]:[];
 
