@@ -1,4 +1,5 @@
 import type { Dialogue } from '../types/lesson';
+import { readCanonicalCurriculumOverview } from './canonicalCurriculumOverview';
 import type { ParsedDriveCurriculum, ParsedDriveCard } from './driveCurriculumParser';
 
 function record(value: unknown): value is Record<string, unknown> {
@@ -76,5 +77,5 @@ export function parseCanonicalLessonsJson(input: unknown): ParsedDriveCurriculum
   }
 
   if (cards.length === 0 && dialogues.length === 0) return null;
-  return { cards, dialogues, detectedFormat: 'json' };
+  return { cards, dialogues, detectedFormat: 'json', canonicalOverview: readCanonicalCurriculumOverview(input) ?? undefined };
 }

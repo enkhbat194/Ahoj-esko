@@ -19,6 +19,7 @@ import {
   Volume2,
 } from 'lucide-react';
 import type { Dialogue, TopicId } from '../types/lesson';
+import type { CanonicalCurriculumOverview } from '../utils/canonicalCurriculumOverview';
 import {
   DEFAULT_PROJECT_DRIVE_FOLDER_ID,
   extractDriveFolderId,
@@ -83,6 +84,7 @@ export const GoogleDriveProjectPanel: React.FC<GoogleDriveProjectPanelProps> = (
   const [copiedText, setCopiedText] = useState(false);
 
   const [parsedCards, setParsedCards] = useState<ParsedDriveCard[]>([]);
+  const [canonicalOverview, setCanonicalOverview] = useState<CanonicalCurriculumOverview | null>(null);
   const [parsedDialogues, setParsedDialogues] = useState<Omit<Dialogue, 'id'>[]>([]);
   const [selectedCardIndices, setSelectedCardIndices] = useState<Set<number>>(new Set());
   const [aiSummaryMn, setAiSummaryMn] = useState<string | null>(null);
@@ -167,6 +169,7 @@ export const GoogleDriveProjectPanel: React.FC<GoogleDriveProjectPanelProps> = (
     setPreviewText('');
     setPreviewAudioBlob(null);
     setParsedCards([]);
+    setCanonicalOverview(null);
     setParsedDialogues([]);
   };
 
@@ -202,6 +205,7 @@ export const GoogleDriveProjectPanel: React.FC<GoogleDriveProjectPanelProps> = (
     setPreviewText('');
     setPreviewAudioBlob(null);
     setParsedCards([]);
+    setCanonicalOverview(null);
     setParsedDialogues([]);
     setAiSummaryMn(null);
     setStatusMessage(null);
@@ -216,6 +220,7 @@ export const GoogleDriveProjectPanel: React.FC<GoogleDriveProjectPanelProps> = (
     setPreviewText('');
     setPreviewAudioBlob(null);
     setParsedCards([]);
+    setCanonicalOverview(null);
     setParsedDialogues([]);
     setAiSummaryMn(null);
     setStatusMessage(null);
@@ -240,6 +245,7 @@ export const GoogleDriveProjectPanel: React.FC<GoogleDriveProjectPanelProps> = (
     setPreviewText('');
     setPreviewAudioBlob(null);
     setParsedCards([]);
+    setCanonicalOverview(null);
     setParsedDialogues([]);
     setSelectedCardIndices(new Set());
     setAiSummaryMn(null);
@@ -253,6 +259,7 @@ export const GoogleDriveProjectPanel: React.FC<GoogleDriveProjectPanelProps> = (
         setPreviewText(content.text);
         const parsed = parseDriveCurriculumText(content.text, file.name);
         setParsedCards(parsed.cards);
+        setCanonicalOverview(parsed.canonicalOverview ?? null);
         setParsedDialogues(parsed.dialogues);
         setSelectedCardIndices(new Set(parsed.cards.map((_, i) => i)));
       } else if (content.kind === 'audio') {
@@ -338,6 +345,7 @@ export const GoogleDriveProjectPanel: React.FC<GoogleDriveProjectPanelProps> = (
         mongolianSentence: c.mongolianSentence,
       }));
       setParsedCards(normalized);
+      setCanonicalOverview(null);
       setSelectedCardIndices(new Set(normalized.map((_, i) => i)));
     } catch {
       setDriveError('Сүлжээний алдаа гарлаа.');
@@ -347,13 +355,17 @@ export const GoogleDriveProjectPanel: React.FC<GoogleDriveProjectPanelProps> = (
   };
 
   const handleImportSelected = async () => {
+    if (canonicalOverview?.validationErrors.length) {
+      setDriveError('Эхийн ID/бүтцийн зөрчил илэрсэн тул импортлохыг зогсоолоо.');
+      return;
+    }
     const cardsToImport = parsedCards.filter((_, idx) => selectedCardIndices.has(idx));
     if (cardsToImport.length === 0 && parsedDialogues.length === 0) return;
     await onImportDriveCurriculum(cardsToImport, parsedDialogues);
     setStatusMessage(
       `${cardsToImport.length} үгсийн карт${
         parsedDialogues.length > 0 ? `, ${parsedDialogues.length} харилцан яриа` : ''
-      } Ahoj Česko сан руу нэмэгдлээ.`
+      } Ahoj Česko сан руу нэмэгдлээ.${canonicalOverview ? ' Дасгал болон гарах сорилууд тусдаа сургалтын хөдөлгүүрт хараахан холбогдоогүй.' : ''}`
     );
   };
 
@@ -705,6 +717,23 @@ export const GoogleDriveProjectPanel: React.FC<GoogleDriveProjectPanelProps> = (
                     </pre>
                   )}
 
+                  {canonicalOverview && (
+                    <div role="status" className="rounded-xl bg-white dark:bg-[#1C1C1E] border border-black/[0.06] dark:border-white/[0.08] p-3 space-y-1.5">
+                      <p className="text-xs font-bold text-[#1C1C1E] dark:text-white">
+                        Хичээлийн эх: {canonicalOverview.counts.lessons} хичээл · {canonicalOverview.counts.phrases} хэллэг · {canonicalOverview.counts.dialogues} яриа · {canonicalOverview.counts.dialogueTurns} ярианы ээлж
+                      </p>
+                      <p className="text-xs text-[#636366] dark:text-[#AEAEB2]">
+                        {canonicalOverview.counts.exercises} дасгал, {canonicalOverview.counts.exits} гарах сорилын ID болон ноорог үнэлгээний дүрмийг уншсан. Эдгээр нь одоогоор аппын сургалтын хөдөлгүүрт импортлогдоогүй, үнэлгээ нь автоматаар батлагдаагүй.
+                      </p>
+                      {canonicalOverview.counts.transferRewritesPending > 0 && (
+                        <p className="text-xs text-[#8E8E93]">{canonicalOverview.counts.transferRewritesPending} гарах сорил шинэ нөхцөлд тохируулан засах шаардлагатай.</p>
+                      )}
+                      {canonicalOverview.validationErrors.length > 0 && (
+                        <p className="text-xs font-semibold text-[#FF3B30]">Эхийн ID/бүтцэд {canonicalOverview.validationErrors.length} зөрчил байна. Импорт хаагдсан.</p>
+                      )}
+                    </div>
+                  )}
+
                   {(parsedCards.length > 0 || parsedDialogues.length > 0) && (
                     <div className="rounded-xl bg-white dark:bg-[#1C1C1E] border border-black/[0.06] dark:border-white/[0.08] p-3 space-y-2.5">
                       <div className="flex flex-wrap items-center justify-between gap-2">
@@ -715,6 +744,7 @@ export const GoogleDriveProjectPanel: React.FC<GoogleDriveProjectPanelProps> = (
                         <button
                           type="button"
                           onClick={() => void handleImportSelected()}
+                          disabled={Boolean(canonicalOverview?.validationErrors.length)}
                           className="min-h-[32px] px-3 rounded-xl bg-[#007AFF] dark:bg-[#0A84FF] text-white text-[11px] font-semibold inline-flex items-center gap-1 cursor-pointer"
                         >
                           <Plus className="w-3.5 h-3.5" />

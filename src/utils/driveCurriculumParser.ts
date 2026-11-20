@@ -1,5 +1,6 @@
 import type { ContentQaStatus, Dialogue, TopicId, VocabCard } from '../types/lesson';
 import { parseCanonicalLessonsJson } from './canonicalLessonsParser';
+import type { CanonicalCurriculumOverview } from './canonicalCurriculumOverview';
 
 export const DEFAULT_PROJECT_DRIVE_FOLDER_ID = '1TFTOQHQK7JKQFhueBI8LURbxRIdROhYj';
 
@@ -17,6 +18,8 @@ export interface ParsedDriveCard {
 }
 
 export interface ParsedDriveCurriculum {
+  // Draft lesson / exercise / exit inventory; not installed into learner runtime.
+  canonicalOverview?: CanonicalCurriculumOverview;
   cards: ParsedDriveCard[];
   dialogues: Omit<Dialogue, 'id'>[];
   detectedFormat: 'json' | 'csv' | 'lines' | 'unstructured';
