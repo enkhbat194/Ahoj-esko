@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ArrowLeft,ArrowRight,ChevronRight,RotateCcw,ShieldAlert,Volume2,VolumeX } from 'lucide-react';
 import {
-  CZECH_ALPHABET_PACKS,CZECH_ALPHABET_PACK_BY_ID,approvedAlphabetAudio,spellingRequiresWordContext,
+  CZECH_ALPHABET_PACKS,CZECH_ALPHABET_PACK_BY_ID,availableAlphabetAudio,spellingRequiresWordContext,
   type AlphabetAudioKind, type AlphabetPackStage,
 } from '../data/czechAlphabetPacks';
 import {
@@ -23,18 +23,18 @@ interface Props {
 function AudioCue({letterId,kind,onHeard,onError}:{
   letterId:string;kind:AlphabetAudioKind;onHeard:()=>void;onError:()=>void;
 }){
-  const entry=approvedAlphabetAudio(letterId,kind);
+  const entry=availableAlphabetAudio(letterId,kind);
   const [broken,setBroken]=useState(false);
   if(!entry||broken)return (
     <div className="alphabet-pack-no-audio" role="status">
       <VolumeX size={23} aria-hidden="true"/>
-      <div><strong>Баталгаажсан Чех аудио байхгүй</strong>
+      <div><strong>Энэ үсгийн аудио хараахан бэлэн биш</strong>
         <p>Сонсголын шалгалтыг дуугүйгээр эсвэл англи үсгийн дуудлагаар орлуулахгүй.</p>
       </div>
     </div>
   );
   return <div className="alphabet-pack-audio">
-    <span><Volume2 size={20}/> Чех эх аудио · {kind==='letter_name'?'Үсгийн нэр':'Жишээ үгийг бүтнээр'}</span>
+    <span><Volume2 size={20}/> {entry.qaStatus==='native_approved'?'Чех аудио':'Gemini 3.8 · QA Preview'} · {kind==='letter_name'?'Үсгийн нэр':'Жишээ үгийг бүтнээр'}</span>
     <audio key={entry.sourceId+kind} controls preload="none" src={entry.url}
       onEnded={onHeard} onError={()=>{setBroken(true);onError();}} aria-label="Чех дуудлагын аудио тоглуулах"/>
   </div>;
@@ -79,7 +79,7 @@ export const CzechAlphabetCourseView:React.FC<Props>=({
     const completedIntro=packIntroducedCount(data,id)===pack.letters.length;
     save(openPack(data,id));
     setSelectedPack(id);setScreen('runner');clear();
-    if(completedIntro&&!packIsCompleted(data,id))setNotice('Энэ багцын 4–5 үсгийг үзсэн. Дараагийн алхам нь баталгаажсан сонсгол.');
+    if(completedIntro&&!packIsCompleted(data,id))setNotice('Энэ багцын үсгийг үзсэн. Дараа нь бодит Gemini аудиогоор сонсож танина.');
   };
   const continueLesson=()=>{
     const next=getPackContinueTarget(data);
@@ -96,7 +96,7 @@ export const CzechAlphabetCourseView:React.FC<Props>=({
   const onChoose=(id:string)=>{
     if(!pack||!cueLetter)return;
     const kind:AlphabetAudioKind=stage==='listen_name'?'letter_name':'sound_in_word';
-    if(!approvedAlphabetAudio(cueLetter.id,kind)||audioError){
+    if(!availableAlphabetAudio(cueLetter.id,kind)||audioError){
       setNotice('Баталгаажсан аудио байхгүй үед сонголтыг үнэлэхгүй.');return;
     }
     if(!heard){setNotice('Аудиог эхнээс нь дуустал сонсоод хариулна уу.');return;}
@@ -114,7 +114,7 @@ export const CzechAlphabetCourseView:React.FC<Props>=({
   const visibleReport=manualReport||stage==='report';
   const introLetter=pack?.letters[isReview?(reviewIndex??0):Math.min(promptIndex,pack.letters.length-1)];
   const audioKind:AlphabetAudioKind=stage==='listen_name'?'letter_name':'sound_in_word';
-  const audioPending=Boolean(cueLetter &&!approvedAlphabetAudio(cueLetter.id,audioKind));
+  const audioPending=Boolean(cueLetter &&!availableAlphabetAudio(cueLetter.id,audioKind));
 
   const downloadBackup=()=>{
     const text=JSON.stringify(data,null,2);
@@ -235,11 +235,14 @@ export const CzechAlphabetCourseView:React.FC<Props>=({
           {pack.letters.map(l=><button type="button" key={l.id} className={`alphabet-choice ${answer===l.id?'chosen':''}`}
             onClick={()=>onChoose(l.id)}>{l.upper}</button>)}
         </div>}
+        {cueLetter && availableAlphabetAudio(cueLetter.id,audioKind)?.qaStatus!=='native_approved' &&
+          !audioPending && <p className="alphabet-note">Энэ бол Gemini 3.8 TTS-ийн туршилтын аудио.
+          Үсэг сонгох дасгалын оноо нь таны дуудлага, ярих чадварын AI үнэлгээ биш.</p>}
         <p className="alphabet-muted">{stage==='listen_name'
           ?'Чех үсгийн нэрийг сонсоод багцын 4–5 сонголтоос сонго.'
           :'Бүтэн Чех үгийг сонсоод түүний зөв бичлэгт аль үсэг ордгийг сонго. Ижил авиатай өөр үсэг байж болно.'}</p>
         {(audioPending||audioError)&&<p className="alphabet-error">
-          Баталгаажсан Gemini 3.8 Flash TTS аудио байхгүй учир сонсголын оноо тооцохгүй.
+          Энэ үсгийн автоматаар шалгасан Gemini 3.8 Flash TTS аудио бэлэн биш тул сонсголын оноо тооцохгүй.
           Энэ хэсгийг дуугүйгээр зөв гэж тэмдэглэхгүй.
         </p>}
         {cueLetter && spellingRequiresWordContext(cueLetter.id) && stage==='match_sound' &&
@@ -262,7 +265,7 @@ export const CzechAlphabetCourseView:React.FC<Props>=({
 
       {!isReview&&visibleReport&&stats&&<div className="alphabet-pack-report">
         <p className="alphabet-small">БАГЦ {pack.index+1} · ҮНЭЛГЭЭНИЙ ТӨЛӨВ</p>
-        <h2>{stats.completed?'Сонсгол, авиа ялгалтын багц дууслаа':'Сонсголын эцсийн үнэлгээ хүлээгдэж байна'}</h2>
+        <h2>{stats.completed?'Аудио таних сонголтын дасгал дууслаа':'Сонсголын дасгал дутуу байна'}</h2>
         <div className="alphabet-pack-report-stats">
           <div><b>{stats.visualIntroduced}/{stats.total}</b><span>Танилцсан үсэг</span></div>
           <div><b>{stats.nameRecognized}/{stats.total}</b><span>Нэр таньсан</span></div>
@@ -282,7 +285,7 @@ export const CzechAlphabetCourseView:React.FC<Props>=({
         </section>
         <div className="alphabet-pack-ai-alert">
           <ShieldAlert size={21}/><div><strong>AI багшийн үнэлгээ хараахан хийгдээгүй</strong>
-          <p>Яриа, дуу бичлэгийг бодитоор шинжилсэн AI багшийн баталгаажсан холболт байхгүй.
+          <p>Суралцагчийн дуу хоолойг шинжилсэн AI багшийн баталгаажсан холболт байхгүй.
             Энэ тайлан бол зөвхөн аппын бүртгэсэн үйлдлийн тайлан. AI оноо, 100% дуудлага гэж харуулахгүй.</p></div>
         </div>
         {onOpenAiTeacher&&<button type="button" className="alphabet-outline-button alphabet-wide" onClick={onOpenAiTeacher}>

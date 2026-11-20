@@ -1,0 +1,100 @@
+{
+  "sourceVersion": "cz-alphabet-pack-v1",
+  "model": "gemini-3.8-flash-tts",
+  "publicationAllowed": false,
+  "previewOnly": true,
+  "sourceCommit": "1134a3eb70e7ebbdb121e4b424d0c1d4880bece6",
+  "clips": [
+    {
+      "sourceId": "CZ-ALPHA-A",
+      "kind": "letter_name",
+      "url": "https://raw.githubusercontent.com/enkhbat194/Audio-uildwerlel/1134a3eb70e7ebbdb121e4b424d0c1d4880bece6/production/alphabet-preview/pack01/A__letter_name.wav",
+      "sha256": "6810b2d2103e888775b5f7d0ecd25261ae969dabd83639b4fbf63f17f90f4c78",
+      "textSha256": "68d3a41dd2f742299775be49053126595827dbb1eba007957d16a577f86ce739",
+      "sourceVersion": "cz-alphabet-pack-v1",
+      "csExact": "Písmeno A.",
+      "model": "gemini-3.8-flash-tts",
+      "qaStatus": "technical_preview",
+      "previewAllowed": true,
+      "publicationAllowed": false
+    },
+    {
+      "sourceId": "CZ-ALPHA-A",
+      "kind": "sound_in_word",
+      "url": "https://raw.githubusercontent.com/enkhbat194/Audio-uildwerlel/1134a3eb70e7ebbdb121e4b424d0c1d4880bece6/production/alphabet-preview/pack01/A__sound_in_word.wav",
+      "sha256": "5636417cdfd6f131e038474d08acce574814595e806eb0b5e3ac165e82ef2673",
+      "textSha256": "929260ad9b9ea9fe0f3553dd964f4ff3deb5792efd031a2b90f573fe91f012bb",
+      "sourceVersion": "cz-alphabet-pack-v1",
+      "csExact": "auto",
+      "model": "gemini-3.8-flash-tts",
+      "qaStatus": "auto_transcript_pass",
+      "previewAllowed": true,
+      "publicationAllowed": false
+    },
+    {
+      "sourceId": "CZ-ALPHA-Á",
+      "kind": "letter_name",
+      "url": "https://raw.githubusercontent.com/enkhbat194/Audio-uildwerlel/1134a3eb70e7ebbdb121e4b424d0c1d4880bece6/production/alphabet-preview/pack01/A_ACUTE__letter_name.wav",
+      "sha256": "e6e4bd6b80ffdfef2c39737389e2d48c7b033b2ab37f05835951ac89a1bd3c81",
+      "textSha256": "a3d250b6eb916ac1940eb599d76f8fecfe6be49eec7cd218697e016c12b03f58",
+      "sourceVersion": "cz-alphabet-pack-v1",
+      "csExact": "Písmeno Á, dlouhé á.",
+      "model": "gemini-3.8-flash-tts",
+      "qaStatus": "technical_preview",
+      "previewAllowed": true,
+      "publicationAllowed": false
+    },
+    {
+      "sourceId": "CZ-ALPHA-Á",
+      "kind": "sound_in_word",
+      "url": "https://raw.githubusercontent.com/enkhbat194/Audio-uildwerlel/1134a3eb70e7ebbdb121e4b424d0c1d4880bece6/production/alphabet-preview/pack01/A_ACUTE__sound_in_word.wav",
+      "sha256": "1571db554c0f038493b085a4cd80c1b9a21eaccc40ee7c1c430ea67af8f78fee",
+      "textSha256": "a64db966c489bbe933f7f4b8014fb79fa0aa90593f2452503f0414f2f4cc2816",
+      "sourceVersion": "cz-alphabet-pack-v1",
+      "csExact": "máma",
+      "model": "gemini-3.8-flash-tts",
+      "qaStatus": "auto_transcript_pass",
+      "previewAllowed": true,
+      "publicationAllowed": false
+    },
+    {
+      "sourceId": "CZ-ALPHA-B",
+      "kind": "letter_name",
+      "url": "https://raw.githubusercontent.com/enkhbat194/Audio-uildwerlel/1134a3eb70e7ebbdb121e4b424d0c1d4880bece6/production/alphabet-preview/pack01/B__letter_name.wav",
+      "sha256": "7f1a53bd6bef4e0eb5854555f8427e09be2cd60df81e48d9ab165ddc39b322c2",
+      "textSha256": "1ced0ec77d226b17409d72e0997fe8383ee26d3e1799d1c0252d2d587093af67",
+      "sourceVersion": "cz-alphabet-pack-v1",
+      "csExact": "Písmeno B.",
+      "model": "gemini-3.8-flash-tts",
+      "qaStatus": "technical_preview",
+      "previewAllowed": true,
+      "publicationAllowed": false
+    },
+    {
+      "sourceId": "CZ-ALPHA-C",
+      "kind": "letter_name",
+      "url": "https://raw.githubusercontent.com/enkhbat194/Audio-uildwerlel/1134a3eb70e7ebbdb121e4b424d0c1d4880bece6/production/alphabet-preview/pack01/C__letter_name.wav",
+      "sha256": "4ce4b269b6fefdca23e10fe64d67c415fc37f48e8478d43c474ec17d546a7daf",
+      "textSha256": "70e3b0686587e4834459352e48f4991972e396d314a0c09ad67d579bd6ca7425",
+      "sourceVersion": "cz-alphabet-pack-v1",
+      "csExact": "Písmeno C.",
+      "model": "gemini-3.8-flash-tts",
+      "qaStatus": "technical_preview",
+      "previewAllowed": true,
+      "publicationAllowed": false
+    },
+    {
+      "sourceId": "CZ-ALPHA-Č",
+      "kind": "letter_name",
+      "url": "https://raw.githubusercontent.com/enkhbat194/Audio-uildwerlel/1134a3eb70e7ebbdb121e4b424d0c1d4880bece6/production/alphabet-preview/pack01/C_CARON__letter_name.wav",
+      "sha256": "193146386b5e296470f8fce512a3dfb3a062c75b20e637cb54ea0c7aef1fcbd6",
+      "textSha256": "c4e23f128ef2cacbce3e669901ed1f7894c52deaeb2558832d32cf92cbfe4eeb",
+      "sourceVersion": "cz-alphabet-pack-v1",
+      "csExact": "Písmeno Č.",
+      "model": "gemini-3.8-flash-tts",
+      "qaStatus": "technical_preview",
+      "previewAllowed": true,
+      "publicationAllowed": false
+    }
+  ]
+}

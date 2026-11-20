@@ -1,6 +1,6 @@
 import {
   CZECH_ALPHABET_PACKS,CZECH_ALPHABET_PACK_BY_ID,CZECH_ALPHABET_PACK_VERSION,
-  approvedAlphabetAudio,type AlphabetPackStage,type AlphabetAudioKind,
+  availableAlphabetAudio,type AlphabetPackStage,type AlphabetAudioKind,
 } from '../data/czechAlphabetPacks';
 import { ALPHABET_STORAGE_KEY } from './alphabetProgress';
 
@@ -165,7 +165,7 @@ export function scorePackAudioChoice(
   const completed=kind==='letter_name'?item.nameCompletedIds:item.soundCompletedIds;
   const prompt=pack?.letters[completed.length]?.id;
   if(!pack||!prompt||prompt!==letterId||item.introducedIds.length!==pack.letters.length
-    ||state.last?.packId!==packId||state.last.stage!==stage||!approvedAlphabetAudio(prompt,kind)){
+    ||state.last?.packId!==packId||state.last.stage!==stage||!availableAlphabetAudio(prompt,kind)){
     return {correct:false,scored:false,next:state};
   }
   const correct=answer===prompt;
