@@ -1,3 +1,4 @@
+import { installCourse } from '../utils/courseStorage';
 import React, { useCallback, useEffect, useState } from 'react';
 import { motion } from 'motion/react';
 import type { User } from 'firebase/auth';
@@ -723,8 +724,17 @@ export const GoogleDriveProjectPanel: React.FC<GoogleDriveProjectPanelProps> = (
                         Хичээлийн эх: {canonicalOverview.counts.lessons} хичээл · {canonicalOverview.counts.phrases} хэллэг · {canonicalOverview.counts.dialogues} яриа · {canonicalOverview.counts.dialogueTurns} ярианы ээлж
                       </p>
                       <p className="text-xs text-[#636366] dark:text-[#AEAEB2]">
-                        {canonicalOverview.counts.exercises} дасгал, {canonicalOverview.counts.exits} гарах сорилын ID болон ноорог үнэлгээний дүрмийг уншсан. Эдгээр нь одоогоор аппын сургалтын хөдөлгүүрт импортлогдоогүй, үнэлгээ нь автоматаар батлагдаагүй.
+                        {canonicalOverview.counts.exercises} дасгал, {canonicalOverview.counts.exits} гарах сорилтой. Хичээлийн горимд нээхийн тулд эхийг энэ төхөөрөмжид хадгална.
                       </p>
+                      {canonicalOverview.counts.lessons === 72 && !canonicalOverview.validationErrors.length && (
+                        <button type="button" className="min-h-11 rounded-xl bg-[#0064CF] px-3 text-sm text-white"
+                          onClick={async () => {
+                            try {
+                              const installed = await installCourse(new Blob([previewText]));
+                              setStatusMessage(installed.lessons.length + ' хичээл бэлэн. Нүүрээс «Ярианы хичээлүүд»-ийг нээгээрэй.');
+                            } catch (e) { setDriveError(e instanceof Error ? e.message : 'Хичээл хадгалж чадсангүй.'); }
+                          }}>Хичээлүүдэд нэмэх</button>
+                      )}
                       {canonicalOverview.counts.transferRewritesPending > 0 && (
                         <p className="text-xs text-[#8E8E93]">{canonicalOverview.counts.transferRewritesPending} гарах сорил шинэ нөхцөлд тохируулан засах шаардлагатай.</p>
                       )}

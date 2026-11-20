@@ -1,44 +1,31 @@
 import React, { useMemo, useState } from 'react';
 import { ArrowLeft, ArrowRight, BookOpenText, Check, ChevronDown, ChevronUp, Eye, EyeOff, Mic2, RotateCcw, UserRound, UsersRound } from 'lucide-react';
-import { L01_WORKING_SOURCE } from '../data/l01WorkingSource';
 import { L01SelfRecorder } from './L01SelfRecorder';
-import {
-  getDialogueLearnerCue, getDialogueRoundResults, isL01DialogueTurnId,
-  type L01DialogueMode, type L01DialogueRole, type L01SelfCheck, type L01TurnPracticeRecord,
-} from '../utils/l01DialogueTraining';
-import type { L01PracticeProgress } from '../utils/l01PracticeProgress';
+import { CourseAudioButton } from './CourseAudioButton';
+import { getDialogueLearnerCue, getDialogueRoundResults } from '../utils/courseDialogue';
+import type { Course, CourseLesson } from '../utils/courseSource';
+import type { CourseProgress, DialogueMode, SelfCheck, TurnRecord } from '../utils/courseProgress';
 
-interface Dialogue {
-  id: string;
-  titleMn: string;
-  turns: readonly {
-    id: string;
-    speaker: 'A' | 'B';
-    cs: string;
-    mn: string;
-  }[];
-}
-
-const SCENES: readonly Dialogue[] = L01_WORKING_SOURCE.dialogues;
 const panel = 'rounded-2xl bg-[#F2F2F7] dark:bg-[#2C2C2E] p-3.5';
 const button = 'min-h-[42px] rounded-xl px-4 text-xs font-bold transition-colors cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed';
 const primary = button + ' bg-[#007AFF] dark:bg-[#0A84FF] text-white';
 const secondary = button + ' bg-white dark:bg-[#1C1C1E] text-[#1C1C1E] dark:text-white border border-black/[0.07] dark:border-white/[0.08]';
 const subdued = 'text-xs text-[#636366] dark:text-[#AEAEB2]';
 
-export const L01DialogueCoach: React.FC<{
-  progress: L01PracticeProgress;
-  setProgress: React.Dispatch<React.SetStateAction<L01PracticeProgress>>;
-}> = ({ progress, setProgress }) => {
-  const [sceneIndex, setSceneIndex] = useState(0);
-  const [mode, setMode] = useState<L01DialogueMode>('explore');
-  const [role, setRole] = useState<L01DialogueRole>('B');
-  const [turnIndex, setTurnIndex] = useState(0);
+export const CourseDialogueCoach: React.FC<{
+  lesson: CourseLesson;
+  clips: Course['clips'];
+  progress: CourseProgress;
+  setProgress: React.Dispatch<React.SetStateAction<CourseProgress>>;
+}> = ({ lesson, clips, progress, setProgress }) => {
+  const { mode, role, turnIndex } = progress;
+  const scenes = lesson.dialogues;
+  const sceneIndex = Math.max(0, scenes.findIndex(s => s.id === progress.sceneId));
   const [revealed, setRevealed] = useState(false);
   const [hint, setHint] = useState(false);
   const [showTranscript, setShowTranscript] = useState(false);
 
-  const dialogue = SCENES[sceneIndex] ?? SCENES[0];
+  const dialogue = scenes[sceneIndex] ?? scenes[0];
   const isFinished = turnIndex >= dialogue.turns.length;
   const turn = !isFinished ? dialogue.turns[turnIndex] : undefined;
   const isLearner = turn?.speaker === role;
@@ -52,25 +39,26 @@ export const L01DialogueCoach: React.FC<{
   const attempted = ownRecord?.attempted === true || Boolean(ownRecord?.response.trim());
   const reviewed = ownRecord?.selfCheck != null;
 
-  const start = (nextMode: L01DialogueMode, nextScene = sceneIndex, nextRole = role) => {
-    setSceneIndex(nextScene);
-    setMode(nextMode);
-    setRole(nextRole);
-    setTurnIndex(0);
+  const start = (nextMode: DialogueMode, nextScene = sceneIndex, nextRole = role) => {
+    setProgress(prev => ({...prev, sceneId: scenes[nextScene].id, mode: nextMode, role: nextRole, turnIndex: 0, updatedAt: Date.now()}));
     setRevealed(false);
     setHint(false);
     setShowTranscript(false);
   };
   const advance = (step: number) => {
-    setTurnIndex((i) => Math.max(0, Math.min(dialogue.turns.length, i + step)));
+    setProgress(prev => {
+      const index = Math.max(0, Math.min(dialogue.turns.length, prev.turnIndex + step));
+      const finishedScenes = index === dialogue.turns.length ? [...new Set([...prev.finishedScenes, dialogue.id])] : prev.finishedScenes;
+      return {...prev, turnIndex: index, finishedScenes, updatedAt: Date.now()};
+    });
     setRevealed(false);
     setHint(false);
   };
 
-  const updateRecord = (id: string, patch: Partial<L01TurnPracticeRecord>) => {
-    if (!isL01DialogueTurnId(id)) return;
+  const updateRecord = (id: string, patch: Partial<TurnRecord>) => {
+    if (!dialogue.turns.some(t => t.id === id)) return;
     setProgress((prev) => {
-      const before: L01TurnPracticeRecord = prev.dialogueRecords[id] ?? { response: '', attempted: false, selfCheck: null };
+      const before: TurnRecord = prev.dialogueRecords[id] ?? { response: '', attempted: false, selfCheck: null };
       const next = { ...before, ...patch };
       return {
         ...prev,
@@ -84,7 +72,7 @@ export const L01DialogueCoach: React.FC<{
     updateRecord(id, { response: value.slice(0, 1000), attempted: value.trim().length > 0, selfCheck: null });
   };
 
-  const selectSelfCheck = (id: string, value: L01SelfCheck) => {
+  const selectSelfCheck = (id: string, value: SelfCheck) => {
     updateRecord(id, { attempted: true, selfCheck: value });
   };
 
@@ -92,18 +80,18 @@ export const L01DialogueCoach: React.FC<{
     <section className="rounded-3xl bg-white dark:bg-[#1C1C1E] border border-black/[0.06] dark:border-white/[0.08] p-4 sm:p-6 space-y-4">
       <div className="space-y-1">
         <p className="text-[11px] tracking-wide font-bold uppercase text-[#007AFF] dark:text-[#64D2FF]">
-          Dialogue trainer · Яриагаар суръя
+          Харилцан яриа
         </p>
         <h2 className="text-lg sm:text-xl font-bold text-[#1C1C1E] dark:text-white">
-          Шинэ хүнтэй танилцах
+          {dialogue.titleMn}
         </h2>
         <p className={subdued}>
-          Зорилго: нэрээ хэлэх, нэр болон хаанаас ирснийг асуух, харилцааг эелдгээр үргэлжлүүлэх.
+          {lesson.missionMn}
         </p>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-        {SCENES.map((scene, index) => (
+        {scenes.map((scene, index) => (
           <button
             key={scene.id}
             type="button"
@@ -140,7 +128,7 @@ export const L01DialogueCoach: React.FC<{
         </div>
         <p className={subdued}>
           {mode === 'explore'
-            ? 'Яриаг нэг ээлжээр уншиж, хэн юу хэлж байгааг ойлго. Эхийн аудио баталгаажсаны дараа сонсгол нэмэгдэнэ.'
+            ? 'Яриаг нэг ээлжээр уншиж, хэн юу хэлж байгааг ойлго.'
             : mode === 'guided'
               ? 'Дүрээ сонго. Нөгөө хүний хэлснийг уншаад, өөрийн ээлжинд чехээр хэл. Монгол утгын тусламж бий.'
               : 'Бодит харилцаа шиг өөрийн ээлжинд санаж хэл. Тусламж болон жишиг хариулт эхэндээ нуугдсан байна.'}
@@ -247,7 +235,7 @@ export const L01DialogueCoach: React.FC<{
                     Монгол утгын тусламж
                   </button>
                 )}
-                <L01SelfRecorder />
+                <L01SelfRecorder key={turn.id} />
                 <button type="button" className={attempted ? primary : secondary}
                   onClick={() => updateRecord(turn.id, { attempted: true, selfCheck: null })}>
                   <Mic2 className="inline w-4 h-4 mr-1" />
@@ -266,7 +254,7 @@ export const L01DialogueCoach: React.FC<{
                   className="w-full min-h-[74px] rounded-xl bg-white dark:bg-[#1C1C1E] border border-black/[0.06] dark:border-white/[0.1] p-3 text-sm text-[#1C1C1E] dark:text-white"
                 />
                 <button type="button" className={secondary}
-                  onClick={() => setRevealed(!revealed)}
+                  disabled={!attempted} onClick={() => setRevealed(!revealed)}
                   aria-expanded={revealed}>
                   {revealed ? <EyeOff className="inline w-4 h-4 mr-1" /> : <Eye className="inline w-4 h-4 mr-1" />}
                   {revealed ? 'Жишиг хариулт нуух' : 'Жишиг хариулт харах'}
@@ -296,6 +284,7 @@ export const L01DialogueCoach: React.FC<{
                 )}
               </div>
             )}
+            {(mode === 'explore' || !isLearner || revealed) && <CourseAudioButton clips={clips.get(turn.id)} />}
           </div>
 
           <div className="flex items-center justify-between gap-2">
@@ -321,7 +310,7 @@ export const L01DialogueCoach: React.FC<{
       <div className="rounded-2xl border border-black/[0.06] dark:border-white/[0.1] overflow-hidden">
         <button type="button"
           className="flex w-full items-center justify-between gap-2 px-4 py-3 text-xs font-semibold cursor-pointer"
-          onClick={() => setShowTranscript((v) => !v)}
+          disabled={mode === 'challenge' && !isFinished} onClick={() => setShowTranscript((v) => !v)}
           aria-expanded={showTranscript}>
           <span className="inline-flex items-center gap-2">
             <BookOpenText className="w-4 h-4" />
@@ -343,10 +332,7 @@ export const L01DialogueCoach: React.FC<{
         )}
       </div>
 
-      <p className={subdued}>
-        Чех эх текст болон дүрийн ээлж өөрчлөгдөөгүй. Баталгаажсан эх аудио хараахан холбогдоогүй;
-        зөвхөн өөрийн дууг түр бичиж сонсох боломжтой. Автомат дуудлагын оноо гаргахгүй.
-      </p>
+
     </section>
   );
 };
