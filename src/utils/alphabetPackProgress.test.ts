@@ -1,3 +1,5 @@
+import { createHash } from 'node:crypto';
+import previewManifest from '../data/alphabetAudioPreview.json';
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import {
@@ -133,4 +135,27 @@ test('Ú/Ů and I/Y spelling is contextual; do not assert unique sound-only answ
   }
   assert.equal(CZECH_ALPHABET_PACKS[7].letters[0].id,'Ú');
   assert.equal(CZECH_ALPHABET_PACKS[7].letters[1].id,'Ů');
+});
+
+test('Gemini Preview audio manifest has immutable source/text SHA, valid Czech examples and no publication approval',()=>{
+  assert.equal(previewManifest.publicationAllowed,false);
+  assert.equal(previewManifest.previewOnly,true);
+  assert.match(previewManifest.sourceCommit,/^[a-f0-9]{40}$/);
+  const unique=new Set<string>();
+  for(const item of PREVIEW_ALPHABET_AUDIO){
+    const key=item.sourceId+'::'+item.kind;
+    assert.equal(unique.has(key),false,key);
+    unique.add(key);
+    assert.equal(item.model,'gemini-3.8-flash-tts');
+    assert.equal(item.previewAllowed,true);
+    assert.equal(item.publicationAllowed,false);
+    assert.notEqual(item.qaStatus,'native_approved');
+    assert.equal(item.textSha256,createHash('sha256').update(item.csExact).digest('hex'));
+    assert.match(item.sha256,/^[a-f0-9]{64}$/);
+    assert.ok(item.url.includes('/'+previewManifest.sourceCommit+'/'));
+    const letter=CZECH_ALPHABET_LETTERS.find(l=>'CZ-ALPHA-'+l.id===item.sourceId);
+    assert.ok(letter,key);
+    if(item.kind==='sound_in_word')assert.equal(item.csExact,letter?.exampleCs);
+    assert.equal(availableAlphabetAudio(letter!.id,item.kind)?.url,item.url);
+  }
 });
