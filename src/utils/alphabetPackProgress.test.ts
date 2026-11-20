@@ -7,7 +7,7 @@ import {
   APPROVED_ALPHABET_AUDIO,PREVIEW_ALPHABET_AUDIO,availableAlphabetAudio,approvedAlphabetAudio,isPackAudioReady,
   spellingRequiresWordContext,CONTEXT_REQUIRED_SPELLINGS,
 } from '../data/czechAlphabetPacks';
-import { CZECH_ALPHABET_LETTERS } from '../data/czechAlphabetCourse';
+import { CZECH_ALPHABET_LETTERS, maskLetterInExample } from '../data/czechAlphabetCourse';
 import {
   emptyPackProgress,getPackContinueTarget,introduceNextLetter,lettersIntroducedCount,
   openPack,packIntroducedCount,packIsCompleted,packReport,packsPassedCount,
@@ -155,5 +155,19 @@ test('Gemini Preview audio manifest has immutable source/text SHA, valid Czech e
     assert.ok(letter,key);
     if(item.kind==='sound_in_word')assert.equal(item.csExact,letter?.exampleCs);
     assert.equal(availableAlphabetAudio(letter!.id,item.kind)?.url,item.url);
+  }
+});
+
+test('audio-to-letter exercise masks ONE exact target grapheme in Czech word',()=>{
+  const expected=new Map([
+    ['A','＿uto'],['Á','m＿ma'],['B','＿anán'],
+    ['C','＿ena'],['Č','＿aj'],['CH','＿léb'],
+    ['Ů','d＿m'],['Y','s＿n'],
+  ]);
+  for(const [id,masked] of expected){
+    const letter=CZECH_ALPHABET_LETTERS.find(l=>l.id===id);
+    assert.ok(letter,id);
+    assert.equal(maskLetterInExample(letter),masked,id);
+    assert.equal(masked.split('＿').length,2,id);
   }
 });
