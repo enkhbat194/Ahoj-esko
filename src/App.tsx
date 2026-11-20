@@ -423,19 +423,9 @@ export default function App() {
     (incomingCards: ParsedDriveCard[], incomingDialogues: Omit<Dialogue, 'id'>[]) => {
       const now = Date.now();
       if (incomingCards.length > 0) {
-        setCards((prev) => {
-          const existingWords = new Set(prev.map((c) => c.czechWord.trim().toLowerCase()));
-          const additions: VocabCard[] = incomingCards
-            .filter((c) => !existingWords.has(c.czechWord.trim().toLowerCase()))
-            .map((c, idx) => ({
-              ...c,
-              id: `custom-drive-${now}-${idx}`,
-              audioIds: {},
-              mastered: false,
-              practiceCount: 0,
-            }));
-          return [...additions, ...prev];
-        });
+        // Route Drive imports through the same ID/meaning collision guard as canonical lessons.
+        // Word-only deduplication silently discarded distinct Czech/Mongolian meanings.
+        handleAddCanonicalPhrasesToDeck(incomingCards);
       }
       if (incomingDialogues.length > 0) {
         setDialogues((prev) => {
@@ -450,7 +440,7 @@ export default function App() {
         });
       }
     },
-    []
+    [handleAddCanonicalPhrasesToDeck]
   );
 
   const handleImportDriveAudioFiles = useCallback(
