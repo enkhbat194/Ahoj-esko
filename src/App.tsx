@@ -238,11 +238,12 @@ export default function App() {
   );
 
   const handleAddCanonicalPhrasesToDeck = useCallback(
-    (incoming: Omit<VocabCard, 'id' | 'audioIds' | 'mastered' | 'practiceCount'>[]): number => {
+    (incoming: Omit<VocabCard, 'id' | 'audioIds' | 'mastered' | 'practiceCount'>[], preserveDistinctCanonicalIds = false): number => {
       const { additions, conflictingIds } = selectCanonicalCardsToAdd(
         cardsRef.current,
         incoming,
         Date.now(),
+        { preserveDistinctCanonicalIds },
       );
       if (conflictingIds.length > 0) {
         // Existing SRS/audio progress must never be reused for another phrase.
@@ -425,13 +426,24 @@ export default function App() {
       if (incomingCards.length > 0) {
         // Route Drive imports through the same ID/meaning collision guard as canonical lessons.
         // Word-only deduplication silently discarded distinct Czech/Mongolian meanings.
-        handleAddCanonicalPhrasesToDeck(incomingCards);
+        handleAddCanonicalPhrasesToDeck(incomingCards, incomingCards.some((card) => Boolean(card.lessonId)));
       }
       if (incomingDialogues.length > 0) {
         setDialogues((prev) => {
-          const existingTitles = new Set(prev.map((d) => d.titleCz.trim().toLowerCase()));
+          const existingIds = new Set(prev.map((d) => d.canonicalId).filter(Boolean));
+          const existingTitles = new Set(prev.filter((d) => !d.canonicalId).map((d) => d.titleCz.trim().toLowerCase()));
           const additions: Dialogue[] = incomingDialogues
-            .filter((d) => !existingTitles.has(d.titleCz.trim().toLowerCase()))
+            .filter((d) => {
+              if (d.canonicalId) {
+                if (existingIds.has(d.canonicalId)) return false;
+                existingIds.add(d.canonicalId);
+                return true;
+              }
+              const title = d.titleCz.trim().toLowerCase();
+              if (existingTitles.has(title)) return false;
+              existingTitles.add(title);
+              return true;
+            })
             .map((d, idx) => ({
               ...d,
               id: `custom-drive-dlg-${now}-${idx}`,
