@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { ArrowLeft,ArrowRight,BookOpen,Check,ChevronRight,Headphones,RotateCcw,ShieldAlert,Volume2,VolumeX } from 'lucide-react';
+import { ArrowLeft,ArrowRight,ChevronRight,RotateCcw,ShieldAlert,Volume2,VolumeX } from 'lucide-react';
 import {
   CZECH_ALPHABET_PACKS,CZECH_ALPHABET_PACK_BY_ID,approvedAlphabetAudio,
-  type AlphabetAudioKind, type AlphabetPack, type AlphabetPackStage,
+  type AlphabetAudioKind, type AlphabetPackStage,
 } from '../data/czechAlphabetPacks';
 import {
-  emptyPackProgress,getPackContinueTarget,introduceNextLetter,lettersIntroducedCount,
+  getPackContinueTarget,introduceNextLetter,lettersIntroducedCount,
   loadPackProgress,openPack,packIntroducedCount,packIsCompleted,packReport,packsPassedCount,
   safePackProgress,savePackProgress,scorePackAudioChoice,
   type AlphabetPackProgress,
@@ -20,8 +20,8 @@ interface Props {
   onOpenAiTeacher?:()=>void;
 }
 
-function AudioCue({letterId,kind}:{
-  letterId:string;kind:AlphabetAudioKind;
+function AudioCue({letterId,kind,onHeard,onError}:{
+  letterId:string;kind:AlphabetAudioKind;onHeard:()=>void;onError:()=>void;
 }){
   const entry=approvedAlphabetAudio(letterId,kind);
   const [broken,setBroken]=useState(false);
@@ -36,7 +36,7 @@ function AudioCue({letterId,kind}:{
   return <div className="alphabet-pack-audio">
     <span><Volume2 size={20}/> Чех эх аудио · {kind==='letter_name'?'Үсгийн нэр':'Үг доторх авиа'}</span>
     <audio key={entry.sourceId+kind} controls preload="none" src={entry.url}
-      onError={()=>setBroken(true)} aria-label="Чех дуудлагын аудио тоглуулах"/>
+      onEnded={onHeard} onError={()=>{setBroken(true);onError();}} aria-label="Чех дуудлагын аудио тоглуулах"/>
   </div>;
 }
 
@@ -56,6 +56,7 @@ export const CzechAlphabetCourseView:React.FC<Props>=({
   const [reviewIndex,setReviewIndex]=useState<number|null>(null);
   const [storageFailed,setStorageFailed]=useState(false);
   const [audioError,setAudioError]=useState(false);
+  const [heard,setHeard]=useState(false);
   const [restoredMessage,setRestoredMessage]=useState('');
 
   const pack=selectedPack?CZECH_ALPHABET_PACK_BY_ID.get(selectedPack):undefined;
@@ -72,7 +73,7 @@ export const CzechAlphabetCourseView:React.FC<Props>=({
   const save=(next:AlphabetPackProgress)=>{
     setData(next);setStorageFailed(!savePackProgress(next));
   };
-  const clear=()=>{setAnswer(null);setNotice('');setAudioError(false);setManualReport(false);setReviewIndex(null);};
+  const clear=()=>{setAnswer(null);setNotice('');setAudioError(false);setHeard(false);setManualReport(false);setReviewIndex(null);};
   const open=(id:string)=>{
     const pack=CZECH_ALPHABET_PACK_BY_ID.get(id);if(!pack)return;
     const completedIntro=packIntroducedCount(data,id)===pack.letters.length;
@@ -95,12 +96,13 @@ export const CzechAlphabetCourseView:React.FC<Props>=({
   const onChoose=(id:string)=>{
     if(!pack||!cueLetter)return;
     const kind:AlphabetAudioKind=stage==='listen_name'?'letter_name':'sound_in_word';
-    if(!approvedAlphabetAudio(cueLetter.id,kind)){
+    if(!approvedAlphabetAudio(cueLetter.id,kind)||audioError){
       setNotice('Баталгаажсан аудио байхгүй үед сонголтыг үнэлэхгүй.');return;
     }
+    if(!heard){setNotice('Аудиог эхнээс нь дуустал сонсоод хариулна уу.');return;}
     const response=scorePackAudioChoice(data,pack.id,kind,cueLetter.id,id);
     if(!response.scored){setNotice('Аудиог баталгаажуулж чадаагүй. Оноо тооцохгүй.');return;}
-    setAnswer(id);save(response.next);
+    setAnswer(id);save(response.next);if(response.correct)setHeard(false);
     setNotice(response.correct?'Зөв. Дараагийн авиаг сонсоорой.':'Дахин сонсоод сонгоорой. Энэ алдааг тайланд тэмдэглэнэ.');
   };
   const nextPack=()=>{
@@ -110,7 +112,7 @@ export const CzechAlphabetCourseView:React.FC<Props>=({
     showOverview();setRestoredMessage('Бүх 42 үсгийн танилцуулгыг үзсэн байж болно. Сонсгол ба AI үнэлгээ баталгаажаагүй байхад бүрэн төгссөн гэж тооцохгүй.');
   };
   const visibleReport=manualReport||stage==='report';
-  const introLetter=pack?.letters[isReview?reviewIndex:Math.min(promptIndex,pack.letters.length-1)];
+  const introLetter=pack?.letters[isReview?(reviewIndex??0):Math.min(promptIndex,pack.letters.length-1)];
   const audioKind:AlphabetAudioKind=stage==='listen_name'?'letter_name':'sound_in_word';
   const audioPending=Boolean(cueLetter &&!approvedAlphabetAudio(cueLetter.id,audioKind));
 
@@ -197,15 +199,15 @@ export const CzechAlphabetCourseView:React.FC<Props>=({
       </div>
 
       {isReview&&introLetter&&<div className="alphabet-pack-intro">
-        <p className="alphabet-small">ЭНЭ БАГЦЫГ ДАВТАХ · {reviewIndex+1}/{pack.letters.length}</p>
+        <p className="alphabet-small">ЭНЭ БАГЦЫГ ДАВТАХ · {(reviewIndex??0)+1}/{pack.letters.length}</p>
         <div className="alphabet-pack-letter-big">{introLetter.upper}<span>{introLetter.lower}</span></div>
         <div className="alphabet-pack-example"><strong>{introLetter.exampleCs}</strong><span>{introLetter.exampleMn}</span></div>
         {introLetter.noteMn&&<p className="alphabet-note">{introLetter.noteMn}</p>}
         <div className="alphabet-pack-inline">
-          <button type="button" className="alphabet-outline-button" onClick={()=>setReviewIndex(Math.max(0,reviewIndex-1))}
+          <button type="button" className="alphabet-outline-button" onClick={()=>setReviewIndex(Math.max(0,(reviewIndex??0)-1))}
             disabled={reviewIndex===0}>Өмнөх</button>
           <button type="button" className="alphabet-main-button" onClick={()=>{
-            if(reviewIndex<pack.letters.length-1)setReviewIndex(reviewIndex+1);
+            if((reviewIndex??0)<pack.letters.length-1)setReviewIndex((reviewIndex??0)+1);
             else setReviewIndex(null);
           }}>{reviewIndex===pack.letters.length-1?'Давтлага хаах':'Дараагийн үсэг'}<ArrowRight size={17}/></button>
         </div>
@@ -227,7 +229,8 @@ export const CzechAlphabetCourseView:React.FC<Props>=({
       {!isReview&&!visibleReport&&(stage==='listen_name'||stage==='match_sound')&&<div className="alphabet-pack-quiz">
         <p className="alphabet-small">{stage==='listen_name'?'ҮСГИЙН НЭРИЙГ СОНСОХ':'ҮГ ДАХЬ АВИАГ ЯЛГАХ'} · {promptIndex+1}/{pack.letters.length}</p>
         <h2>{stage==='listen_name'?'Аль үсгийн нэр сонсогдов?':'Аль үсгийн авиа сонсогдов?'}</h2>
-        <AudioCue key={cueLetter?.id+stage} letterId={cueLetter?.id??''} kind={audioKind}/>
+        <AudioCue key={cueLetter?.id+stage} letterId={cueLetter?.id??''} kind={audioKind}
+          onHeard={()=>setHeard(true)} onError={()=>setAudioError(true)}/>
         {!audioPending&&!audioError&&<div className="alphabet-pack-answer-grid">
           {pack.letters.map(l=><button type="button" key={l.id} className={`alphabet-choice ${answer===l.id?'chosen':''}`}
             onClick={()=>onChoose(l.id)}>{l.upper}</button>)}
