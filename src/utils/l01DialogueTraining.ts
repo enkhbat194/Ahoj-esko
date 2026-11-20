@@ -6,6 +6,7 @@ export type L01SelfCheck = 'felt_ready' | 'needs_repeat';
 
 export interface L01TurnPracticeRecord {
   response: string;
+  attempted: boolean;
   selfCheck: L01SelfCheck | null;
 }
 
@@ -39,7 +40,7 @@ export function getDialogueRoundResults(
   const own = dialogue.turns.filter(t => t.speaker === role);
   return {
     total: own.length,
-    tried: own.filter(t => Boolean(results[t.id]?.response.trim()) || results[t.id]?.selfCheck != null).length,
+    tried: own.filter(t => Boolean(results[t.id]?.response.trim()) || results[t.id]?.attempted === true).length,
     selfReviewed: own.filter(t => results[t.id]?.selfCheck === 'felt_ready').length,
     repeat: own.filter(t => results[t.id]?.selfCheck === 'needs_repeat').length,
   };
@@ -54,7 +55,8 @@ export function sanitizeL01DialogueRecords(value: unknown): Record<string, L01Tu
     const selfCheck: L01SelfCheck | null =
       candidate.selfCheck === 'felt_ready' || candidate.selfCheck === 'needs_repeat' ? candidate.selfCheck : null;
     const response = typeof candidate.response === 'string' ? candidate.response.slice(0, 1000) : '';
-    if (response || selfCheck) records[id] = { response, selfCheck };
+    const attempted = candidate.attempted === true || response.trim().length > 0 || selfCheck !== null;
+    if (attempted) records[id] = { response, attempted, selfCheck };
   }
   return records;
 }
