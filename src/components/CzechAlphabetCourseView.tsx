@@ -245,7 +245,7 @@ export const CzechAlphabetCourseView:React.FC<Props>=({
         {cueLetter && spellingRequiresWordContext(cueLetter.id) && stage==='match_sound' &&
           <p className="alphabet-note">Энэ үсгийг ганц тусгаар авианаас таних боломжгүй байж болно.
           Үг бүтнээрээ болон зөв бичих дүрмээр нь ялгана.</p>}
-        {notice&&<p className="alphabet-note" role="status">{notice}</p>
+        {notice&&<p className="alphabet-note" role="status">{notice}</p>}
         <div className="alphabet-pack-inline">
           <button type="button" className="alphabet-outline-button" onClick={()=>{setManualReport(true);setNotice('')}}>
             Одоогийн тайлан
