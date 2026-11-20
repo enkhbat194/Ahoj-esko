@@ -1,0 +1,41 @@
+name: One-time cleanup merged alphabet pack PR branches
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: write
+jobs:
+  prune:
+    if: github.repository == 'enkhbat194/Ahoj-esko' && github.ref == 'refs/heads/main' && contains(github.event.head_commit.message, '[prune-alphabet-packs-20261120]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Verify merged SHA and remove only reviewed source refs
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const owner='enkhbat194', repo='Ahoj-esko';
+            const planned=[
+              {pr:15,name:'feat/alphabet-five-letter-lessons-20261120',sha:'43483daddc52def2af259a3f4e0562721afbe930'},
+              {pr:16,name:'fix/alphabet-contextual-spelling-20261120',sha:'90eba417397ae7b6efedf78b9aa6db0471e4e4b9'},
+            ];
+            const preview=(await github.rest.repos.getBranch({
+              owner,repo,branch:'preview/ios-l01-render-static-20261120'
+            })).data;
+            if(!preview?.commit?.sha)throw Error('Live Render branch missing');
+            for(const item of planned){
+              const pr=(await github.rest.pulls.get({owner,repo,pull_number:item.pr})).data;
+              const branch=(await github.rest.repos.getBranch({owner,repo,branch:item.name})).data;
+              if(!pr.merged_at||pr.state!=='closed'||pr.base.ref!=='main'||
+                 pr.head.ref!==item.name||pr.head.sha!==item.sha||
+                 branch.commit.sha!==item.sha||branch.protected) {
+                throw Error('Branch not safely merged/unaltered: '+item.name);
+              }
+            }
+            for(const item of planned){
+              const live=(await github.rest.repos.getBranch({owner,repo,branch:item.name})).data;
+              if(live.commit.sha!==item.sha)throw Error('Moved while pruning: '+item.name);
+              await github.rest.git.deleteRef({owner,repo,ref:'heads/'+item.name});
+              core.info('Deleted merged source '+item.name);
+            }
+            core.info('Retained main and live iPhone Render preview');
