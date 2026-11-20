@@ -61,7 +61,7 @@ export const CONTEXT_REQUIRED_SPELLINGS = [
 ] as const;
 
 export function spellingRequiresWordContext(id:string):boolean{
-  return CONTEXT_REQUIRED_SPELLINGS.some(pair=>pair.includes(id as never));
+  return CONTEXT_REQUIRED_SPELLINGS.some(pair=>pair.some(letter=>letter===id));
 }
 export interface ApprovedAlphabetAudio {
   sourceId:string;
