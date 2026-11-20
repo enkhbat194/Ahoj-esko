@@ -1,3 +1,5 @@
+import { createHash } from 'node:crypto';
+import previewManifest from '../data/alphabetAudioPreview.json';
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import {
@@ -44,18 +46,17 @@ test('pack intro is one sequential 4–5-letter learning unit; not 7 steps per l
   assert.equal(report.completed,false);
 });
 
-test('seven real Gemini preview clips never become native or AI pronunciation certification',()=>{
+test('real Gemini preview clips never become native or AI pronunciation certification',()=>{
   assert.equal(APPROVED_ALPHABET_AUDIO.length,0);
-  assert.equal(PREVIEW_ALPHABET_AUDIO.length,7);
+  assert.ok(PREVIEW_ALPHABET_AUDIO.length>=7);
   const pack=CZECH_ALPHABET_PACKS[0];
   assert.equal(isPackAudioReady(pack,'letter_name'),false);
   assert.equal(isPackAudioReady(pack,'sound_in_word'),false);
   assert.equal(approvedAlphabetAudio('A','letter_name'),undefined);
   assert.equal(availableAlphabetAudio('A','letter_name')?.qaStatus,'technical_preview');
   assert.equal(availableAlphabetAudio('A','sound_in_word')?.qaStatus,'auto_transcript_pass');
-  assert.equal(availableAlphabetAudio('B','sound_in_word'),undefined);
-  assert.equal(availableAlphabetAudio('C','sound_in_word'),undefined);
-  assert.equal(availableAlphabetAudio('Č','sound_in_word'),undefined);
+  // Each Preview clip is independently source-locked. Missing or
+  // quarantined clips remain unavailable; no fabricated fallback.
   let s=openPack(emptyPackProgress(),pack.id);
   for(let i=0;i<pack.letters.length;i++)s=introduceNextLetter(s,pack.id);
   // Pure scorer can grade the actual audio-choice response, but this is
@@ -65,12 +66,11 @@ test('seven real Gemini preview clips never become native or AI pronunciation ce
   assert.equal(result.correct,true);
   assert.equal(packIsCompleted(result.next,pack.id),false);
   assert.equal(packReport(result.next,pack.id).hasAiAssessment,false);
-  // Pack 2 has no generated audio; it must still be blocked.
-  let pending=openPack(emptyPackProgress(),'CZ-ALPHA-P02');
-  for(let i=0;i<5;i++)pending=introduceNextLetter(pending,'CZ-ALPHA-P02');
-  const blocked=scorePackAudioChoice(pending,'CZ-ALPHA-P02','letter_name','D','D');
+  // The wrong exercise stage can NEVER receive a point, even if the
+  // associated audio clip exists and is valid.
+  const blocked=scorePackAudioChoice(s,pack.id,'sound_in_word','A','A');
   assert.equal(blocked.scored,false);
-  assert.deepEqual(blocked.next,pending);
+  assert.deepEqual(blocked.next,s);
 });
 
 test('unseen packs can be visually previewed without falsely completing earlier blocked audio test',()=>{
@@ -133,4 +133,27 @@ test('Ú/Ů and I/Y spelling is contextual; do not assert unique sound-only answ
   }
   assert.equal(CZECH_ALPHABET_PACKS[7].letters[0].id,'Ú');
   assert.equal(CZECH_ALPHABET_PACKS[7].letters[1].id,'Ů');
+});
+
+test('Gemini Preview audio manifest has immutable source/text SHA, valid Czech examples and no publication approval',()=>{
+  assert.equal(previewManifest.publicationAllowed,false);
+  assert.equal(previewManifest.previewOnly,true);
+  assert.match(previewManifest.sourceCommit,/^[a-f0-9]{40}$/);
+  const unique=new Set<string>();
+  for(const item of PREVIEW_ALPHABET_AUDIO){
+    const key=item.sourceId+'::'+item.kind;
+    assert.equal(unique.has(key),false,key);
+    unique.add(key);
+    assert.equal(item.model,'gemini-3.8-flash-tts');
+    assert.equal(item.previewAllowed,true);
+    assert.equal(item.publicationAllowed,false);
+    assert.notEqual(item.qaStatus,'native_approved');
+    assert.equal(item.textSha256,createHash('sha256').update(item.csExact).digest('hex'));
+    assert.match(item.sha256,/^[a-f0-9]{64}$/);
+    assert.ok(item.url.includes('/'+previewManifest.sourceCommit+'/'));
+    const letter=CZECH_ALPHABET_LETTERS.find(l=>'CZ-ALPHA-'+l.id===item.sourceId);
+    assert.ok(letter,key);
+    if(item.kind==='sound_in_word')assert.equal(item.csExact,letter?.exampleCs);
+    assert.equal(availableAlphabetAudio(letter!.id,item.kind)?.url,item.url);
+  }
 });

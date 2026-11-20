@@ -202,6 +202,8 @@ export const CzechAlphabetCourseView:React.FC<Props>=({
         <p className="alphabet-small">ЭНЭ БАГЦЫГ ДАВТАХ · {(reviewIndex??0)+1}/{pack.letters.length}</p>
         <div className="alphabet-pack-letter-big">{introLetter.upper}<span>{introLetter.lower}</span></div>
         <div className="alphabet-pack-example"><strong>{introLetter.exampleCs}</strong><span>{introLetter.exampleMn}</span></div>
+        {availableAlphabetAudio(introLetter.id,'letter_name') &&
+          <AudioCue letterId={introLetter.id} kind="letter_name" onHeard={()=>{}} onError={()=>{}}/>}
         {introLetter.noteMn&&<p className="alphabet-note">{introLetter.noteMn}</p>}
         <div className="alphabet-pack-inline">
           <button type="button" className="alphabet-outline-button" onClick={()=>setReviewIndex(Math.max(0,(reviewIndex??0)-1))}
@@ -218,6 +220,8 @@ export const CzechAlphabetCourseView:React.FC<Props>=({
         <h2>Одоо {introLetter.upper} үсэг</h2>
         <div className="alphabet-pack-letter-big">{introLetter.upper}<span>{introLetter.lower}</span></div>
         <div className="alphabet-pack-example"><small>Жишээ үг</small><strong>{introLetter.exampleCs}</strong><span>{introLetter.exampleMn}</span></div>
+        {availableAlphabetAudio(introLetter.id,'letter_name') &&
+          <AudioCue letterId={introLetter.id} kind="letter_name" onHeard={()=>{}} onError={()=>{}}/>}
         {introLetter.noteMn&&<p className="alphabet-note">{introLetter.noteMn}</p>}
         <p className="alphabet-muted">Танилцаж буй үсгийг дарааллаар харна. Бичих дасгалыг үсэг бүрээр албадахгүй.</p>
         <button type="button" className="alphabet-main-button alphabet-wide" onClick={finishIntro}>
