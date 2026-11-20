@@ -20,14 +20,19 @@ const answerBox = 'w-full rounded-xl p-3 bg-white dark:bg-[#1C1C1E] border borde
 const toggle = (ids: string[], id: string) => ids.includes(id) ? ids.filter(x => x !== id) : [...ids, id];
 
 interface Props {
+  openingStage?: L01Stage;
   lesson: CourseLesson; clips: Course['clips']; nextLesson?: CourseLesson;
   onSelect: (id: string) => void; onTutor?: () => void;
   onAddCards?: () => number;
 }
-export function CourseLessonView({lesson, clips, nextLesson, onSelect, onTutor, onAddCards}: Props) {
-  const [p, set] = useState(() => loadProgress(lesson));
+export function CourseLessonView({lesson, clips, nextLesson, onSelect, onTutor, onAddCards, openingStage}: Props) {
+  const [p, set] = useState(() => {
+    const progress = loadProgress(lesson);
+    return openingStage ? {...progress, stage: openingStage} : progress;
+  });
   const [saved, setSaved] = useState(true);
   const [message, setMessage] = useState('');
+  const [flipped, setFlipped] = useState<string[]>([]);
   const reviewed = reviewedCount(p, lesson);
   const completed = isComplete(p, lesson);
   const nameExample = lesson.lessonId === L01_ID ? lesson.dialogues[0].turns[1] : undefined;
@@ -67,7 +72,11 @@ export function CourseLessonView({lesson, clips, nextLesson, onSelect, onTutor, 
     {p.stage === 'dialogue' && <CourseDialogueCoach lesson={lesson} clips={clips} progress={p} setProgress={set}/>}
     {p.stage === 'phrases' && <section className={panel}><h2 className="text-lg font-bold">Хэллэг бүрийг өөрөө хэлээрэй</h2>
       {lesson.phrases.map(line => <div key={line.id} className={tile} data-source-id={line.id}>
-        <p lang="cs" className="font-bold text-lg">{line.cs}</p><p>{line.mn}</p>
+        {openingStage === 'phrases' ? <button type="button" className="w-full min-h-16 text-left" aria-expanded={flipped.includes(line.id)}
+          onClick={() => setFlipped(ids => toggle(ids,line.id))}>
+          <strong lang="cs" className="block text-lg">{line.cs}</strong>
+          <span>{flipped.includes(line.id) ? line.mn : 'Монгол утгыг харах'}</span>
+        </button> : <><p lang="cs" className="font-bold text-lg">{line.cs}</p><p>{line.mn}</p></>}
         <CourseAudioButton clips={clips.get(line.id)} template={line.isTemplate}/>
         {line.isTemplate && nameExample && clips.has(nameExample.id) && <details>
           <summary className={quiet}>Нэрээ нөхөж хэлсэн жишээг сонсох</summary><p lang="cs">{nameExample.cs}</p>

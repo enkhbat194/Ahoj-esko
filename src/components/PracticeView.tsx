@@ -1,3 +1,6 @@
+import { L01_DATASET_SHA256 } from '../data/l01WorkingSource';
+import { loadCourse } from '../utils/courseStorage';
+import { starterCourse, type Course } from '../utils/courseSource';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import {
@@ -24,7 +27,7 @@ import type {
   VocabCard,
 } from '../types/lesson';
 import { TOPICS } from '../data/starterCurriculum';
-import { base64ToBlob, blobToBase64, playCzechAudio, stopAllPlayback } from '../utils/audioPlayer';
+import { base64ToBlob, blobToBase64, playCzechAudioWithTelemetry, stopAllPlayback } from '../utils/audioPlayer';
 import { filterCards, getNextCardIndex, type MasteryFilter } from '../utils/studyLogic';
 import type { TokenUsageMetrics } from '../utils/tokenPricing';
 import { appendClientUsageLog } from '../utils/usageMonitor';
@@ -131,6 +134,23 @@ export const PracticeView: React.FC<PracticeViewProps> = ({
 
   const safeIndex = filtered.length === 0 ? 0 : Math.min(currentIndex, filtered.length - 1);
   const activeCard = filtered[safeIndex] ?? null;
+  const [reviewCourse, setReviewCourse] = useState<Course>(starterCourse);
+  const [courseReady, setCourseReady] = useState(false);
+  const [playbackNotice, setPlaybackNotice] = useState('');
+  const hasCourseCards = cards.some(card => Boolean(card.canonicalId && card.lessonId));
+  useEffect(() => {
+    if (!hasCourseCards) return;
+    let current = true;
+    void loadCourse().then(course => { if (current && course) setReviewCourse(course); })
+      .catch(() => {}).finally(() => { if (current) setCourseReady(true); });
+    return () => { current = false; };
+  }, [hasCourseCards]);
+  useEffect(() => { setPlaybackNotice(''); }, [activeCard?.id]);
+  const sourceLine = reviewCourse.lessons.find(lesson => lesson.lessonId === activeCard?.lessonId)
+    ?.phrases.find(line => line.id === activeCard?.canonicalId && line.cs === activeCard.czechWord && line.mn === activeCard.mongolianWord);
+  const sourceClips = sourceLine ? reviewCourse.clips.get(sourceLine.id) : undefined;
+  const sentence = activeCard?.czechSentence || sourceLine?.cs || '';
+
 
   useEffect(() => {
     setCurrentIndex(0);
@@ -173,15 +193,26 @@ export const PracticeView: React.FC<PracticeViewProps> = ({
       ? displayWord
       : activeCard.selfFormVariants
         ? displayWord
-        : activeCard.czechSentence;
+        : sentence;
     const primaryId = activeCard.audioIds[slot];
     const fallbackId = isSlow
       ? activeCard.audioIds[isWord ? 'wordNormal' : 'sentenceNormal']
       : undefined;
 
+    const pinned = Boolean(sourceLine) || activeCard.curriculumSha256 === L01_DATASET_SHA256;
+    const clip = text === sourceLine?.cs ? sourceClips?.find(c => c.receipt.style === (isSlow ? 'learning_slow' : 'natural')) : undefined;
+    setPlaybackNotice('');
+    if (activeCard.canonicalId && activeCard.lessonId && !courseReady && !primaryId) {
+      setPlaybackNotice('Хичээлийн аудиог нээж байна. Дахин дараарай.');
+      return;
+    }
+    if (pinned && !primaryId && !fallbackId && !clip) {
+      setPlaybackNotice('Энэ хэллэгийн сонгосон хурдаарх эх аудио хүлээгдэж байна.');
+      return;
+    }
     onRecordPractice(activeCard.id);
-
-    await playCzechAudio({
+    const result = await playCzechAudioWithTelemetry({
+      courseRecording: pinned ? (clip ? {blob: clip.blob, sha: clip.receipt.wavSha256} : null) : undefined,
       audioId: primaryId,
       fallbackAudioId: fallbackId,
       text,
@@ -190,6 +221,7 @@ export const PracticeView: React.FC<PracticeViewProps> = ({
       onStart: () => setActiveSlot(slot),
       onEnd: () => setActiveSlot(null),
     });
+    if (pinned && result.source === 'visual') setPlaybackNotice('Энэ эх аудиог нээж чадсангүй.');
   };
 
   const handleStep = (direction: 1 | -1) => {
@@ -765,7 +797,7 @@ export const PracticeView: React.FC<PracticeViewProps> = ({
                         <span className="truncate">Үг · Энгийн</span>
                       </span>
                       <span className="text-[11px] font-mono opacity-80 shrink-0">
-                        {activeCard.audioIds.wordNormal ? 'АУДИО' : '1.0x'}
+                        {(activeCard.audioIds.wordNormal || sourceClips?.some(c => c.receipt.style === 'natural')) ? 'АУДИО' : '1.0x'}
                       </span>
                     </motion.button>
 
@@ -788,12 +820,13 @@ export const PracticeView: React.FC<PracticeViewProps> = ({
                         <span className="truncate">Үг · Удаан</span>
                       </span>
                       <span className="text-[11px] font-mono opacity-80 shrink-0">
-                        {activeCard.audioIds.wordSlow ? 'АУДИО' : '0.65x'}
+                        {(activeCard.audioIds.wordSlow || sourceClips?.some(c => c.receipt.style === 'learning_slow')) ? 'АУДИО' : '0.65x'}
                       </span>
                     </motion.button>
                   </div>
                 </div>
 
+                {playbackNotice && <p role="status" className="text-sm text-[#636366] dark:text-[#AEAEB2]">{playbackNotice}</p>}
                 {/* Hairline Divider & Example Sentence */}
                 <div className="border-t border-black/[0.06] dark:border-white/[0.08] pt-4 space-y-1.5">
                   <p className="text-[11px] sm:text-xs font-semibold text-[#8E8E93]">
@@ -802,14 +835,14 @@ export const PracticeView: React.FC<PracticeViewProps> = ({
                   <p className="text-base sm:text-xl font-semibold text-[#1C1C1E] dark:text-white leading-snug">
                     {activeCard.selfFormVariants
                       ? resolveCardDisplayCzech(activeCard, learnerGender)
-                      : activeCard.czechSentence}
+                      : sentence}
                   </p>
                   <p
                     className={`text-xs sm:text-base transition-opacity duration-150 ${
                       hideTranslation ? 'opacity-0 select-none' : 'text-[#636366] dark:text-[#AEAEB2] opacity-100'
                     }`}
                   >
-                    {activeCard.mongolianSentence}
+                    {activeCard.mongolianSentence || sourceLine?.mn}
                   </p>
 
                   <div className="pt-2 grid grid-cols-2 gap-2.5">
@@ -832,7 +865,7 @@ export const PracticeView: React.FC<PracticeViewProps> = ({
                         <span className="truncate">Өгүүлбэр</span>
                       </span>
                       <span className="text-[11px] font-mono opacity-75 shrink-0">
-                        {activeCard.audioIds.sentenceNormal ? 'АУДИО' : '1.0x'}
+                        {(activeCard.audioIds.sentenceNormal || sourceClips?.some(c => c.receipt.style === 'natural')) ? 'АУДИО' : '1.0x'}
                       </span>
                     </motion.button>
 
@@ -855,7 +888,7 @@ export const PracticeView: React.FC<PracticeViewProps> = ({
                         <span className="truncate">Удаан</span>
                       </span>
                       <span className="text-[11px] font-mono opacity-75 shrink-0">
-                        {activeCard.audioIds.sentenceSlow ? 'АУДИО' : '0.65x'}
+                        {(activeCard.audioIds.sentenceSlow || sourceClips?.some(c => c.receipt.style === 'learning_slow')) ? 'АУДИО' : '0.65x'}
                       </span>
                     </motion.button>
                   </div>

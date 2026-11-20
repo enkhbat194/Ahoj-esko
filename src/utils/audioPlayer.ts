@@ -183,6 +183,8 @@ async function playStoredOrFetchedBlob(
 }
 
 export interface PlayCzechAudioOptions {
+  // For a canonical lesson keep playback within the installed source or a learner attachment.
+  courseRecording?: {blob: Blob; sha: string} | null;
   audioId?: string;
   fallbackAudioId?: string;
   text: string;
@@ -244,6 +246,18 @@ export async function playCzechAudioWithTelemetry(
     } catch {
       // Fallback below
     }
+  }
+
+  if (options.courseRecording !== undefined) {
+    const recording = options.courseRecording;
+    if (!recording) {
+      if (epoch === playbackEpoch) onEnd?.();
+      return {source: 'visual', cacheHit: false};
+    }
+    await playStoredOrFetchedBlob(recording.blob, 1, {
+      loop, onStart, onEnd, replayFn: () => void playCzechAudio(options),
+    }, epoch);
+    return {source: 'file', cacheHit: true, audioId: recording.sha};
   }
 
   // 2. Cached or fresh natural Gemini 3.8 Flash-Lite TTS voice
