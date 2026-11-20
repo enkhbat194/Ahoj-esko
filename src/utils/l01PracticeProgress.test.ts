@@ -14,7 +14,7 @@ test('real v0.9.20 L01 strings are source-locked, not old UI hardcoded PH002', (
   assert.equal(L01_WORKING_SOURCE.phrases[1].cs, 'Jmenuji se …');
   assert.equal(L01_WORKING_SOURCE.phrases[5].cs, 'Můžete to prosím zopakovat?');
   assert.equal(L01_WORKING_SOURCE.dialogues.length, 2);
-  assert.equal(L01_WORKING_SOURCE.dialogues.flatMap((d) => d.turns).length, 11);
+  assert.equal(L01_WORKING_SOURCE.dialogues.reduce((total, d) => total + d.turns.length, 0), 11);
   assert.equal(L01_WORKING_SOURCE.exercises.length, 6);
   assert.equal(L01_WORKING_SOURCE.exit.id, `${L01_ID}-EXIT01`);
   assert.equal(L01_WORKING_SOURCE.exit.needsTransferRewrite, true);
