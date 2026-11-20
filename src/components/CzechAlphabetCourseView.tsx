@@ -35,7 +35,7 @@ function AudioCue({letterId,kind,onHeard,onError}:{
     </div>
   );
   return <div className="alphabet-pack-audio">
-    <span><Volume2 size={20}/> {entry.qaStatus==='native_approved'?'Чех аудио':'Gemini 3.8 · QA Preview'} · {kind==='letter_name'?'Үсгийн нэр':'Жишээ үгийг бүтнээр'}</span>
+    <span><Volume2 size={20}/> {entry.qaStatus==='native_approved'?'Чех аудио':'Gemini 3.8 · QA Preview'} · {kind==='letter_name'?'Үсгийн нэр':'Жишээ үг эсвэл богино өгүүлбэр'}</span>
     <audio key={entry.sourceId+kind} controls preload="none" src={entry.url}
       onEnded={onHeard} onError={()=>{setBroken(true);onError();}} aria-label="Чех дуудлагын аудио тоглуулах"/>
   </div>;
