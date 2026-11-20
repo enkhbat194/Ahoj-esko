@@ -36,7 +36,7 @@ export const PremiumHomeView: React.FC<PremiumHomeViewProps> = ({
     ? 'Dobrý den. · Jmenuji se …'
     : '42 үсэг · CH, Č, Š, Ř, Ž, Ě, Ů';
   const countLabel = alphabetDone
-    ? '9/9 багцын сонсгол ба авиа таних шалгалт баталгаажсан'
+    ? '9/9 багцын аудио таних дасгал хийсэн · ярианы AI үнэлгээ тусдаа'
     : `${seen}/42 үсэг танилцсан · ${passed}/9 багц сонсголоор шалгагдсан`;
 
   return (

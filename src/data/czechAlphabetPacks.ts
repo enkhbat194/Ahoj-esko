@@ -1,4 +1,5 @@
 import { CZECH_ALPHABET_LETTERS, type CzechAlphabetLetter } from './czechAlphabetCourse';
+import previewManifest from './alphabetAudioPreview.json';
 
 /**
  * 42 letters in 9 packs of 4–5. These are Czech alphabet order, NOT English
@@ -78,6 +79,39 @@ export interface ApprovedAlphabetAudio {
 
 /** Intentionally empty until real approved recordings exist. */
 export const APPROVED_ALPHABET_AUDIO:readonly ApprovedAlphabetAudio[]=[];
+
+/** Gemini 3.8 TTS Preview: automated technical/ASR QA only, NOT native-certified. */
+export interface PreviewAlphabetAudio extends Omit<ApprovedAlphabetAudio,'qaStatus'> {
+  qaStatus:'technical_preview'|'auto_transcript_pass';
+  previewAllowed:true;
+  publicationAllowed:false;
+}
+export const PREVIEW_ALPHABET_AUDIO:readonly PreviewAlphabetAudio[]=
+  (previewManifest.clips as unknown as PreviewAlphabetAudio[]);
+
+export function availableAlphabetAudio(letterId:string,kind:AlphabetAudioKind):
+  ApprovedAlphabetAudio|PreviewAlphabetAudio|undefined{
+  const letter=CZECH_ALPHABET_LETTERS.find(l=>l.id===letterId);
+  if(!letter)return undefined;
+  const sourceId=`CZ-ALPHA-${letterId}`;
+  const items:readonly (ApprovedAlphabetAudio|PreviewAlphabetAudio)[]=
+    [...APPROVED_ALPHABET_AUDIO,...PREVIEW_ALPHABET_AUDIO];
+  return items.find(a=>{
+    if(a.sourceId!==sourceId||a.kind!==kind||a.model!=='gemini-3.8-flash-tts'
+      ||a.sourceVersion!==CZECH_ALPHABET_PACK_VERSION
+      ||a.csExact.trim().length===0||!/^[a-f0-9]{64}$/.test(a.sha256)
+      ||!/^[a-f0-9]{64}$/.test(a.textSha256))return false;
+    if(kind==='sound_in_word' && a.csExact.toLocaleLowerCase('cs-CZ')!==
+       letter.exampleCs.toLocaleLowerCase('cs-CZ'))return false;
+    if(a.qaStatus==='native_approved'){
+      return /^\/[a-z0-9/_\-.]+\.(wav|mp3|ogg)$/i.test(a.url);
+    }
+    return a.previewAllowed===true && a.publicationAllowed===false &&
+      ['technical_preview','auto_transcript_pass'].includes(a.qaStatus) &&
+      /^https:\/\/raw\.githubusercontent\.com\/enkhbat194\/Audio-uildwerlel\/[a-f0-9]{40}\/production\/alphabet-preview\/pack\d\d\/[A-Z_]+__(letter_name|sound_in_word)\.wav$/.test(a.url);
+  });
+}
+
 
 export function approvedAlphabetAudio(letterId:string,kind:AlphabetAudioKind):ApprovedAlphabetAudio|undefined{
   if (!CZECH_ALPHABET_LETTERS.some(l=>l.id===letterId))return undefined;
