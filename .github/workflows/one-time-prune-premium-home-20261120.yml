@@ -1,0 +1,36 @@
+name: One-time premium home merged branch cleanup
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: write
+jobs:
+  cleanup:
+    if: github.repository == 'enkhbat194/Ahoj-esko' && github.ref == 'refs/heads/main' && contains(github.event.head_commit.message, '[prune-premium-home-20261120]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Delete only exact merged PR #12 source branch
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const owner = 'enkhbat194';
+            const repo = 'Ahoj-esko';
+            const name = 'feat/premium-home-ai-center-20261120';
+            const sha = 'c360a3bb000a39db44c6ce390d82382a7e282577';
+            const result = await github.rest.pulls.get({owner,repo,pull_number:12});
+            const pr = result.data;
+            if (!pr.merged_at || pr.head.ref !== name || pr.head.sha !== sha ||
+                pr.base.ref !== 'main' || pr.state !== 'closed') {
+              throw new Error('PR #12 merged state or exact source SHA changed; abort');
+            }
+            const branch = (await github.rest.repos.getBranch({owner,repo,branch:name})).data;
+            if (branch.commit.sha !== sha || branch.protected) {
+              throw new Error('Source branch changed or is protected; abort');
+            }
+            const active = (await github.rest.repos.getBranch({
+              owner,repo,branch:'preview/ios-l01-render-static-20261120'
+            })).data;
+            if (!active.commit.sha) throw new Error('Render preview branch missing; abort');
+            await github.rest.git.deleteRef({owner,repo,ref:'heads/'+name});
+            core.info('Deleted only verified merged UI feature branch. Render and main preserved.');
