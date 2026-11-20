@@ -47,6 +47,7 @@ export interface VocabCard {
   lastPracticedAt?: number;
   canonicalId?: string;
   lessonId?: string;
+  curriculumSha256?: string;
   lemmaGroup?: string;
   qaStatus?: ContentQaStatus;
   nounGender?: CzechNounGender;

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import type { TutorMode, VocabCard } from '../types/lesson';
-import { L01_ID } from '../data/l01WorkingSource';
+import { L01_DATASET_SHA256, L01_ID, type L01Stage } from '../data/l01WorkingSource';
 import { starterCourse, type Course } from '../utils/courseSource';
 import { installCourse, linkedLesson, loadCourse, openPrivateInvitation } from '../utils/courseStorage';
 import { isComplete, loadProgress } from '../utils/courseProgress';
@@ -11,10 +11,11 @@ function initialId() {
   try { return linkedLesson() || localStorage.getItem(lastKey) || L01_ID; } catch { return L01_ID; }
 }
 interface Props {
+  openingStage?: L01Stage;
   onLaunchMissionRoleplay?: (mode: TutorMode) => void;
   onAddCards?: (items: Omit<VocabCard,'id'|'audioIds'|'practiceCount'|'mastered'>[], preserveIds?: boolean) => number;
 }
-export function CanonicalCourseView({onLaunchMissionRoleplay, onAddCards}: Props) {
+export function CanonicalCourseView({onLaunchMissionRoleplay, onAddCards, openingStage}: Props) {
   const [course, setCourse] = useState<Course>(starterCourse);
   const [id, setId] = useState(initialId);
   const [busy, setBusy] = useState(true);
@@ -64,8 +65,8 @@ export function CanonicalCourseView({onLaunchMissionRoleplay, onAddCards}: Props
   const index = Math.max(0, course.lessons.findIndex(l => l.lessonId === id));
   const lesson = course.lessons[index];
   const addCards = () => onAddCards!(lesson.phrases.map(p => ({
-    canonicalId: p.id, lessonId: lesson.lessonId, topicId: 'custom' as const,
-    czechWord: p.cs, mongolianWord: p.mn, phoneticHint: '', czechSentence: '', mongolianSentence: '', qaStatus: 'draft_ai' as const,
+    canonicalId: p.id, lessonId: lesson.lessonId, curriculumSha256: L01_DATASET_SHA256, topicId: 'custom' as const,
+    czechWord: p.cs, mongolianWord: p.mn, phoneticHint: '', czechSentence: p.cs, mongolianSentence: p.mn, qaStatus: 'draft_ai' as const,
   })), true);
   return <div className="space-y-3">
     <section className={panel}>
@@ -85,7 +86,7 @@ export function CanonicalCourseView({onLaunchMissionRoleplay, onAddCards}: Props
       </details>}
       {error && <p role="alert" className={quiet}>{error}</p>}
     </section>
-    {!busy && <CourseLessonView key={lesson.lessonId} lesson={lesson} clips={course.clips} nextLesson={course.lessons[index+1]}
+    {!busy && <CourseLessonView openingStage={openingStage} key={lesson.lessonId} lesson={lesson} clips={course.clips} nextLesson={course.lessons[index+1]}
       onSelect={select} onAddCards={onAddCards ? addCards : undefined}
       onTutor={lesson.lessonId === L01_ID && onLaunchMissionRoleplay ? () => onLaunchMissionRoleplay('coach') : undefined}/>}
   </div>;
