@@ -4,7 +4,7 @@ import { CanonicalFirstLessonView } from './components/CanonicalFirstLessonView'
 import { PremiumBottomNav } from './components/PremiumBottomNav';
 import { PremiumHomeView } from './components/PremiumHomeView';
 import { CzechAlphabetCourseView } from './components/CzechAlphabetCourseView';
-import { getAlphabetContinueTarget, loadAlphabetProgress } from './utils/alphabetProgress';
+import { getPackContinueTarget, loadPackProgress } from './utils/alphabetPackProgress';
 import { L01_WORKING_SOURCE } from './data/l01WorkingSource';
 import { KLIC17_CHAPTERS } from './data/klic17Story';
 import type { PremiumNavId } from './utils/premiumNavigation';
@@ -48,7 +48,7 @@ export function IphonePreview() {
           <PremiumHomeView
             onOpenAlphabet={() => setView('alphabet_overview')}
             onContinueCourse={() => {
-              const target = getAlphabetContinueTarget(loadAlphabetProgress());
+              const target = getPackContinueTarget(loadPackProgress());
               setView(target ? 'alphabet_resume' : 'lesson');
             }}
           />
@@ -59,6 +59,7 @@ export function IphonePreview() {
             startAt={view === 'alphabet_resume' ? 'resume' : 'overview'}
             onExit={() => setView('home')}
             onContinueAfterAlphabet={() => setView('lesson')}
+            onOpenAiTeacher={openAi}
           />
         )}
 
