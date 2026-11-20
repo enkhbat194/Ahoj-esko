@@ -105,16 +105,22 @@ export const CzechAlphabetCourseView: React.FC<{
       setFeedback(step===3?'Эхлээд хуруугаараа бичиж үз.':'Хариулт тохирохгүй байна. Дахин оролдоорой.');
       return;
     }
+    const wasAlreadySeen=getLetterStatus(progress,letter.id)==='seen';
     const next=completeAlphabetStep(progress,letter.id,step);
     persist(next);
     resetForm();
-    if(getLetterStatus(next,letter.id)==='seen'){
+    if(getLetterStatus(next,letter.id)==='seen' && (!wasAlreadySeen || step===ALPHABET_LESSON_STEP_COUNT-1)){
       setScreen('detail');
       setRestoreMessage(`${letter.upper}: 7/7 харааны ба бичгийн дасгал гүйцэтгэсэн. Дуудлагын үнэлгээ хийгдээгүй.`);
     }
   };
   const skip=()=>{
     if(!letter)return;
+    if(status==='seen' && activeStep===ALPHABET_LESSON_STEP_COUNT-1){
+      setScreen('detail');
+      resetForm();
+      return;
+    }
     persist(skipAlphabetStep(progress,letter.id,activeStep));
     resetForm();
     setFeedback('Энэ алхмыг алгассан. Ахицын оноо нэмэгдэхгүй; дараа нь нөхөж хийнэ.');
