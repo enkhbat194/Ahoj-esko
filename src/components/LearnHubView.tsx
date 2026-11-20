@@ -8,7 +8,7 @@ import type {
   TutorMode,
   VocabCard,
 } from '../types/lesson';
-import { CanonicalFirstLessonView } from './CanonicalFirstLessonView';
+import { CanonicalCourseView } from './CanonicalCourseView';
 import { DialogueView } from './DialogueView';
 import { AITutorView } from './AITutorView';
 import { TopicsView } from './TopicsView';
@@ -32,7 +32,7 @@ interface LearnHubViewProps {
 }
 
 const SUB_TABS: Array<{ id: LearnSubTab; label: string; icon: typeof Compass }> = [
-  { id: 'mission', label: 'A0-L01 Мишн', icon: Compass },
+  { id: 'mission', label: 'Хичээлүүд', icon: Compass },
   { id: 'dialogues', label: 'Харилцан яриа', icon: MessageSquare },
   { id: 'ai', label: 'AI Роль тоглох', icon: Bot },
   { id: 'topics', label: 'Сэдэв & Үгс', icon: BookOpen },
@@ -95,7 +95,7 @@ export const LearnHubView: React.FC<LearnHubViewProps> = ({
       </div>
 
       {subTab === 'mission' && (
-        <CanonicalFirstLessonView onLaunchMissionRoleplay={onLaunchMissionRoleplay} />
+        <CanonicalCourseView onAddCards={onAddCanonicalPhrasesToDeck} onLaunchMissionRoleplay={onLaunchMissionRoleplay} />
       )}
 
       {subTab === 'dialogues' && (

@@ -1,6 +1,7 @@
 import { useState } from 'react';
+import { linkedLesson } from './utils/courseStorage';
 import { ArrowLeft, ArrowRight, BookOpen, Bot, Menu as MenuIcon } from 'lucide-react';
-import { CanonicalFirstLessonView } from './components/CanonicalFirstLessonView';
+import { CanonicalCourseView } from './components/CanonicalCourseView';
 import { PremiumBottomNav } from './components/PremiumBottomNav';
 import { PremiumHomeView } from './components/PremiumHomeView';
 import { CzechAlphabetCourseView } from './components/CzechAlphabetCourseView';
@@ -16,7 +17,7 @@ const secondary = 'text-sm text-[#AAC4BC]';
 const navButton = 'min-h-[43px] inline-flex items-center gap-2 rounded-xl border border-[#C59D64]/55 px-4 text-sm text-[#F6D9A1]';
 
 export function IphonePreview() {
-  const [view, setView] = useState<PreviewView>('home');
+  const [view, setView] = useState<PreviewView>(() => linkedLesson() ? 'lesson' : 'home');
   const [flipped, setFlipped] = useState<string[]>([]);
   const [notice, setNotice] = useState('');
 
@@ -46,6 +47,7 @@ export function IphonePreview() {
       <main className="relative flex-1 w-full max-w-3xl mx-auto px-3 sm:px-6 pb-[calc(100px+env(safe-area-inset-bottom))]">
         {view === 'home' && (
           <PremiumHomeView
+            onOpenLessons={() => setView('lesson')}
             onOpenAlphabet={() => setView('alphabet_overview')}
             onContinueCourse={() => {
               const target = getPackContinueTarget(loadPackProgress());
@@ -71,7 +73,7 @@ export function IphonePreview() {
 
             {view === 'lesson' && (
               <div className="rounded-2xl bg-white dark:bg-[#1C1C1E] text-[#1C1C1E] dark:text-white p-2 sm:p-4">
-                <CanonicalFirstLessonView onLaunchMissionRoleplay={openAi} />
+                <CanonicalCourseView />
               </div>
             )}
 
@@ -132,18 +134,18 @@ export function IphonePreview() {
               <section className={panel}>
                 <h1 className="text-2xl font-serif">Цэс</h1>
                 <p className={secondary}>Ahoj Česko · iPhone загварын туршилт</p>
-                <p className={secondary}>Сургалтын эх: v0.9.20. Зөвхөн хяналтын/ноорог өгөгдөл. Бүрэн 72 хичээлийг энд идэвхжүүлээгүй.</p>
+                <p className={secondary}>Сургалтын эх: v0.9.20. Зөвхөн хяналтын/ноорог өгөгдөл. Хувийн багцаа нээвэл A0, A1 түвшний 72 хичээлийг сонгож болно.</p>
                 <div className="grid gap-2">
                   <button type="button" className={navButton} onClick={() => setView('alphabet_overview')}>
                     <BookOpen className="w-4 h-4"/> Чех цагаан толгой · 42 үсэг
                   </button>
                   <button type="button" className={navButton} onClick={() => setView('lesson')}>
-                    <BookOpen className="w-4 h-4"/> A0 · Мэндчилгээний хичээл
+                    <BookOpen className="w-4 h-4"/> Ярианы хичээлүүд · A0–A1
                   </button>
                   <button type="button" className={navButton} onClick={() => setView('read')}>Унших хэсэг</button>
                   <button type="button" className={navButton} onClick={() => setView('cards')}>Хэллэгийн карт</button>
                 </div>
-                <p className="text-xs text-[#7F9D99]">Микрофоны түр бичлэг зөвхөн хичээлийн дэлгэц дээр ажиллана. Gemini TTS, AI API, Firebase болон Google Drive холболт энэ Preview-д идэвхгүй.</p>
+                <p className="text-xs text-[#7F9D99]">Микрофоны түр бичлэг зөвхөн хичээлийн дэлгэц дээр ажиллана. Эхийн аудио хувийн багцаас тоглоно.</p>
               </section>
             )}
           </div>

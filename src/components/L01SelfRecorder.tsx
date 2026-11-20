@@ -7,6 +7,8 @@ import { Mic, Square, Trash2 } from 'lucide-react';
  * No server transmission, and audio is discarded when the view unmounts.
  */
 export const L01SelfRecorder: React.FC = () => {
+  const active = useRef(true);
+  const starting = useRef(false);
   const recorder = useRef<MediaRecorder | null>(null);
   const stream = useRef<MediaStream | null>(null);
   const chunks = useRef<Blob[]>([]);
@@ -30,13 +32,18 @@ export const L01SelfRecorder: React.FC = () => {
     setRecording(false);
   };
 
-  useEffect(() => () => {
-    if (recorder.current?.state === 'recording') {
-      recorder.current.onstop = null;
-      recorder.current.stop();
-    }
-    stream.current?.getTracks().forEach((track) => track.stop());
-    if (urlRef.current) URL.revokeObjectURL(urlRef.current);
+  useEffect(() => {
+    active.current = true;
+    return () => {
+      active.current = false;
+      if (recorder.current) {
+        recorder.current.onstop = null;
+        recorder.current.ondataavailable = null;
+        if (recorder.current.state === 'recording') recorder.current.stop();
+      }
+      stream.current?.getTracks().forEach(track => track.stop());
+      if (urlRef.current) URL.revokeObjectURL(urlRef.current);
+    };
   }, []);
 
   const startCapture = async () => {
@@ -45,9 +52,12 @@ export const L01SelfRecorder: React.FC = () => {
       setError('Энэ Safari хувилбарт микрофоны бичлэг дэмжигдэхгүй байна.');
       return;
     }
+    if (starting.current || recording) return;
+    starting.current = true;
     try {
       clearRecording();
       const mediaStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      if (!active.current) { mediaStream.getTracks().forEach(track => track.stop()); return; }
       stream.current = mediaStream;
       const mediaRecorder = new MediaRecorder(mediaStream);
       recorder.current = mediaRecorder;
@@ -75,8 +85,9 @@ export const L01SelfRecorder: React.FC = () => {
       stream.current?.getTracks().forEach((track) => track.stop());
       stream.current = null;
       setRecording(false);
+      if (!active.current) return;
       setError('Микрофон ашиглах зөвшөөрөл олдсонгүй. Safari-ийн HTTPS ба зөвшөөрлийг шалгана уу.');
-    }
+    } finally { starting.current = false; }
   };
 
   return (
