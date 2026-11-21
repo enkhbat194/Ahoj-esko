@@ -1,0 +1,88 @@
+/* Ahoj reader/player UI v1. No AI or server calls. */
+#readerShell.aho-reader-shell{
+  position:relative;
+  background:#101013;
+  color:#f7f7f9;
+  overflow:hidden;
+}
+.aho-reader-shell .ar-header{
+  flex:0 0 auto;display:flex;align-items:center;gap:10px;
+  padding:10px 14px;border-bottom:1px solid #ffffff14;
+  background:#111114;min-height:64px
+}
+.aho-reader-shell .ar-header-copy{flex:1;min-width:0;text-align:center}
+.aho-reader-shell .ar-title{font-weight:800;font-size:15px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
+.aho-reader-shell .ar-subtitle{margin-top:3px;color:#a4a4ad;font-size:11px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
+.aho-reader-shell .ar-icon-btn{flex:none;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;color:#efefef;font-size:22px}
+.aho-reader-shell .ar-icon-btn:focus-visible,.aho-reader-shell button:focus-visible,.aho-reader-shell input:focus-visible{outline:2px solid #eaa56e;outline-offset:3px}
+.aho-reader-shell .ar-scroll{flex:1;min-height:0;overflow-y:auto;overscroll-behavior-y:contain;-webkit-overflow-scrolling:touch;padding:22px 20px 28px;scrollbar-width:none}
+.aho-reader-shell .ar-scroll::-webkit-scrollbar{display:none}
+.aho-reader-shell .ar-level{display:inline-flex;align-items:center;border:1px solid #e9874647;border-radius:100px;padding:5px 10px;color:#ed9f68;background:#e9874517;font-size:11px;font-weight:800}
+.aho-reader-shell .ar-chapter-title{margin:14px 0 18px;font-size:23px;font-weight:750;line-height:1.25;letter-spacing:-.025em}
+.aho-reader-shell .ar-paragraph{font-size:var(--reader-font-size,20px);line-height:1.72;margin:0 0 23px;color:#eeeef2;overflow-wrap:break-word}
+.aho-reader-shell .ar-sentence{border-radius:6px;box-decoration-break:clone;-webkit-box-decoration-break:clone;transition:background-color .14s}
+.aho-reader-shell .ar-sentence.is-current{background:#e9812418;box-shadow:inset 0 -2px 0 #e98040ad}
+.aho-reader-shell .ar-word{display:inline;background:transparent;border:0;color:inherit;cursor:pointer;font:inherit;line-height:inherit;padding:1px 0;border-radius:4px;vertical-align:baseline}
+.aho-reader-shell .ar-word:active{background:#d96c2e55}
+.aho-reader-shell .ar-word.is-current{color:#fff;background:#b64f1c;border-bottom:2px solid #ffac6c}
+.aho-reader-shell .ar-word.is-selected{outline:1px solid #e59a5a;color:#ffd6b4}
+.aho-reader-shell .ar-sentence-audio{display:inline-flex;align-items:center;justify-content:center;min-width:30px;min-height:30px;margin-left:8px;color:#eaa46b;border:1px solid #ad6c3b55;border-radius:10px;font-size:14px;vertical-align:middle}
+.aho-reader-shell .ar-trans-toggle{min-height:44px;border:1px solid #bd894a80;border-radius:12px;color:#e9c58c;padding:10px 15px;margin:4px 0 15px;font-size:13px;font-weight:700}
+.aho-reader-shell .ar-mn-box{border:1px solid #d8b56a38;background:#d8b56a0c;padding:14px 16px;border-radius:15px;color:#e8ddcb;line-height:1.6;font-size:14px;margin-bottom:19px}
+.aho-reader-shell .ar-mn-box p+p{margin-top:10px}
+.aho-reader-shell .ar-end{margin-top:24px;border-top:1px solid #ffffff20;padding-top:20px;display:flex;flex-direction:column;gap:13px}
+.aho-reader-shell .ar-end-status{font-size:12px;color:#c9b48a;line-height:1.5}
+.aho-reader-shell .ar-end-actions{display:flex;gap:9px}
+.aho-reader-shell .ar-end-btn{flex:1;min-height:50px;background:linear-gradient(110deg,#f09a37,#ec683f);border-radius:15px;color:#180d07;font-size:14px;font-weight:850;padding:10px}
+.aho-reader-shell .ar-end-btn.secondary{flex:0 0 100px;color:#f5f5f5;background:#29292c;border:1px solid #ffffff1c}
+.aho-reader-shell .ar-player{flex:0 0 auto;background:#1a1a1e;border-top:1px solid #ffffff26;border-radius:24px 24px 0 0;padding:12px 16px max(12px,env(safe-area-inset-bottom,0px));box-shadow:0 -12px 40px #0007;display:flex;flex-direction:column;gap:10px;min-width:0}
+.aho-reader-shell .ar-player-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.aho-reader-shell .ar-player-title{font-size:12px;font-weight:800}
+.aho-reader-shell .ar-player-source{margin-top:2px;color:#a1a1a9;font-size:11px;line-height:1.3}
+.aho-reader-shell .ar-collapse{width:40px;height:40px;display:grid;place-items:center;border-radius:50%;background:#303035;font-size:17px;flex:none}
+.aho-reader-shell .ar-timeline{display:flex;align-items:center;gap:9px;font-size:11px;font-variant-numeric:tabular-nums;color:#aaaab3}
+.aho-reader-shell .ar-timeline span:first-child{color:#f39855}
+.aho-reader-shell .ar-seek{flex:1;min-width:0;accent-color:#ee8336;cursor:pointer;height:22px}
+.aho-reader-shell .ar-seek:disabled{opacity:.35;cursor:not-allowed}
+.aho-reader-shell .ar-guided{min-height:54px;border-radius:13px;display:flex;align-items:center;gap:11px;padding:8px 12px;border:1px solid #ffffff1c;background:#262629;color:#a5a5ad}
+.aho-reader-shell .ar-guided strong{font-size:13px;color:#e6e6ec}
+.aho-reader-shell .ar-guided small{display:block;font-size:10px;margin-top:3px}
+.aho-reader-shell .ar-guided-icon{font-size:20px}
+.aho-reader-shell .ar-player-controls{display:flex;justify-content:center;align-items:center;gap:34px;min-height:62px}
+.aho-reader-shell .ar-round{width:46px;height:46px;display:grid;place-items:center;border-radius:100px;background:#2e2e33;font-size:19px;font-weight:700}
+.aho-reader-shell .ar-round:disabled{opacity:.28}
+.aho-reader-shell .ar-round.main{width:62px;height:62px;background:#e67e30;color:#0d0d0e;font-size:25px;box-shadow:0 5px 28px #e67e3044}
+.aho-reader-shell .ar-player-options{display:grid;grid-template-columns:minmax(0,1fr) 86px 76px;gap:9px}
+.aho-reader-shell .ar-option{border:1px solid #ffffff20;border-radius:11px;min-height:43px;background:#29292e;color:#e8e8ec;font-size:12px;font-weight:700}
+.aho-reader-shell .ar-option.is-active{border-color:#ef964fa3;color:#ffbd81;background:#b95a2630}
+.aho-reader-shell .ar-option select{width:100%;height:100%;padding:0 7px;background:transparent;color:inherit;border:0;outline:0;font:inherit}
+.aho-reader-shell .ar-option select option{background:#242428}
+.aho-reader-shell .ar-player.is-collapsed .ar-timeline,
+.aho-reader-shell .ar-player.is-collapsed .ar-guided,
+.aho-reader-shell .ar-player.is-collapsed .ar-player-options,
+.aho-reader-shell .ar-player.is-collapsed .ar-skip{display:none}
+.aho-reader-shell .ar-player.is-collapsed .ar-player-controls{position:absolute;right:66px;bottom:max(9px,env(safe-area-inset-bottom,0px));min-height:0}
+.aho-reader-shell .ar-player.is-collapsed .ar-round.main{width:44px;height:44px;font-size:20px}
+.aho-reader-shell .ar-player.is-collapsed{min-height:66px;position:relative;padding-right:126px;justify-content:center}
+.aho-reader-shell .ar-player.is-collapsed .ar-collapse{position:absolute;right:10px;bottom:max(11px,env(safe-area-inset-bottom,0px))}
+.aho-reader-shell .ar-sheet-shade{position:absolute;inset:0;background:#0009;z-index:50;display:flex;justify-content:center;align-items:flex-end}
+.aho-reader-shell .ar-sheet{width:100%;max-height:78%;overflow-y:auto;background:#1a1a1e;border:1px solid #ffffff23;border-radius:24px 24px 0 0;padding:20px 18px max(20px,env(safe-area-inset-bottom,0px));box-shadow:0 -10px 40px #0008}
+.aho-reader-shell .ar-sheet-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.aho-reader-shell .ar-sheet h3{font-size:24px;color:#fff}
+.aho-reader-shell .ar-sheet-label{font-size:11px;color:#c5b4a1;text-transform:uppercase;letter-spacing:.05em}
+.aho-reader-shell .ar-sheet-meaning{font-size:17px;font-weight:750;color:#f6aa70;margin-top:12px}
+.aho-reader-shell .ar-sheet-sentence{color:#d8d8df;margin-top:14px;font-size:14px;line-height:1.5}
+.aho-reader-shell .ar-sheet-note{margin-top:14px;color:#9d9da4;font-size:12px;line-height:1.5}
+.aho-reader-shell .ar-status{color:#d7a16e;font-size:11px;line-height:1.4}
+@media(max-width:360px){
+ #readerShell.aho-reader-shell .ar-scroll{padding:14px 13px}
+ #readerShell.aho-reader-shell .ar-player{padding-left:11px;padding-right:11px;gap:8px}
+ #readerShell.aho-reader-shell .ar-player-controls{gap:25px}
+ #readerShell.aho-reader-shell .ar-player-options{grid-template-columns:minmax(0,1fr) 73px 68px}
+ #readerShell.aho-reader-shell .ar-chapter-title{font-size:21px}
+}
+@media(max-height:700px){
+ #readerShell.aho-reader-shell .ar-player:not(.is-collapsed) .ar-guided{display:none}
+ #readerShell.aho-reader-shell .ar-scroll{padding-top:12px}
+}
+@media(prefers-reduced-motion:reduce){.aho-reader-shell .ar-sentence,.aho-reader-shell .ar-word{transition:none}}
