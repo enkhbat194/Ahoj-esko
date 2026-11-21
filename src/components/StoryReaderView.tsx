@@ -20,6 +20,7 @@ import type {
   VocabCard,
 } from '../types/lesson';
 import { KLIC17_CHAPTERS, KLIC17_GLOSSARY, KLIC17_VERSION } from '../data/klic17Story';
+import { ReadingAiHelp } from './ReadingAiHelp';
 import { playCzechAudio, stopAllPlayback } from '../utils/audioPlayer';
 import { CZECH_GENDER_COLORS, getQaStatusLabelMn } from '../utils/learnerProfile';
 import {
@@ -800,6 +801,13 @@ export const StoryReaderView: React.FC<StoryReaderViewProps> = ({
                               </p>
                             </div>
                           )}
+                          <ReadingAiHelp
+                            word={selectedWord}
+                            sentenceCs={sentence.cs}
+                            sentenceMn={sentence.mn}
+                            knownLemma={selectedEntry?.lemma}
+                            knownMeaningMn={selectedEntry?.mn}
+                          />
                         </div>
                       )}
 
