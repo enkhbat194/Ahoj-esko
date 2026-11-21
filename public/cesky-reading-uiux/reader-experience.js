@@ -149,8 +149,8 @@
             '<span id="ar-duration">—:—</span></div>' +
           '<div class="ar-progress-bottom">' +
             '<input id="ar-seek" class="ar-seek" type="range" min="0" max="100" value="0" step=".1" disabled aria-label="Аудионы хугацаа">' +
-            '<button type="button" class="ar-collapse" id="ar-collapse" aria-label="Тоглуулагч хураах">⌄</button>' +
           '</div>' +
+          '<button type="button" class="ar-collapse" id="ar-collapse" aria-label="Тоглуулагч хураах">⌄</button>' +
           '<div class="ar-player-source" id="ar-source" aria-live="polite"></div>' +
           '<div class="ar-guided" aria-label="Дуудаж унших: одоогоор идэвхгүй">' +
             '<span class="ar-guided-icon" aria-hidden="true">' +
