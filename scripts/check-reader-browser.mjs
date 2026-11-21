@@ -34,6 +34,29 @@ try {
   });
   await mkdir("test-artifacts", { recursive: true });
 
+  // Installed PWA navigation: Workbox must serve the actual Czech reader HTML,
+  // not rewrite /cesky-reading-uiux/index.html to the React app shell.
+  {
+    const pwa = await browser.newPage({ viewport: { width: 390, height: 844 } });
+    const errors = [];
+    pwa.on("pageerror", (error) => errors.push(error.message));
+    await pwa.goto("http://127.0.0.1:17777/", { waitUntil: "domcontentloaded" });
+    await pwa.evaluate(async () => {
+      if (!("serviceWorker" in navigator)) throw new Error("Service workers unavailable in Chrome test");
+      await navigator.serviceWorker.ready;
+    });
+    await pwa.getByRole("button", { name: "Унших", exact: true }).click();
+    await pwa.waitForURL("**/cesky-reading-uiux/index.html?tab=read");
+    await pwa.locator(".book-card").first().click();
+    await pwa.locator("#detailContinueBtn").click();
+    await pwa.locator("#readerShell.aho-reader-shell").waitFor();
+    assert.ok(await pwa.locator("#ar-player").isVisible(), "Installed PWA did not reach modern reader");
+    await pwa.screenshot({ path: "test-artifacts/pwa-reader-from-home.png" });
+    assert.deepEqual(errors, [], "Installed PWA JavaScript errors: " + errors.join("; "));
+    await pwa.close();
+    console.log("PASS installed root PWA → new Reader library → chapter player");
+  }
+
   for (const size of [
     { width: 320, height: 568 },
     { width: 390, height: 844 },
