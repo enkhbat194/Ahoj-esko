@@ -1392,9 +1392,17 @@ async function startServer() {
 
   if (isProduction) {
     const distDir = path.resolve(process.cwd(), 'dist');
+    // Single frontend: the green React landing page is retired.
+    // Keep /api/* endpoints and real lesson data source files intact
+    // while the canonical curriculum is integrated into the new reader.
+    app.get('/', (_req, res) => {
+      res.set('Cache-Control', 'no-store');
+      res.redirect(302, '/cesky-reading-uiux/index.html?tab=read');
+    });
     app.use(express.static(distDir));
     app.get('*', (_req, res) => {
-      res.sendFile(path.join(distDir, 'index.html'));
+      res.set('Cache-Control', 'no-store');
+      res.redirect(302, '/cesky-reading-uiux/index.html?tab=read');
     });
   } else {
     const { createServer: createViteServer } = await import('vite');
