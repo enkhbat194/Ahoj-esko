@@ -4718,6 +4718,13 @@
         navGrid.addEventListener("click", (e) => {
           const btn = e.target.closest("[data-tab]");
           if (!btn) return;
+          // When launched from the canonical installed PWA, use its real lesson
+          // engine instead of the prototype stage cards.
+          if (btn.dataset.tab === "stages" &&
+              new URLSearchParams(window.location.search).get("tab") === "read") {
+            window.location.assign("/");
+            return;
+          }
           if (!bookDetailScreen.hidden) {
             bookDetailScreen.hidden = true;
             state.detailBookId = null;
