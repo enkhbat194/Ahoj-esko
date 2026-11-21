@@ -50,6 +50,12 @@ try {
     await page.locator("#readerShell").evaluate((el) => Promise.all(el.getAnimations().map((animation) => animation.finished.catch(() => {}))));
     assert.ok(await page.locator("#ar-text .ar-word").count() > 3, "Word-tap tokens missing");
     assert.ok(await page.locator("#ar-player").isVisible(), "Player missing");
+    assert.equal(await page.locator(".ar-sentence-audio").count(), 0,
+      "Reference reader keeps speakers out of the Czech text");
+    assert.equal(await page.locator(".ar-chapter-title").count(), 0,
+      "Reader must not duplicate the chapter heading under its header");
+    assert.equal(await page.locator(".ar-guided-disabled[aria-disabled='true']").count(), 1,
+      "Guided reading preview must show a disabled control, not a fake working mic");
     assert.equal(await page.locator("#ar-seek").isDisabled(), true,
       "Untimed demo TTS must not fake native seek controls");
     assert.equal(await page.locator("#ar-back").isDisabled(), true,
@@ -62,6 +68,14 @@ try {
       player.y + player.height <= size.height + 3 && scrolling.height > 95,
       "Reader/player do not fit viewport " + JSON.stringify({ size, player, scrolling }));
 
+    if (size.height >= 800) {
+      assert.ok(player.height <= 305,
+        "Expanded reader must preserve text: player was " + player.height + "px at " + size.width + "x" + size.height);
+      assert.ok(scrolling.height >= 360,
+        "Reading text canvas too short: " + scrolling.height + "px");
+    }
+    assert.ok(await page.locator("#ar-header-font").count() === 0 || await page.locator("#ar-font-head").count() === 1,
+      "Header font shortcut missing");
     const initiallyCollapsed = await page.locator("#ar-player").evaluate((el) => el.classList.contains("is-collapsed"));
     if (initiallyCollapsed) await page.locator("#ar-collapse").click();
     const textBefore = await page.locator("#ar-font-size").innerText();
@@ -77,6 +91,7 @@ try {
 
     await page.locator("#ar-text [data-word]").first().click();
     await page.locator("#ar-quick-shade").waitFor();
+    assert.equal(await page.locator(".ar-sheet-listen").count(), 1, "Sentence audio action missing from quick dictionary");
     await page.locator("#ar-quick-shade [data-close-sheet]").click();
     assert.equal(await page.locator("#ar-quick-shade").count(), 0);
 
