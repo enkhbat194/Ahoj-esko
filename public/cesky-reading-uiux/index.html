@@ -2530,7 +2530,7 @@
         { id: "dictionary", label: "Толь" },
       ];
 
-      const MENU_ITEMS = ["Миний профайл", "Тохиргоо", "Мэдэгдэл", "Тусламж", "Гарах"];
+      const MENU_ITEMS = ["Бодит сургалтын апп", "Миний профайл", "Тохиргоо", "Мэдэгдэл", "Тусламж", "Гарах"];
 
       const STAGE_CHAPTERS = [
         { chapter: 0,  title: "Цагаан толгой",  subtitle: "Česká abeceda", word: "Abeceda",  done: 6,  total: 14, accent: "#D96C2E" },
@@ -3002,6 +3002,7 @@
         quiz: { bookId: null, quizNum: 1, picks: {}, submitted: false },
         writingBookId: null,
         aiContextBookId: null,
+        aiBusy: false,
         aiMessages: [
           {
             role: "ai",
@@ -4260,30 +4261,7 @@
         renderApp();
       }
 
-      function generateAiReply(userText, book) {
-        const lower = userText.toLowerCase();
-        if (book) {
-          const vocabList = book.defaultVocab.map((v) => `• ${v.cz} — ${v.mn}`).join("\n");
-          if (lower.includes("үг") || lower.includes("тайлбар")) {
-            return `«${book.title}» номын гол чех үгс:\n${vocabList}\n\nЭдгээрээс нэгийг сонгоод чехээр жишээ өгүүлбэр зохиож үзэх үү?`;
-          }
-          if (lower.includes("асуулт") || lower.includes("чех")) {
-            return `Skvělé! Чехээр хариулаад үзээрэй:\n«Kdo je hlavní postava v příběhu ${book.title}?»\n(Орчуулга: «${book.title}» түүхийн гол дүр хэн бэ?)`;
-          }
-          if (lower.includes("дүр") || lower.includes("тухай")) {
-            return `Энэ зохиолын гол дүр бол ${book.hero}. ${book.about}\n\nТа чехээр «${book.hero} je...» гэж эхлүүлээд түүнийг тодорхойлж чадах уу?`;
-          }
-          if (lower.includes(book.hero.toLowerCase())) {
-            return `Výborně! (Маш сайн!) Яг зөв — гол дүр нь ${book.hero}. Одоо дараагийн асуулт: «${book.defaultVocab[0].cz}» гэдэг үг ямар утгатай билээ?`;
-          }
-          return `Výborná odpověď! «${book.title}» номын дагуу та маш сайн хичээж байна.\nЖишээ чех өгүүлбэр: «${book.czHook}»\n(${book.mnHook})`;
-        }
-
-        if (lower.includes("мэнд") || lower.includes("ahoj")) {
-          return "Ahoj! Jak se máš? (Сайн уу! Юу байна?) Чехээр өөрийгөө танилцуулах бол «Jmenuji se...» гэж хэлдэг шүү.";
-        }
-        return "Skvělé! Та чех хэлээр энгийн өгүүлбэр бичээд эсвэл «Унших» хэсгээс дуртай номоо сонгоод надтай ярилцаарай.";
-      }
+      /* AI чат — бодит серверийн endpoint; жишээ хариу үүсгэхгүй. */
 
       function renderAiView() {
         window.__goToStage = null;
@@ -4296,6 +4274,9 @@
 
         mainArea.innerHTML = `
           <div class="ai-view">
+            <p style="font-size:11px;color:#D8B56A;padding:5px 13px">
+              Gemini чат нь серверийн GEMINI_API_KEY шаарддаг. Хичээл, номын явц нь UI/UX жишээ өгөгдөл.
+            </p>
             ${book ? `
               <div class="ai-context-banner">
                 <div class="ai-context-thumb" style="background:${book.gradient}">${escapeHtml(book.level)}</div>
@@ -4333,13 +4314,45 @@
           });
         }
 
-        function sendUserMessage(text) {
-          const clean = text.trim();
-          if (!clean) return;
+        async function sendUserMessage(text) {
+          const clean = String(text || "").trim().slice(0, 1000);
+          if (!clean || state.aiBusy) return;
+          state.aiBusy = true;
+          const history = state.aiMessages
+            .filter((m) => m.role === "user" || m.role === "ai")
+            .slice(-4)
+            .map((m) => ({ role: m.role === "user" ? "user" : "assistant", czech: m.text.slice(0, 350) }));
           state.aiMessages.push({ role: "user", text: clean });
-          const reply = generateAiReply(clean, book);
-          state.aiMessages.push({ role: "ai", text: reply });
-          renderAiView();
+          if (state.activeTab === "ai") renderAiView();
+          try {
+            const response = await fetch("/api/ai/tutor", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                scenario: book ? book.title : "Чех хэлний өдөр тутмын яриа",
+                missionContext: book ? "Тухайн зохиолын тухай зөвхөн баталгаатай контекстээр ярилц." : "",
+                userMessage: clean,
+                mode: "coach",
+                history,
+              }),
+            });
+            const data = await response.json();
+            if (!response.ok || data.error) throw new Error(data.error || "AI сервер хариу өгсөнгүй.");
+            const reply = [data.replyCzech, data.replyMongolian, data.coachingTipMn]
+              .filter((value) => typeof value === "string" && value.trim())
+              .join("\n");
+            if (!reply) throw new Error("AI сервер хоосон хариу өгсөн.");
+            state.aiMessages.push({ role: "ai", text: reply });
+          } catch (err) {
+            const detail = err instanceof Error ? err.message : "Сүлжээний алдаа";
+            state.aiMessages.push({
+              role: "ai",
+              text: "AI серверийн бодит холболт амжилтгүй: " + detail + "\nЭнэ бол жишээ AI хариу биш.",
+            });
+          } finally {
+            state.aiBusy = false;
+            if (state.activeTab === "ai") renderAiView();
+          }
         }
 
         document.getElementById("aiSuggestions").addEventListener("click", (e) => {
@@ -4531,6 +4544,10 @@
           const item = e.target.closest("[data-menu]");
           if (!item) return;
           drawerBackdrop.hidden = true;
+          if (item.dataset.menu === "Бодит сургалтын апп") {
+            window.location.assign("/?tab=story");
+            return;
+          }
           showToast(`${item.dataset.menu} — дараагийн хэсэгт хийгдэнэ`);
         });
 
