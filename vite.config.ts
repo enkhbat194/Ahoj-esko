@@ -1,5 +1,3 @@
-import tailwindcss from '@tailwindcss/vite';
-import react from '@vitejs/plugin-react';
 import path from 'path';
 import {defineConfig} from 'vite';
 import {VitePWA} from 'vite-plugin-pwa';
@@ -7,8 +5,6 @@ import {VitePWA} from 'vite-plugin-pwa';
 export default defineConfig(() => {
   return {
     plugins: [
-      react(),
-      tailwindcss(),
       VitePWA({
         registerType: 'autoUpdate',
         includeAssets: ['icon.svg', 'apple-touch-icon.png', 'pwa-192x192.png', 'pwa-512x512.png', 'pwa-maskable-512x512.png'],
@@ -21,7 +17,7 @@ export default defineConfig(() => {
           background_color: '#141414',
           display: 'standalone',
           orientation: 'portrait-primary',
-          start_url: '/cesky-reading-uiux/index.html?tab=read',
+          start_url: '/cesky-reading-uiux/index.html?tab=stages',
           scope: '/',
           icons: [
             {
@@ -91,10 +87,6 @@ export default defineConfig(() => {
       alias: {
         '@': path.resolve(__dirname, '.'),
       },
-      dedupe: ['react', 'react-dom'],
-    },
-    optimizeDeps: {
-      include: ['react', 'react-dom', 'motion/react', 'lucide-react'],
     },
     server: {
       // HMR is disabled in AI Studio via DISABLE_HMR env var.

@@ -41,9 +41,11 @@ try {
     const errors = [];
     pwa.on("pageerror", (error) => errors.push(error.message));
     await pwa.goto("http://127.0.0.1:17777/", { waitUntil: "domcontentloaded" });
-    await pwa.waitForURL("**/cesky-reading-uiux/index.html?tab=read", { timeout: 10000 });
-    assert.equal(await pwa.locator(".premium-home").count(), 0, "Legacy green React home is still live");
-    assert.ok(await pwa.locator(".book-card").count() > 0, "New reading library is not the root app");
+    await pwa.waitForURL("**/cesky-reading-uiux/index.html?tab=stages", { timeout: 10000 });
+    assert.equal(await pwa.locator(".premium-home").count(), 0, "Old green React home is still visible");
+    assert.ok(await pwa.locator(".chapter-slide").count() > 0, "New Stage landing page is missing");
+    await pwa.locator('[data-tab="read"]').click();
+    assert.ok(await pwa.locator(".book-card").count() > 0, "New reading library is missing");
     await pwa.locator(".book-card").first().click();
     await pwa.locator("#detailContinueBtn").click();
     await pwa.locator("#readerShell.aho-reader-shell").waitFor();
@@ -51,7 +53,7 @@ try {
     await pwa.screenshot({ path: "test-artifacts/pwa-reader-from-home.png" });
     assert.deepEqual(errors, [], "Installed PWA JavaScript errors: " + errors.join("; "));
     await pwa.close();
-    console.log("PASS root → new dark Reader library → chapter player, no green React homepage");
+    console.log("PASS root → new dark Stage landing → Read tab → chapter player; no legacy React");
   }
 
   for (const size of [

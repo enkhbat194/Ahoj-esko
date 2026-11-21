@@ -1397,12 +1397,12 @@ async function startServer() {
     // while the canonical curriculum is integrated into the new reader.
     app.get('/', (_req, res) => {
       res.set('Cache-Control', 'no-store');
-      res.redirect(302, '/cesky-reading-uiux/index.html?tab=read');
+      res.redirect(302, '/cesky-reading-uiux/index.html?tab=stages');
     });
     app.use(express.static(distDir));
     app.get('*', (_req, res) => {
       res.set('Cache-Control', 'no-store');
-      res.redirect(302, '/cesky-reading-uiux/index.html?tab=read');
+      res.redirect(302, '/cesky-reading-uiux/index.html?tab=stages');
     });
   } else {
     const { createServer: createViteServer } = await import('vite');

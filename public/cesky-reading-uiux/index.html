@@ -2653,11 +2653,11 @@
       const MENU_ITEMS = ["Номын сан", "Сургалтын хичээлүүд", "Миний профайл", "Тохиргоо", "Тусламж"];
 
       const STAGE_CHAPTERS = [
-        { chapter: 0,  title: "Цагаан толгой",  subtitle: "Česká abeceda", word: "Abeceda",  done: 6,  total: 14, accent: "#D96C2E" },
-        { chapter: 1,  title: "Мэндчилгээ",     subtitle: "Pozdravy",      word: "Ahoj!",    done: 15, total: 15, accent: "#5A7A9A" },
-        { chapter: 2,  title: "Тоо",            subtitle: "Čísla",         word: "Čísla",    done: 15, total: 15, accent: "#7A8A6A" },
-        { chapter: 3,  title: "Гэр бүл",        subtitle: "Rodina",        word: "Rodina",   done: 15, total: 15, accent: "#E8DCC8" },
-        { chapter: 4,  title: "Өнгө ба хэлбэр", subtitle: "Barvy a tvary", word: "Barvy",    done: 10, total: 15, accent: "#D96C2E" },
+        { chapter: 0,  title: "Цагаан толгой",  subtitle: "Česká abeceda", word: "Abeceda",  done: 0,  total: 14, accent: "#D96C2E" },
+        { chapter: 1,  title: "Мэндчилгээ",     subtitle: "Pozdravy",      word: "Ahoj!",    done: 0, total: 15, accent: "#5A7A9A" },
+        { chapter: 2,  title: "Тоо",            subtitle: "Čísla",         word: "Čísla",    done: 0, total: 15, accent: "#7A8A6A" },
+        { chapter: 3,  title: "Гэр бүл",        subtitle: "Rodina",        word: "Rodina",   done: 0, total: 15, accent: "#E8DCC8" },
+        { chapter: 4,  title: "Өнгө ба хэлбэр", subtitle: "Barvy a tvary", word: "Barvy",    done: 0, total: 15, accent: "#D96C2E" },
         { chapter: 5,  title: "Хоол",           subtitle: "Jídlo",         word: "Jídlo",    done: 0,  total: 15, accent: "#5A7A9A" },
         { chapter: 6,  title: "Гэр",            subtitle: "Dům",           word: "Dům",      done: 0,  total: 15, accent: "#7A8A6A" },
         { chapter: 7,  title: "Амьтан",         subtitle: "Zvířata",       word: "Zvířata",  done: 0,  total: 15, accent: "#E8DCC8" },
@@ -3113,7 +3113,7 @@
          2. АПП-ЫН ТӨЛӨВ (STATE)
          ========================================================= */
       const state = {
-        activeTab: "read",          // "Унших" таб анх нээлттэй
+        activeTab: new URLSearchParams(window.location.search).get("tab") === "read" ? "read" : "stages", // шинэ аппын нүүр — Үе давах
         activeStageIdx: 0,
         searchQuery: "",
         activeReadingBookId: null,  // ЧУХАЛ: Эхэндээ null тул "ОДОО УНШИЖ БАЙНА" самбар нууц байна
@@ -3524,6 +3524,7 @@
 
         mainArea.innerHTML = `
           <div class="stages-container">
+            <p style="margin:0 16px 12px;color:#b8a592;font-size:12px;line-height:1.4">Шинэ сургалтын интерфейс · хичээлийн агуулга холбогдоогүй</p>
             <button type="button" id="alphabetBtn" class="alphabet-banner glass-surface">
               <span class="alphabet-row">
                 <span class="alphabet-tile glass-tile" aria-hidden="true"><span style="position:relative;z-index:2">Aa</span></span>
@@ -3576,7 +3577,7 @@
         }
 
         document.getElementById("alphabetBtn").addEventListener("click", () => {
-          showToast("Цагаан толгой — эхэллээ");
+          showToast("Шинэ сургалтын агуулга хараахан холбогдоогүй. Хуучин хөтөлбөрийг ашиглахгүй.");
         });
         prevBtn.addEventListener("click", () => goToStage(state.activeStageIdx - 1));
         nextBtn.addEventListener("click", () => goToStage(state.activeStageIdx + 1));
@@ -3594,7 +3595,7 @@
           const btn = e.target.closest("[data-chapter-start]");
           if (!btn) return;
           const ch = STAGE_CHAPTERS[Number(btn.dataset.chapterStart)];
-          showToast(`CHAPTER ${ch.chapter} (${ch.title}) — эхэллээ`);
+          showToast(`Бүлэг ${ch.chapter} — шинэ хөтөлбөрийн агуулга холбогдоогүй байна`);
         });
 
         document.getElementById("dotsContainer").addEventListener("click", (e) => {
@@ -4723,13 +4724,6 @@
         navGrid.addEventListener("click", (e) => {
           const btn = e.target.closest("[data-tab]");
           if (!btn) return;
-          // When launched from the canonical installed PWA, use its real lesson
-          // engine instead of the prototype stage cards.
-          if (btn.dataset.tab === "stages" &&
-              new URLSearchParams(window.location.search).get("tab") === "read") {
-            window.location.assign("/");
-            return;
-          }
           if (!bookDetailScreen.hidden) {
             bookDetailScreen.hidden = true;
             state.detailBookId = null;
@@ -4752,8 +4746,8 @@
           const item = e.target.closest("[data-menu]");
           if (!item) return;
           drawerBackdrop.hidden = true;
-          if (item.dataset.menu === "Номын сан") {
-            state.activeTab = "read";
+          if (item.dataset.menu === "Номын сан" || item.dataset.menu === "Сургалтын хичээлүүд") {
+            state.activeTab = item.dataset.menu === "Номын сан" ? "read" : "stages";
             renderApp();
             return;
           }
