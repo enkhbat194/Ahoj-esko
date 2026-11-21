@@ -64,3 +64,29 @@
 - Operations/real progress: https://github.com/enkhbat194/Ahoj-esko/issues/5
 
 **Definition of progress:** changed tested runtime behavior + a verifiable receipt + integration into the next stage; a new document, mock UI, or passing CI alone does **not** equal a usable iPhone app.
+
+
+## 7. Branch consolidation audit — 2026-11-22 (owner-authorized)
+
+**Target of integration:** `main` is the canonical learner product. User authorized selecting all needed changes from live branches, **not** replacing newer product UI with an earlier preview app.
+
+**Verified action:** [Reading Gemini PR #25](https://github.com/enkhbat194/Ahoj-esko/pull/25) merged via squash to `main` SHA `f8f021cc1a8f6684ee720cc4b1a9483abb4879b2`; [PR CI PASS](https://github.com/enkhbat194/Ahoj-esko/actions/runs/44924658833). The `GEMINI_API_KEY` stays server-side. Live backend secret, iPhone and API response tests remain **NOT TESTED**.
+
+Branch contents were compared by Git tree/blob SHA plus selected actual text differences against the previous `main` `d66e7323c66f8eb67e0fa1847d84a1493212db55` before PR #25. Distinguish history divergence from current code changes.
+
+| Source branch | Decision against main | Reason |
+|---|---|---|
+| `feat/reader-ai-context-20261122` | **MERGED (#25)** | On-demand Czech word context explanation, without client-side key disclosure |
+| `fix/course-review-source` | **ALREADY PRESENT** | Every file blob equals the then-current main tree; no separate source rewrite needed |
+| `feat/canonical-lesson-runner` | **ALREADY IN MAIN, newer variants retained** | Main includes course runner, source reader/storage, dialogues, progress and tests; branch differs only in five older files; do not roll these back |
+| `feat/alphabet-context-audio-20261120` | **ALREADY PRESENT** | Czech alphabet audio/pack source and tests represented in main; old branch has previous generic app/course components |
+| `feat/alphabet-audio-all-packs-20261120` | **ALREADY PRESENT / superseded** | Main has same 802-line preview manifest pinned to Audio Factory source `4ebbf757...`, plus newer context-aware examples and mask-word UI/tests |
+| `fix/alphabet-word-blank-context-20261120` | **ALREADY PRESENT / superseded** | Main contains the word-blank mask exercise and associated tests; only older audio label differs |
+| `feat/preview-gemini-alphabet-audio-20261120` | **SUPERSEDED** | Older ~100-line manifest/first-pack subset vs main's expanded ~802-line manifest; do not downgrade |
+| `feat/ios-canonical-course` | **SELECTED PRODUCT FEATURES ALREADY IN MAIN; preview-only extras isolated** | Main has canonical course and premium navigation; branch also changes the entrypoint to a separate iPhone preview and includes preview-only static assets |
+| `fix/ios-shared-review` | **PRODUCT FIXES ALREADY PRESENT; preview-only extras isolated** | Its review/course fixes have matching blob SHAs in main; extra `IphonePreview.tsx`, static bundle/docs/tests are preview-specific |
+| `preview/ios-l01-render-static-20261120` | **KEEP SEPARATE** | Deployed Render Static Preview entrypoint, not the full learner app; merging `src/main.tsx` would replace the main product with the limited preview |
+
+**Outcome:** No other branch was merged wholesale. The existing main implementations are newer or identical for reusable functional pieces. The actual preview branch stays intact and must **not** replace the product's React entrypoint. No branches were deleted or retargeted. This is a file-level integration audit, **not** live backend/iPhone QA nor a claim that every old branch's Git ancestry was merged. Any later unique validated code must still receive its own CI-tested PR.
+
+**Pending:** B01/B03/B04/B06 in [Issue #5](https://github.com/enkhbat194/Ahoj-esko/issues/5); especially server-backed Preview and `GEMINI_API_KEY` secret verification, exact audio provenance and iPhone tests.
