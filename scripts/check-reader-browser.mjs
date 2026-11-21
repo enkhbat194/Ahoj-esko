@@ -54,11 +54,12 @@ try {
     assert.equal(await page.locator("#ar-back").isDisabled(), true,
       "5-second skip must be unavailable without native media");
 
+    if (size.width === 320) await page.screenshot({ path: "test-artifacts/reader-small-before.png", fullPage: false });
     const player = await page.locator("#ar-player").boundingBox();
     const scrolling = await page.locator("#ar-scroll").boundingBox();
     assert.ok(player && scrolling && player.y >= 0 &&
       player.y + player.height <= size.height + 3 && scrolling.height > 95,
-      "Reader/player do not fit viewport " + JSON.stringify(size));
+      "Reader/player do not fit viewport " + JSON.stringify({ size, player, scrolling }));
 
     const textBefore = await page.locator("#ar-font-size").innerText();
     await page.locator("#ar-font").click();
