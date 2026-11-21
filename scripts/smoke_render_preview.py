@@ -15,6 +15,8 @@ checks = [
     ("Canonical app", MAIN + "/?smoke=20261122", "GET", None, (200,), '<div id="root"'),
     ("New UI under same server", MAIN + "/cesky-reading-uiux/index.html?smoke=20261122", "GET", None, (200,), 'Бодит сургалтын апп'),
     ("Responsive iPhone layout CSS v1", MAIN + "/cesky-reading-uiux/index.html?smoke=viewport1", "GET", None, (200,), "MOBILE VIEWPORT v1"),
+    ("New reader v2 cache-busted CSS reference", MAIN + "/cesky-reading-uiux/index.html?smoke=reader2", "GET", None, (200,), "reader-experience.css?v=2"),
+    ("New reader v2 cache-busted JS reference", MAIN + "/cesky-reading-uiux/index.html?smoke=reader2", "GET", None, (200,), "reader-experience.js?v=2"),
     ("Reader player JavaScript", MAIN + "/cesky-reading-uiux/reader-experience.js?smoke=reader1", "GET", None, (200,), "AhojReaderExperience"),
     ("Reader player responsive stylesheet", MAIN + "/cesky-reading-uiux/reader-experience.css?smoke=reader1", "GET", None, (200,), "aho-reader-shell"),
     ("Latest separate static UI", UI + "/?smoke=20261122", "GET", None, (200,), 'Čeština'),
