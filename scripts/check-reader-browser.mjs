@@ -47,6 +47,7 @@ try {
     await page.locator("#detailContinueBtn").click();
 
     await page.locator("#readerShell.aho-reader-shell").waitFor();
+    await page.locator("#readerShell").evaluate((el) => Promise.all(el.getAnimations().map((animation) => animation.finished.catch(() => {}))));
     assert.ok(await page.locator("#ar-text .ar-word").count() > 3, "Word-tap tokens missing");
     assert.ok(await page.locator("#ar-player").isVisible(), "Player missing");
     assert.equal(await page.locator("#ar-seek").isDisabled(), true,
