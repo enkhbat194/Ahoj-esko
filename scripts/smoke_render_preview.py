@@ -17,6 +17,7 @@ checks = [
     ("Responsive iPhone layout CSS v1", MAIN + "/cesky-reading-uiux/index.html?smoke=viewport1", "GET", None, (200,), "MOBILE VIEWPORT v1"),
     ("New reader v2 cache-busted CSS reference", MAIN + "/cesky-reading-uiux/index.html?smoke=reader2", "GET", None, (200,), "reader-experience.css?v=2"),
     ("New reader v2 cache-busted JS reference", MAIN + "/cesky-reading-uiux/index.html?smoke=reader2", "GET", None, (200,), "reader-experience.js?v=2"),
+    ("PWA service worker includes modern reader navigation", MAIN + "/sw.js?smoke=pwa2", "GET", None, (200,), "cesky-reading-uiux"),
     ("Reader player JavaScript", MAIN + "/cesky-reading-uiux/reader-experience.js?smoke=reader1", "GET", None, (200,), "AhojReaderExperience"),
     ("Reader player responsive stylesheet", MAIN + "/cesky-reading-uiux/reader-experience.css?smoke=reader1", "GET", None, (200,), "aho-reader-shell"),
     ("Latest separate static UI", UI + "/?smoke=20261122", "GET", None, (200,), 'Čeština'),
