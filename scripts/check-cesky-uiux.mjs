@@ -22,4 +22,30 @@ if (html.includes('function generateAiReply(') || html.includes('book.readSecond
   throw new Error('Mock AI answers or invented reading seconds must not reappear.');
 }
 
+const readerCode = readFileSync(resolve('public/cesky-reading-uiux/reader-experience.js'), 'utf8');
+const readerCss = readFileSync(resolve('public/cesky-reading-uiux/reader-experience.css'), 'utf8');
+new Script(readerCode, { filename: 'reader-experience.js' });
+for (const marker of [
+  'AhojReaderExperience.mount',
+  'reader-experience.css?v=1',
+  'reader-experience.js?v=1',
+]) {
+  if (!html.includes(marker)) throw new Error('Reader integration missing: ' + marker);
+}
+for (const marker of [
+  'ar-player-controls',
+  'ar-seek',
+  'ar-speed',
+  'ar-repeat',
+  'ar-word',
+  'showWord(id)',
+  'startTts(index, oneSentence)',
+  'setupFileAudio()',
+]) {
+  if (!readerCode.includes(marker)) throw new Error('Reader feature missing: ' + marker);
+}
+if (!readerCss.includes('safe-area-inset-bottom') || !readerCss.includes('ar-player.is-collapsed')) {
+  throw new Error('Reader responsive/safe-area styles missing');
+}
+
 process.stdout.write('Czech reading UI/UX checks passed: HTML, JS syntax and server navigation.\n');
