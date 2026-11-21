@@ -86,3 +86,265 @@
  #readerShell.aho-reader-shell .ar-scroll{padding-top:12px}
 }
 @media(prefers-reduced-motion:reduce){.aho-reader-shell .ar-sentence,.aho-reader-shell .ar-word{transition:none}}
+
+
+/* ================================================================
+   READER VISUAL STANDARD v1.1 — reference screenshot #3.
+   Less chrome, more text: the player never replaces reading content.
+   Cosmetic/layout changes do not imply audio or STT integration.
+   ================================================================ */
+#readerShell.aho-reader-shell {
+  background: #0b0b0d;
+}
+
+.aho-reader-shell .ar-header {
+  min-height: 58px;
+  padding: 7px 13px 8px;
+  background: #0e0e11;
+  border-color: #ffffff12;
+}
+.aho-reader-shell .ar-title {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+.aho-reader-shell .ar-subtitle {
+  margin-top: 2px;
+  font-size: 11px;
+  color: #a6a4aa;
+}
+.aho-reader-shell .ar-header-font {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid #e28d563e;
+  font: 700 14px/1 system-ui, sans-serif;
+  color: #dba46d;
+}
+.aho-reader-shell .ar-scroll {
+  padding: 24px 20px 34px;
+  scroll-padding-block: 30px 45px;
+}
+.aho-reader-shell .ar-text {
+  width: 100%;
+}
+.aho-reader-shell .ar-paragraph {
+  color: #f1f1f4;
+  font-size: var(--reader-font-size,18px);
+  line-height: 1.72;
+  letter-spacing: .001em;
+  margin: 0 0 26px;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+.aho-reader-shell .ar-word {
+  font-weight: 400;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.aho-reader-shell .ar-sentence.is-current {
+  background: #bb581721;
+  box-shadow: inset 0 -1px 0 #e98040b0;
+}
+.aho-reader-shell .ar-word.is-current {
+  color: #ffe6ce;
+  background: #a84721;
+  border-bottom: 1px solid #ffad65;
+}
+.aho-reader-shell .ar-end {
+  margin-top: 48px;
+}
+.aho-reader-shell .ar-end-btn {
+  min-height: 46px;
+}
+.aho-reader-shell .ar-player {
+  position: relative;
+  gap: 7px;
+  border-radius: 22px 22px 0 0;
+  padding: 12px 13px max(10px, env(safe-area-inset-bottom, 0px));
+  background: #19191d;
+  border-color: #ffffff20;
+  box-shadow: 0 -6px 25px #0005;
+}
+.aho-reader-shell .ar-progress-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 15px;
+  padding-right: 45px;
+  padding-left: 2px;
+  color: #b5b5bd;
+  font: 500 11px/1.3 system-ui,sans-serif;
+  font-variant-numeric: tabular-nums;
+}
+.aho-reader-shell #ar-elapsed { color: #f3954c; }
+.aho-reader-shell .ar-progress-bottom {
+  display: flex;
+  align-items: center;
+  min-height: 25px;
+  padding-right: 47px;
+}
+.aho-reader-shell .ar-seek {
+  height: 24px;
+  accent-color: #ee8336;
+  margin: 0;
+}
+.aho-reader-shell .ar-collapse {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  width: 38px;
+  height: 38px;
+  font-size: 17px;
+}
+.aho-reader-shell .ar-player-source {
+  margin: -1px 0 1px;
+  font-size: 10px;
+  line-height: 1.3;
+  color: #aaa8b0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.aho-reader-shell .ar-guided {
+  min-height: 57px;
+  padding: 8px 11px;
+  gap: 10px;
+  background: #252529;
+  color: #9b9ba3;
+}
+.aho-reader-shell .ar-guided-icon {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  flex-shrink: 0;
+}
+.aho-reader-shell .ar-guided-copy {
+  flex: 1;
+  min-width: 0;
+}
+.aho-reader-shell .ar-guided strong { font-size: 12.5px; }
+.aho-reader-shell .ar-guided small { font-size: 10px; line-height: 1.25; }
+.aho-reader-shell .ar-guided-disabled {
+  display: block;
+  flex: none;
+  position: relative;
+  width: 38px;
+  height: 22px;
+  background: #47474d;
+  border: 1.5px solid #909097;
+  border-radius: 100px;
+  opacity: .7;
+}
+.aho-reader-shell .ar-guided-disabled::before {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 3px;
+  top: 3px;
+  width: 13px;
+  height: 13px;
+  background: #ededf0;
+  border-radius: 50%;
+}
+.aho-reader-shell .ar-player-controls {
+  min-height: 61px;
+  gap: clamp(30px, 9vw, 48px);
+}
+.aho-reader-shell .ar-round {
+  width: 45px;
+  height: 45px;
+  font-size: 17px;
+}
+.aho-reader-shell .ar-round.main {
+  width: 61px;
+  height: 61px;
+  box-shadow: 0 4px 18px #e67e303d;
+}
+.aho-reader-shell .ar-player-options {
+  grid-template-columns: minmax(0,1fr) 78px 72px;
+  gap: 7px;
+}
+.aho-reader-shell .ar-option {
+  min-height: 42px;
+  font-size: 12px;
+  border-radius: 10px;
+}
+.aho-reader-shell .ar-status:empty { display: none; }
+.aho-reader-shell .ar-status {
+  font-size: 10px;
+  line-height: 1.3;
+  padding-inline: 3px;
+  margin-top: 1px;
+}
+.aho-reader-shell .ar-sheet-listen {
+  margin-top: 18px;
+  padding: 12px 15px;
+  border: 1px solid #cd7d3b91;
+  border-radius: 12px;
+  color: #e8b17a;
+  font-weight: 700;
+  font-size: 13px;
+  min-height: 44px;
+}
+.aho-reader-shell .ar-player.is-collapsed {
+  min-height: 62px;
+  padding: 8px 126px 8px 14px;
+  justify-content: center;
+  overflow: visible;
+}
+.aho-reader-shell .ar-player.is-collapsed::before {
+  content: "Уншлагын тоглуулагч";
+  font-size: 12px;
+  font-weight: 700;
+  color: #dfdfe4;
+  max-width: 55%;
+}
+.aho-reader-shell .ar-player.is-collapsed .ar-progress-top,
+.aho-reader-shell .ar-player.is-collapsed .ar-progress-bottom,
+.aho-reader-shell .ar-player.is-collapsed .ar-player-source,
+.aho-reader-shell .ar-player.is-collapsed .ar-guided,
+.aho-reader-shell .ar-player.is-collapsed .ar-player-options,
+.aho-reader-shell .ar-player.is-collapsed .ar-skip,
+.aho-reader-shell .ar-player.is-collapsed .ar-status {
+  display: none;
+}
+.aho-reader-shell .ar-player.is-collapsed .ar-player-controls {
+  position: absolute;
+  right: 62px;
+  bottom: 9px;
+  min-height: 44px;
+}
+.aho-reader-shell .ar-player.is-collapsed .ar-collapse {
+  top: auto;
+  right: 11px;
+  bottom: 11px;
+  height: 40px;
+  width: 40px;
+}
+.aho-reader-shell .ar-player.is-collapsed .ar-round.main {
+  width: 44px;
+  height: 44px;
+  font-size: 19px;
+}
+@media (max-width: 360px) {
+  .aho-reader-shell .ar-header { padding-inline: 9px; }
+  .aho-reader-shell .ar-scroll { padding: 17px 14px 24px; }
+  .aho-reader-shell .ar-paragraph { margin-bottom: 23px; line-height: 1.65; }
+  .aho-reader-shell .ar-player { padding: 10px 9px max(9px,env(safe-area-inset-bottom,0px)); gap: 6px; }
+  .aho-reader-shell .ar-player-options { grid-template-columns: minmax(0,1fr) 72px 66px; }
+  .aho-reader-shell .ar-player-controls { gap: 29px; }
+}
+@media (max-height: 700px) {
+  #readerShell.aho-reader-shell .ar-player:not(.is-collapsed) {
+    max-height: min(300px, 65dvh);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  #readerShell.aho-reader-shell .ar-player:not(.is-collapsed) .ar-guided { display: flex; }
+}
+@media (max-height: 430px) {
+  #readerShell.aho-reader-shell .ar-player:not(.is-collapsed) {
+    max-height: 62dvh;
+  }
+}
