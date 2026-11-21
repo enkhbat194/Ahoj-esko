@@ -9,6 +9,7 @@ import urllib.request
 MAIN = "https://ahoj-cesko-main-server-preview.onrender.com"
 UI = "https://cesky-reading-uiux-preview.onrender.com"
 OLD = "https://ahoj-cesko-ios-l01-preview.onrender.com"
+FACTORY = "https://ahoj-audio-factory-free-poc.onrender.com"
 
 checks = [
     ("Canonical app", MAIN + "/?smoke=20261122", "GET", None, (200,), '<div id="root"'),
@@ -17,6 +18,8 @@ checks = [
     ("Old L01 static preview (legacy)", OLD + "/?smoke=20261122", "GET", None, (200,), '<html'),
     ("Health", MAIN + "/api/health?smoke=20261122", "GET", None, (200,), None),
     ("Reading AI input validation (must reject empty input)", MAIN + "/api/ai/reading-help", "POST", b"{}", (400,), None),
+    ("Audio Factory health", FACTORY + "/api/health?smoke=20261122", "GET", None, (200,), '"auth_required":true'),
+    ("Audio Factory read-only guard", FACTORY + "/api/state", "POST", b"{}", (403,), "FREE_HOSTING_READ_ONLY"),
 ]
 
 failures = 0
