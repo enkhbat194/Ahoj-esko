@@ -4,6 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="theme-color" content="#141414" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Ahoj Česko" />
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <title>Čeština • A0</title>
   <link rel="stylesheet" href="./reader-experience.css?v=2" />
   <style>
@@ -2645,7 +2650,7 @@
         { id: "dictionary", label: "Толь" },
       ];
 
-      const MENU_ITEMS = ["Бодит сургалтын апп", "Миний профайл", "Тохиргоо", "Мэдэгдэл", "Тусламж", "Гарах"];
+      const MENU_ITEMS = ["Номын сан", "Сургалтын хичээлүүд", "Миний профайл", "Тохиргоо", "Тусламж"];
 
       const STAGE_CHAPTERS = [
         { chapter: 0,  title: "Цагаан толгой",  subtitle: "Česká abeceda", word: "Abeceda",  done: 6,  total: 14, accent: "#D96C2E" },
@@ -4747,11 +4752,12 @@
           const item = e.target.closest("[data-menu]");
           if (!item) return;
           drawerBackdrop.hidden = true;
-          if (item.dataset.menu === "Бодит сургалтын апп") {
-            window.location.assign("/?tab=story");
+          if (item.dataset.menu === "Номын сан") {
+            state.activeTab = "read";
+            renderApp();
             return;
           }
-          showToast(`${item.dataset.menu} — дараагийн хэсэгт хийгдэнэ`);
+          showToast(`${item.dataset.menu} — бодит өгөгдөлтэй хараахан холбогдоогүй`);
         });
 
         document.getElementById("closeFilterBtn").addEventListener("click", closeFilterSheet);
@@ -4817,6 +4823,18 @@
         init();
       }
     })();
+  </script>
+  <script>
+    // The single installed Ahoj PWA controls the actual reading experience.
+    // Register the current service worker; avoid wiping user storage/caches
+    // because previous course progress may be stored there.
+    if ("serviceWorker" in navigator && location.protocol === "https:") {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("/sw.js").catch(() => {
+          // Unavailable offline mode must not stop reading.
+        });
+      });
+    }
   </script>
 </body>
 </html>
