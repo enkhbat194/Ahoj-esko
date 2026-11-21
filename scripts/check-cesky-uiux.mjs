@@ -15,8 +15,12 @@ for (const js of scripts) new Script(js, { filename: 'cesky-reading-uiux-inline.
 if (!html.includes('fetch("/api/ai/tutor"') || !html.includes('fetch("/api/ai/reading-help"')) {
   throw new Error('Reading UI must call the existing real server AI endpoints.');
 }
-if (!html.includes('window.location.assign("/?tab=story")')) {
-  throw new Error('Reading UI must have a safe navigation path to the canonical course reader.');
+if (!html.includes('const MENU_ITEMS = ["Номын сан"') || html.includes('window.location.assign("/?tab=story")')) {
+  throw new Error('Retired green React frontend must not be linked from the live reader.');
+}
+const entry = readFileSync(resolve('index.html'), 'utf8');
+if (entry.includes('/src/main.tsx') || !entry.includes('/cesky-reading-uiux/index.html?tab=read')) {
+  throw new Error('Root document must open the new premium reading app, not the green React shell.');
 }
 if (html.includes('function generateAiReply(') || html.includes('book.readSeconds += 85')) {
   throw new Error('Mock AI answers or invented reading seconds must not reappear.');
