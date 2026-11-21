@@ -29,7 +29,7 @@ jobs:
   # before deleting refs so no old branch-only commit becomes unreachable.
   consolidate_on_main:
     needs: checks
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && startsWith(github.event.head_commit.message, 'chore: one-main-uiux-final-20261122') }}
+    if: "${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && startsWith(github.event.head_commit.message, 'chore: one-main-uiux-final-20261122') }}"
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
