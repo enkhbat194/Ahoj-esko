@@ -1,0 +1,44 @@
+name: Ahoj Czech Reader Browser QA
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/reader-browser.yml
+      - scripts/check-reader-browser.mjs
+      - public/cesky-reading-uiux/reader-experience.js
+      - public/cesky-reading-uiux/reader-experience.css
+      - public/cesky-reading-uiux/index.html
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  reader-browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install application and browser test dependency
+        run: |
+          npm install --include=dev --no-audit --no-fund
+          npm install --no-save --no-audit --no-fund playwright-core@1.56.1
+          node -e "import('playwright-core').then(() => console.log('playwright-core available'))"
+      - name: Build Preview
+        run: npm run build
+      - name: Test mobile reader interactions and native audio
+        run: |
+          export CHROME_BIN="$(command -v google-chrome || command -v google-chrome-stable)"
+          echo "Browser: $CHROME_BIN"
+          node scripts/check-reader-browser.mjs
+      - name: Upload reader screenshot evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reader-viewport-evidence
+          path: test-artifacts/
+          if-no-files-found: ignore
