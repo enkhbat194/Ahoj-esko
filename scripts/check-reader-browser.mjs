@@ -65,6 +65,9 @@ try {
     const errors = [];
     page.on("pageerror", (e) => errors.push(e.message));
     await page.goto(url, { waitUntil: "domcontentloaded" });
+    assert.ok(await page.locator(".chapter-slide").count() > 0,
+      "New Stage home should be the default at every viewport");
+    await page.locator('[data-tab="read"]').click();
     await page.locator(".book-card").first().click();
     await page.locator("#detailContinueBtn").click();
 
