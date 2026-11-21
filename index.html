@@ -1,27 +1,30 @@
 <!doctype html>
 <html lang="mn">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <title>Ahoj Česko — Чех хэлний ярианы дасгал</title>
-    <meta name="description" content="Чех хэлний энгийн ба удаан дуудлагатай үг, өгүүлбэр, харилцан ярианы аудио дасгалын Монгол хэл дээрх iPhone PWA апп." />
-    <meta property="og:title" content="Ahoj Česko — Чех хэлний ярианы дасгал" />
-    <meta property="og:description" content="Өдөр тутмын Чех яриаг энгийн ба удаан дуудлага, харилцан ярианы аудиогоор хурдан сурах апп." />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="theme-color" content="#F2F2F7" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-    <meta name="apple-mobile-web-app-title" content="Ahoj Česko" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  </head>
-  <body class="bg-[#F2F2F7] dark:bg-black text-[#1C1C1E] dark:text-[#F2F2F7] antialiased">
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#141414" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Ahoj Česko" />
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <title>Ahoj Česko — Унших</title>
+  <meta http-equiv="refresh" content="0; url=/cesky-reading-uiux/index.html?tab=read" />
+  <style>
+    html,body { min-height:100%; margin:0; background:#101013; color:#f5f1e8; font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif; }
+    body { display:grid; place-items:center; }
+    a { color:#f0a05c; font-weight:700; padding:14px; }
+  </style>
+</head>
+<body>
+  <main>
+    <p>Ahoj Česko — Уншлага</p>
+    <a href="/cesky-reading-uiux/index.html?tab=read">Шинэ аппыг нээх</a>
+  </main>
+  <script>
+    // Legacy green React root is not shipped to the preview anymore.
+    location.replace("/cesky-reading-uiux/index.html?tab=read");
+  </script>
+</body>
 </html>
