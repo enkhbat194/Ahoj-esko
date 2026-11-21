@@ -27,7 +27,7 @@
 
 1. The third example screenshot is the target for density and hierarchy. Czech text is the primary focus. Do not stack redundant chapter headings, sentence-level speaker buttons, or huge explanatory labels inside the reading canvas.
 2. Existing premium near-black / orange / warm-gold design remains, including compatible glass borders and soft motion; copying English spelling, inflection, grammar or phrasal-verb content is prohibited.
-3. Keep the existing 5-tab app, library, book detail, writing/quiz, story and canonical lesson engine intact; change the reader module incrementally, rather than replacing main with a standalone demo.
+3. The ONLY frontend is the new premium five-tab app (stages/read/AI/cards/dictionary). Preserve its library and reader controls. Never restore the deleted legacy green React curriculum, its data, or its previous lesson engine.
 4. UI state must never misrepresent missing data, fake audio duration, pronunciation confidence, completion time, POS, CEFR, word meaning or API success.
 5. Full product completeness is NOT claimed until real Czech story data, word timing, content QA, audio, microphone and dictionary services are integrated and tested separately. Every UI component with unavailable capabilities shows a disabled, understandable state.
 
@@ -100,14 +100,14 @@ Phase A — Reader layout: implementation + physical iPhone follow-up; automated
 Phase B — Audio UX: real media Player, seek/repeat/speed, sentence selection, verified karaoke, scroll state. Test file-based audio separately from TTS. NO fictitious seconds.
 Phase C — Guided UI states: disabled now, later mic permission/STT, incremental word sequence, stuck-word helper, repeat and real pronunciation assessment when available.
 Phase D — Quick/full dictionaries: context, Czech inflections, POS labeling and colors, examples, flashcard persistence, exact return position.
-Phase E — Bind verified Czech curriculum and audio manifest. Do not silently replace the canonical 72-lesson system with demo book data.
+Phase E — Bind ONLY the new separately approved Czech curriculum and verified audio manifest. The removed old curriculum is obsolete and must not be imported or referenced as product data.
 Phase F — Automated CI, Render HTTPS smoke, device-specific iPhone Safari/PWA tests, accessibility and offline/errors. Report PASS, FAIL, NOT_TESTED, NOT_INTEGRATED separately for UI, actual audio, microphone, backend and data.
 
 ### Current checkpoint: verified vs outstanding (2026-11-22)
 - DONE IN CODE: premium chapter reader, word tap with basic vocabulary fallback, translation toggle, CSS responsive layout, compact player, TTS fallback contract, native file player contract, navigation and partial saved state.
 - UI TUNING NOW: match screenshot #3; remove inline speaker icons; prioritize readable text and smaller player; improve accessibility.
 - TESTED PREVIOUSLY: Chrome responsive and interaction tests at 320×568, 390×844, 428×926; synthetic 8-second WAV test for native play/pause/seek/±5 sec. Real iPhone screenshot is user-observed but full device QA not independently completed.
-- NOT INTEGRATED: real published chapter audio/timing, production karaoke, precise POS/morphology/sense lexicon, complete full dictionary, actual microphone STT, pronunciation quality assessment, repeat sentence-range mode and canonical 72-lesson data binding.
+- NOT INTEGRATED: real published chapter audio/timing, production karaoke, precise POS/morphology/sense lexicon, complete full dictionary, actual microphone STT, pronunciation quality assessment, repeat sentence-range mode and verified NEW curriculum data binding.
 - NEVER CLAIM: UI preview proves STT, real-word audio alignment, dictionary correctness or AI integration. No changes to Production or Gemini key as part of UI work.
 
 ## 9. Delivery format
@@ -119,3 +119,11 @@ Phase F — Automated CI, Render HTTPS smoke, device-specific iPhone Safari/PWA 
 6. Avoid UI clutter; prefer the user's third reference screenshot for layout over previous placeholder cards.
 
 **North-star flow:** Read Czech → listen to real Czech audio → follow genuine word highlight → attempt continuous read-aloud → play the stuck word only if needed → inspect context-sensitive Quick Dictionary → open full Czech grammar → save flashcard → return to original reading position. Each action must be implemented or truthfully disabled, never simulated.
+
+
+## New-app-only owner decision (2026-11-22)
+
+- The old green React frontend and incompatible legacy lesson contents were explicitly rejected and removed from the active repository. Do NOT merge or recreate them.
+- Start screen: premium black/orange **Үе давах** tab. Read tab opens the ten-book library, story chapter, and integrated bottom player, all within the same HTML app.
+- The Stage cards are UI placeholders until the new approved curriculum is connected; hardcoded completed counts must not pretend to be learning progress.
+- One active Render Node preview host is sufficient for this frontend. The original static design preview may remain as a reference until the owner removes it, and MUST NOT be confused with the obsolete green app.
