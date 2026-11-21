@@ -75,6 +75,12 @@ export const PremiumHomeView: React.FC<PremiumHomeViewProps> = ({
           <span>Үе давах</span><ArrowRight size={23} strokeWidth={1.8} aria-hidden="true"/>
         </button>
         <button type="button" className="min-h-11 mt-2 underline text-[#EAC381]" onClick={onOpenLessons}>Ярианы хичээлүүд · A0–A1</button>
+        <a
+          className="mt-2 min-h-11 rounded-xl border border-[#D8B56A]/50 bg-[#071E1D]/80 text-[#EAC381] font-semibold text-sm flex items-center justify-center"
+          href="/cesky-reading-uiux/index.html"
+        >
+          Уншлагын шинэ дизайн · Номын сан →
+        </a>
         <p className="premium-home-footnote">
           {alphabetDone
             ? 'Дараагийн бүлэг: мэндлэх, нэрээ хэлэх, нэр асуух.'
