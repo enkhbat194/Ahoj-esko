@@ -4000,6 +4000,11 @@
               <div class="vocab-meaning-box">
                 <span style="font-weight:800;color:#ffffff">${escapeHtml(selectedVocab.cz)}</span>
                 <span style="font-size:13.5px;color:#e8c98a">${escapeHtml(selectedVocab.mn)}</span>
+                <button type="button" id="vocabAiHelpBtn"
+                  style="margin-top:8px;padding:10px 12px;border-radius:12px;color:#F0D89C;border:1px solid #D96C2E80;background:#D96C2E20;font-size:13px">
+                  Энэ үгийг AI-аар контекстэд тайлбарлуулах
+                </button>
+                <p id="vocabAiAnswer" aria-live="polite" style="white-space:pre-wrap;line-height:1.5;margin-top:8px;font-size:13px"></p>
               </div>
             ` : ""}
           </div>
@@ -4027,6 +4032,46 @@
           renderReaderModal();
         });
 
+        const vocabAiBtn = document.getElementById("vocabAiHelpBtn");
+        if (selectedVocab && vocabAiBtn) {
+          vocabAiBtn.addEventListener("click", async () => {
+            const output = document.getElementById("vocabAiAnswer");
+            vocabAiBtn.disabled = true;
+            if (output) output.textContent = "AI тайлбар ачаалж байна…";
+            try {
+              const match = ch.cz.find((line) => line.toLocaleLowerCase("cs-CZ").includes(selectedVocab.cz.toLocaleLowerCase("cs-CZ")));
+              const response = await fetch("/api/ai/reading-help", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  word: selectedVocab.cz,
+                  sentenceCs: (match || ch.cz[0] || "").slice(0, 500),
+                  sentenceMn: (ch.mn[0] || "").slice(0, 700),
+                  knownMeaningMn: selectedVocab.mn,
+                }),
+              });
+              const data = await response.json();
+              if (!response.ok || data.error) throw new Error(data.error || "AI серверийн алдаа.");
+              if (output && output.isConnected) {
+                output.textContent = [
+                  "Өгүүлбэр дэх утга: " + (data.contextMeaningMn || "тодорхойгүй"),
+                  data.lemma ? "Үндсэн хэлбэр: " + data.lemma : "",
+                  data.grammarMn || "",
+                  data.explanationMn || "",
+                  data.uncertaintyMn ? "Анхаарах: " + data.uncertaintyMn : "",
+                  "Энэ нь AI санал бөгөөд баталгаажсан толь биш.",
+                ].filter(Boolean).join("\\n");
+              }
+            } catch (err) {
+              if (output && output.isConnected) {
+                output.textContent = "AI холболт ажилласангүй: " + (err instanceof Error ? err.message : "сүлжээний алдаа");
+              }
+            } finally {
+              if (vocabAiBtn.isConnected) vocabAiBtn.disabled = false;
+            }
+          });
+        }
+
         document.getElementById("readerPrevBtn").addEventListener("click", () => {
           if (ch.num > 1) {
             state.reader.chapterNum = ch.num - 1;
@@ -4039,7 +4084,7 @@
         document.getElementById("readerCompleteBtn").addEventListener("click", () => {
           if (!book.completedChapters.includes(ch.num)) {
             book.completedChapters.push(ch.num);
-            book.readSeconds += 85; // 1 мин 25 сек уншсан хугацаа нэмнэ
+            // Preview: бодитоор хэмжээгүй унших хугацааг зохиож нэмэхгүй.
             if (ch.num % 3 === 0) {
               showToast(`Бүлэг ${ch.num} дууслаа! Шалгалт ${ch.num / 3} нээгдлээ`);
             } else {
