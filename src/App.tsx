@@ -476,6 +476,13 @@ export default function App() {
   );
 
   const handlePremiumNavigate = (id: PremiumNavId) => {
+    // Open the actual new reading library from the installed root PWA.
+    // The legacy canonical story reader remains reachable at /?tab=story
+    // and its saved progress is not modified or migrated by this link.
+    if (id === 'read') {
+      window.location.assign('/cesky-reading-uiux/index.html?tab=read');
+      return;
+    }
     if (id === 'home') setAlphabetScreen(null);
     const target = premiumNavTarget(id);
     if (target.learnSubTab) setLearnSubTab(target.learnSubTab);
