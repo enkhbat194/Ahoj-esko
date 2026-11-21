@@ -62,6 +62,8 @@ try {
       player.y + player.height <= size.height + 3 && scrolling.height > 95,
       "Reader/player do not fit viewport " + JSON.stringify({ size, player, scrolling }));
 
+    const initiallyCollapsed = await page.locator("#ar-player").evaluate((el) => el.classList.contains("is-collapsed"));
+    if (initiallyCollapsed) await page.locator("#ar-collapse").click();
     const textBefore = await page.locator("#ar-font-size").innerText();
     await page.locator("#ar-font").click();
     assert.notEqual(await page.locator("#ar-font-size").innerText(), textBefore,
@@ -78,9 +80,10 @@ try {
     await page.locator("#ar-quick-shade [data-close-sheet]").click();
     assert.equal(await page.locator("#ar-quick-shade").count(), 0);
 
+    const beforeCollapse = await page.locator("#ar-player").evaluate((el) => el.classList.contains("is-collapsed"));
     await page.locator("#ar-collapse").click();
-    assert.ok(await page.locator("#ar-player").evaluate((el) => el.classList.contains("is-collapsed")) !== (size.height < 700),
-      "Collapse control did not toggle");
+    const afterCollapse = await page.locator("#ar-player").evaluate((el) => el.classList.contains("is-collapsed"));
+    assert.notEqual(afterCollapse, beforeCollapse, "Collapse control did not toggle");
 
     await page.locator("#ar-complete").click();
     assert.ok((await page.locator("#ar-complete").innerText()).includes("Дараагийн бүлэг"));
