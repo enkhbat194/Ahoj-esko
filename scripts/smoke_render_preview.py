@@ -14,6 +14,7 @@ FACTORY = "https://ahoj-audio-factory-free-poc.onrender.com"
 checks = [
     ("Canonical app", MAIN + "/?smoke=20261122", "GET", None, (200,), '<div id="root"'),
     ("New UI under same server", MAIN + "/cesky-reading-uiux/index.html?smoke=20261122", "GET", None, (200,), 'Бодит сургалтын апп'),
+    ("Responsive iPhone layout CSS v1", MAIN + "/cesky-reading-uiux/index.html?smoke=viewport1", "GET", None, (200,), "MOBILE VIEWPORT v1"),
     ("Latest separate static UI", UI + "/?smoke=20261122", "GET", None, (200,), 'Čeština'),
     ("Old L01 static preview (legacy)", OLD + "/?smoke=20261122", "GET", None, (200,), '<html'),
     ("Health", MAIN + "/api/health?smoke=20261122", "GET", None, (200,), None),
