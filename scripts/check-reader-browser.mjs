@@ -41,12 +41,9 @@ try {
     const errors = [];
     pwa.on("pageerror", (error) => errors.push(error.message));
     await pwa.goto("http://127.0.0.1:17777/", { waitUntil: "domcontentloaded" });
-    await pwa.evaluate(async () => {
-      if (!("serviceWorker" in navigator)) throw new Error("Service workers unavailable in Chrome test");
-      await navigator.serviceWorker.ready;
-    });
-    await pwa.getByRole("button", { name: "Унших", exact: true }).click();
-    await pwa.waitForURL("**/cesky-reading-uiux/index.html?tab=read");
+    await pwa.waitForURL("**/cesky-reading-uiux/index.html?tab=read", { timeout: 10000 });
+    assert.equal(await pwa.locator(".premium-home").count(), 0, "Legacy green React home is still live");
+    assert.ok(await pwa.locator(".book-card").count() > 0, "New reading library is not the root app");
     await pwa.locator(".book-card").first().click();
     await pwa.locator("#detailContinueBtn").click();
     await pwa.locator("#readerShell.aho-reader-shell").waitFor();
@@ -54,7 +51,7 @@ try {
     await pwa.screenshot({ path: "test-artifacts/pwa-reader-from-home.png" });
     assert.deepEqual(errors, [], "Installed PWA JavaScript errors: " + errors.join("; "));
     await pwa.close();
-    console.log("PASS installed root PWA → new Reader library → chapter player");
+    console.log("PASS root → new dark Reader library → chapter player, no green React homepage");
   }
 
   for (const size of [
