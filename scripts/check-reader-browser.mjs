@@ -84,13 +84,13 @@ try {
     assert.ok((await page.locator("#ar-complete").innerText()).includes("Дараагийн бүлэг"));
     await page.locator("#ar-complete").click();
     assert.ok((await page.locator(".ar-subtitle").innerText()).includes("Бүлэг 2"));
+    if (size.width === 390) {
+      await page.screenshot({ path: "test-artifacts/reader-390.png", fullPage: false });
+    }
     await page.locator("#ar-close").click();
     assert.equal(await page.locator("#readerOverlay").isVisible(), false);
     assert.equal(errors.length, 0, "JS errors: " + errors.join("\n"));
 
-    if (size.width === 390) {
-      await page.screenshot({ path: "test-artifacts/reader-390.png", fullPage: false });
-    }
     console.log("PASS mobile reader:", size.width + "x" + size.height);
     await page.close();
   }
@@ -130,7 +130,10 @@ try {
   assert.ok(Number(await page.locator("#ar-seek").inputValue()) > 50, "Native +5 sec failed");
   await page.locator("#ar-back").click();
   assert.ok(Number(await page.locator("#ar-seek").inputValue()) < 50, "Native -5 sec failed");
-  await page.locator("#ar-seek").fill("75");
+  await page.locator("#ar-seek").evaluate((el) => {
+    el.value = "75";
+    el.dispatchEvent(new Event("input", { bubbles: true }));
+  });
   assert.ok(Number(await page.locator("#ar-seek").inputValue()) >= 74, "Native seek failed");
   await page.locator("#ar-play").click();
   console.log("PASS HTMLAudioElement: play, pause, ±5 sec, seek");
