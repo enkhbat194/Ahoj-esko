@@ -104,7 +104,11 @@ function loadStoredDialogues(): Dialogue[] {
 }
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState<ActiveTab>(() => linkedLesson() ? 'learn' : 'today');
+  const [activeTab, setActiveTab] = useState<ActiveTab>(() => {
+    const requested = new URLSearchParams(window.location.search).get('tab');
+    if (requested === 'story') return 'story';
+    return linkedLesson() ? 'learn' : 'today';
+  });
   const [alphabetScreen, setAlphabetScreen] = useState<'overview' | 'resume' | null>(null);
   const [learnSubTab, setLearnSubTab] = useState<LearnSubTab>('mission');
   const [profileSection, setProfileSection] = useState<'general' | 'library'>('general');
@@ -601,7 +605,15 @@ export default function App() {
                 )}
 
                 {activeTab === 'story' && (
-                  <StoryReaderView
+                  <div className="space-y-4">
+                    <a
+                      className="min-h-12 w-full rounded-2xl border border-[#D8B56A]/60 bg-gradient-to-r from-[#092D2B] to-[#184B43] text-[#F0D89C] font-bold flex items-center justify-center px-4 text-sm shadow-lg"
+                      href="/cesky-reading-uiux/index.html"
+                      aria-label="Шинэ Чех уншлагын UI/UX загварыг нээх"
+                    >
+                      Уншлагын шинэ UI/UX нээх →
+                    </a>
+                    <StoryReaderView
                     cards={cards}
                     onAddStoryCardsToSrs={handleAddCanonicalPhrasesToDeck}
                     onOpenSrsPractice={() => {
@@ -610,7 +622,8 @@ export default function App() {
                     }}
                     onLaunchStoryRoleplay={() => handleLaunchMissionRoleplay('conversation')}
                     onProgressUpdate={setStoryProgress}
-                  />
+                    />
+                  </div>
                 )}
 
                 {activeTab === 'review' && (
