@@ -27,8 +27,8 @@ const readerCss = readFileSync(resolve('public/cesky-reading-uiux/reader-experie
 new Script(readerCode, { filename: 'reader-experience.js' });
 for (const marker of [
   'AhojReaderExperience.mount',
-  'reader-experience.css?v=1',
-  'reader-experience.js?v=1',
+  'reader-experience.css?v=2',
+  'reader-experience.js?v=2',
 ]) {
   if (!html.includes(marker)) throw new Error('Reader integration missing: ' + marker);
 }
