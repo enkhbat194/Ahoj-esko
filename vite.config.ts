@@ -16,12 +16,12 @@ export default defineConfig(() => {
           id: '/',
           name: 'Ahoj Česko — Чех хэлний ярианы дасгал',
           short_name: 'Ahoj Česko',
-          description: 'Өдөр тутмын Чех яриаг энгийн ба удаан дуудлага, харилцан ярианы аудиогоор хурдан сурах апп.',
-          theme_color: '#11457E',
-          background_color: '#F7F8FA',
+          description: 'Чех хэлний интерактив уншлага, номын сан, сонсох болон үг судлах апп.',
+          theme_color: '#141414',
+          background_color: '#141414',
           display: 'standalone',
           orientation: 'portrait-primary',
-          start_url: '/',
+          start_url: '/cesky-reading-uiux/index.html?tab=read',
           scope: '/',
           icons: [
             {
