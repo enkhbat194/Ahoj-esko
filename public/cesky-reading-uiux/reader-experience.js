@@ -145,15 +145,18 @@
           '</button></div></div>' +
         '</main>' +
         '<section id="ar-player" class="ar-player" aria-label="Чех аудио тоглуулагч">' +
-          '<div class="ar-player-top"><div><div class="ar-player-title">Уншлагын тоглуулагч</div>' +
-          '<div class="ar-player-source" id="ar-source" aria-live="polite"></div></div>' +
-          '<button type="button" class="ar-collapse" id="ar-collapse" aria-label="Тоглуулагч хураах">⌄</button></div>' +
-          '<div class="ar-timeline"><span id="ar-elapsed">—:—</span>' +
-          '<input id="ar-seek" class="ar-seek" type="range" min="0" max="100" value="0" step=".1" disabled aria-label="Аудионы хугацаа">' +
-          '<span id="ar-duration">—:—</span></div>' +
-          '<div class="ar-guided" aria-label="Дуудаж унших: дараагийн хөгжүүлэлт">' +
-            '<span class="ar-guided-icon" aria-hidden="true">♩</span><div>' +
-            '<strong>Дуудаж унших</strong><small>Микрофоны горим дараагийн шатанд холбогдоно</small></div>' +
+          '<div class="ar-progress-top"><span id="ar-elapsed">—:—</span>' +
+            '<span id="ar-duration">—:—</span></div>' +
+          '<div class="ar-progress-bottom">' +
+            '<input id="ar-seek" class="ar-seek" type="range" min="0" max="100" value="0" step=".1" disabled aria-label="Аудионы хугацаа">' +
+            '<button type="button" class="ar-collapse" id="ar-collapse" aria-label="Тоглуулагч хураах">⌄</button>' +
+          '</div>' +
+          '<div class="ar-player-source" id="ar-source" aria-live="polite"></div>' +
+          '<div class="ar-guided" aria-label="Дуудаж унших: одоогоор идэвхгүй">' +
+            '<span class="ar-guided-icon" aria-hidden="true">' +
+              '<svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="13" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 17v5m-4 0h8"/></svg>' +
+            '</span><div class="ar-guided-copy"><strong>Дуудаж унших</strong><small>Микрофоны горим дараагийн шатанд</small></div>' +
+            '<span class="ar-guided-disabled" role="switch" aria-checked="false" aria-disabled="true" aria-label="Дуудаж унших горим идэвхгүй"></span>' +
           '</div>' +
           '<div class="ar-player-controls">' +
             '<button type="button" class="ar-round ar-skip" id="ar-back" disabled aria-label="5 секунд ухраах">↶5</button>' +
