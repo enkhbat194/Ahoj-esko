@@ -52,7 +52,7 @@
           typeof window.SpeechSynthesisUtterance !== "undefined" ? "tts" : "none");
 
       const prefs = readSaved(PREF_KEY, {});
-      this.fontSize = Math.min(28, Math.max(16, Number(prefs.fontSize) || 20));
+      this.fontSize = Math.min(28, Math.max(16, Number(prefs.fontSize) || 18));
       this.speed = SPEEDS.includes(Number(prefs.speed)) ? Number(prefs.speed) : 1;
       this.repeat = prefs.repeat === true;
       this.collapsed = typeof prefs.collapsed === "boolean" ?
@@ -100,9 +100,10 @@
             '" aria-label="Толь: ' + html(match[0]) + '" lang="cs">' + html(match[0]) + "</button>";
         }
         this.sentences.push({ text: sentenceText, tokens });
+        // No speaker controls inside the prose: keep the Czech text uncluttered.
+        // Sentence audio is accessible through a tapped word's dictionary sheet.
         return '<span class="ar-sentence" data-sentence="' + sentenceId + '">' +
-          result + '</span><button type="button" class="ar-sentence-audio" data-listen-sentence="' +
-          sentenceId + '" aria-label="Зөвхөн энэ өгүүлбэрийг сонсох" title="Өгүүлбэрийг сонсох">◖))</button> ';
+          result + '</span>';
       }).join(" ");
     }
 
@@ -124,11 +125,9 @@
           '<div class="ar-header-copy"><div class="ar-title">' + html(this.book.title) + '</div>' +
           '<div class="ar-subtitle">Бүлэг ' + this.ch.num + " / " + this.book.chapters.length +
           " · " + html(this.ch.title) + '</div></div>' +
-          '<button id="ar-collapse-head" class="ar-icon-btn" aria-label="Тоглуулагч хураах эсвэл дэлгэх">☷</button>' +
+          '<button id="ar-font-head" class="ar-icon-btn ar-header-font" aria-label="Үсгийн хэмжээг өөрчлөх">Aa</button>' +
         '</header>' +
         '<main id="ar-scroll" class="ar-scroll" aria-label="Чех уншлагын эх">' +
-          '<span class="ar-level">' + html(this.book.level) + " · БҮЛЭГ " + this.ch.num + '</span>' +
-          '<h1 class="ar-chapter-title">' + html(this.ch.title) + '</h1>' +
           '<div class="ar-text" id="ar-text" style="--reader-font-size:' + this.fontSize + 'px">' +
             paragraphs + '</div>' +
           '<button id="ar-translation-toggle" class="ar-trans-toggle" type="button">' +
@@ -193,7 +192,7 @@
       this.host.querySelector("#ar-prev").addEventListener("click", () => this.callbacks.onPrevious());
       this.host.querySelector("#ar-complete").addEventListener("click", () => this.callbacks.onComplete());
       this.host.querySelector("#ar-collapse").addEventListener("click", () => this.toggleCollapsed());
-      this.host.querySelector("#ar-collapse-head").addEventListener("click", () => this.toggleCollapsed());
+      this.host.querySelector("#ar-font-head").addEventListener("click", () => this.cycleFontSize());
       this.refs.play.addEventListener("click", () => this.togglePlay());
       this.refs.back.addEventListener("click", () => this.skip(-5));
       this.refs.forward.addEventListener("click", () => this.skip(5));
@@ -212,12 +211,7 @@
         }
         this.syncUI();
       });
-      this.host.querySelector("#ar-font").addEventListener("click", () => {
-        this.fontSize = this.fontSize >= 28 ? 16 : this.fontSize + 2;
-        this.host.querySelector("#ar-text").style.setProperty("--reader-font-size", this.fontSize + "px");
-        this.host.querySelector("#ar-font-size").textContent = this.fontSize;
-        this.savePreferences();
-      });
+      this.host.querySelector("#ar-font").addEventListener("click", () => this.cycleFontSize());
       this.refs.trans.addEventListener("click", () => {
         this.readingState.showTranslation = !this.readingState.showTranslation;
         this.host.querySelector("#ar-mn").hidden = !this.readingState.showTranslation;
@@ -239,6 +233,13 @@
         values[key] = Math.round(this.refs.body.scrollTop);
         save(POSITION_KEY, values);
       }, { passive: true });
+    }
+
+    cycleFontSize() {
+      this.fontSize = this.fontSize >= 28 ? 16 : this.fontSize + 2;
+      this.host.querySelector("#ar-text").style.setProperty("--reader-font-size", this.fontSize + "px");
+      this.host.querySelector("#ar-font-size").textContent = this.fontSize;
+      this.savePreferences();
     }
 
     restorePosition() {
@@ -293,6 +294,10 @@
       this.host.querySelectorAll(".ar-sentence").forEach((node) => {
         node.classList.toggle("is-current", Number(node.dataset.sentence) === this.sentenceIndex);
       });
+    }
+
+    clearSentenceHighlight() {
+      this.host.querySelectorAll(".ar-sentence.is-current").forEach((node) => node.classList.remove("is-current"));
     }
 
     setWord(wordId) {
@@ -385,6 +390,7 @@
       utterance.onend = () => {
         if (gen !== this.generation) return;
         this.setWord(-1);
+        this.clearSentenceHighlight();
         if (oneSentence) {
           this.speaking = false;
           this.paused = false;
@@ -398,7 +404,7 @@
           this.paused = false;
           this.sentenceIndex = 0;
           this.syncUI();
-          this.report("Энэ хэсгийн TTS уншлага дууссан.");
+          this.report("");
         }
       };
       utterance.onerror = (event) => {
@@ -411,7 +417,7 @@
         }
       };
       window.speechSynthesis.speak(utterance);
-      this.report("Төхөөрөмжийн Чех TTS · аудионы секунд/үсгийн тохируулга биш");
+      this.report("");
       this.syncUI();
     }
 
@@ -519,6 +525,15 @@
       });
       this.quickSheet = shade;
       this.host.appendChild(shade);
+      const playContext = document.createElement("button");
+      playContext.type = "button";
+      playContext.className = "ar-sheet-listen";
+      playContext.textContent = "▶ Өгүүлбэрийг сонсох";
+      playContext.addEventListener("click", () => {
+        this.hideWord();
+        this.playSentence(word.sentenceId);
+      });
+      shade.querySelector(".ar-sheet").appendChild(playContext);
       const selected = this.host.querySelector('[data-word="' + id + '"]');
       if (selected) selected.classList.add("is-selected");
       this.selectedWord = selected;
