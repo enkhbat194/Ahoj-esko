@@ -78,6 +78,7 @@ try {
       "Header font shortcut missing");
     const initiallyCollapsed = await page.locator("#ar-player").evaluate((el) => el.classList.contains("is-collapsed"));
     if (initiallyCollapsed) await page.locator("#ar-collapse").click();
+    if (size.width === 390) await page.screenshot({ path: "test-artifacts/reader-expanded-390.png", fullPage: false });
     const textBefore = await page.locator("#ar-font-size").innerText();
     await page.locator("#ar-font").click();
     assert.notEqual(await page.locator("#ar-font-size").innerText(), textBefore,
