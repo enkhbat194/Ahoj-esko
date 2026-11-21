@@ -45,6 +45,10 @@ export default defineConfig(() => {
           ],
         },
         workbox: {
+          // The Czech reader is a real HTML document, not a React SPA route.
+          // Without this exclusion, the installed PWA can show the React home
+          // instead of the reader when a navigation is controlled by Workbox.
+          navigateFallbackDenylist: [/^\/cesky-reading-uiux\//],
           globPatterns: ['**/*.{js,css,html,ico,png,svg,woff,woff2}'],
           runtimeCaching: [
             {
