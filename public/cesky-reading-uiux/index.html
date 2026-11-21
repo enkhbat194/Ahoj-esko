@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="theme-color" content="#141414" />
   <title>Čeština • A0</title>
+  <link rel="stylesheet" href="./reader-experience.css?v=1" />
   <style>
     /* =========================================================
        1. ҮНДСЭН ӨНГӨ, ХЭМЖЭЭ БА GLASSMORPHISM ТОКЕНУУД
@@ -2628,6 +2629,7 @@
   <!-- Мэдэгдэл (Toast) -->
   <div id="toast" class="toast" role="status" hidden></div>
 
+  <script src="./reader-experience.js?v=1"></script>
   <script>
     (function () {
       "use strict";
@@ -4064,6 +4066,7 @@
       }
 
       function closeChapterReader() {
+        window.AhojReaderExperience?.destroy();
         readerOverlay.hidden = true;
         if (state.detailBookId) renderBookDetail();
         else if (state.activeTab === "read") renderReadingView();
@@ -4075,6 +4078,41 @@
 
         const ch = book.chapters[state.reader.chapterNum - 1];
         const isDone = book.completedChapters.includes(ch.num);
+
+        // Progressive enhancement: full responsive reader and player. Legacy reader remains
+        // as a non-audio fallback if the standalone reader module cannot be loaded.
+        if (window.AhojReaderExperience?.mount) {
+          window.AhojReaderExperience.mount({
+            host: readerShell,
+            book,
+            chapter: ch,
+            readingState: state.reader,
+            onClose: closeChapterReader,
+            onPrevious: () => {
+              if (ch.num <= 1) return;
+              state.reader.chapterNum = ch.num - 1;
+              state.reader.showTranslation = false;
+              state.reader.selectedVocabIdx = null;
+              renderReaderModal();
+            },
+            onComplete: () => {
+              if (!book.completedChapters.includes(ch.num)) {
+                book.completedChapters.push(ch.num);
+                showToast("Бүлэг " + ch.num + " уншсанаар тэмдэглэгдлээ.");
+                renderReaderModal();
+              } else if (ch.num < book.chapters.length) {
+                state.reader.chapterNum = ch.num + 1;
+                state.reader.showTranslation = false;
+                state.reader.selectedVocabIdx = null;
+                renderReaderModal();
+              } else {
+                closeChapterReader();
+              }
+            }
+          });
+          return;
+        }
+
         const selectedVocab = state.reader.selectedVocabIdx !== null ? ch.vocab[state.reader.selectedVocabIdx] : null;
 
         readerShell.innerHTML = `
@@ -4746,6 +4784,7 @@
 
         document.addEventListener("keydown", (e) => {
           if (e.key === "Escape") {
+            if (!readerOverlay.hidden && window.AhojReaderExperience?.closeQuickDictionary?.()) return;
             if (!writingOverlay.hidden) closeWritingModal();
             else if (!quizOverlay.hidden) closeQuizModal();
             else if (!readerOverlay.hidden) closeChapterReader();
