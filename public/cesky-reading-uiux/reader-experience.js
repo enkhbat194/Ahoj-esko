@@ -24,7 +24,7 @@
   };
   const normalizeCzech = (value) => String(value || "").trim().toLocaleLowerCase("cs-CZ");
   const sentenceParts = (text) => {
-    const matches = String(text || "").match(/[^.!?]+(?:[.!?]+|$)/gu);
+    const matches = String(text || "").match(/[^.!?]+(?:[.!?]+[»”"’\])]*|$)/gu);
     return (matches || [text]).map((s) => s.trim()).filter(Boolean);
   };
 
@@ -47,6 +47,14 @@
       this.audio = null;
       this.quickSheet = null;
       this.voicesChanged = () => this.syncUI();
+      this.guidedActive = false;
+      this.guidedPhase = "disabled";
+      this.guidedIndex = 0;
+      this.guidedSession = 0;
+      this.guidedRecognition = null;
+      this.guidedHelpUtterance = null;
+      this.guidedError = "";
+      this.guidedProcessedResults = new Set();
       this.kind = this.ch.audioUrl ? "file" :
         (typeof window.speechSynthesis !== "undefined" &&
           typeof window.SpeechSynthesisUtterance !== "undefined" ? "tts" : "none");
@@ -152,11 +160,13 @@
           '</div>' +
           '<button type="button" class="ar-collapse" id="ar-collapse" aria-label="Тоглуулагч хураах">⌄</button>' +
           '<div class="ar-player-source" id="ar-source" aria-live="polite"></div>' +
-          '<div class="ar-guided" aria-label="Дуудаж унших: одоогоор идэвхгүй">' +
+          '<div class="ar-guided" aria-label="Дуудаж унших: Чех STT туршилтын горим">' +
             '<span class="ar-guided-icon" aria-hidden="true">' +
               '<svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="13" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 17v5m-4 0h8"/></svg>' +
-            '</span><div class="ar-guided-copy"><strong>Дуудаж унших</strong><small>Микрофоны горим дараагийн шатанд</small></div>' +
-            '<span class="ar-guided-disabled" role="switch" aria-checked="false" aria-disabled="true" aria-label="Дуудаж унших горим идэвхгүй"></span>' +
+            '</span><div class="ar-guided-copy"><strong>Дуудаж унших</strong><small id="ar-guided-message" aria-live="polite">Чех яриа таних туршилт</small></div>' +
+            '<button type="button" id="ar-word-help" class="ar-guided-help" aria-label="Гацсан одоогийн үгийг сонсох" disabled>🔊</button>' +
+            '<button type="button" id="ar-guided-retry" class="ar-guided-retry" hidden>Үргэлжлүүлэх</button>' +
+            '<button type="button" id="ar-guided-toggle" class="ar-guided-toggle" role="switch" aria-checked="false" aria-label="Дуудаж унших горимыг асаах">●</button>' +
           '</div>' +
           '<div class="ar-player-controls">' +
             '<button type="button" class="ar-round ar-skip" id="ar-back" disabled aria-label="5 секунд ухраах">↶5</button>' +
@@ -186,7 +196,11 @@
         elapsed: this.host.querySelector("#ar-elapsed"),
         duration: this.host.querySelector("#ar-duration"),
         status: this.host.querySelector("#ar-status"),
-        trans: this.host.querySelector("#ar-translation-toggle")
+        trans: this.host.querySelector("#ar-translation-toggle"),
+        guideToggle: this.host.querySelector("#ar-guided-toggle"),
+        guideMessage: this.host.querySelector("#ar-guided-message"),
+        guideHelp: this.host.querySelector("#ar-word-help"),
+        guideRetry: this.host.querySelector("#ar-guided-retry")
       };
     }
 
@@ -197,6 +211,9 @@
       this.host.querySelector("#ar-collapse").addEventListener("click", () => this.toggleCollapsed());
       this.host.querySelector("#ar-font-head").addEventListener("click", () => this.cycleFontSize());
       this.refs.play.addEventListener("click", () => this.togglePlay());
+      this.refs.guideToggle.addEventListener("click", () => this.toggleGuided());
+      this.refs.guideHelp.addEventListener("click", () => this.playStuckWord());
+      this.refs.guideRetry.addEventListener("click", () => this.startGuidedRecognition());
       this.refs.back.addEventListener("click", () => this.skip(-5));
       this.refs.forward.addEventListener("click", () => this.skip(5));
       this.refs.seek.addEventListener("input", (event) => this.seek(Number(event.target.value)));
@@ -252,7 +269,7 @@
     }
 
     getCzechVoice() {
-      if (this.kind !== "tts") return null;
+      if (!window.speechSynthesis || !window.speechSynthesis.getVoices) return null;
       const voices = window.speechSynthesis.getVoices();
       return voices.find((v) => /^cs(?:-|$)/i.test(v.lang)) || null;
     }
@@ -324,6 +341,7 @@
     }
 
     togglePlay() {
+      if (this.guidedActive) this.stopGuided();
       if (this.kind === "file") {
         if (!this.audio) return;
         if (this.audio.paused) {
@@ -349,7 +367,7 @@
         this.syncUI();
         return;
       }
-      if (this.paused && window.speechSynthesis.paused) {
+      if (this.paused) {
         window.speechSynthesis.resume();
         this.paused = false;
         this.speaking = true;
@@ -364,49 +382,68 @@
       this.startTts(this.sentenceIndex < this.sentences.length ? this.sentenceIndex : 0, false);
     }
 
+    // iOS Safari can drop the beginning of the next utterance when the previous
+    // sentence ends and we synchronously cancel + speak again. Use ONE native
+    // utterance for the whole remaining chapter; keep word boundaries optional.
     startTts(index, oneSentence) {
       const voice = this.getCzechVoice();
       if (!voice || !this.sentences.length) {
         this.report("Чех TTS дуу хоолой олдсонгүй.");
         return;
       }
+      if (this.guidedActive) this.stopGuided();
       this.generation += 1;
       const gen = this.generation;
       window.speechSynthesis.cancel();
+      const startIndex = Math.max(0, Math.min(this.sentences.length - 1, index));
+      const selection = oneSentence ? this.sentences.slice(startIndex, startIndex + 1) :
+        this.sentences.slice(startIndex);
+      let transcript = "";
+      const sections = selection.map((entry, i) => {
+        if (i) transcript += "\n";
+        const start = transcript.length;
+        transcript += entry.text;
+        return { entry, sentenceId: startIndex + i, start, end: transcript.length };
+      });
       this.speaking = true;
       this.paused = false;
       this.playOnlySentence = oneSentence;
       this.setWord(-1);
-      this.setSentence(index);
-      const entry = this.sentences[index];
-      const utterance = new SpeechSynthesisUtterance(entry.text);
+      this.setSentence(startIndex);
+      const utterance = new SpeechSynthesisUtterance(transcript);
       utterance.lang = "cs-CZ";
       utterance.voice = voice;
       utterance.rate = this.speed;
       this.utterance = utterance;
       utterance.onboundary = (event) => {
-        if (gen !== this.generation || event.name !== "word") return;
-        const token = entry.tokens.find((w) =>
-          event.charIndex >= w.start && event.charIndex < w.end);
+        if (gen !== this.generation || (event.name && event.name !== "word")) return;
+        if (!Number.isFinite(event.charIndex)) return;
+        const section = sections.find((part) =>
+          event.charIndex >= part.start && event.charIndex < part.end);
+        if (!section) return;
+        this.setSentence(section.sentenceId);
+        const charIndex = event.charIndex - section.start;
+        const token = section.entry.tokens.find((w) =>
+          charIndex >= w.start && charIndex < w.end);
         if (token) this.setWord(token.id);
       };
       utterance.onend = () => {
         if (gen !== this.generation) return;
+        this.speaking = false;
+        this.paused = false;
         this.setWord(-1);
         this.clearSentenceHighlight();
-        if (oneSentence) {
-          this.speaking = false;
-          this.paused = false;
-          this.syncUI();
-        } else if (index + 1 < this.sentences.length) {
-          this.startTts(index + 1, false);
-        } else if (this.repeat) {
-          this.startTts(0, false);
+        this.syncUI();
+        if (!oneSentence && this.repeat) {
+          // Do not reenter speechSynthesis.cancel()/speak() inside Safari's
+          // completion callback. The delay is a queue cleanup, NOT word timing.
+          setTimeout(() => {
+            if (gen === this.generation && this.repeat && !this.guidedActive) {
+              this.startTts(0, false);
+            }
+          }, 180);
         } else {
-          this.speaking = false;
-          this.paused = false;
-          this.sentenceIndex = 0;
-          this.syncUI();
+          this.sentenceIndex = oneSentence ? this.sentenceIndex : 0;
           this.report("");
         }
       };
@@ -416,7 +453,7 @@
         this.paused = false;
         this.syncUI();
         if (event.error !== "interrupted" && event.error !== "canceled") {
-          this.report("Төхөөрөмжийн TTS дуу гаргаж чадсангүй.");
+          this.report("Төхөөрөмжийн TTS уншлага тасарлаа. Play дарж дахин оролдоно уу.");
         }
       };
       window.speechSynthesis.speak(utterance);
@@ -443,6 +480,217 @@
       this.report("Энэ өгүүлбэрийн тусдаа аудио/хугацаа холбогдоогүй.");
     }
 
+    getRecognitionConstructor() {
+      return window.SpeechRecognition || window.webkitSpeechRecognition || null;
+    }
+
+    setGuidedPhase(phase, message = "") {
+      this.guidedPhase = phase;
+      this.guidedError = message;
+      this.syncGuidedUI();
+    }
+
+    syncGuidedUI() {
+      if (!this.refs || !this.refs.guideToggle) return;
+      const available = !!this.getRecognitionConstructor() && window.isSecureContext;
+      this.refs.guideToggle.disabled = !available && !this.guidedActive;
+      this.refs.guideToggle.setAttribute("aria-checked", String(this.guidedActive));
+      this.refs.guideToggle.setAttribute("aria-label", this.guidedActive ?
+        "Дуудаж унших горимыг унтраах" : "Дуудаж унших горимыг асаах");
+      this.refs.guideToggle.classList.toggle("is-active", this.guidedActive);
+      const current = this.words[this.guidedIndex];
+      const word = current ? current.text : "";
+      const progress = Math.min(this.guidedIndex, this.words.length) + "/" + this.words.length;
+      const message = this.guidedError ||
+        (this.guidedPhase === "listening" ? "Сонсож байна · " + progress + " · " + word :
+        this.guidedPhase === "starting" ? "Микрофоны зөвшөөрлийг шалгаж байна…" :
+        this.guidedPhase === "help" ? "Одоогийн үгийг сонсгож байна: " + word :
+        this.guidedPhase === "completed" ? "Бүх үг танигдлаа (дуудлагын оноо биш)" :
+        this.guidedPhase === "paused" ? "Толь нээлттэй · Үргэлжлүүлэх дарна уу" :
+        this.guidedActive ? "Үргэлжлүүлэх дарж микрофоноо нээнэ үү · " + word :
+        available ? "Чех үгийг дарааллаар нь таних туршилт" :
+        "Энэ браузерт Чех STT дэмжигдээгүй эсвэл HTTPS шаардлагатай");
+      this.refs.guideMessage.textContent = message;
+      this.refs.guideHelp.disabled = !this.guidedActive ||
+        this.guidedPhase === "completed" || this.guidedPhase === "help" ||
+        !this.getCzechVoice();
+      this.refs.guideRetry.hidden = !this.guidedActive ||
+        !["ready", "paused", "error"].includes(this.guidedPhase);
+    }
+
+    toggleGuided() {
+      if (this.guidedActive) {
+        this.stopGuided();
+        this.syncUI();
+        return;
+      }
+      if (!window.isSecureContext || !this.getRecognitionConstructor()) {
+        this.report("Энэ браузер Чех яриа танихыг дэмжихгүй. Safari-г HTTPS хаягаар нээнэ үү.");
+        this.syncGuidedUI();
+        return;
+      }
+      if (!this.words.length) return;
+      if (this.audio && !this.audio.paused) this.audio.pause();
+      this.generation += 1;
+      if (window.speechSynthesis) window.speechSynthesis.cancel();
+      this.speaking = false;
+      this.paused = false;
+      this.guidedActive = true;
+      this.guidedIndex = 0;
+      this.setWord(this.words[0].id);
+      this.setSentence(this.words[0].sentenceId);
+      this.startGuidedRecognition();
+      this.syncUI();
+    }
+
+    abortGuidedRecognition() {
+      this.guidedSession += 1;
+      const old = this.guidedRecognition;
+      this.guidedRecognition = null;
+      if (old) {
+        old.onstart = null;
+        old.onresult = null;
+        old.onerror = null;
+        old.onend = null;
+        try { old.abort(); } catch (_err) { /* already stopped */ }
+      }
+    }
+
+    stopGuided() {
+      this.guidedActive = false;
+      this.abortGuidedRecognition();
+      if (this.guidedHelpUtterance) {
+        this.guidedHelpUtterance = null;
+        if (window.speechSynthesis) window.speechSynthesis.cancel();
+      }
+      this.guidedPhase = "disabled";
+      this.guidedError = "";
+      this.setWord(-1);
+      this.clearSentenceHighlight();
+      this.syncGuidedUI();
+    }
+
+    startGuidedRecognition() {
+      if (!this.guidedActive) return;
+      const Recognition = this.getRecognitionConstructor();
+      if (!Recognition || !window.isSecureContext) {
+        this.setGuidedPhase("error", "Микрофон/яриа таних боломжгүй (HTTPS эсвэл STT дэмжлэг шалга).");
+        return;
+      }
+      this.abortGuidedRecognition();
+      const session = this.guidedSession;
+      const recognizer = new Recognition();
+      this.guidedRecognition = recognizer;
+      this.guidedProcessedResults = new Set();
+      recognizer.lang = "cs-CZ";
+      recognizer.continuous = true;
+      recognizer.interimResults = true;
+      recognizer.maxAlternatives = 1;
+      recognizer.onstart = () => {
+        if (session === this.guidedSession && this.guidedActive) this.setGuidedPhase("listening");
+      };
+      recognizer.onresult = (event) => {
+        if (session !== this.guidedSession || !this.guidedActive) return;
+        for (let i = event.resultIndex || 0; i < event.results.length; i += 1) {
+          const result = event.results[i];
+          if (!result.isFinal || this.guidedProcessedResults.has(i)) continue;
+          this.guidedProcessedResults.add(i);
+          const text = result[0] && result[0].transcript || "";
+          const spokenWords = text.toLocaleLowerCase("cs-CZ").normalize("NFC")
+            .match(/[\p{L}\p{M}]+/gu) || [];
+          let accepted = 0;
+          for (const spokenWord of spokenWords) {
+            const expected = this.words[this.guidedIndex];
+            if (!expected) break;
+            const target = expected.text.toLocaleLowerCase("cs-CZ").normalize("NFC")
+              .replace(/[^\p{L}\p{M}]/gu, "");
+            if (spokenWord !== target) break;
+            this.guidedIndex += 1;
+            accepted += 1;
+            if (this.guidedIndex >= this.words.length) {
+              if (this.repeat) {
+                this.guidedIndex = 0;
+                this.setGuidedPhase("listening", "Нэг мөчлөг дууслаа · эхний үг рүү буцлаа");
+              } else {
+                this.setGuidedPhase("completed");
+                this.abortGuidedRecognition();
+                this.setWord(-1);
+                this.clearSentenceHighlight();
+                return;
+              }
+            }
+          }
+          const expected = this.words[this.guidedIndex];
+          if (expected) {
+            this.setWord(expected.id);
+            this.setSentence(expected.sentenceId);
+          }
+          if (accepted === 0 && spokenWords.length) {
+            this.setGuidedPhase("listening", "Одоогийн үг танигдсангүй. Дахин хэлээрэй: " + (expected?.text || ""));
+          } else {
+            this.setGuidedPhase("listening");
+          }
+        }
+      };
+      recognizer.onerror = (event) => {
+        if (session !== this.guidedSession || !this.guidedActive) return;
+        const errors = {
+          "not-allowed": "Микрофоны зөвшөөрөл татгалзсан. Safari-ийн тохиргооноос зөвшөөрнө үү.",
+          "service-not-allowed": "Браузерын яриа таних үйлчилгээ хаалттай байна.",
+          "audio-capture": "Микрофон ашиглах боломжгүй байна.",
+          "network": "Яриа таних үйлчилгээ сүлжээнд холбогдсонгүй.",
+          "language-not-supported": "Энэ төхөөрөмж cs-CZ яриа танихыг дэмжихгүй байна.",
+          "no-speech": "Яриа сонсогдсонгүй. Үргэлжлүүлэх дарж дахин оролдоно уу."
+        };
+        this.setGuidedPhase("error", errors[event.error] || "Яриа танихад алдаа гарлаа: " + (event.error || "unknown"));
+      };
+      recognizer.onend = () => {
+        if (session !== this.guidedSession || !this.guidedActive) return;
+        this.guidedRecognition = null;
+        if (this.guidedPhase !== "completed" && this.guidedPhase !== "error") {
+          this.setGuidedPhase("ready", "Микрофон зогслоо. Үргэлжлүүлэх дарж дахин сонсоно.");
+        }
+      };
+      this.setGuidedPhase("starting");
+      try {
+        // Recognition.start() prompts for microphone permission. Avoid using
+        // getUserMedia concurrently: some iOS WebKit builds mute its track.
+        recognizer.start();
+      } catch (_error) {
+        this.guidedRecognition = null;
+        this.setGuidedPhase("error", "Микрофон эхэлсэнгүй. Дахин оролдох товчийг дарна уу.");
+      }
+    }
+
+    playStuckWord() {
+      if (!this.guidedActive || this.guidedIndex >= this.words.length) return;
+      const voice = this.getCzechVoice();
+      if (!voice) {
+        this.setGuidedPhase("ready", "Төхөөрөмж дээр Чех TTS дуу хоолой алга.");
+        return;
+      }
+      // The guide voice may NEVER be recognized as a learner's own speech.
+      this.abortGuidedRecognition();
+      const session = this.guidedSession;
+      const word = this.words[this.guidedIndex];
+      this.setGuidedPhase("help");
+      if (window.speechSynthesis) window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(word.text);
+      utterance.lang = "cs-CZ";
+      utterance.voice = voice;
+      utterance.rate = Math.min(this.speed, 0.85);
+      this.guidedHelpUtterance = utterance;
+      const finish = () => {
+        if (session !== this.guidedSession || !this.guidedActive) return;
+        this.guidedHelpUtterance = null;
+        // Explicit restart is safer on iOS than a repeated recognition loop.
+        this.setGuidedPhase("ready", "Жишгийг сонслоо · Үргэлжлүүлэх дарж өөрөө хэлнэ үү");
+      };
+      utterance.onend = finish;
+      utterance.onerror = finish;
+      window.speechSynthesis.speak(utterance);
+    }
+
     skip(seconds) {
       if (!this.audio || !Number.isFinite(this.audio.duration)) return;
       this.audio.currentTime = Math.max(0, Math.min(this.audio.duration, this.audio.currentTime + seconds));
@@ -467,6 +715,7 @@
 
     syncUI() {
       if (!this.refs) return;
+      this.syncGuidedUI();
       this.refs.player.classList.toggle("is-collapsed", this.collapsed);
       const collapseBtn = this.host.querySelector("#ar-collapse");
       collapseBtn.textContent = this.collapsed ? "⌃" : "⌄";
@@ -499,6 +748,10 @@
     }
 
     showWord(id) {
+      if (this.guidedActive && this.guidedRecognition) {
+        this.abortGuidedRecognition();
+        this.setGuidedPhase("paused");
+      }
       const word = this.words[id];
       if (!word) return;
       if (this.kind === "file" && this.audio && !this.audio.paused) this.audio.pause();
@@ -551,6 +804,7 @@
 
     destroy() {
       this.generation += 1;
+      this.stopGuided();
       this.hideWord();
       if (this.audio) {
         this.audio.pause();
