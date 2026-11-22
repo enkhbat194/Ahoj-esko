@@ -1,0 +1,225 @@
+{
+  "schema_version": "0.1.0",
+  "status": "SERIES_CONCEPTS_ONLY_NO_APPROVED_READER_CHAPTERS",
+  "reader_system_goal": "Several independent adult-appropriate graded story series with real plot, level progression, shared course lexicon and learned-skill transfer; NOT a single forced long novel.",
+  "current_main_audit": {
+    "path": "public/cesky-reading-uiux/index.html",
+    "source_books": [
+      "Ráno v Praze",
+      "Jméno pro kočku"
+    ],
+    "book_count": 2,
+    "chapter_count": 4,
+    "chapter_new_words_labels": [
+      7,
+      8,
+      6,
+      7
+    ],
+    "labels_are_not_verified_lexical_coverage": true,
+    "current_lexicon_id_links_found": false,
+    "source_learner_readiness": "UNVERIFIED_EXAMPLES_NOT_CURRICULUM_ALIGNED",
+    "do_not_delete_or_treat_as_published": true,
+    "note": "Main code uses literal BOOKS array and manually authored vocab labels; level A0 label is not evidence the learner knows the words/forms."
+  },
+  "lexical_gate": {
+    "prerequisite": "No chapter is promoted to READY until exact text is drafted, its Czech orthographic forms are mapped to reviewed lexeme_id+sense_id+form_id and the learner's known set is computed.",
+    "known_definition": "Learner has completed prior introduction and successfully recalled in an unassisted task; mere listing on a card is not mastery.",
+    "text_analysis_steps": [
+      "sentence_split",
+      "tokenize_czech_with_punctuation",
+      "morphology_lexeme_mapping",
+      "sense_in_context_review",
+      "compare_learner_known_set",
+      "mark_new_with_contextual_scaffold",
+      "check_morphological_variants"
+    ],
+    "max_unknown_new_lemmas_initial_trial": {
+      "A0": 2,
+      "A1": 3,
+      "A2": 5,
+      "B1": 8,
+      "B2": 12
+    },
+    "max_unknown_is_not_research_law": true,
+    "known_running_token_target_initial_trial": 0.9,
+    "known_running_token_target_is_not_guaranteed_comprehensibility": true,
+    "distinct_unknown_lemmas_must_be_explicitly_marked": true,
+    "never_mark_unmapped_inflections_as_known": true,
+    "characters_places_names_need_context_and_not_counted_as_standard_new_lexeme_by_default": true
+  },
+  "literary_quality_gate": {
+    "mandatory": [
+      "natural_native_czech_prose_review",
+      "natural_mongolian_translation",
+      "adult_appropriate_motivation_and_plausible_characters",
+      "coherent_plot_and_cause_effect",
+      "narrative_cliffhanger_worth_returning",
+      "no_vocab_list_disguised_as_story",
+      "level_and_grammar_review",
+      "comprehension_questions",
+      "independent_retelling_prompt",
+      "reader_current_word_audio_coverage"
+    ],
+    "release_criterion": "All mandatory gates have evidence, plus a real novice readability trial where feasible.",
+    "independent_editorial_gate": true,
+    "error_traps": [
+      "A0 contains a syntactically complex natural sounding sentence with no support",
+      "invented word meaning from English false friend",
+      "same scene rewritten into different book with no narrative payoff",
+      "arbitrary 90% counted from unverified lemma match"
+    ]
+  },
+  "format": {
+    "chapter_required_fields": [
+      "chapter_id",
+      "story_id",
+      "chapter_title_cs",
+      "chapter_title_mn",
+      "prerequisite_skill_ids",
+      "learner_known_lexeme_ids",
+      "introduced_lexeme_ids",
+      "sentences",
+      "mn_contextual_translation",
+      "chapter_new_vocab_count",
+      "comprehension_checks",
+      "transfer_prompt",
+      "audio_sentence_ids"
+    ],
+    "sentence_required_fields": [
+      "sentence_id",
+      "text_cs",
+      "mn_translation",
+      "token_form_ids",
+      "source_utterance_id",
+      "review_status"
+    ],
+    "mode": [
+      "listen_to_narration_male",
+      "read_text",
+      "tap_current_stuck_word_male_audio",
+      "comprehension",
+      "retell_in_own_words"
+    ],
+    "no_external_audio_actions": "Reader content chat makes text; separate audio chat can later generate only approved canonical source text."
+  },
+  "series": [
+    {
+      "story_id": "CZ-READ-S01",
+      "title_mn": "Прага дахь эхний өдөр",
+      "title_cs": "Ráno v novém měst",
+      "genre": "everyday_adult",
+      "level_start": "A0",
+      "level_cap": "A1",
+      "target_mission_ids": [
+        "A0-M02",
+        "A0-M03",
+        "A0-M04",
+        "A0-M05"
+      ],
+      "story_premise_mn": "Хүн шинээр Чех хотод ирж, зөв хүнтэй мэндэлж, хаашаа явахаа асууна. Эхний өдрийн жижиг алдаа том биш ч дараагийн учралыг өдөөдөг.",
+      "plot_arc_notes_mn": [
+        "Эхний өглөө: нэрээ хэлнэ, танихгүй хүнтэй мэндэлнэ",
+        "Буруу хаалга: нэг асуултыг давтуулах шаардлагатай",
+        "Өөр гудамж: цаг, очих газраа батална"
+      ],
+      "audience": "adult_mongolian_cefr_learner",
+      "theme": "situational_adult",
+      "episodes": [],
+      "written_chapters": 0,
+      "lexicon_token_links": [],
+      "editorial_review": "NOT_PERFORMED",
+      "native_czech_review": "NOT_PERFORMED",
+      "published": false,
+      "audio_requested": false,
+      "narration_voice": "male_only"
+    },
+    {
+      "story_id": "CZ-READ-S02",
+      "title_mn": "Алга болсон тасалбар",
+      "title_cs": "Ztracený lístek",
+      "genre": "light_mystery",
+      "level_start": "A0",
+      "level_cap": "A2",
+      "target_mission_ids": [
+        "A0-M04",
+        "A0-M05",
+        "A0-M08"
+      ],
+      "story_premise_mn": "Хотын тээврээр зорчих үед тасалбар алга болно. Хэн юу харсан, хаана байсан, дараагийн шийдвэр юу болохыг үе шаттай илрүүлнэ.",
+      "plot_arc_notes_mn": [
+        "Сүүлчийн буудал: хоёр чиглэлийн заавар",
+        "Тасалбар хэнийх вэ: хоёр хүний богино яриа",
+        "Жинхэнэ асуудал: өмнөх үйл явдлын шинэ тайлбар"
+      ],
+      "audience": "adult_mongolian_cefr_learner",
+      "theme": "learner_mystery",
+      "episodes": [],
+      "written_chapters": 0,
+      "lexicon_token_links": [],
+      "editorial_review": "NOT_PERFORMED",
+      "native_czech_review": "NOT_PERFORMED",
+      "published": false,
+      "audio_requested": false,
+      "narration_voice": "male_only"
+    },
+    {
+      "story_id": "CZ-READ-S03",
+      "title_mn": "Анхны ээлж",
+      "title_cs": "První směna",
+      "genre": "workplace_realism",
+      "level_start": "A1",
+      "level_cap": "B1",
+      "target_mission_ids": [
+        "A0-M03",
+        "A0-M09",
+        "A0-M10"
+      ],
+      "story_premise_mn": "Шинэ ажилтан ээлжийн заавар, эвдэрсэн багаж, тусламж хүсэх нөхцөлтэй тулгарна. Аюултай үйлдлийг зөвлөхгүй, эргэлзээтэй бол ажиллагааг зогсооно.",
+      "plot_arc_notes_mn": [
+        "Хамт олонтой уулзах",
+        "Буруу ойлгосон үг",
+        "Хэн тусалж чадах вэ"
+      ],
+      "audience": "adult_mongolian_cefr_learner",
+      "theme": "safety_editorial_required",
+      "episodes": [],
+      "written_chapters": 0,
+      "lexicon_token_links": [],
+      "editorial_review": "NOT_PERFORMED",
+      "native_czech_review": "NOT_PERFORMED",
+      "published": false,
+      "audio_requested": false,
+      "narration_voice": "male_only"
+    },
+    {
+      "story_id": "CZ-READ-S04",
+      "title_mn": "Хоёр хотын хооронд",
+      "title_cs": "Mezi dvěma městy",
+      "genre": "relationship_drama",
+      "level_start": "A2",
+      "level_cap": "B2",
+      "target_mission_ids": [
+        "A0-M02",
+        "A0-M06",
+        "A0-M11"
+      ],
+      "story_premise_mn": "Хоёр хотод амьдардаг хүмүүсийн богино мессеж, шийдвэр, алдаа, уулзалт нь олон өнцөгтэй болж хөгждөг.",
+      "plot_arc_notes_mn": [
+        "Хаяггүй зурвас",
+        "Зөрсөн хуваарь",
+        "Өөр өнцгөөс болсон явдал"
+      ],
+      "audience": "adult_mongolian_cefr_learner",
+      "theme": "multi_perspective",
+      "episodes": [],
+      "written_chapters": 0,
+      "lexicon_token_links": [],
+      "editorial_review": "NOT_PERFORMED",
+      "native_czech_review": "NOT_PERFORMED",
+      "published": false,
+      "audio_requested": false,
+      "narration_voice": "male_only"
+    }
+  ]
+}
