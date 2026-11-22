@@ -369,7 +369,12 @@
       "speed_naturalness",
       "voice_register_consistency",
       "duplicate_detection"
-    ]
+    ],
+    "voice_policy_ref": "curriculum/system-v1/audio-voice-policy.json",
+    "reader_voice": "male_only",
+    "lesson_dialogue_voices": "female_and_male_roles",
+    "dictionary_word_audio": "one_reusable_approved_audio_per_spoken_form",
+    "existing_private_archive": "276_LEGACY_MP3_PRESERVED_NOT_PUBLIC_OR_REGENERATED"
   },
   "automated_qa": {
     "structural": [
@@ -415,5 +420,62 @@
     "https://www.coe.int/en/web/common-european-framework-reference-languages/cefr-descriptors-search",
     "https://www.coe.int/en/web/common-european-framework-reference-languages/cefr-in-the-classroom",
     "https://onlinelibrary.wiley.com/doi/epdf/10.1111/lang.12479"
-  ]
+  ],
+  "lexicon_master": {
+    "status": "SCHEMA_POLICY_DEFINED_NOT_POPULATED",
+    "role": "one normalized Czech lexeme/sense/form registry shared by all lessons, graded readers, review cards and dictionary",
+    "growth_stages": {
+      "Top100": 100,
+      "Top200": 200,
+      "Top300": 300,
+      "Top500": 500,
+      "Top1000": 1000
+    },
+    "stage_relation": "All cumulative; smaller stage word sets must be subsets of all later stages; source frequencies are evidence inputs but not sole pedagogical selection criterion.",
+    "lexeme_required_fields": [
+      "lexeme_id",
+      "lemma_cs",
+      "part_of_speech",
+      "sources",
+      "frequency_evidence",
+      "learning_rank",
+      "teaching_status"
+    ],
+    "sense_required_fields": [
+      "sense_id",
+      "lexeme_id",
+      "meaning_mn_in_context",
+      "usage_register",
+      "source_evidence",
+      "review_status"
+    ],
+    "form_required_fields": [
+      "form_id",
+      "lexeme_id",
+      "orthographic_form_cs",
+      "morphology",
+      "pronunciation_variant",
+      "word_audio_asset_id",
+      "review_status"
+    ],
+    "relation_required_fields": [
+      "skill_id",
+      "lesson_id",
+      "story_id",
+      "dialogue_utterance_id",
+      "first_introduced_at",
+      "review_events"
+    ],
+    "id_policy": "Never use a translated meaning as identity. One lexeme may have several senses and many inflected forms. Every different pronounced surface form has a distinct form record; it can reuse a reviewed same-form audio asset across features.",
+    "seed_inventory_ref": "curriculum/system-v1/a0-topic-word-audio-inventory.draft.json",
+    "cover_sources": [
+      "approved_lesson_utterances",
+      "approved_reader_story_text",
+      "approved_dictionary_entries",
+      "approved_review_cards"
+    ],
+    "audit_requirement": "100 percent of Czech spoken word forms in every PUBLISHED content package must resolve to approved per-form word audio. Existing draft source coverage is explicitly NOT approved.",
+    "audio_policy_ref": "curriculum/system-v1/audio-voice-policy.json",
+    "czech_language_safety": "Contextual morphology, POS and semantic senses must be reviewed. Never assign automated lemma IDs to all Czech surface tokens based only on spelling."
+  }
 }
