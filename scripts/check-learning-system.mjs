@@ -1,0 +1,100 @@
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+
+const read = path => JSON.parse(readFileSync(resolve(path), 'utf8'));
+const source=read('public/cesky-reading-uiux/a0-curriculum.json');
+const map=read('curriculum/system-v1/mission-map.json');
+const contract=read('curriculum/system-v1/learning-contract.json');
+const bands=['A0','A1','A2','B1','B2'];
+const counts={A0:16,A1:16,A2:16,B1:12,B2:12};
+const idRe=/^(A0|A1|A2|B1|B2)-M\d{2}$/;
+
+assert.equal(map.status,'ARCHITECTURE_AND_MISSION_MAP_DRAFT_NOT_PUBLISHED');
+assert.equal(map.missions.length,72);
+assert.deepEqual(map.level_order,bands);
+assert.deepEqual(map.cefr_label.A0,'Pre-A1 (product-specific A0 label)');
+assert.equal(map.counts.missions,72);
+assert.deepEqual(map.counts.stage_counts,counts);
+assert.equal(map.counts.published_missions,0);
+assert.ok(map.scale_warning.includes('NOT 72 completed lessons'));
+assert.equal(contract.lesson_cycle.steps.length,15);
+assert.deepEqual(contract.lesson_cycle.steps.map(s=>s.id),
+  Array.from({length:15},(_,i)=>'S'+String(i+1).padStart(2,'0')));
+for(const step of contract.lesson_cycle.steps){
+  assert.ok(step.kind&&step.description_mn&&step.ability&&step.contract);
+  assert.equal(step.required,true);
+}
+assert.deepEqual(contract.retrieval.default_due_days_after_success,[1,3,7,14,30]);
+assert.equal(contract.feedback_loop.reader_stt_contract.current_word_speaker,'play_audio_for_current_word_only');
+assert.equal(contract.audio_factory.asset_contract.unit.startsWith('One utterance per audio file'),true);
+const sourceIdList=source.topics.flatMap(t=>t.lessons.map(l=>l.id));
+assert.equal(source.topics.length,16);
+assert.equal(sourceIdList.length,140);
+assert.equal(new Set(sourceIdList).size,140);
+const allMissionIds=new Set();
+for(let i=0;i<map.missions.length;i++){
+  const m=map.missions[i];
+  assert.match(m.mission_id,idRe);
+  assert.ok(!allMissionIds.has(m.mission_id),'Duplicate mission '+m.mission_id);
+  allMissionIds.add(m.mission_id);
+  assert.ok(m.title_mn&&m.scenario_mn&&m.can_do_mn&&m.final_task_mn,'Missing mission outcomes');
+  assert.ok(Array.isArray(m.language_functions)&&m.language_functions.length);
+  assert.equal(m.approved,false);
+  assert.equal(m.published,false);
+  assert.equal(m.content_status,'NOT_AUTHORED');
+  assert.equal(m.exit_assessment_status,'NOT_VERIFIED');
+  assert.equal(m.prerequisite_mission_id,i===0?null:map.missions[i-1].mission_id);
+}
+let offset=0;
+for(const band of bands){
+ const group=map.missions.filter(m=>m.level===band);
+ assert.equal(group.length,counts[band],'Band count '+band);
+ for(let i=0;i<group.length;i++){
+  const m=group[i];
+  assert.equal(m.mission_order,i+1);
+  assert.equal(m.mission_id,band+'-M'+String(i+1).padStart(2,'0'));
+ }
+ offset+=group.length;
+}
+const sourceA0ByTopic=new Map(source.topics.map(t=>[t.id,t]));
+const a0=map.missions.filter(m=>m.level==='A0');
+for(let i=0;i<a0.length;i++){
+ const expected=source.topics[i];
+ const mission=a0[i];
+ assert.equal(mission.title_mn,expected.title_mn);
+ assert.equal(mission.can_do_mn,expected.final_task_mn);
+ assert.deepEqual(mission.skills_ids,expected.lessons.map(l=>l.id));
+ assert.equal(mission.outline_status,'EXISTING_140_SKILL_SOURCE_UNRECONCILED');
+ assert.ok(mission.planned_sessions.length>=2);
+}
+const higher=map.missions.filter(m=>m.level!=='A0');
+for(const mission of higher){
+ assert.equal(mission.outline_status,'DRAFT_LEVEL_PLACEMENT_UNVERIFIED');
+ assert.deepEqual(mission.skills_ids,[],'A1-B2 micro skills were not actually authored');
+ assert.deepEqual(mission.planned_sessions,[],'A1-B2 teaching sessions must not be claimed');
+}
+const sids=new Set(),seen=new Set(),sessionById=new Map();
+for(const s of map.provisional_a0_sessions){
+ assert.match(s.session_id,/^A0-S\d{3}$/);
+ assert.ok(!sids.has(s.session_id),'Duplicate session '+s.session_id);
+ sids.add(s.session_id);sessionById.set(s.session_id,s);
+ assert.ok(s.skill_ids.length>=2&&s.skill_ids.length<=3,'Session requires 2-3 planned targets');
+ for(const id of s.skill_ids){assert.ok(!seen.has(id),'Double assigned skill '+id);seen.add(id);}
+ assert.deepEqual(s.new_lexical_target_range,[0,6]);
+ assert.equal(s.segmentation_status,'PROVISIONAL_AUTO_GROUPING');
+ assert.equal(s.content_status,'NOT_AUTHORED');
+ assert.equal(s.audio_status,'NOT_GENERATED');
+ assert.equal(s.assessment_status,'NOT_VERIFIED');
+ assert.equal(s.approved,false);assert.equal(s.published,false);
+}
+assert.equal(map.provisional_a0_sessions.length,53,'Unexpected A0 session grouping change');
+assert.equal(seen.size,140);
+assert.deepEqual([...seen].sort(),sourceIdList.sort(),'A0 micro-skill set loss/additions');
+for(const m of a0){
+ assert.deepEqual(m.planned_sessions.flatMap(id=>sessionById.get(id)?.skill_ids??[]),m.skills_ids,
+ 'Mission should preserve contiguous source skill order: '+m.mission_id);
+}
+assert.equal(map.counts.existing_a0_micro_skill_ids,140);
+assert.equal(map.counts.provisional_a0_sessions,53);
+console.log('Learning system QA PASS: 72 proposed missions, 16 source A0 topics, 140 stable skills, 53 provisional A0 sessions, 15-stage cycle; 0 published.');
