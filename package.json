@@ -9,7 +9,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "clean": "rm -rf dist server.js",
-    "lint": "tsc --noEmit && node scripts/check-cesky-uiux.mjs"
+    "lint": "tsc --noEmit && node scripts/check-cesky-uiux.mjs && node scripts/check-a0-outline-reconciliation.mjs"
   },
   "dependencies": {
     "@google/genai": "^3.3.0",

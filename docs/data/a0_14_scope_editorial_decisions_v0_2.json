@@ -1,0 +1,642 @@
+{
+  "schema_version": "0.2.0",
+  "date": "2026-11-23",
+  "status": "EDITORIAL_DECISION_DRAFT_NOT_APPROVED",
+  "source_drive_document": "https://docs.google.com/document/d/1VejMwEyeJniHzRPDaKJ8Zt5nSgO6msr8Fm_x1KQ2zvc/edit",
+  "drive_live_vs_pr30_snapshot": {
+    "entries": 140,
+    "title_drift": 0,
+    "live_checked": true
+  },
+  "source_reconciliation_file": "docs/data/a0_outline_reconciliation_2026-11-23.json",
+  "evidence_document": "docs/A0_14_SCOPE_REVIEW_EVIDENCE_v0_1.md",
+  "policy": "This is NOT the canonical lesson source. Do not set approved=true or update public curriculum until independent CZ/MN editorial and content QA gates. Czech samples are drafts. Do not use STT transcript alone to certify pronunciation.",
+  "count": 14,
+  "entries": [
+    {
+      "skill_id": "A0-T01-L05",
+      "topic_id": "A0-T01",
+      "drive_title_mn": "C/Č, S/Š, Z/Ž авиаг сонсож ялгах",
+      "github_title_mn": "C/Č, S/Š, Z/Ž-ийг ялгах",
+      "github_can_do_mn": "C/Č, S/Š, Z/Ž-ийг ялгах",
+      "previous_proposed_title_mn": "C/Č, S/Š, Z/Ž авиаг сонсож ялгах",
+      "recommended_title_mn": "C/Č, S/Š, Z/Ž авиаг сонсож ялгах",
+      "recommended_can_do_mn": "Сонссон чех авиаг гурван ялгаатай хосын аль нь болохыг бичиг/дүрсийн сонголтоор танина.",
+      "learning_modality": "LISTENING_DISCRIMINATION",
+      "target_utterances": [
+        {
+          "cz": "c / č; s / š; z / ž",
+          "mn_natural_draft": "IPA ба бодит авианы тусгай бичлэг шаардлагатай",
+          "provenance_status": "phoneme_audio_pending",
+          "editorial_verified": false
+        }
+      ],
+      "register_and_context": "Харилцааны хүндэтгэлийн хэлбэр хамаарахгүй; үсгийн нэр ба авиаг андуурч болохгүй.",
+      "exit_assessment_draft": "3 хос бүрээс 2-оос доошгүй санамсаргүй сонсголын сорил; харсан үсгээ бус сонссон авиаг сонгох; дууны эх сурвалж шалгагдаагүй тул бодитоор ажиллуулахгүй.",
+      "neighbor_overlap_resolution": "T01-L04 нь Č/Š/Ž-г анх таних; L05 нь C/Č, S/Š, Z/Ž-ийг эсрэгцүүлэн сонсох. T01-L06 нь дуурайн хэлэх.",
+      "blockers": "Жинхэнэ Чех авианы аудио, авиазүйн редакц, туршилтын сорил байхгүй.",
+      "external_crosscheck_urls": [
+        "https://fonetika.ff.cuni.cz/en/czech-phonetics/",
+        "https://www.coe.int/en/web/common-european-framework-reference-languages/cefr-descriptors-search"
+      ],
+      "disposition": "RECOMMENDED_SCOPE_ONLY",
+      "approved": false,
+      "czech_native_signoff": "PENDING",
+      "mongolian_editor_signoff": "PENDING",
+      "audio_pronunciation_signoff": "PENDING",
+      "learner_pilot": "NOT_TESTED"
+    },
+    {
+      "skill_id": "A0-T01-L06",
+      "topic_id": "A0-T01",
+      "drive_title_mn": "Ď, Ť, Ň-ийг сонсож хэлэх",
+      "github_title_mn": "Ď, Ť, Ň авиаг хэлэх",
+      "github_can_do_mn": "Ď, Ť, Ň авиаг хэлэх",
+      "previous_proposed_title_mn": "Ď, Ť, Ň-ийг сонсож хэлэх",
+      "recommended_title_mn": "Ď, Ť, Ň авиаг сонсоод дуурайж хэлэх",
+      "recommended_can_do_mn": "Дагалдуулагч аудионы дараа ď, ť, ň-г жишээ үгийн эхний зөөлөн авиатай холбон дуурайж хэлнэ.",
+      "learning_modality": "IMITATION_WITH_AUDIO",
+      "target_utterances": [
+        {
+          "cz": "děti",
+          "mn_natural_draft": "хүүхдүүд",
+          "provenance_status": "new_unreviewed",
+          "editorial_verified": false
+        },
+        {
+          "cz": "tělo",
+          "mn_natural_draft": "бие",
+          "provenance_status": "new_unreviewed",
+          "editorial_verified": false
+        },
+        {
+          "cz": "něco",
+          "mn_natural_draft": "ямар нэг зүйл",
+          "provenance_status": "new_unreviewed",
+          "editorial_verified": false
+        }
+      ],
+      "register_and_context": "Дотно/албан хэлбэр хамаарахгүй; dě/tě/ně үсгийн бичлэг ба авиаг тусад нь тайлбарлах.",
+      "exit_assessment_draft": "3 аудио загварыг сонсоод үгийн эхний хэсгийг дагаж хэлнэ; бичлэгийг хадгалж, хараат бус авиазүйн баталгаажуулалтгүй STT-ээр 'зөв дуудлаа' гэж дүгнэхгүй.",
+      "neighbor_overlap_resolution": "L05 сонсголын авиаг ялгана; L06 дуурайн хэлнэ; L07 R/Ř-г таних/дуудах, ялгаатай авиа.",
+      "blockers": "Аудио, дуудлага үнэлэх найдвартай хэмжүүр, авиазүйн редакц дутуу.",
+      "external_crosscheck_urls": [
+        "https://fonetika.ff.cuni.cz/en/czech-phonetics/",
+        "https://www.coe.int/en/web/common-european-framework-reference-languages/cefr-descriptors-search"
+      ],
+      "disposition": "RECOMMENDED_SCOPE_ONLY",
+      "approved": false,
+      "czech_native_signoff": "PENDING",
+      "mongolian_editor_signoff": "PENDING",
+      "audio_pronunciation_signoff": "PENDING",
+      "learner_pilot": "NOT_TESTED"
+    },
+    {
+      "skill_id": "A0-T02-L09",
+      "topic_id": "A0-T02",
+      "drive_title_mn": "Чи, Та гэж хүндэтгэх",
+      "github_title_mn": "Чи ба Та",
+      "github_can_do_mn": "Чи ба Та",
+      "previous_proposed_title_mn": "Чи/Та хэлбэрийг нөхцөлд тохируулан хэрэглэх",
+      "recommended_title_mn": "Чи/Та хэлбэрийг нөхцөлд тохируулан хэрэглэх",
+      "recommended_can_do_mn": "Дотно найз ба танихгүй насанд хүрсэн хүнд тохирох ty/vy үйл үгийн хэлбэрийг сонгоно.",
+      "learning_modality": "REGISTER_CHOICE",
+      "target_utterances": [
+        {
+          "cz": "Jak se máš?",
+          "mn_natural_draft": "Чи сайн уу?",
+          "provenance_status": "new_crosschecked",
+          "editorial_verified": false
+        },
+        {
+          "cz": "Jak se máte?",
+          "mn_natural_draft": "Та сайн байна уу?",
+          "provenance_status": "existing",
+          "editorial_verified": false
+        }
+      ],
+      "register_and_context": "ty + máš = нэг хүнтэй дотно; vy + máte = нэг хүнд хүндэтгэлтэй, эсвэл хэд хэдэн хүнд. Танихгүй насанд хүрсэн хүнд vy-гээс эхэлнэ.",
+      "exit_assessment_draft": "Найз болон танихгүй хүн гэсэн 2 нөхцөлд аль хэлбэр тохирохыг 2/2 зөв сонгоно; нэр асуухыг L10-д тусад нь үнэлнэ.",
+      "neighbor_overlap_resolution": "L10 нэр асуух хэллэг; L09 зөв харилцааны хэлбэрийг сонгох. L03 мэндчилгээний энгийн үйлдэл.",
+      "blockers": "Найзын Jak se máš? жишээг баталгаажсан phrase bank-д оруулаагүй; утга-байгалийн хэллэгийн редакц хүлээгдэж байна.",
+      "external_crosscheck_urls": [
+        "https://czechcourse.com/en/reference/sociocultural/formal-informal",
+        "https://www.czechonline.org/upload/Downloads/files/table/19/item/12/146/g-01-formalni-a-neformalni-osloveni-en.pdf?v=1691418467",
+        "https://www.coe.int/en/web/common-european-framework-reference-languages/cefr-descriptors-search"
+      ],
+      "disposition": "RECOMMENDED_SCOPE_ONLY",
+      "approved": false,
+      "czech_native_signoff": "PENDING",
+      "mongolian_editor_signoff": "PENDING",
+      "audio_pronunciation_signoff": "PENDING",
+      "learner_pilot": "NOT_TESTED"
+    },
+    {
+      "skill_id": "A0-T02-L10",
+      "topic_id": "A0-T02",
+      "drive_title_mn": "Чиний нэр хэн бэ?",
+      "github_title_mn": "Чамайг, Таныг хэн гэдэг вэ?",
+      "github_can_do_mn": "Чамайг, Таныг хэн гэдэг вэ?",
+      "previous_proposed_title_mn": "Чамайг/Таныг хэн гэдэг вэ?",
+      "recommended_title_mn": "Дотно ба хүндэтгэлийн хэлбэрээр нэр асуух",
+      "recommended_can_do_mn": "Найз болон танихгүй насанд хүрсэн хүний нэрийг харилцаанд тохируулан бие даан асууна.",
+      "learning_modality": "SPEAKING_NAME_REQUEST",
+      "target_utterances": [
+        {
+          "cz": "Jak se jmenuješ?",
+          "mn_natural_draft": "Чамайг хэн гэдэг вэ?",
+          "provenance_status": "new_crosschecked",
+          "editorial_verified": false
+        },
+        {
+          "cz": "Jak se jmenujete?",
+          "mn_natural_draft": "Таныг хэн гэдэг вэ?",
+          "provenance_status": "new_crosschecked",
+          "editorial_verified": false
+        }
+      ],
+      "register_and_context": "jmenuješ = ty, jmenujete = vy; 'Чиний нэр хэн бэ?' нь шууд утгын орчуулга боловч хичээлийн can-do нэр биш.",
+      "exit_assessment_draft": "Найз/танихгүй хүн хоёр сценарид зөв асуултыг туслах текстгүй хэлнэ; үгийн дуудах/хариу хүлээн авахыг тусад нь үнэлнэ.",
+      "neighbor_overlap_resolution": "L09 ty/vy сонголтыг урьдчилан эзэмшсэн байна; L10 зөв асуулт; L18 нийт танилцах сорил.",
+      "blockers": "Хоёр асуулт одоогийн phrase bank-д байхгүй; native Czech ба MN редакц, дуу, сорил бэлтгэх шаардлагатай.",
+      "external_crosscheck_urls": [
+        "https://czechcourse.com/en/reference/sociocultural/formal-informal",
+        "https://www.czechonline.org/upload/Downloads/files/table/19/item/12/146/g-01-formalni-a-neformalni-osloveni-en.pdf?v=1691418467",
+        "https://www.coe.int/en/web/common-european-framework-reference-languages/cefr-descriptors-search"
+      ],
+      "disposition": "RECOMMENDED_SCOPE_ONLY",
+      "approved": false,
+      "czech_native_signoff": "PENDING",
+      "mongolian_editor_signoff": "PENDING",
+      "audio_pronunciation_signoff": "PENDING",
+      "learner_pilot": "NOT_TESTED"
+    },
+    {
+      "skill_id": "A0-T02-L18",
+      "topic_id": "A0-T02",
+      "drive_title_mn": "Мэндчилгээний бие даасан сорил",
+      "github_title_mn": "Шинэ хүнтэй бие даан танилцах сорил",
+      "github_can_do_mn": "Шинэ хүнтэй бие даан танилцах сорил",
+      "previous_proposed_title_mn": "Шинэ хүнтэй мэндэлж, бие даан танилцах сорил",
+      "recommended_title_mn": "Танихгүй хүнтэй мэндэлж, өөрийгөө танилцуулах сорил",
+      "recommended_can_do_mn": "Танихгүй насанд хүрсэн хүнтэй мэндэлж, өөрийн нэрийг хэлж, нэрийг нь асууж, эелдгээр сална.",
+      "learning_modality": "INTEGRATED_EXIT",
+      "target_utterances": [
+        {
+          "cz": "Dobrý den.",
+          "mn_natural_draft": "Сайн байна уу.",
+          "provenance_status": "existing",
+          "editorial_verified": false
+        },
+        {
+          "cz": "Jmenuji se Eba.",
+          "mn_natural_draft": "Намайг Эба гэдэг.",
+          "provenance_status": "existing_personalized_sample",
+          "editorial_verified": false
+        },
+        {
+          "cz": "Jak se jmenujete?",
+          "mn_natural_draft": "Таныг хэн гэдэг вэ?",
+          "provenance_status": "new_crosschecked",
+          "editorial_verified": false
+        },
+        {
+          "cz": "Na shledanou.",
+          "mn_natural_draft": "Баяртай.",
+          "provenance_status": "existing",
+          "editorial_verified": false
+        }
+      ],
+      "register_and_context": "Албан шинэ танилын vy; 'Ahoj!' нь дотно хувилбар бөгөөд энэ сорилын default биш.",
+      "exit_assessment_draft": "Дөрвөн үе шаттай role-play; нэрийн хэллэг бие даасан, нөхцөлд тохирсон, асуулт/хариу утгачилсан; туслах мөрөөр шууд уншуулахгүй.",
+      "neighbor_overlap_resolution": "L01/L02/L09/L10-г нэгтгэсэн exit; L17 тусламж хүсэх чадварыг энд шалгахгүй.",
+      "blockers": "L10-ийн шинэ асуулт хөтөлбөрт ороогүй; асуултад өгөх сонсголын хариу болон шинэ хүний тестийн контекст хэрэгтэй.",
+      "external_crosscheck_urls": [
+        "https://czechcourse.com/en/reference/sociocultural/formal-informal",
+        "https://www.coe.int/en/web/common-european-framework-reference-languages/cefr-descriptors-search"
+      ],
+      "disposition": "RECOMMENDED_SCOPE_ONLY",
+      "approved": false,
+      "czech_native_signoff": "PENDING",
+      "mongolian_editor_signoff": "PENDING",
+      "audio_pronunciation_signoff": "PENDING",
+      "learner_pilot": "NOT_TESTED"
+    },
+    {
+      "skill_id": "A0-T05-L08",
+      "topic_id": "A0-T05",
+      "drive_title_mn": "Уулзалтын цаг батлах сорил",
+      "github_title_mn": "Уулзалт товлох сорил",
+      "github_can_do_mn": "Уулзалт товлох сорил",
+      "previous_proposed_title_mn": "Уулзалтын цаг санал болгож, тохиролцон батлах сорил",
+      "recommended_title_mn": "Уулзалтын цагийг батлах сорил",
+      "recommended_can_do_mn": "Санал болгосон өдөр, цагийг ойлгоод давтан хэлж, уулзах цагийг батална.",
+      "learning_modality": "MEETING_CONFIRMATION",
+      "target_utterances": [
+        {
+          "cz": "V osm.",
+          "mn_natural_draft": "Найман цагт.",
+          "provenance_status": "existing",
+          "editorial_verified": false
+        },
+        {
+          "cz": "Zítra.",
+          "mn_natural_draft": "Маргааш.",
+          "provenance_status": "existing",
+          "editorial_verified": false
+        },
+        {
+          "cz": "Tak zítra v osm.",
+          "mn_natural_draft": "Тэгвэл маргааш найман цагт.",
+          "provenance_status": "existing",
+          "editorial_verified": false
+        }
+      ],
+      "register_and_context": "Албан/дотно ялгаа энэ жишээнд ил тод биш; L07 санал болгох, L08 зөвшөөрч батлах. Сөрөг санал/тохиролцоо энэ сорилын зорилго БИШ.",
+      "exit_assessment_draft": "Шинээр санал болгосон хоёр өөр цаг дээр өдөр/цагийг сонсоод зөв баталж хэлнэ; өөр цаг санал болгох чадвар гэж үнэлэхгүй.",
+      "neighbor_overlap_resolution": "T05-L07 цаг санал болгох; L08 батлах. 'Тохиролцох' гэдэг өргөн зорилгыг зөвшөөрөгдөхгүй.",
+      "blockers": "Шинэ харилцан ярианы санал болгосон цагийн реплик, эцсийн 2 сцен, нөхцөлийн хяналт дутуу.",
+      "external_crosscheck_urls": [
+        "https://www.coe.int/en/web/common-european-framework-reference-languages/cefr-descriptors-search"
+      ],
+      "disposition": "RECOMMENDED_SCOPE_ONLY",
+      "approved": false,
+      "czech_native_signoff": "PENDING",
+      "mongolian_editor_signoff": "PENDING",
+      "audio_pronunciation_signoff": "PENDING",
+      "learner_pilot": "NOT_TESTED"
+    },
+    {
+      "skill_id": "A0-T09-L01",
+      "topic_id": "A0-T09",
+      "drive_title_mn": "Ажил мэргэжлээ хэлэх",
+      "github_title_mn": "Ажил, хамтрагчаа танилцуулах",
+      "github_can_do_mn": "Ажил, хамтрагчаа танилцуулах",
+      "previous_proposed_title_mn": "Ажил мэргэжлээ энгийнээр хэлэх",
+      "recommended_title_mn": "Ажил мэргэжлээ энгийнээр хэлэх",
+      "recommended_can_do_mn": "Өөрийн мэргэжлийг нэг энгийн Чех өгүүлбэрээр нэрлэнэ.",
+      "learning_modality": "OCCUPATION_SPEAKING",
+      "target_utterances": [
+        {
+          "cz": "Jsem svářeč.",
+          "mn_natural_draft": "Би гагнуурчин. (эрэгтэй хэлэгч)",
+          "provenance_status": "new_editorial_pending",
+          "editorial_verified": false
+        },
+        {
+          "cz": "Jsem svářečka.",
+          "mn_natural_draft": "Би гагнуурчин. (эмэгтэй хэлэгч)",
+          "provenance_status": "new_editorial_pending",
+          "editorial_verified": false
+        },
+        {
+          "cz": "Pracuji tady.",
+          "mn_natural_draft": "Би энд ажилладаг. (мэргэжил нэрлээгүй)",
+          "provenance_status": "existing_insufficient",
+          "editorial_verified": false
+        }
+      ],
+      "register_and_context": "Албан/дотно хэлбэрийн ялгаа хамаарахгүй; мэргэжлийн үгийн хүйс, ярьж байгаа хүний хэлбэрийг шалгах.",
+      "exit_assessment_draft": "Өөрийн дүрийн мэргэжлийг хэлнэ, дараа нь өөр мэргэжилтэй шинэ дүрээр хэлнэ; 'Pracuji tady.'-г зорилго хангасанд тооцохгүй.",
+      "neighbor_overlap_resolution": "L01 зөвхөн мэргэжлээ хэлэх; хамтрагчаа танилцуулахыг энэ ID-д хамруулахгүй; L02 багажийн нэр.",
+      "blockers": "Мэргэжлийн жишээ одоогийн phrase bank-д алга; чех морфологи, хувийн дүр ба монгол утга нягтлах.",
+      "external_crosscheck_urls": [
+        "https://www.coe.int/en/web/common-european-framework-reference-languages/cefr-descriptors-search"
+      ],
+      "disposition": "RECOMMENDED_SCOPE_ONLY",
+      "approved": false,
+      "czech_native_signoff": "PENDING",
+      "mongolian_editor_signoff": "PENDING",
+      "audio_pronunciation_signoff": "PENDING",
+      "learner_pilot": "NOT_TESTED"
+    },
+    {
+      "skill_id": "A0-T09-L05",
+      "topic_id": "A0-T09",
+      "drive_title_mn": "Энд, тэнд гэсэн байрлал",
+      "github_title_mn": "Энд, тэнд байгаа багаж",
+      "github_can_do_mn": "Энд, тэнд байгаа багаж",
+      "previous_proposed_title_mn": "Багажийн байршлыг энд, тэнд гэж хэлэх",
+      "recommended_title_mn": "Ажлын багажийн байршлыг зааж хэлэх",
+      "recommended_can_do_mn": "Хоёр өөр байрлалд байгаа танил багажийг нэрлээд хаана байгааг хэлнэ.",
+      "learning_modality": "TOOL_LOCATION",
+      "target_utterances": [
+        {
+          "cz": "Kde je kladivo?",
+          "mn_natural_draft": "Алх хаана байна?",
+          "provenance_status": "new_editorial_pending",
+          "editorial_verified": false
+        },
+        {
+          "cz": "Kladivo je tady.",
+          "mn_natural_draft": "Алх энд байна.",
+          "provenance_status": "new_editorial_pending",
+          "editorial_verified": false
+        },
+        {
+          "cz": "Kladivo je tam.",
+          "mn_natural_draft": "Алх тэнд байна.",
+          "provenance_status": "new_editorial_pending",
+          "editorial_verified": false
+        }
+      ],
+      "register_and_context": "Хүндэтгэлийн хэлбэр хамаарахгүй; ажлын нөхцөл дэх байрлалын үндсэн хэллэг.",
+      "exit_assessment_draft": "Алхыг дүрсэнд хоёр байрлалд сольж үзүүлнэ, суралцагч тус бүрд зааж, тайлбарлана; зүгээр 'энд' гэж хэлэх нь хангалтгүй.",
+      "neighbor_overlap_resolution": "T08-L02 ерөнхий энд/тэнд; T09-L02 багаж нэрлэх; T09-L04 багаж хүсэх; L05 байршил.",
+      "blockers": "Одоо `Pracuji tady.` л байгаа нь багажийн байршлын нотолгоо биш; шинэ текст/зураг дутуу.",
+      "external_crosscheck_urls": [
+        "https://www.coe.int/en/web/common-european-framework-reference-languages/cefr-descriptors-search"
+      ],
+      "disposition": "RECOMMENDED_SCOPE_ONLY",
+      "approved": false,
+      "czech_native_signoff": "PENDING",
+      "mongolian_editor_signoff": "PENDING",
+      "audio_pronunciation_signoff": "PENDING",
+      "learner_pilot": "NOT_TESTED"
+    },
+    {
+      "skill_id": "A0-T09-L07",
+      "topic_id": "A0-T09",
+      "drive_title_mn": "Зогс гэсэн дохиог ойлгох",
+      "github_title_mn": "Зогс гэсэн дохио",
+      "github_can_do_mn": "Зогс гэсэн дохио",
+      "previous_proposed_title_mn": "Зогс гэсэн дохиог ойлгох",
+      "recommended_title_mn": "«Зогс!» тушаалыг сонсоод ойлгох",
+      "recommended_can_do_mn": "Хөдөлгөөнөө зогсоох тушаал ба ерөнхий анхааруулгын утгыг ялгаж, симуляц дахь зөв хариуг сонгоно.",
+      "learning_modality": "SAFETY_STOP_RECOGNITION",
+      "target_utterances": [
+        {
+          "cz": "Stůj!",
+          "mn_natural_draft": "Зогс! (нэг хүнд дотно шууд тушаал)",
+          "provenance_status": "new_crosschecked_semantics",
+          "editorial_verified": false
+        },
+        {
+          "cz": "Stůjte!",
+          "mn_natural_draft": "Зогсоорой! (хүндэтгэлтэй/олон хүнд)",
+          "provenance_status": "new_editorial_pending",
+          "editorial_verified": false
+        },
+        {
+          "cz": "Zastavte stroj!",
+          "mn_natural_draft": "Машиныг зогсоо! (хүндэтгэлтэй/олон хүнд)",
+          "provenance_status": "new_crosschecked_context",
+          "editorial_verified": false
+        },
+        {
+          "cz": "Pozor!",
+          "mn_natural_draft": "Анхаар! (зогсоох тушаалын ижил утга биш)",
+          "provenance_status": "existing_wrong_for_stop",
+          "editorial_verified": false
+        }
+      ],
+      "register_and_context": "Stůj! нь ty нэг тоо, Stůjte! нь vy/олон тоо; тоног төхөөрөмж зогсоох зааврыг хүн зогсох тушаалаас салга.",
+      "exit_assessment_draft": "'Pozor!' ба 'Stůj!' хоёр аудиог ялгаж, зөв текст/анимацын үр дагаврыг сонгоно. Машинтай бодит ажиллагаа хийлгэхгүй.",
+      "neighbor_overlap_resolution": "T09-L06 хий/бүү хий ерөнхий заавар; L07 зогсох тушаал; L08 аюулын анхааруулга.",
+      "blockers": "`Pozor!`-оор `Stůj!` сорилыг оноож болохгүй; safety-specific Czech expert + бодит safety training тусад нь шаардлагатай.",
+      "external_crosscheck_urls": [
+        "https://krajta.slv.cz/1998/35/par_7",
+        "https://www.bozp.cz/aktuality/bezpecna-prace-se-stroji/",
+        "https://www.coe.int/en/web/common-european-framework-reference-languages/cefr-descriptors-search"
+      ],
+      "disposition": "RECOMMENDED_SCOPE_ONLY",
+      "approved": false,
+      "czech_native_signoff": "PENDING",
+      "mongolian_editor_signoff": "PENDING",
+      "audio_pronunciation_signoff": "PENDING",
+      "learner_pilot": "NOT_TESTED"
+    },
+    {
+      "skill_id": "A0-T09-L08",
+      "topic_id": "A0-T09",
+      "drive_title_mn": "Аюулын анхааруулга таних",
+      "github_title_mn": "Аюулын анхааруулга",
+      "github_can_do_mn": "Аюулын анхааруулга",
+      "previous_proposed_title_mn": "Аюулын анхааруулгыг таньж ойлгох",
+      "recommended_title_mn": "Ажлын аюулын энгийн анхааруулгыг таних",
+      "recommended_can_do_mn": "Ерөнхий болон нэг тодорхой аюулын анхааруулгыг сонсоод/хараад эрсдэлтэй нөхцөл гэж танина.",
+      "learning_modality": "SAFETY_WARNING_RECOGNITION",
+      "target_utterances": [
+        {
+          "cz": "Pozor!",
+          "mn_natural_draft": "Анхаар! (ерөнхий дохио)",
+          "provenance_status": "existing",
+          "editorial_verified": false
+        },
+        {
+          "cz": "Pozor, horký povrch!",
+          "mn_natural_draft": "Анхаар, халуун гадаргуу!",
+          "provenance_status": "new_editorial_pending",
+          "editorial_verified": false
+        }
+      ],
+      "register_and_context": "Хүндэтгэлийн хэлбэргүй анхааруулга. `Pozor!` ганцаараа аюулын төрлийг хэлдэггүй.",
+      "exit_assessment_draft": "Ерөнхий анхааруулга ба халуун гадаргууны шошгыг аюулгүй зурагтай харьцуулж ялгана; L07-ийн шууд зогс тушаалтай холихгүй.",
+      "neighbor_overlap_resolution": "L07 зогсох тушаал; L08 аюулын анхааруулга; L09 ойлгоогүй зааврыг давтуулах.",
+      "blockers": "Тодорхой аюулын label/visual одоогоор алга; safety/native Czech редакц шаардлагатай. Энэ апп нь ажлын байран дахь албан BOZP сургалтыг орлохгүй.",
+      "external_crosscheck_urls": [
+        "https://www.bozp.cz/aktuality/bezpecna-prace-se-stroji/",
+        "https://www.coe.int/en/web/common-european-framework-reference-languages/cefr-descriptors-search"
+      ],
+      "disposition": "RECOMMENDED_SCOPE_ONLY",
+      "approved": false,
+      "czech_native_signoff": "PENDING",
+      "mongolian_editor_signoff": "PENDING",
+      "audio_pronunciation_signoff": "PENDING",
+      "learner_pilot": "NOT_TESTED"
+    },
+    {
+      "skill_id": "A0-T11-L03",
+      "topic_id": "A0-T11",
+      "drive_title_mn": "Хаалга, цонх, эд зүйл",
+      "github_title_mn": "Хаалга, цонх",
+      "github_can_do_mn": "Хаалга, цонх",
+      "previous_proposed_title_mn": "Хаалга, цонх болон гэрийн эд зүйлсийг нэрлэх",
+      "recommended_title_mn": "Хаалга, цонхыг зааж нэрлэх",
+      "recommended_can_do_mn": "Гэрийн зурагт хаалга, цонхыг зааж Чехээр тус тус нэрлэнэ.",
+      "learning_modality": "HOUSE_PARTS_NAMING",
+      "target_utterances": [
+        {
+          "cz": "dveře",
+          "mn_natural_draft": "хаалга (Чех хэлэнд олон тооны хэлбэртэй)",
+          "provenance_status": "new_dictionary_crosschecked",
+          "editorial_verified": false
+        },
+        {
+          "cz": "okno",
+          "mn_natural_draft": "цонх",
+          "provenance_status": "new_editorial_pending",
+          "editorial_verified": false
+        },
+        {
+          "cz": "To jsou dveře.",
+          "mn_natural_draft": "Энэ бол хаалга.",
+          "provenance_status": "new_editorial_pending",
+          "editorial_verified": false
+        },
+        {
+          "cz": "To je okno.",
+          "mn_natural_draft": "Энэ бол цонх.",
+          "provenance_status": "new_editorial_pending",
+          "editorial_verified": false
+        }
+      ],
+      "register_and_context": "Хүндэтгэлийн ялгаа хамаарахгүй; `dveře`-г `To je dveře` гэж алдаатай бүү нийлүүл.",
+      "exit_assessment_draft": "Танил бус байрны зурагт door/window-ыг 2/2 зөв зааж нэрлэнэ; бусад эд зүйлийг T11-L04-д үлдээнэ.",
+      "neighbor_overlap_resolution": "T11-L02 өрөөнүүд; L03 хаалга/цонх; L04 бусад гэрийн эд зүйл. Drive-ийн өргөн `эд зүйл` хэсгийг L04-д хуваарилсан нь ил тод scope decision.",
+      "blockers": "Drive-ийн өргөн нэрээс зориуд нарийсгасан шийдвэрийг native+MN редакц батлах шаардлагатай; хичээлийн жишээ phrase bank-д байхгүй.",
+      "external_crosscheck_urls": [
+        "https://ujc.cas.cz/cs/zajimave-dotazy/dozvedela-jsem-se-ze-deti-maji-urcovat-u-slova-dvere-cislo-mnozne-nikoli-pomnozne-proto-bych-se-chtela-zeptat-kdy-bylo-u-podstatnych-jmen-zruseno-pomnozne-cislo/",
+        "https://www.coe.int/en/web/common-european-framework-reference-languages/cefr-descriptors-search"
+      ],
+      "disposition": "RECOMMENDED_SCOPE_ONLY",
+      "approved": false,
+      "czech_native_signoff": "PENDING",
+      "mongolian_editor_signoff": "PENDING",
+      "audio_pronunciation_signoff": "PENDING",
+      "learner_pilot": "NOT_TESTED"
+    },
+    {
+      "skill_id": "A0-T12-L01",
+      "topic_id": "A0-T12",
+      "drive_title_mn": "Үндсэн өнгийг сонсож ялгах",
+      "github_title_mn": "Үндсэн өнгийг таних",
+      "github_can_do_mn": "Үндсэн өнгийг таних",
+      "previous_proposed_title_mn": "Үндсэн өнгийг сонсож ялгах",
+      "recommended_title_mn": "Үндсэн өнгийг сонсож ялгах",
+      "recommended_can_do_mn": "Энгийн Чех өнгөний нэрийг сонсоод тохирох өнгийн дүрсийг сонгоно.",
+      "learning_modality": "COLOR_LISTENING",
+      "target_utterances": [
+        {
+          "cz": "červená barva",
+          "mn_natural_draft": "улаан өнгө",
+          "provenance_status": "new_editorial_pending",
+          "editorial_verified": false
+        },
+        {
+          "cz": "modrá barva",
+          "mn_natural_draft": "цэнхэр өнгө",
+          "provenance_status": "new_editorial_pending",
+          "editorial_verified": false
+        },
+        {
+          "cz": "zelená barva",
+          "mn_natural_draft": "ногоон өнгө",
+          "provenance_status": "new_editorial_pending",
+          "editorial_verified": false
+        },
+        {
+          "cz": "Je to červené.",
+          "mn_natural_draft": "Энэ улаан өнгөтэй. (нийцлийн нөхцөлийг шалгах)",
+          "provenance_status": "existing_context_sensitive",
+          "editorial_verified": false
+        }
+      ],
+      "register_and_context": "Өнгөний тодотгол нь нэр үгийн хүйс/тоотой тохирно; `barva` эм хүйс тул `červená/modrá/zelená`. Дуугүй дүрсийг хараад таах биш аудиогоор ялгана.",
+      "exit_assessment_draft": "3 өнгө, тус бүр 2 шинэ дүрсний байрлал дээр зөв сонгох; L02 өнгийг өөрөө хэлж сонгох чадварыг энд давхар шалгахгүй.",
+      "neighbor_overlap_resolution": "L01 сонсож ялгах; L02 нэрлэж сонгох; L03 том/жижиг. Нэг чех өгүүлбэр гурван өнгийг шалгахад хангалтгүй.",
+      "blockers": "Цэнхэр/ногоон бодит Чех аудио байхгүй; текстээр сонсголын чадварыг батлах боломжгүй.",
+      "external_crosscheck_urls": [
+        "https://fonetika.ff.cuni.cz/en/czech-phonetics/",
+        "https://www.coe.int/en/web/common-european-framework-reference-languages/cefr-descriptors-search"
+      ],
+      "disposition": "RECOMMENDED_SCOPE_ONLY",
+      "approved": false,
+      "czech_native_signoff": "PENDING",
+      "mongolian_editor_signoff": "PENDING",
+      "audio_pronunciation_signoff": "PENDING",
+      "learner_pilot": "NOT_TESTED"
+    },
+    {
+      "skill_id": "A0-T13-L04",
+      "topic_id": "A0-T13",
+      "drive_title_mn": "Хүссэн зүйлээ хэлэх",
+      "github_title_mn": "Хүссэн хувцсаа хэлэх",
+      "github_can_do_mn": "Хүссэн хувцсаа хэлэх",
+      "previous_proposed_title_mn": "Хүссэн хувцсаа хэлэх",
+      "recommended_title_mn": "Хүссэн хувцсаа нэрлэж хүсэх",
+      "recommended_can_do_mn": "Хувцасны дэлгүүрт хайж буй хувцсаа нэрлэж энгийн хүсэлт тавина.",
+      "learning_modality": "CLOTHING_REQUEST",
+      "target_utterances": [
+        {
+          "cz": "Hledám bundu.",
+          "mn_natural_draft": "Би хүрэм хайж байна.",
+          "provenance_status": "new_crosschecked",
+          "editorial_verified": false
+        },
+        {
+          "cz": "Tuhle bundu, prosím.",
+          "mn_natural_draft": "Энэ хүрмийг өгнө үү.",
+          "provenance_status": "new_editorial_pending",
+          "editorial_verified": false
+        },
+        {
+          "cz": "Vezmu si to.",
+          "mn_natural_draft": "Үүнийг авъя. (худалдан авах шийдвэр)",
+          "provenance_status": "existing_not_request",
+          "editorial_verified": false
+        }
+      ],
+      "register_and_context": "Дэлгүүрийн үйлчилгээний албан нөхцөл; `tuhle` зааж байгаа зүйл тодорхой үед, informal speech nuance хянана.",
+      "exit_assessment_draft": "Дэлгүүрийн зурагт 2 өөр хувцасны нэгийг нэрлэн хайж байгаагаа хэлнэ; зөвхөн `Vezmu si to.` хэлсэн бол хүсэлт гэж оноохгүй.",
+      "neighbor_overlap_resolution": "L03 хэмжээ асуух; L04 хүссэн бараагаа нэрлэж хүсэх; L05 өмсөж үзэх зөвшөөрөл; L07 өөр хэмжээ хүсэх.",
+      "blockers": "Drive ерөнхий 'зүйл' гэснийг хувцасны сэдэвт нарийсгасан; native review, барааны жишээ, Монгол байгалийн орчуулга дутуу.",
+      "external_crosscheck_urls": [
+        "https://brno.czechcourses.cz/blog/5-minute-czech-intermediate-shopping-for-clothes",
+        "https://www.coe.int/en/web/common-european-framework-reference-languages/cefr-descriptors-search"
+      ],
+      "disposition": "RECOMMENDED_SCOPE_ONLY",
+      "approved": false,
+      "czech_native_signoff": "PENDING",
+      "mongolian_editor_signoff": "PENDING",
+      "audio_pronunciation_signoff": "PENDING",
+      "learner_pilot": "NOT_TESTED"
+    },
+    {
+      "skill_id": "A0-T13-L05",
+      "topic_id": "A0-T13",
+      "drive_title_mn": "Өмсөж үзэхийг хүсэх",
+      "github_title_mn": "Өмсөж үзэх",
+      "github_can_do_mn": "Өмсөж үзэх",
+      "previous_proposed_title_mn": "Өмсөж үзэхийг хүсэх",
+      "recommended_title_mn": "Хувцас өмсөж үзэх зөвшөөрөл хүсэх",
+      "recommended_can_do_mn": "Худалдагчид тодорхой хувцсыг өмсөж үзэж болох эсэхийг эелдгээр асууна.",
+      "learning_modality": "TRY_ON_PERMISSION",
+      "target_utterances": [
+        {
+          "cz": "Můžu si to zkusit?",
+          "mn_natural_draft": "Үүнийг өмсөж үзэж болох уу?",
+          "provenance_status": "existing_crosschecked",
+          "editorial_verified": false
+        },
+        {
+          "cz": "Ano, můžete.",
+          "mn_natural_draft": "Тийм, болно.",
+          "provenance_status": "new_editorial_pending",
+          "editorial_verified": false
+        },
+        {
+          "cz": "Bohužel ne.",
+          "mn_natural_draft": "Харамсалтай нь болохгүй.",
+          "provenance_status": "new_editorial_pending",
+          "editorial_verified": false
+        }
+      ],
+      "register_and_context": "Худалдагчид хандсан эелдэг асуулт; хариултын `můžete` бол vy хэлбэр. `Můžu si to zkusit?` асуулт өөрөө ty/vy төгсгөлгүй.",
+      "exit_assessment_draft": "Хувцсаа заасан шинэ сценд зөвшөөрөл асуугаад эерэг эсвэл сөрөг хариуг ойлгоно; 2-turn interaction нь хариултын шинэ өгөгдөлгүй бол дутуу.",
+      "neighbor_overlap_resolution": "L04 хүссэн хувцсаа олох/хүсэх; L05 өмсөж үзэх зөвшөөрөл; L07 өөр хэмжээ хүсэх.",
+      "blockers": "Асуултын эх жишээ байгаа боловч хариу болон жинхэнэ дэлгүүрийн аудио/харилцан яриа дутуу.",
+      "external_crosscheck_urls": [
+        "https://brno.czechcourses.cz/blog/5-minute-czech-intermediate-shopping-for-clothes",
+        "https://czechcourse.com/en/reference/sociocultural/formal-informal",
+        "https://www.coe.int/en/web/common-european-framework-reference-languages/cefr-descriptors-search"
+      ],
+      "disposition": "RECOMMENDED_SCOPE_ONLY",
+      "approved": false,
+      "czech_native_signoff": "PENDING",
+      "mongolian_editor_signoff": "PENDING",
+      "audio_pronunciation_signoff": "PENDING",
+      "learner_pilot": "NOT_TESTED"
+    }
+  ]
+}

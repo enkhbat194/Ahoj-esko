@@ -1,0 +1,444 @@
+{
+  "version": "0.1.0",
+  "status": "PROPOSAL_NOT_APPROVED",
+  "batch": 1,
+  "range": "T01–T05",
+  "source": "docs/data/a0_outline_reconciliation_2026-11-23.json",
+  "entries": [
+    {
+      "skill_id": "A0-T01-L03",
+      "topic_id": "A0-T01",
+      "topic_title_mn": "Цагаан толгой ба дуудлага",
+      "drive_title_mn": "Урт ба богино эгшгийг ялгах",
+      "github_title_mn": "Урт, богино эгшгийг ялгах",
+      "github_can_do_mn": "Урт, богино эгшгийг ялгах",
+      "initial_proposed_title_mn": "Урт ба богино эгшгийг ялгах",
+      "recommended_title_mn": "Урт ба богино эгшгийг сонсож ялгах",
+      "recommended_can_do_mn": "Ижил гийгүүлэгчтэй богино/урт эгшиг бүхий хоёр үгийг сонсоод ялгана.",
+      "sample_draft": {
+        "cz_text": "pan / pán",
+        "mn_context_gloss": "ноён (хүндэтгэлийн хандалт) / ноён, эзэн гэсэн утгатай нэр үг",
+        "exists_exactly_in_current_topic_phrase_bank": false,
+        "editorial_verified": false
+      },
+      "assessment_mode": "audio_minimal_pair",
+      "exit_check_draft": "Аудиог сонсоод pan/pán-ийн зөв бичлэгийг хоёр өөр дарааллаар сонгоно.",
+      "neighbor_skill_boundary": "L02 суурь эгшиг, L03 урт/богино, L04 Č/Š/Ž.",
+      "classification_at_audit": "wording_review",
+      "further_scope_review": true,
+      "review_issue": "Pan/pán утгын ялгаа ба авианы загварыг phonetics редакцаар батлах; өнөөгийн phrase bank-д байхгүй.",
+      "editorial_status": "DRAFT_PENDING_CZ_MN",
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "TARGETED_SCOPE_CHECK",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_NOT_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
+    },
+    {
+      "skill_id": "A0-T01-L07",
+      "topic_id": "A0-T01",
+      "topic_title_mn": "Цагаан толгой ба дуудлага",
+      "drive_title_mn": "R ба Ř-г таньж дуудах",
+      "github_title_mn": "R ба Ř авиаг таньж дуудах",
+      "github_can_do_mn": "R ба Ř авиаг таньж дуудах",
+      "initial_proposed_title_mn": "R ба Ř-г таньж дуудах",
+      "recommended_title_mn": "R ба Ř авиаг таньж, дуурайж хэлэх",
+      "recommended_can_do_mn": "R ба Ř авиаг жишээ үгэнд сонсоод ялгаж, дуурайж хэлнэ.",
+      "sample_draft": {
+        "cz_text": "ruka / řeka",
+        "mn_context_gloss": "гар / гол",
+        "exists_exactly_in_current_topic_phrase_bank": false,
+        "editorial_verified": false
+      },
+      "assessment_mode": "listen_and_imitate",
+      "exit_check_draft": "2 өөр загварыг сонсож, зөв үгийг сонгоод дуурайж хэлнэ; STT-г дуудлагын баталгаа болгохгүй.",
+      "neighbor_skill_boundary": "L06 Ď/Ť/Ň, L07 R/Ř, L08 шинэ үг унших.",
+      "classification_at_audit": "wording_review",
+      "further_scope_review": false,
+      "review_issue": "R/Ř нь энгийн бичлэг танихтай адилгүй; хоёр үг минимал хос биш, авиазүйн аудио шаардлагатай.",
+      "editorial_status": "DRAFT_PENDING_CZ_MN",
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "WORDING_ONLY_PROPOSAL",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_NOT_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
+    },
+    {
+      "skill_id": "A0-T01-L08",
+      "topic_id": "A0-T01",
+      "topic_title_mn": "Цагаан толгой ба дуудлага",
+      "drive_title_mn": "Танил бус үг унших сорил",
+      "github_title_mn": "Танил бус үгийг унших сорил",
+      "github_can_do_mn": "Танил бус үгийг унших сорил",
+      "initial_proposed_title_mn": "Танил бус үг унших сорил",
+      "recommended_title_mn": "Танил бус богино үгийг унших сорил",
+      "recommended_can_do_mn": "Урьд нь хараагүй богино үгийг чехийн үсэг–авианы дүрмээр уншиж оролдоно.",
+      "sample_draft": {
+        "cz_text": "žába",
+        "mn_context_gloss": "мэлхий",
+        "exists_exactly_in_current_topic_phrase_bank": false,
+        "editorial_verified": false
+      },
+      "assessment_mode": "unseen_word_reading",
+      "exit_check_draft": "Урьдчилан заагаагүй 3–5 үгийг харуулаад үсэг–авиа холбоог шалгана; дуудлагын үнэлгээг хараат бус хэмжүүргүй PASS гэж үзэхгүй.",
+      "neighbor_skill_boundary": "L01–L07 авианы мэдлэгийн нийлмэл сорил.",
+      "classification_at_audit": "wording_review",
+      "further_scope_review": false,
+      "review_issue": "Үг сорилын өмнө харуулбал 'танил бус' нөхцөл нурна; жишээг зөвхөн өгөгдлийн загвар гэж үзнэ.",
+      "editorial_status": "DRAFT_PENDING_CZ_MN",
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "WORDING_ONLY_PROPOSAL",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_NOT_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
+    },
+    {
+      "skill_id": "A0-T02-L13",
+      "topic_id": "A0-T02",
+      "topic_title_mn": "Мэндчилгээ ба танилцах",
+      "drive_title_mn": "Энэ бол миний найз, багш",
+      "github_title_mn": "Энэ миний найз, багш",
+      "github_can_do_mn": "Энэ миний найз, багш",
+      "initial_proposed_title_mn": "Энэ бол миний найз, багш",
+      "recommended_title_mn": "Найз, багшийгаа танилцуулах",
+      "recommended_can_do_mn": "Хажуудаа байгаа найз эсвэл багшийг нэг энгийн өгүүлбэрээр танилцуулна.",
+      "sample_draft": {
+        "cz_text": "To je můj kamarád. / To je moje učitelka.",
+        "mn_context_gloss": "Энэ миний найз (эрэгтэй). / Энэ миний багш (эмэгтэй).",
+        "exists_exactly_in_current_topic_phrase_bank": false,
+        "editorial_verified": false
+      },
+      "assessment_mode": "introduce_other",
+      "exit_check_draft": "Хоёр дүрийг шинэ зурагт тус тус зааж танилцуулна; můj/moje хэлбэрийн тохирцыг шалгана.",
+      "neighbor_skill_boundary": "L12 'хэн бэ' асуулт, L13 өөрийн найз/багш, L14 өөр хүний найз/багш.",
+      "classification_at_audit": "wording_review",
+      "further_scope_review": false,
+      "review_issue": "Одоогийн phrase bank-д зөвхөн To je Sára. байна; эзэмшлийн хэлбэр ба хүйсийн хэлбэр шинээр нягтлах.",
+      "editorial_status": "DRAFT_PENDING_CZ_MN",
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "WORDING_ONLY_PROPOSAL",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_NOT_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
+    },
+    {
+      "skill_id": "A0-T03-L03",
+      "topic_id": "A0-T03",
+      "topic_title_mn": "Ойлгоогүйгээ лавлах",
+      "drive_title_mn": "Дахин хэлж өгнө үү",
+      "github_title_mn": "Дахиад хэлж өгнө үү",
+      "github_can_do_mn": "Дахиад хэлж өгнө үү",
+      "initial_proposed_title_mn": "Дахин хэлж өгнө үү",
+      "recommended_title_mn": "Дахин хэлж өгөхийг хүсэх",
+      "recommended_can_do_mn": "Ойлгоогүй үед нөгөө хүнээс хэлсэн зүйлээ дахин хэлэхийг эелдгээр хүснэ.",
+      "sample_draft": {
+        "cz_text": "Ještě jednou, prosím.",
+        "mn_context_gloss": "Дахиад нэг удаа хэлнэ үү.",
+        "exists_exactly_in_current_topic_phrase_bank": true,
+        "editorial_verified": false
+      },
+      "assessment_mode": "request_repetition",
+      "exit_check_draft": "Ойлгоход зориуд дутуу богино ярианы дараа тусламжгүйгээр давтуулах хүсэлтээ хэлнэ.",
+      "neighbor_skill_boundary": "L02 энгийн 'юу гэлээ', L03 давтуулах, L04 удаан ярихыг хүсэх.",
+      "classification_at_audit": "wording_review",
+      "further_scope_review": false,
+      "review_issue": "Тухайн хэллэг phrase bank-д байгаа; prosím эелдэг хүсэлт.",
+      "editorial_status": "DRAFT_PENDING_CZ_MN",
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "WORDING_ONLY_PROPOSAL",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
+    },
+    {
+      "skill_id": "A0-T04-L01",
+      "topic_id": "A0-T04",
+      "topic_title_mn": "Тоо ба мөнгө",
+      "drive_title_mn": "Тэгээс арав хүртэл хэлэх",
+      "github_title_mn": "Тэгээс арав хүртэл",
+      "github_can_do_mn": "Тэгээс арав хүртэл",
+      "initial_proposed_title_mn": "Тэгээс арав хүртэл хэлэх",
+      "recommended_title_mn": "0–10 хүртэлх тоог хэлэх",
+      "recommended_can_do_mn": "0–10-ын тоог цифрээр хараад чехээр нэрлэнэ.",
+      "sample_draft": {
+        "cz_text": "nula, jedna, dva, tři",
+        "mn_context_gloss": "тэг, нэг, хоёр, гурав",
+        "exists_exactly_in_current_topic_phrase_bank": false,
+        "editorial_verified": false
+      },
+      "assessment_mode": "number_production",
+      "exit_check_draft": "0–10-ын 5 санамсаргүй цифрийг багшийн дэмжлэггүй нэрлэнэ.",
+      "neighbor_skill_boundary": "L02 11–20; L03 аравтуудыг сонсох.",
+      "classification_at_audit": "wording_review",
+      "further_scope_review": false,
+      "review_issue": "Жишээ дөрөвхөн тоотой; бүрэн 0–10 багц, 1/2-ын хүйсний хэрэглээ ба аудио дутуу.",
+      "editorial_status": "DRAFT_PENDING_CZ_MN",
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "WORDING_ONLY_PROPOSAL",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_NOT_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
+    },
+    {
+      "skill_id": "A0-T04-L02",
+      "topic_id": "A0-T04",
+      "topic_title_mn": "Тоо ба мөнгө",
+      "drive_title_mn": "Арван нэгээс хорь хүртэл хэлэх",
+      "github_title_mn": "Арван нэгээс хорь хүртэл",
+      "github_can_do_mn": "Арван нэгээс хорь хүртэл",
+      "initial_proposed_title_mn": "Арван нэгээс хорь хүртэл хэлэх",
+      "recommended_title_mn": "11–20 хүртэлх тоог хэлэх",
+      "recommended_can_do_mn": "11–20 доторх өгөгдсөн цифрийг чехээр хэлнэ.",
+      "sample_draft": {
+        "cz_text": "jedenáct / dvacet",
+        "mn_context_gloss": "арван нэг / хорь",
+        "exists_exactly_in_current_topic_phrase_bank": false,
+        "editorial_verified": false
+      },
+      "assessment_mode": "number_production",
+      "exit_check_draft": "11–20-ын 5 санамсаргүй цифрийг нэрлэнэ; бүрэн тоон сан шаардлагатай.",
+      "neighbor_skill_boundary": "L01 0–10; L03 аравтуудыг сонсох.",
+      "classification_at_audit": "wording_review",
+      "further_scope_review": false,
+      "review_issue": "Одоогийн phrase bank-д 11–20 тоонууд алга.",
+      "editorial_status": "DRAFT_PENDING_CZ_MN",
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "WORDING_ONLY_PROPOSAL",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_NOT_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
+    },
+    {
+      "skill_id": "A0-T04-L03",
+      "topic_id": "A0-T04",
+      "topic_title_mn": "Тоо ба мөнгө",
+      "drive_title_mn": "Аравтуудыг сонсож ялгах",
+      "github_title_mn": "Аравтуудыг ялгах",
+      "github_can_do_mn": "Аравтуудыг ялгах",
+      "initial_proposed_title_mn": "Аравтуудыг сонсож ялгах",
+      "recommended_title_mn": "Аравтуудыг сонсож ялгах",
+      "recommended_can_do_mn": "20–90-ын аравтын тоонуудыг сонсоод зөв цифрийг сонгоно.",
+      "sample_draft": {
+        "cz_text": "dvacet / třicet",
+        "mn_context_gloss": "хорь / гуч",
+        "exists_exactly_in_current_topic_phrase_bank": false,
+        "editorial_verified": false
+      },
+      "assessment_mode": "number_listening",
+      "exit_check_draft": "Бичвэргүй аудионоос аравтын хэдэн тоог цифртэй холбох сорил.",
+      "neighbor_skill_boundary": "L02 11–20 хэлэх; L04 0–100 дотор тоо хэлэх.",
+      "classification_at_audit": "wording_review",
+      "further_scope_review": true,
+      "review_issue": "Аудио болон 20–90-ын бүх жишээ дутуу, сонсголын үр дүнг бичмэл жагсаалтаар үнэлж болохгүй.",
+      "editorial_status": "DRAFT_PENDING_CZ_MN",
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "TARGETED_SCOPE_CHECK",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_NOT_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
+    },
+    {
+      "skill_id": "A0-T04-L04",
+      "topic_id": "A0-T04",
+      "topic_title_mn": "Тоо ба мөнгө",
+      "drive_title_mn": "Зуу хүртэл тоо хэлэх",
+      "github_title_mn": "Зуу хүртэл тоо",
+      "github_can_do_mn": "Зуу хүртэл тоо",
+      "initial_proposed_title_mn": "Зуу хүртэл тоо хэлэх",
+      "recommended_title_mn": "100 хүртэлх тоог хэлэх",
+      "recommended_can_do_mn": "Өгөгдсөн 0–100 бүхэл тоог чехээр хэлнэ.",
+      "sample_draft": {
+        "cz_text": "padesát šest / sto",
+        "mn_context_gloss": "тавин зургаа / зуу",
+        "exists_exactly_in_current_topic_phrase_bank": false,
+        "editorial_verified": false
+      },
+      "assessment_mode": "number_production",
+      "exit_check_draft": "23, 56, 99, 100 гэх мэт анх хараагүй цифрийг хэлнэ.",
+      "neighbor_skill_boundary": "L03 аравтууд сонсох, L05 утасны дугаарыг дарааллаар хэлэх.",
+      "classification_at_audit": "wording_review",
+      "further_scope_review": false,
+      "review_issue": "Одоогийн банканд зөвхөн Sto korun. байна; 0–100 үйлдвэрлэх чадварыг үүгээр батлахгүй.",
+      "editorial_status": "DRAFT_PENDING_CZ_MN",
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "WORDING_ONLY_PROPOSAL",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_NOT_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
+    },
+    {
+      "skill_id": "A0-T04-L07",
+      "topic_id": "A0-T04",
+      "topic_title_mn": "Тоо ба мөнгө",
+      "drive_title_mn": "Энэ хэд вэ гэж асуух",
+      "github_title_mn": "Энэ хэд вэ?",
+      "github_can_do_mn": "Энэ хэд вэ?",
+      "initial_proposed_title_mn": "Энэ хэд вэ гэж асуух",
+      "recommended_title_mn": "Барааны үнийг асуух",
+      "recommended_can_do_mn": "Дэлгүүрт бараа зааж үнийг нь эелдгээр асууна.",
+      "sample_draft": {
+        "cz_text": "Kolik to stojí?",
+        "mn_context_gloss": "Энэ хэдэн төгрөг/крон болох вэ? (Чех нөхцөлд: Хэдэн крон вэ?)",
+        "exists_exactly_in_current_topic_phrase_bank": true,
+        "editorial_verified": false
+      },
+      "assessment_mode": "ask_price",
+      "exit_check_draft": "Хоёр өөр бараа зааж үнэ асууж, танил тоо сонсоод хариуг танина.",
+      "neighbor_skill_boundary": "L06 үнийг сонсож ойлгох, L07 асуух, L08 төлбөр төлөх.",
+      "classification_at_audit": "wording_review",
+      "further_scope_review": false,
+      "review_issue": "Барааны үнийг асуух болон 'энэ хэд вэ' гэсэн тоо ширхэгийн асуултыг холихгүй; MN gloss-ийг контекстээр нэг мөр болгоно.",
+      "editorial_status": "DRAFT_PENDING_CZ_MN",
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "WORDING_ONLY_PROPOSAL",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
+    },
+    {
+      "skill_id": "A0-T04-L08",
+      "topic_id": "A0-T04",
+      "topic_title_mn": "Тоо ба мөнгө",
+      "drive_title_mn": "Касс дээр төлбөр хийх сорил",
+      "github_title_mn": "Кассанд төлбөр хийх сорил",
+      "github_can_do_mn": "Кассанд төлбөр хийх сорил",
+      "initial_proposed_title_mn": "Касс дээр төлбөр хийх сорил",
+      "recommended_title_mn": "Касс дээр төлбөр хийх сорил",
+      "recommended_can_do_mn": "Кассанд нийт үнийг ойлгоод картаар эсвэл бэлнээр төлөх сонголтоо хэлнэ.",
+      "sample_draft": {
+        "cz_text": "Kartou, prosím. / Hotově.",
+        "mn_context_gloss": "Картаар, гуйя. / Бэлнээр.",
+        "exists_exactly_in_current_topic_phrase_bank": false,
+        "editorial_verified": false
+      },
+      "assessment_mode": "cashier_exit",
+      "exit_check_draft": "Шинэ үнэ сонсоод төлбөрийн аргаа сонгон хэлж, кассын нэг асуултад хариулна.",
+      "neighbor_skill_boundary": "L07 үнэ асуух; L08 нийт төлбөрийн үйл явц.",
+      "classification_at_audit": "wording_review",
+      "further_scope_review": false,
+      "review_issue": "Кассын нөгөө талын асуулт/хариу банканд дутуу; бодит төлбөр хийх чадварыг нэг үгээр батлахгүй.",
+      "editorial_status": "DRAFT_PENDING_CZ_MN",
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "WORDING_ONLY_PROPOSAL",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_NOT_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
+    },
+    {
+      "skill_id": "A0-T05-L04",
+      "topic_id": "A0-T05",
+      "topic_title_mn": "Өдөр, цаг, уулзалт",
+      "drive_title_mn": "Бүтэн цагийг хэлэх",
+      "github_title_mn": "Бүтэн цаг хэлэх",
+      "github_can_do_mn": "Бүтэн цаг хэлэх",
+      "initial_proposed_title_mn": "Бүтэн цагийг хэлэх",
+      "recommended_title_mn": "Бүтэн цагийг хэлэх",
+      "recommended_can_do_mn": "Бүтэн цагийн цаглал үзүүлсэн дүрсээс уулзалтын цагийг чехээр хэлнэ.",
+      "sample_draft": {
+        "cz_text": "V osm.",
+        "mn_context_gloss": "Найман цагт.",
+        "exists_exactly_in_current_topic_phrase_bank": true,
+        "editorial_verified": false
+      },
+      "assessment_mode": "hour_production",
+      "exit_check_draft": "3, 8, 11 цагийн дүрсийг харж V ... хэлбэрээр хэлнэ.",
+      "neighbor_skill_boundary": "L03 өдрийн хэсэг, L05 хэдэн цагт асуух.",
+      "classification_at_audit": "wording_review",
+      "further_scope_review": false,
+      "review_issue": "Одоогоор зөвхөн V osm. байна; бусад цагийн хэлбэрийг зааж батлах шаардлагатай.",
+      "editorial_status": "DRAFT_PENDING_CZ_MN",
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "WORDING_ONLY_PROPOSAL",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
+    },
+    {
+      "skill_id": "A0-T05-L05",
+      "topic_id": "A0-T05",
+      "topic_title_mn": "Өдөр, цаг, уулзалт",
+      "drive_title_mn": "Хэдэн цагт гэж асуух",
+      "github_title_mn": "Хэдэн цагт вэ?",
+      "github_can_do_mn": "Хэдэн цагт вэ?",
+      "initial_proposed_title_mn": "Хэдэн цагт гэж асуух",
+      "recommended_title_mn": "Хэдэн цагт болохыг асуух",
+      "recommended_can_do_mn": "Тодорхой үйл явдал хэдэн цагт болохыг асууна.",
+      "sample_draft": {
+        "cz_text": "V kolik hodin?",
+        "mn_context_gloss": "Хэдэн цагт?",
+        "exists_exactly_in_current_topic_phrase_bank": true,
+        "editorial_verified": false
+      },
+      "assessment_mode": "ask_clock_time",
+      "exit_check_draft": "Хоёр нөхцөлд тохирох үед цаг асуугаад бүтэн цагийн хариуг ойлгоно.",
+      "neighbor_skill_boundary": "L04 цагийг хэлэх, L05 хэдэн цагт, L06 хэзээ (өдөр/хугацаа).",
+      "classification_at_audit": "wording_review",
+      "further_scope_review": false,
+      "review_issue": "Цагийн тодорхой цэг асуух нь Kdy? ерөнхий асуултаас ялгаатай.",
+      "editorial_status": "DRAFT_PENDING_CZ_MN",
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "WORDING_ONLY_PROPOSAL",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
+    },
+    {
+      "skill_id": "A0-T05-L06",
+      "topic_id": "A0-T05",
+      "topic_title_mn": "Өдөр, цаг, уулзалт",
+      "drive_title_mn": "Хэзээ гэж асуух",
+      "github_title_mn": "Хэзээ вэ?",
+      "github_can_do_mn": "Хэзээ вэ?",
+      "initial_proposed_title_mn": "Хэзээ гэж асуух",
+      "recommended_title_mn": "Хэзээ болохыг асуух",
+      "recommended_can_do_mn": "Өдөр эсвэл хугацаа тодруулахаар Kdy? асуултыг хэрэглэнэ.",
+      "sample_draft": {
+        "cz_text": "Kdy? / Zítra.",
+        "mn_context_gloss": "Хэзээ? / Маргааш.",
+        "exists_exactly_in_current_topic_phrase_bank": false,
+        "editorial_verified": false
+      },
+      "assessment_mode": "ask_when",
+      "exit_check_draft": "Хэдэн цаг гэдэг биш өдөр/хугацаа шаардах шинэ нөхцөлд асуулт сонгоно.",
+      "neighbor_skill_boundary": "L05 V kolik hodin? цагийн тодорхой асуулт; L06 Kdy? ерөнхий.",
+      "classification_at_audit": "wording_review",
+      "further_scope_review": false,
+      "review_issue": "Kdy? нь Drive жишигт байгаа боловч одоогийн repo phrase bank-д алга.",
+      "editorial_status": "DRAFT_PENDING_CZ_MN",
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "WORDING_ONLY_PROPOSAL",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_NOT_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
+    }
+  ],
+  "review_note": "Scope risk is distinguished from missing Czech phrase/audio evidence. False scope risk does not mean lesson/audio quality approved."
+}

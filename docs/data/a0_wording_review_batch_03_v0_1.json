@@ -1,0 +1,351 @@
+{
+  "version": "0.1.0",
+  "status": "PROPOSAL_NOT_APPROVED",
+  "batch": 3,
+  "range": "T09–T12",
+  "source": "docs/data/a0_outline_reconciliation_2026-11-23.json",
+  "entries": [
+    {
+      "skill_id": "A0-T09-L06",
+      "topic_id": "A0-T09",
+      "topic_title_mn": "Ажил, багаж, аюулгүй ажиллагаа",
+      "drive_title_mn": "Хий, бүү хий гэсэн заавар",
+      "github_title_mn": "Хий, бүү хий заавар",
+      "github_can_do_mn": "Хий, бүү хий заавар",
+      "initial_proposed_title_mn": "Хий, бүү хий гэсэн заавар",
+      "recommended_title_mn": "«Хий», «Бүү хий» гэсэн зааврыг ойлгох",
+      "recommended_can_do_mn": "Ажлын энгийн эерэг/хориглосон тушаалыг сонсоод зөв үйлдлийг симуляцад танина.",
+      "sample_draft": {
+        "cz_text": "Udělejte to. / Nedělejte to.",
+        "mn_context_gloss": "Үүнийг хийгээрэй. / Үүнийг битгий хийгээрэй.",
+        "exists_exactly_in_current_topic_phrase_bank": false,
+        "editorial_verified": false
+      },
+      "assessment_mode": "instruction_recognition",
+      "exit_check_draft": "Зөвхөн дэлгэц дээрх хоёр үйлдлийн аль нь зааварт нийцэхийг сонгоно; бодит тоног төхөөрөмж ажиллуулахгүй.",
+      "neighbor_skill_boundary": "L05 байршил, L06 хийх/хийхгүй байх, L07 зогсох тушаал.",
+      "classification_at_audit": "wording_review",
+      "further_scope_review": false,
+      "review_issue": "Drive 'заавар' ойлгох/хэлэх тодорхойгүй; Czech vy хэлбэрийн контекст, аюулгүй ажиллагааны үгсийг мэргэжлийн QA шаардлагатай.",
+      "editorial_status": "DRAFT_PENDING_CZ_MN",
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "WORDING_ONLY_PROPOSAL",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_NOT_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
+    },
+    {
+      "skill_id": "A0-T09-L10",
+      "topic_id": "A0-T09",
+      "topic_title_mn": "Ажил, багаж, аюулгүй ажиллагаа",
+      "drive_title_mn": "Ажил дээр тусламж хүсэх сорил",
+      "github_title_mn": "Тусламж хүсэх сорил",
+      "github_can_do_mn": "Тусламж хүсэх сорил",
+      "initial_proposed_title_mn": "Ажил дээр тусламж хүсэх сорил",
+      "recommended_title_mn": "Ажил дээр тусламж хүсэх сорил",
+      "recommended_can_do_mn": "Ажлын энгийн хүндрэлд хамт ажиллагчаас тусламж хүсэж, хариуг ойлгоно.",
+      "sample_draft": {
+        "cz_text": "Můžete mi prosím pomoct? / Pomoc!",
+        "mn_context_gloss": "Надад туслаач, болох уу? / Туслаарай!",
+        "exists_exactly_in_current_topic_phrase_bank": false,
+        "editorial_verified": false
+      },
+      "assessment_mode": "help_request_exit",
+      "exit_check_draft": "Аюулгүй сургалтын 2 сцен: ердийн тусламж хүсэх ба яаралтай дохио; зөв утгыг ялгана.",
+      "neighbor_skill_boundary": "L09 ойлгоогүй зааврыг давтуулах, L10 ердийн тусламж ба яаралтай тусламж.",
+      "classification_at_audit": "wording_review",
+      "further_scope_review": true,
+      "review_issue": "Одоогийн Помoc! бол яаралтай хашхиралт, зөвхөн түүгээр өдөр тутмын ажил дээр эелдэг хүсэлт шалгаж болохгүй.",
+      "editorial_status": "DRAFT_PENDING_CZ_MN",
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "TARGETED_SCOPE_CHECK",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_NOT_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
+    },
+    {
+      "skill_id": "A0-T10-L05",
+      "topic_id": "A0-T10",
+      "topic_title_mn": "Бие ба эрүүл мэнд",
+      "drive_title_mn": "Эмч хэрэгтэй гэж хэлэх",
+      "github_title_mn": "Надад эмч хэрэгтэй",
+      "github_can_do_mn": "Надад эмч хэрэгтэй",
+      "initial_proposed_title_mn": "Эмч хэрэгтэй гэж хэлэх",
+      "recommended_title_mn": "Эмч хэрэгтэйгээ хэлэх",
+      "recommended_can_do_mn": "Өвдсөн үед эмчтэй уулзах хэрэгтэй байгаагаа хэлнэ.",
+      "sample_draft": {
+        "cz_text": "Potřebuji lékaře.",
+        "mn_context_gloss": "Надад эмч хэрэгтэй.",
+        "exists_exactly_in_current_topic_phrase_bank": true,
+        "editorial_verified": false
+      },
+      "assessment_mode": "health_needs_doctor",
+      "exit_check_draft": "Шинэ эмнэлгийн нөхцөлд хүсэлтээ хэлж, эмч эсвэл эмийн сангийн зураг сонгоно.",
+      "neighbor_skill_boundary": "L04 биеийн байдал хэлэх, L05 эмч хэрэгтэй, L06 эмийн сан хайх.",
+      "classification_at_audit": "wording_review",
+      "further_scope_review": false,
+      "review_issue": "L07 ердийн тусламж хүсэхээс эмч шаардлагатайг тусгайлан ялгана.",
+      "editorial_status": "DRAFT_PENDING_CZ_MN",
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "WORDING_ONLY_PROPOSAL",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
+    },
+    {
+      "skill_id": "A0-T10-L07",
+      "topic_id": "A0-T10",
+      "topic_title_mn": "Бие ба эрүүл мэнд",
+      "drive_title_mn": "Тусламж хэрэгтэй гэж хэлэх",
+      "github_title_mn": "Тусламж хүсэх",
+      "github_can_do_mn": "Тусламж хүсэх",
+      "initial_proposed_title_mn": "Тусламж хэрэгтэй гэж хэлэх",
+      "recommended_title_mn": "Тусламж хэрэгтэйгээ хэлэх",
+      "recommended_can_do_mn": "Өөрт тусламж хэрэгтэй гэдгийг энгийнээр хэлж, шаардлагатай үед тусламж дуудна.",
+      "sample_draft": {
+        "cz_text": "Potřebuji pomoc. / Pomoc!",
+        "mn_context_gloss": "Надад тусламж хэрэгтэй. / Туслаарай!",
+        "exists_exactly_in_current_topic_phrase_bank": false,
+        "editorial_verified": false
+      },
+      "assessment_mode": "health_help_request",
+      "exit_check_draft": "Өдөр тутмын тусламж/яаралтай тусламжийн 2 дүрс дээр зөв хэллэгийг сонгон хэлнэ.",
+      "neighbor_skill_boundary": "L05 эмч хэрэгтэй; L07 өргөн тусламж; L08 шинж тэмдэг.",
+      "classification_at_audit": "wording_review",
+      "further_scope_review": true,
+      "review_issue": "Ажил дээрх T09-L10 тусламж хүсэх чадвартай давхардах учир эрүүл мэндийн нөхцөл ба тусламжийн төрлийг ялга.",
+      "editorial_status": "DRAFT_PENDING_CZ_MN",
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "TARGETED_SCOPE_CHECK",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_NOT_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
+    },
+    {
+      "skill_id": "A0-T10-L08",
+      "topic_id": "A0-T10",
+      "topic_title_mn": "Бие ба эрүүл мэнд",
+      "drive_title_mn": "Энгийн шинж тэмдэг хэлэх",
+      "github_title_mn": "Энгийн шинж тэмдэг",
+      "github_can_do_mn": "Энгийн шинж тэмдэг",
+      "initial_proposed_title_mn": "Энгийн шинж тэмдэг хэлэх",
+      "recommended_title_mn": "Энгийн шинж тэмдгээ хэлэх",
+      "recommended_can_do_mn": "Толгой өвдөх эсвэл бие тавгүйрхэхийг энгийн өгүүлбэрээр хэлнэ.",
+      "sample_draft": {
+        "cz_text": "Bolí mě hlava. / Je mi špatně.",
+        "mn_context_gloss": "Миний толгой өвдөж байна. / Миний бие муу байна.",
+        "exists_exactly_in_current_topic_phrase_bank": false,
+        "editorial_verified": false
+      },
+      "assessment_mode": "symptom_reporting",
+      "exit_check_draft": "Хоёр өөр өвчтөний дүрийн шинж тэмдгийг тус тус хэлнэ, онош тогтоохгүй.",
+      "neighbor_skill_boundary": "L07 тусламж хүсэх, L08 шинж тэмдэг мэдээлэх, L09 ойлгоогүйгээ лавлах.",
+      "classification_at_audit": "wording_review",
+      "further_scope_review": false,
+      "review_issue": "Одоо хоёр хэллэг phrase bank-д байгаа; хэрэглээний нөхцөл/ойлгомжтой дуудлага тусдаа QA.",
+      "editorial_status": "DRAFT_PENDING_CZ_MN",
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "WORDING_ONLY_PROPOSAL",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_NOT_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
+    },
+    {
+      "skill_id": "A0-T10-L10",
+      "topic_id": "A0-T10",
+      "topic_title_mn": "Бие ба эрүүл мэнд",
+      "drive_title_mn": "Эмчтэй богино харилцах сорил",
+      "github_title_mn": "Эмчтэй харилцах сорил",
+      "github_can_do_mn": "Эмчтэй харилцах сорил",
+      "initial_proposed_title_mn": "Эмчтэй богино харилцах сорил",
+      "recommended_title_mn": "Эмчтэй богино харилцах сорил",
+      "recommended_can_do_mn": "Эмчийн нэг асуултыг ойлгож, өөрт илэрч буй нэг шинж тэмдгийг хэлээд шаардлагатай үед лавлана.",
+      "sample_draft": {
+        "cz_text": "Co vás bolí? – Bolí mě hlava.",
+        "mn_context_gloss": "Таны юу өвдөж байна вэ? – Миний толгой өвдөж байна.",
+        "exists_exactly_in_current_topic_phrase_bank": false,
+        "editorial_verified": false
+      },
+      "assessment_mode": "doctor_dialogue_exit",
+      "exit_check_draft": "Шинэ дүр дээр эмчийн асуултыг сонсоод зохих шинж тэмдэг хэлнэ; ойлгоогүй бол дахин асууна.",
+      "neighbor_skill_boundary": "L08 шинж тэмдэг, L09 лавлах, L10 нийлмэл эмчийн харилцаа.",
+      "classification_at_audit": "wording_review",
+      "further_scope_review": false,
+      "review_issue": "Эмчийн асуулт repo phrase bank-д байхгүй; зөвлөмж/эмчилгээ, клиникийн нарийн ойлголт энэ A0 сорилд хамаарахгүй.",
+      "editorial_status": "DRAFT_PENDING_CZ_MN",
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "WORDING_ONLY_PROPOSAL",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_NOT_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
+    },
+    {
+      "skill_id": "A0-T11-L02",
+      "topic_id": "A0-T11",
+      "topic_title_mn": "Гэр ба орон байр",
+      "drive_title_mn": "Өрөөнүүдийг нэрлэх",
+      "github_title_mn": "Өрөөнүүд",
+      "github_can_do_mn": "Өрөөнүүд",
+      "initial_proposed_title_mn": "Өрөөнүүдийг нэрлэх",
+      "recommended_title_mn": "Гэрийн өрөөнүүдийг нэрлэх",
+      "recommended_can_do_mn": "Зурагт буй гал тогоо, ариун цэврийн өрөө болон өөр энгийн өрөөг Чехээр нэрлэнэ.",
+      "sample_draft": {
+        "cz_text": "kuchyň / koupelna / pokoj",
+        "mn_context_gloss": "гал тогоо / угаалгын өрөө / өрөө",
+        "exists_exactly_in_current_topic_phrase_bank": false,
+        "editorial_verified": false
+      },
+      "assessment_mode": "rooms_naming",
+      "exit_check_draft": "Орон сууцны зурагт 3 өрөөний нэрийг зөв харгалзуулж нэрлэнэ.",
+      "neighbor_skill_boundary": "L01 байр танилцуулах, L02 өрөө, L03 хаалга/цонх.",
+      "classification_at_audit": "wording_review",
+      "further_scope_review": false,
+      "review_issue": "Одоогийн phrase bank зөвхөн Kde je koupelna? агуулдаг тул олон өрөөг нэрлэж чаддаг гэсэн баталгаа байхгүй.",
+      "editorial_status": "DRAFT_PENDING_CZ_MN",
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "WORDING_ONLY_PROPOSAL",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_NOT_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
+    },
+    {
+      "skill_id": "A0-T12-L03",
+      "topic_id": "A0-T12",
+      "topic_title_mn": "Өнгө ба хэлбэр",
+      "drive_title_mn": "Том, жижиг гэж хэлэх",
+      "github_title_mn": "Том, жижиг",
+      "github_can_do_mn": "Том, жижиг",
+      "initial_proposed_title_mn": "Том, жижиг гэж хэлэх",
+      "recommended_title_mn": "«Том», «жижиг» шинжийг хэлэх",
+      "recommended_can_do_mn": "Өгөгдсөн хоёр эд зүйлийн том/жижиг шинжийг энгийн хэллэгээр хэлнэ.",
+      "sample_draft": {
+        "cz_text": "velký dům / malý dům",
+        "mn_context_gloss": "том байшин / жижиг байшин",
+        "exists_exactly_in_current_topic_phrase_bank": false,
+        "editorial_verified": false
+      },
+      "assessment_mode": "size_description",
+      "exit_check_draft": "Том/жижиг байшинг зурагт хоёр өөр дарааллаар зөв хэлнэ.",
+      "neighbor_skill_boundary": "L02 өнгө нэрлэх, L03 хэмжээ, L04 хэлбэр.",
+      "classification_at_audit": "wording_review",
+      "further_scope_review": false,
+      "review_issue": "Adjective gender agreement: velký/malý нь dům эр хүйстэй тохирсон; өөр нэр үгт шууд хуулж болохгүй.",
+      "editorial_status": "DRAFT_PENDING_CZ_MN",
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "WORDING_ONLY_PROPOSAL",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_NOT_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
+    },
+    {
+      "skill_id": "A0-T12-L04",
+      "topic_id": "A0-T12",
+      "topic_title_mn": "Өнгө ба хэлбэр",
+      "drive_title_mn": "Дугуй хэлбэр таних",
+      "github_title_mn": "Дугуй хэлбэр",
+      "github_can_do_mn": "Дугуй хэлбэр",
+      "initial_proposed_title_mn": "Дугуй хэлбэр таних",
+      "recommended_title_mn": "Дугуй хэлбэрийг таних",
+      "recommended_can_do_mn": "Зурагт дугуй хэлбэртэй эд зүйл эсвэл дугуй дүрсийг бусад хэлбэрээс ялгана.",
+      "sample_draft": {
+        "cz_text": "kruh / Je to kulaté.",
+        "mn_context_gloss": "дугуй дүрс (тойрог) / Энэ дугуй хэлбэртэй.",
+        "exists_exactly_in_current_topic_phrase_bank": false,
+        "editorial_verified": false
+      },
+      "assessment_mode": "round_shape_recognition",
+      "exit_check_draft": "Дугуй болон дөрвөлжин дүрстэй 4 картнаас дугуйг сонгоно; нэр үг ба тэмдэг нэрийн ялгааг ойлгуулна.",
+      "neighbor_skill_boundary": "L03 хэмжээ; L04 дугуй, L05 дөрвөлжин.",
+      "classification_at_audit": "wording_review",
+      "further_scope_review": true,
+      "review_issue": "kruh (тойрог дүрс) ба kulaté (дугуй хэлбэртэй) нь өөр төрлийн хэллэг; modality, adjective agreement нягтлах.",
+      "editorial_status": "DRAFT_PENDING_CZ_MN",
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "TARGETED_SCOPE_CHECK",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_NOT_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
+    },
+    {
+      "skill_id": "A0-T12-L05",
+      "topic_id": "A0-T12",
+      "topic_title_mn": "Өнгө ба хэлбэр",
+      "drive_title_mn": "Дөрвөлжин хэлбэр таних",
+      "github_title_mn": "Дөрвөлжин хэлбэр",
+      "github_can_do_mn": "Дөрвөлжин хэлбэр",
+      "initial_proposed_title_mn": "Дөрвөлжин хэлбэр таних",
+      "recommended_title_mn": "Квадрат хэлбэрийг бусдаас ялган таних",
+      "recommended_can_do_mn": "Тэгш талт дөрвөлжин дүрсийг (квадрат) тэгш өнцөгт болон дугуй дүрсээс ялгана.",
+      "sample_draft": {
+        "cz_text": "čtverec / obdélník",
+        "mn_context_gloss": "квадрат / тэгш өнцөгт",
+        "exists_exactly_in_current_topic_phrase_bank": false,
+        "editorial_verified": false
+      },
+      "assessment_mode": "square_shape_recognition",
+      "exit_check_draft": "Зургаас квадрат, урт тэгш өнцөгт хоёрыг ялгах сорил; юу ойлгуулахыг Монгол нэрээр тодорхой заана.",
+      "neighbor_skill_boundary": "L04 дугуй; L05 дөрвөлжин; L06 өнгөт эд зүйл.",
+      "classification_at_audit": "wording_review",
+      "further_scope_review": true,
+      "review_issue": "Монгол 'дөрвөлжин' нь rectangle/square хоёуланг хамарч магадгүй. Чех čtverec≠obdélník; нэрийн scope-г редакцаар шийдэх.",
+      "editorial_status": "DRAFT_PENDING_CZ_MN",
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "TARGETED_SCOPE_CHECK",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_NOT_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
+    },
+    {
+      "skill_id": "A0-T12-L06",
+      "topic_id": "A0-T12",
+      "topic_title_mn": "Өнгө ба хэлбэр",
+      "drive_title_mn": "Өнгө, эд зүйлийг хамт хэлэх",
+      "github_title_mn": "Өнгө ба эд зүйл",
+      "github_can_do_mn": "Өнгө ба эд зүйл",
+      "initial_proposed_title_mn": "Өнгө, эд зүйлийг хамт хэлэх",
+      "recommended_title_mn": "Эд зүйлийг өнгөтэй нь хамт нэрлэх",
+      "recommended_can_do_mn": "Эд зүйл болон түүний өнгийг Чехээр нэг утгатай хэллэгт хамтатгана.",
+      "sample_draft": {
+        "cz_text": "červené auto / modré auto",
+        "mn_context_gloss": "улаан машин / цэнхэр машин",
+        "exists_exactly_in_current_topic_phrase_bank": false,
+        "editorial_verified": false
+      },
+      "assessment_mode": "color_object_phrase",
+      "exit_check_draft": "Ижил нэртэй хоёр өөр өнгийн эд зүйлийг зөв хослолтой нэрлэнэ.",
+      "neighbor_skill_boundary": "L01 өнгө сонсох, L02 өнгө нэрлэх, L06 эд зүйлтэй нэгтгэх.",
+      "classification_at_audit": "wording_review",
+      "further_scope_review": true,
+      "review_issue": "Өнгөний тэмдэг нэр ба нэр үгийн хүйс/тооны нийцлийг батлах; зүгээр хоёр үгийг тус тус мэдэх нь хангалтгүй.",
+      "editorial_status": "DRAFT_PENDING_CZ_MN",
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "TARGETED_SCOPE_CHECK",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_NOT_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
+    }
+  ],
+  "review_note": "Scope risk is distinguished from missing Czech phrase/audio evidence. False scope risk does not mean lesson/audio quality approved."
+}

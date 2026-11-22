@@ -1,0 +1,2023 @@
+{
+  "schema_version": "0.1.0",
+  "register_status": "CONSOLIDATED_EDITORIAL_WORKING_DRAFT_NOT_CANONICAL",
+  "date": "2026-11-23",
+  "source_main_sha": "4431da3eb6ea8e65266e8c30e3df741fcbe4be3e",
+  "source_git_blobs": {
+    "docs/data/a0_outline_reconciliation_2026-11-23.json": "1906eb04e5d50a2d911ea08d6469fef6fcc2557e",
+    "docs/data/a0_14_scope_editorial_decisions_v0_2.json": "c216fd0136d7711a79f2ad3197b9025eb1a958f8",
+    "docs/data/a0_wording_review_batch_01_v0_1.json": "d6e07b1231acbf607e369d3ff42df35a509bba01",
+    "docs/data/a0_wording_review_batch_02_v0_1.json": "6a10425ba19760ec09b5df9385fb5331c0fe805c",
+    "docs/data/a0_wording_review_batch_03_v0_1.json": "a796570f6ab4629fd7e6f1bd188bcc33531f4c5d",
+    "docs/data/a0_wording_review_batch_04_v0_1.json": "7df3cb2f24071da802a07292a4be82d749cb829d"
+  },
+  "source_note": "The Drive document was independently read and checked against the stored 140-ID snapshot on 2026-11-23 in the preceding checkpoint; this file does not assert continuous live synchronization.",
+  "total_counts": {
+    "source_a0_skills": 140,
+    "drive_github_title_matches": 78,
+    "title_differences": 62,
+    "original_scope_cases": 14,
+    "original_wording_cases": 48,
+    "wording_escalated_scope_candidates": 18,
+    "wording_only_drafts": 30,
+    "approved": 0
+  },
+  "policy": "A scope risk is not a proven error. A draft title is not accepted/released. No TTS or lesson code should consume this register as canonical content. New sample strings are not audio segmentation contracts. Preserve existing skill IDs and original classification.",
+  "entries": [
+    {
+      "skill_id": "A0-T01-L03",
+      "topic_id": "A0-T01",
+      "drive_title_mn": "Урт ба богино эгшгийг ялгах",
+      "github_title_mn": "Урт, богино эгшгийг ялгах",
+      "original_classification": "wording_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "Урт ба богино эгшгийг сонсож ялгах",
+      "recommended_can_do_mn": "Ижил гийгүүлэгчтэй богино/урт эгшиг бүхий хоёр үгийг сонсоод ялгана.",
+      "target_examples_draft": [
+        {
+          "cz_text_unsegmented": "pan / pán",
+          "mn": "ноён (хүндэтгэлийн хандалт) / ноён, эзэн гэсэн утгатай нэр үг",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "Аудиог сонсоод pan/pán-ийн зөв бичлэгийг хоёр өөр дарааллаар сонгоно.",
+      "neighbor_scope_draft": "L02 суурь эгшиг, L03 урт/богино, L04 Č/Š/Ž.",
+      "register_and_context_draft": "Цагаан толгой ба дуудлага сэдвийн нөхцөл; хэлэгч, харилцааны хүндэтгэлийн хэлбэрийн эцсийн хяналт хүлээгдэж байна.",
+      "issue_or_blocker": "Pan/pán утгын ялгаа ба авианы загварыг phonetics редакцаар батлах; өнөөгийн phrase bank-д байхгүй.",
+      "requires_scope_review": true,
+      "evidence_level": "REPO_SOURCE_AND_EDITORIAL_DRAFT_NATIVE_PENDING",
+      "source_document": "docs/data/a0_wording_review_batch_01_v0_1.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T01-L05",
+      "topic_id": "A0-T01",
+      "drive_title_mn": "C/Č, S/Š, Z/Ž авиаг сонсож ялгах",
+      "github_title_mn": "C/Č, S/Š, Z/Ž-ийг ялгах",
+      "original_classification": "scope_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "C/Č, S/Š, Z/Ž авиаг сонсож ялгах",
+      "recommended_can_do_mn": "Сонссон чех авиаг гурван ялгаатай хосын аль нь болохыг бичиг/дүрсийн сонголтоор танина.",
+      "target_examples_draft": [
+        {
+          "cz": "c / č; s / š; z / ž",
+          "mn": "IPA ба бодит авианы тусгай бичлэг шаардлагатай",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "3 хос бүрээс 2-оос доошгүй санамсаргүй сонсголын сорил; харсан үсгээ бус сонссон авиаг сонгох; дууны эх сурвалж шалгагдаагүй тул бодитоор ажиллуулахгүй.",
+      "neighbor_scope_draft": "T01-L04 нь Č/Š/Ž-г анх таних; L05 нь C/Č, S/Š, Z/Ž-ийг эсрэгцүүлэн сонсох. T01-L06 нь дуурайн хэлэх.",
+      "register_and_context_draft": "Харилцааны хүндэтгэлийн хэлбэр хамаарахгүй; үсгийн нэр ба авиаг андуурч болохгүй.",
+      "issue_or_blocker": "Жинхэнэ Чех авианы аудио, авиазүйн редакц, туршилтын сорил байхгүй.",
+      "requires_scope_review": true,
+      "evidence_level": "EXTERNAL_CROSSCHECK_LIMITED_NATIVE_PENDING",
+      "source_document": "docs/data/a0_14_scope_editorial_decisions_v0_2.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T01-L06",
+      "topic_id": "A0-T01",
+      "drive_title_mn": "Ď, Ť, Ň-ийг сонсож хэлэх",
+      "github_title_mn": "Ď, Ť, Ň авиаг хэлэх",
+      "original_classification": "scope_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "Ď, Ť, Ň авиаг сонсоод дуурайж хэлэх",
+      "recommended_can_do_mn": "Дагалдуулагч аудионы дараа ď, ť, ň-г жишээ үгийн эхний зөөлөн авиатай холбон дуурайж хэлнэ.",
+      "target_examples_draft": [
+        {
+          "cz": "děti",
+          "mn": "хүүхдүүд",
+          "editorial_verified": false
+        },
+        {
+          "cz": "tělo",
+          "mn": "бие",
+          "editorial_verified": false
+        },
+        {
+          "cz": "něco",
+          "mn": "ямар нэг зүйл",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "3 аудио загварыг сонсоод үгийн эхний хэсгийг дагаж хэлнэ; бичлэгийг хадгалж, хараат бус авиазүйн баталгаажуулалтгүй STT-ээр 'зөв дуудлаа' гэж дүгнэхгүй.",
+      "neighbor_scope_draft": "L05 сонсголын авиаг ялгана; L06 дуурайн хэлнэ; L07 R/Ř-г таних/дуудах, ялгаатай авиа.",
+      "register_and_context_draft": "Дотно/албан хэлбэр хамаарахгүй; dě/tě/ně үсгийн бичлэг ба авиаг тусад нь тайлбарлах.",
+      "issue_or_blocker": "Аудио, дуудлага үнэлэх найдвартай хэмжүүр, авиазүйн редакц дутуу.",
+      "requires_scope_review": true,
+      "evidence_level": "EXTERNAL_CROSSCHECK_LIMITED_NATIVE_PENDING",
+      "source_document": "docs/data/a0_14_scope_editorial_decisions_v0_2.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T01-L07",
+      "topic_id": "A0-T01",
+      "drive_title_mn": "R ба Ř-г таньж дуудах",
+      "github_title_mn": "R ба Ř авиаг таньж дуудах",
+      "original_classification": "wording_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "R ба Ř авиаг таньж, дуурайж хэлэх",
+      "recommended_can_do_mn": "R ба Ř авиаг жишээ үгэнд сонсоод ялгаж, дуурайж хэлнэ.",
+      "target_examples_draft": [
+        {
+          "cz_text_unsegmented": "ruka / řeka",
+          "mn": "гар / гол",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "2 өөр загварыг сонсож, зөв үгийг сонгоод дуурайж хэлнэ; STT-г дуудлагын баталгаа болгохгүй.",
+      "neighbor_scope_draft": "L06 Ď/Ť/Ň, L07 R/Ř, L08 шинэ үг унших.",
+      "register_and_context_draft": "Цагаан толгой ба дуудлага сэдвийн нөхцөл; хэлэгч, харилцааны хүндэтгэлийн хэлбэрийн эцсийн хяналт хүлээгдэж байна.",
+      "issue_or_blocker": "R/Ř нь энгийн бичлэг танихтай адилгүй; хоёр үг минимал хос биш, авиазүйн аудио шаардлагатай.",
+      "requires_scope_review": false,
+      "evidence_level": "REPO_SOURCE_AND_EDITORIAL_DRAFT_NATIVE_PENDING",
+      "source_document": "docs/data/a0_wording_review_batch_01_v0_1.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T01-L08",
+      "topic_id": "A0-T01",
+      "drive_title_mn": "Танил бус үг унших сорил",
+      "github_title_mn": "Танил бус үгийг унших сорил",
+      "original_classification": "wording_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "Танил бус богино үгийг унших сорил",
+      "recommended_can_do_mn": "Урьд нь хараагүй богино үгийг чехийн үсэг–авианы дүрмээр уншиж оролдоно.",
+      "target_examples_draft": [
+        {
+          "cz_text_unsegmented": "žába",
+          "mn": "мэлхий",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "Урьдчилан заагаагүй 3–5 үгийг харуулаад үсэг–авиа холбоог шалгана; дуудлагын үнэлгээг хараат бус хэмжүүргүй PASS гэж үзэхгүй.",
+      "neighbor_scope_draft": "L01–L07 авианы мэдлэгийн нийлмэл сорил.",
+      "register_and_context_draft": "Цагаан толгой ба дуудлага сэдвийн нөхцөл; хэлэгч, харилцааны хүндэтгэлийн хэлбэрийн эцсийн хяналт хүлээгдэж байна.",
+      "issue_or_blocker": "Үг сорилын өмнө харуулбал 'танил бус' нөхцөл нурна; жишээг зөвхөн өгөгдлийн загвар гэж үзнэ.",
+      "requires_scope_review": false,
+      "evidence_level": "REPO_SOURCE_AND_EDITORIAL_DRAFT_NATIVE_PENDING",
+      "source_document": "docs/data/a0_wording_review_batch_01_v0_1.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T02-L09",
+      "topic_id": "A0-T02",
+      "drive_title_mn": "Чи, Та гэж хүндэтгэх",
+      "github_title_mn": "Чи ба Та",
+      "original_classification": "scope_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "Чи/Та хэлбэрийг нөхцөлд тохируулан хэрэглэх",
+      "recommended_can_do_mn": "Дотно найз ба танихгүй насанд хүрсэн хүнд тохирох ty/vy үйл үгийн хэлбэрийг сонгоно.",
+      "target_examples_draft": [
+        {
+          "cz": "Jak se máš?",
+          "mn": "Чи сайн уу?",
+          "editorial_verified": false
+        },
+        {
+          "cz": "Jak se máte?",
+          "mn": "Та сайн байна уу?",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "Найз болон танихгүй хүн гэсэн 2 нөхцөлд аль хэлбэр тохирохыг 2/2 зөв сонгоно; нэр асуухыг L10-д тусад нь үнэлнэ.",
+      "neighbor_scope_draft": "L10 нэр асуух хэллэг; L09 зөв харилцааны хэлбэрийг сонгох. L03 мэндчилгээний энгийн үйлдэл.",
+      "register_and_context_draft": "ty + máš = нэг хүнтэй дотно; vy + máte = нэг хүнд хүндэтгэлтэй, эсвэл хэд хэдэн хүнд. Танихгүй насанд хүрсэн хүнд vy-гээс эхэлнэ.",
+      "issue_or_blocker": "Найзын Jak se máš? жишээг баталгаажсан phrase bank-д оруулаагүй; утга-байгалийн хэллэгийн редакц хүлээгдэж байна.",
+      "requires_scope_review": true,
+      "evidence_level": "EXTERNAL_CROSSCHECK_LIMITED_NATIVE_PENDING",
+      "source_document": "docs/data/a0_14_scope_editorial_decisions_v0_2.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T02-L10",
+      "topic_id": "A0-T02",
+      "drive_title_mn": "Чиний нэр хэн бэ?",
+      "github_title_mn": "Чамайг, Таныг хэн гэдэг вэ?",
+      "original_classification": "scope_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "Дотно ба хүндэтгэлийн хэлбэрээр нэр асуух",
+      "recommended_can_do_mn": "Найз болон танихгүй насанд хүрсэн хүний нэрийг харилцаанд тохируулан бие даан асууна.",
+      "target_examples_draft": [
+        {
+          "cz": "Jak se jmenuješ?",
+          "mn": "Чамайг хэн гэдэг вэ?",
+          "editorial_verified": false
+        },
+        {
+          "cz": "Jak se jmenujete?",
+          "mn": "Таныг хэн гэдэг вэ?",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "Найз/танихгүй хүн хоёр сценарид зөв асуултыг туслах текстгүй хэлнэ; үгийн дуудах/хариу хүлээн авахыг тусад нь үнэлнэ.",
+      "neighbor_scope_draft": "L09 ty/vy сонголтыг урьдчилан эзэмшсэн байна; L10 зөв асуулт; L18 нийт танилцах сорил.",
+      "register_and_context_draft": "jmenuješ = ty, jmenujete = vy; 'Чиний нэр хэн бэ?' нь шууд утгын орчуулга боловч хичээлийн can-do нэр биш.",
+      "issue_or_blocker": "Хоёр асуулт одоогийн phrase bank-д байхгүй; native Czech ба MN редакц, дуу, сорил бэлтгэх шаардлагатай.",
+      "requires_scope_review": true,
+      "evidence_level": "EXTERNAL_CROSSCHECK_LIMITED_NATIVE_PENDING",
+      "source_document": "docs/data/a0_14_scope_editorial_decisions_v0_2.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T02-L13",
+      "topic_id": "A0-T02",
+      "drive_title_mn": "Энэ бол миний найз, багш",
+      "github_title_mn": "Энэ миний найз, багш",
+      "original_classification": "wording_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "Найз, багшийгаа танилцуулах",
+      "recommended_can_do_mn": "Хажуудаа байгаа найз эсвэл багшийг нэг энгийн өгүүлбэрээр танилцуулна.",
+      "target_examples_draft": [
+        {
+          "cz_text_unsegmented": "To je můj kamarád. / To je moje učitelka.",
+          "mn": "Энэ миний найз (эрэгтэй). / Энэ миний багш (эмэгтэй).",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "Хоёр дүрийг шинэ зурагт тус тус зааж танилцуулна; můj/moje хэлбэрийн тохирцыг шалгана.",
+      "neighbor_scope_draft": "L12 'хэн бэ' асуулт, L13 өөрийн найз/багш, L14 өөр хүний найз/багш.",
+      "register_and_context_draft": "Мэндчилгээ ба танилцах сэдвийн нөхцөл; хэлэгч, харилцааны хүндэтгэлийн хэлбэрийн эцсийн хяналт хүлээгдэж байна.",
+      "issue_or_blocker": "Одоогийн phrase bank-д зөвхөн To je Sára. байна; эзэмшлийн хэлбэр ба хүйсийн хэлбэр шинээр нягтлах.",
+      "requires_scope_review": false,
+      "evidence_level": "REPO_SOURCE_AND_EDITORIAL_DRAFT_NATIVE_PENDING",
+      "source_document": "docs/data/a0_wording_review_batch_01_v0_1.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T02-L18",
+      "topic_id": "A0-T02",
+      "drive_title_mn": "Мэндчилгээний бие даасан сорил",
+      "github_title_mn": "Шинэ хүнтэй бие даан танилцах сорил",
+      "original_classification": "scope_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "Танихгүй хүнтэй мэндэлж, өөрийгөө танилцуулах сорил",
+      "recommended_can_do_mn": "Танихгүй насанд хүрсэн хүнтэй мэндэлж, өөрийн нэрийг хэлж, нэрийг нь асууж, эелдгээр сална.",
+      "target_examples_draft": [
+        {
+          "cz": "Dobrý den.",
+          "mn": "Сайн байна уу.",
+          "editorial_verified": false
+        },
+        {
+          "cz": "Jmenuji se Eba.",
+          "mn": "Намайг Эба гэдэг.",
+          "editorial_verified": false
+        },
+        {
+          "cz": "Jak se jmenujete?",
+          "mn": "Таныг хэн гэдэг вэ?",
+          "editorial_verified": false
+        },
+        {
+          "cz": "Na shledanou.",
+          "mn": "Баяртай.",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "Дөрвөн үе шаттай role-play; нэрийн хэллэг бие даасан, нөхцөлд тохирсон, асуулт/хариу утгачилсан; туслах мөрөөр шууд уншуулахгүй.",
+      "neighbor_scope_draft": "L01/L02/L09/L10-г нэгтгэсэн exit; L17 тусламж хүсэх чадварыг энд шалгахгүй.",
+      "register_and_context_draft": "Албан шинэ танилын vy; 'Ahoj!' нь дотно хувилбар бөгөөд энэ сорилын default биш.",
+      "issue_or_blocker": "L10-ийн шинэ асуулт хөтөлбөрт ороогүй; асуултад өгөх сонсголын хариу болон шинэ хүний тестийн контекст хэрэгтэй.",
+      "requires_scope_review": true,
+      "evidence_level": "EXTERNAL_CROSSCHECK_LIMITED_NATIVE_PENDING",
+      "source_document": "docs/data/a0_14_scope_editorial_decisions_v0_2.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T03-L03",
+      "topic_id": "A0-T03",
+      "drive_title_mn": "Дахин хэлж өгнө үү",
+      "github_title_mn": "Дахиад хэлж өгнө үү",
+      "original_classification": "wording_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "Дахин хэлж өгөхийг хүсэх",
+      "recommended_can_do_mn": "Ойлгоогүй үед нөгөө хүнээс хэлсэн зүйлээ дахин хэлэхийг эелдгээр хүснэ.",
+      "target_examples_draft": [
+        {
+          "cz_text_unsegmented": "Ještě jednou, prosím.",
+          "mn": "Дахиад нэг удаа хэлнэ үү.",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "Ойлгоход зориуд дутуу богино ярианы дараа тусламжгүйгээр давтуулах хүсэлтээ хэлнэ.",
+      "neighbor_scope_draft": "L02 энгийн 'юу гэлээ', L03 давтуулах, L04 удаан ярихыг хүсэх.",
+      "register_and_context_draft": "Ойлгоогүйгээ лавлах сэдвийн нөхцөл; хэлэгч, харилцааны хүндэтгэлийн хэлбэрийн эцсийн хяналт хүлээгдэж байна.",
+      "issue_or_blocker": "Тухайн хэллэг phrase bank-д байгаа; prosím эелдэг хүсэлт.",
+      "requires_scope_review": false,
+      "evidence_level": "REPO_SOURCE_AND_EDITORIAL_DRAFT_NATIVE_PENDING",
+      "source_document": "docs/data/a0_wording_review_batch_01_v0_1.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T04-L01",
+      "topic_id": "A0-T04",
+      "drive_title_mn": "Тэгээс арав хүртэл хэлэх",
+      "github_title_mn": "Тэгээс арав хүртэл",
+      "original_classification": "wording_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "0–10 хүртэлх тоог хэлэх",
+      "recommended_can_do_mn": "0–10-ын тоог цифрээр хараад чехээр нэрлэнэ.",
+      "target_examples_draft": [
+        {
+          "cz_text_unsegmented": "nula, jedna, dva, tři",
+          "mn": "тэг, нэг, хоёр, гурав",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "0–10-ын 5 санамсаргүй цифрийг багшийн дэмжлэггүй нэрлэнэ.",
+      "neighbor_scope_draft": "L02 11–20; L03 аравтуудыг сонсох.",
+      "register_and_context_draft": "Тоо ба мөнгө сэдвийн нөхцөл; хэлэгч, харилцааны хүндэтгэлийн хэлбэрийн эцсийн хяналт хүлээгдэж байна.",
+      "issue_or_blocker": "Жишээ дөрөвхөн тоотой; бүрэн 0–10 багц, 1/2-ын хүйсний хэрэглээ ба аудио дутуу.",
+      "requires_scope_review": false,
+      "evidence_level": "REPO_SOURCE_AND_EDITORIAL_DRAFT_NATIVE_PENDING",
+      "source_document": "docs/data/a0_wording_review_batch_01_v0_1.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T04-L02",
+      "topic_id": "A0-T04",
+      "drive_title_mn": "Арван нэгээс хорь хүртэл хэлэх",
+      "github_title_mn": "Арван нэгээс хорь хүртэл",
+      "original_classification": "wording_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "11–20 хүртэлх тоог хэлэх",
+      "recommended_can_do_mn": "11–20 доторх өгөгдсөн цифрийг чехээр хэлнэ.",
+      "target_examples_draft": [
+        {
+          "cz_text_unsegmented": "jedenáct / dvacet",
+          "mn": "арван нэг / хорь",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "11–20-ын 5 санамсаргүй цифрийг нэрлэнэ; бүрэн тоон сан шаардлагатай.",
+      "neighbor_scope_draft": "L01 0–10; L03 аравтуудыг сонсох.",
+      "register_and_context_draft": "Тоо ба мөнгө сэдвийн нөхцөл; хэлэгч, харилцааны хүндэтгэлийн хэлбэрийн эцсийн хяналт хүлээгдэж байна.",
+      "issue_or_blocker": "Одоогийн phrase bank-д 11–20 тоонууд алга.",
+      "requires_scope_review": false,
+      "evidence_level": "REPO_SOURCE_AND_EDITORIAL_DRAFT_NATIVE_PENDING",
+      "source_document": "docs/data/a0_wording_review_batch_01_v0_1.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T04-L03",
+      "topic_id": "A0-T04",
+      "drive_title_mn": "Аравтуудыг сонсож ялгах",
+      "github_title_mn": "Аравтуудыг ялгах",
+      "original_classification": "wording_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "Аравтуудыг сонсож ялгах",
+      "recommended_can_do_mn": "20–90-ын аравтын тоонуудыг сонсоод зөв цифрийг сонгоно.",
+      "target_examples_draft": [
+        {
+          "cz_text_unsegmented": "dvacet / třicet",
+          "mn": "хорь / гуч",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "Бичвэргүй аудионоос аравтын хэдэн тоог цифртэй холбох сорил.",
+      "neighbor_scope_draft": "L02 11–20 хэлэх; L04 0–100 дотор тоо хэлэх.",
+      "register_and_context_draft": "Тоо ба мөнгө сэдвийн нөхцөл; хэлэгч, харилцааны хүндэтгэлийн хэлбэрийн эцсийн хяналт хүлээгдэж байна.",
+      "issue_or_blocker": "Аудио болон 20–90-ын бүх жишээ дутуу, сонсголын үр дүнг бичмэл жагсаалтаар үнэлж болохгүй.",
+      "requires_scope_review": true,
+      "evidence_level": "REPO_SOURCE_AND_EDITORIAL_DRAFT_NATIVE_PENDING",
+      "source_document": "docs/data/a0_wording_review_batch_01_v0_1.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T04-L04",
+      "topic_id": "A0-T04",
+      "drive_title_mn": "Зуу хүртэл тоо хэлэх",
+      "github_title_mn": "Зуу хүртэл тоо",
+      "original_classification": "wording_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "100 хүртэлх тоог хэлэх",
+      "recommended_can_do_mn": "Өгөгдсөн 0–100 бүхэл тоог чехээр хэлнэ.",
+      "target_examples_draft": [
+        {
+          "cz_text_unsegmented": "padesát šest / sto",
+          "mn": "тавин зургаа / зуу",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "23, 56, 99, 100 гэх мэт анх хараагүй цифрийг хэлнэ.",
+      "neighbor_scope_draft": "L03 аравтууд сонсох, L05 утасны дугаарыг дарааллаар хэлэх.",
+      "register_and_context_draft": "Тоо ба мөнгө сэдвийн нөхцөл; хэлэгч, харилцааны хүндэтгэлийн хэлбэрийн эцсийн хяналт хүлээгдэж байна.",
+      "issue_or_blocker": "Одоогийн банканд зөвхөн Sto korun. байна; 0–100 үйлдвэрлэх чадварыг үүгээр батлахгүй.",
+      "requires_scope_review": false,
+      "evidence_level": "REPO_SOURCE_AND_EDITORIAL_DRAFT_NATIVE_PENDING",
+      "source_document": "docs/data/a0_wording_review_batch_01_v0_1.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T04-L07",
+      "topic_id": "A0-T04",
+      "drive_title_mn": "Энэ хэд вэ гэж асуух",
+      "github_title_mn": "Энэ хэд вэ?",
+      "original_classification": "wording_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "Барааны үнийг асуух",
+      "recommended_can_do_mn": "Дэлгүүрт бараа зааж үнийг нь эелдгээр асууна.",
+      "target_examples_draft": [
+        {
+          "cz_text_unsegmented": "Kolik to stojí?",
+          "mn": "Энэ хэдэн төгрөг/крон болох вэ? (Чех нөхцөлд: Хэдэн крон вэ?)",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "Хоёр өөр бараа зааж үнэ асууж, танил тоо сонсоод хариуг танина.",
+      "neighbor_scope_draft": "L06 үнийг сонсож ойлгох, L07 асуух, L08 төлбөр төлөх.",
+      "register_and_context_draft": "Тоо ба мөнгө сэдвийн нөхцөл; хэлэгч, харилцааны хүндэтгэлийн хэлбэрийн эцсийн хяналт хүлээгдэж байна.",
+      "issue_or_blocker": "Барааны үнийг асуух болон 'энэ хэд вэ' гэсэн тоо ширхэгийн асуултыг холихгүй; MN gloss-ийг контекстээр нэг мөр болгоно.",
+      "requires_scope_review": false,
+      "evidence_level": "REPO_SOURCE_AND_EDITORIAL_DRAFT_NATIVE_PENDING",
+      "source_document": "docs/data/a0_wording_review_batch_01_v0_1.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T04-L08",
+      "topic_id": "A0-T04",
+      "drive_title_mn": "Касс дээр төлбөр хийх сорил",
+      "github_title_mn": "Кассанд төлбөр хийх сорил",
+      "original_classification": "wording_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "Касс дээр төлбөр хийх сорил",
+      "recommended_can_do_mn": "Кассанд нийт үнийг ойлгоод картаар эсвэл бэлнээр төлөх сонголтоо хэлнэ.",
+      "target_examples_draft": [
+        {
+          "cz_text_unsegmented": "Kartou, prosím. / Hotově.",
+          "mn": "Картаар, гуйя. / Бэлнээр.",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "Шинэ үнэ сонсоод төлбөрийн аргаа сонгон хэлж, кассын нэг асуултад хариулна.",
+      "neighbor_scope_draft": "L07 үнэ асуух; L08 нийт төлбөрийн үйл явц.",
+      "register_and_context_draft": "Тоо ба мөнгө сэдвийн нөхцөл; хэлэгч, харилцааны хүндэтгэлийн хэлбэрийн эцсийн хяналт хүлээгдэж байна.",
+      "issue_or_blocker": "Кассын нөгөө талын асуулт/хариу банканд дутуу; бодит төлбөр хийх чадварыг нэг үгээр батлахгүй.",
+      "requires_scope_review": false,
+      "evidence_level": "REPO_SOURCE_AND_EDITORIAL_DRAFT_NATIVE_PENDING",
+      "source_document": "docs/data/a0_wording_review_batch_01_v0_1.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T05-L04",
+      "topic_id": "A0-T05",
+      "drive_title_mn": "Бүтэн цагийг хэлэх",
+      "github_title_mn": "Бүтэн цаг хэлэх",
+      "original_classification": "wording_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "Бүтэн цагийг хэлэх",
+      "recommended_can_do_mn": "Бүтэн цагийн цаглал үзүүлсэн дүрсээс уулзалтын цагийг чехээр хэлнэ.",
+      "target_examples_draft": [
+        {
+          "cz_text_unsegmented": "V osm.",
+          "mn": "Найман цагт.",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "3, 8, 11 цагийн дүрсийг харж V ... хэлбэрээр хэлнэ.",
+      "neighbor_scope_draft": "L03 өдрийн хэсэг, L05 хэдэн цагт асуух.",
+      "register_and_context_draft": "Өдөр, цаг, уулзалт сэдвийн нөхцөл; хэлэгч, харилцааны хүндэтгэлийн хэлбэрийн эцсийн хяналт хүлээгдэж байна.",
+      "issue_or_blocker": "Одоогоор зөвхөн V osm. байна; бусад цагийн хэлбэрийг зааж батлах шаардлагатай.",
+      "requires_scope_review": false,
+      "evidence_level": "REPO_SOURCE_AND_EDITORIAL_DRAFT_NATIVE_PENDING",
+      "source_document": "docs/data/a0_wording_review_batch_01_v0_1.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T05-L05",
+      "topic_id": "A0-T05",
+      "drive_title_mn": "Хэдэн цагт гэж асуух",
+      "github_title_mn": "Хэдэн цагт вэ?",
+      "original_classification": "wording_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "Хэдэн цагт болохыг асуух",
+      "recommended_can_do_mn": "Тодорхой үйл явдал хэдэн цагт болохыг асууна.",
+      "target_examples_draft": [
+        {
+          "cz_text_unsegmented": "V kolik hodin?",
+          "mn": "Хэдэн цагт?",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "Хоёр нөхцөлд тохирох үед цаг асуугаад бүтэн цагийн хариуг ойлгоно.",
+      "neighbor_scope_draft": "L04 цагийг хэлэх, L05 хэдэн цагт, L06 хэзээ (өдөр/хугацаа).",
+      "register_and_context_draft": "Өдөр, цаг, уулзалт сэдвийн нөхцөл; хэлэгч, харилцааны хүндэтгэлийн хэлбэрийн эцсийн хяналт хүлээгдэж байна.",
+      "issue_or_blocker": "Цагийн тодорхой цэг асуух нь Kdy? ерөнхий асуултаас ялгаатай.",
+      "requires_scope_review": false,
+      "evidence_level": "REPO_SOURCE_AND_EDITORIAL_DRAFT_NATIVE_PENDING",
+      "source_document": "docs/data/a0_wording_review_batch_01_v0_1.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T05-L06",
+      "topic_id": "A0-T05",
+      "drive_title_mn": "Хэзээ гэж асуух",
+      "github_title_mn": "Хэзээ вэ?",
+      "original_classification": "wording_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "Хэзээ болохыг асуух",
+      "recommended_can_do_mn": "Өдөр эсвэл хугацаа тодруулахаар Kdy? асуултыг хэрэглэнэ.",
+      "target_examples_draft": [
+        {
+          "cz_text_unsegmented": "Kdy? / Zítra.",
+          "mn": "Хэзээ? / Маргааш.",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "Хэдэн цаг гэдэг биш өдөр/хугацаа шаардах шинэ нөхцөлд асуулт сонгоно.",
+      "neighbor_scope_draft": "L05 V kolik hodin? цагийн тодорхой асуулт; L06 Kdy? ерөнхий.",
+      "register_and_context_draft": "Өдөр, цаг, уулзалт сэдвийн нөхцөл; хэлэгч, харилцааны хүндэтгэлийн хэлбэрийн эцсийн хяналт хүлээгдэж байна.",
+      "issue_or_blocker": "Kdy? нь Drive жишигт байгаа боловч одоогийн repo phrase bank-д алга.",
+      "requires_scope_review": false,
+      "evidence_level": "REPO_SOURCE_AND_EDITORIAL_DRAFT_NATIVE_PENDING",
+      "source_document": "docs/data/a0_wording_review_batch_01_v0_1.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T05-L08",
+      "topic_id": "A0-T05",
+      "drive_title_mn": "Уулзалтын цаг батлах сорил",
+      "github_title_mn": "Уулзалт товлох сорил",
+      "original_classification": "scope_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "Уулзалтын цагийг батлах сорил",
+      "recommended_can_do_mn": "Санал болгосон өдөр, цагийг ойлгоод давтан хэлж, уулзах цагийг батална.",
+      "target_examples_draft": [
+        {
+          "cz": "V osm.",
+          "mn": "Найман цагт.",
+          "editorial_verified": false
+        },
+        {
+          "cz": "Zítra.",
+          "mn": "Маргааш.",
+          "editorial_verified": false
+        },
+        {
+          "cz": "Tak zítra v osm.",
+          "mn": "Тэгвэл маргааш найман цагт.",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "Шинээр санал болгосон хоёр өөр цаг дээр өдөр/цагийг сонсоод зөв баталж хэлнэ; өөр цаг санал болгох чадвар гэж үнэлэхгүй.",
+      "neighbor_scope_draft": "T05-L07 цаг санал болгох; L08 батлах. 'Тохиролцох' гэдэг өргөн зорилгыг зөвшөөрөгдөхгүй.",
+      "register_and_context_draft": "Албан/дотно ялгаа энэ жишээнд ил тод биш; L07 санал болгох, L08 зөвшөөрч батлах. Сөрөг санал/тохиролцоо энэ сорилын зорилго БИШ.",
+      "issue_or_blocker": "Шинэ харилцан ярианы санал болгосон цагийн реплик, эцсийн 2 сцен, нөхцөлийн хяналт дутуу.",
+      "requires_scope_review": true,
+      "evidence_level": "EXTERNAL_CROSSCHECK_LIMITED_NATIVE_PENDING",
+      "source_document": "docs/data/a0_14_scope_editorial_decisions_v0_2.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T06-L01",
+      "topic_id": "A0-T06",
+      "drive_title_mn": "Ээж, аавыг танилцуулах",
+      "github_title_mn": "Ээж, аав",
+      "original_classification": "wording_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "Ээж, аавыгаа танилцуулах",
+      "recommended_can_do_mn": "Ээж, аавыгаа зураг эсвэл хамт байгаа нөхцөлд нэрлэн танилцуулна.",
+      "target_examples_draft": [
+        {
+          "cz_text_unsegmented": "To je moje máma. / To je můj táta.",
+          "mn": "Энэ миний ээж. / Энэ миний аав.",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "Шинэ гэр бүлийн зургаас ээж/аавыг тус тус нэг өгүүлбэрээр танилцуулна.",
+      "neighbor_scope_draft": "L02 эцэг эхийн ерөнхий нэршил, L03 эхнэр/нөхөр.",
+      "register_and_context_draft": "Гэр бүл сэдвийн нөхцөл; хэлэгч, харилцааны хүндэтгэлийн хэлбэрийн эцсийн хяналт хүлээгдэж байна.",
+      "issue_or_blocker": "Одоогийн хоёр жишээ бэлэн, môj/moje хүйсийн тохирлыг алдаагүй хэрэглэх.",
+      "requires_scope_review": false,
+      "evidence_level": "REPO_SOURCE_AND_EDITORIAL_DRAFT_NATIVE_PENDING",
+      "source_document": "docs/data/a0_wording_review_batch_02_v0_1.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T06-L03",
+      "topic_id": "A0-T06",
+      "drive_title_mn": "Эхнэр, нөхрөө танилцуулах",
+      "github_title_mn": "Эхнэр, нөхөр",
+      "original_classification": "wording_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "Эхнэр, нөхрөө танилцуулах",
+      "recommended_can_do_mn": "Гэрлэсэн хүнийг нөхцөлд тохируулан эхнэр эсвэл нөхөр гэж нэрлэн танилцуулна.",
+      "target_examples_draft": [
+        {
+          "cz_text_unsegmented": "To je můj manžel. / To je moje manželka.",
+          "mn": "Энэ миний нөхөр. / Энэ миний эхнэр.",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "Өөр өөр хоёр дүрээр тус бүр зөв нэршилтэй нэг өгүүлбэр хэлнэ.",
+      "neighbor_scope_draft": "L01 эцэг эх, L03 хань, L04 хүүхэд.",
+      "register_and_context_draft": "Гэр бүл сэдвийн нөхцөл; хэлэгч, харилцааны хүндэтгэлийн хэлбэрийн эцсийн хяналт хүлээгдэж байна.",
+      "issue_or_blocker": "Шинэ manžel/manželka хоёр phrase bank-д алга; жишээ хэллэгийн хэлэгч/дүрийн гэр бүлийн нөхцөл заах.",
+      "requires_scope_review": false,
+      "evidence_level": "REPO_SOURCE_AND_EDITORIAL_DRAFT_NATIVE_PENDING",
+      "source_document": "docs/data/a0_wording_review_batch_02_v0_1.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T06-L04",
+      "topic_id": "A0-T06",
+      "drive_title_mn": "Хүү, охиноо хэлэх",
+      "github_title_mn": "Хүү, охин",
+      "original_classification": "wording_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "Хүү, охиноо хэлэх",
+      "recommended_can_do_mn": "Өөрийн хүү эсвэл охиныг гэр бүлийн зураг дээр зааж нэрлэнэ.",
+      "target_examples_draft": [
+        {
+          "cz_text_unsegmented": "To je můj syn. / To je moje dcera.",
+          "mn": "Энэ миний хүү. / Энэ миний охин.",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "Зурагт хүү/охиноо зөв нэрлэх ба өөр зурагт зөв хэлбэрийг сонгох.",
+      "neighbor_scope_draft": "L03 хань, L04 хүү/охин, L05 ах дүүс.",
+      "register_and_context_draft": "Гэр бүл сэдвийн нөхцөл; хэлэгч, харилцааны хүндэтгэлийн хэлбэрийн эцсийн хяналт хүлээгдэж байна.",
+      "issue_or_blocker": "Хүүхэдгүй суралцагчаас худал хувийн баримт шаардахгүй; дүрээр ажиллуулна; шинэ жишээ.",
+      "requires_scope_review": false,
+      "evidence_level": "REPO_SOURCE_AND_EDITORIAL_DRAFT_NATIVE_PENDING",
+      "source_document": "docs/data/a0_wording_review_batch_02_v0_1.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T06-L05",
+      "topic_id": "A0-T06",
+      "drive_title_mn": "Ах, эгч, дүүгээ хэлэх",
+      "github_title_mn": "Ах, эгч, дүү",
+      "original_classification": "wording_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "Ах, эгч, дүүгээ нэрлэх",
+      "recommended_can_do_mn": "Гэр бүлийн нөхцөлд ах/эгч/дүү төрлийн хүнээ нэрлэнэ; насны ахмад/дүү ялгааг зөв шаардлагатай үед нэмнэ.",
+      "target_examples_draft": [
+        {
+          "cz_text_unsegmented": "Mám sestru. / Mám bratra.",
+          "mn": "Би эгч/эмэгтэй дүүтэй. / Би ах/эрэгтэй дүүтэй.",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "Хоёр дүрийн ах/дүү, эгч/дүү зэргийг будилахгүй тайлбарлана; зөвхөн sestra/bratr-аар насны ялгааг шийдсэнд тооцохгүй.",
+      "neighbor_scope_draft": "L04 хүү/охин; L05 төрсөн ах дүүс; L06 эзэмшил.",
+      "register_and_context_draft": "Гэр бүл сэдвийн нөхцөл; хэлэгч, харилцааны хүндэтгэлийн хэлбэрийн эцсийн хяналт хүлээгдэж байна.",
+      "issue_or_blocker": "Чех sestra/bratr нь ахмад/дүүг шууд ялгахгүй; starší/mladší нэмэлт хэллэг ба Монгол орчуулгын мэргэжлийн хяналт шаардлагатай.",
+      "requires_scope_review": true,
+      "evidence_level": "REPO_SOURCE_AND_EDITORIAL_DRAFT_NATIVE_PENDING",
+      "source_document": "docs/data/a0_wording_review_batch_02_v0_1.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T06-L06",
+      "topic_id": "A0-T06",
+      "drive_title_mn": "Миний гэдгийг хэлэх",
+      "github_title_mn": "Миний гэж хэлэх",
+      "original_classification": "wording_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "«Миний» хэлбэрийг зөв хэрэглэх",
+      "recommended_can_do_mn": "Гэр бүлийн хүнээ нэрлэхдээ můj/moje хэлбэрийг нэр үгийн хүйсэнд тохируулан хэлнэ.",
+      "target_examples_draft": [
+        {
+          "cz_text_unsegmented": "můj táta / moje máma",
+          "mn": "миний аав / миний ээж",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "Эрэгтэй ба эмэгтэй нэр үгийн зурагт тохирох můj/moje хэлбэрийг сонгон нэг өгүүлбэр хэлнэ.",
+      "neighbor_scope_draft": "L01/L03 хүн нэрлэх; L06 'миний' тохируулах, L07 'түүний' өөр хүн.",
+      "register_and_context_draft": "Гэр бүл сэдвийн нөхцөл; хэлэгч, харилцааны хүндэтгэлийн хэлбэрийн эцсийн хяналт хүлээгдэж байна.",
+      "issue_or_blocker": "Үг 'миний'-г орчуулж хэлэхээс илүү Чехийн gender agreement шалгах; бүрэн дүрмийн хүснэгтээр эхлэхгүй.",
+      "requires_scope_review": false,
+      "evidence_level": "REPO_SOURCE_AND_EDITORIAL_DRAFT_NATIVE_PENDING",
+      "source_document": "docs/data/a0_wording_review_batch_02_v0_1.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T06-L07",
+      "topic_id": "A0-T06",
+      "drive_title_mn": "Түүний гэдгийг хэлэх",
+      "github_title_mn": "Түүний гэж хэлэх",
+      "original_classification": "wording_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "«Түүний» хэлбэрийг зөв хэрэглэх",
+      "recommended_can_do_mn": "Өөр хүний өмч/хамаарлыг эрэгтэй/эмэгтэй эзэнд тохирсон jeho/její-ээр илэрхийлнэ.",
+      "target_examples_draft": [
+        {
+          "cz_text_unsegmented": "To je jeho sestra. / To je její bratr.",
+          "mn": "Энэ түүний эгч/эмэгтэй дүү. / Энэ түүний ах/эрэгтэй дүү.",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "Эзэмшигч нь эрэгтэй/эмэгтэй хоёр зурагт тохирсон өгүүлбэр хэлнэ; his/her ба noun gender ялгааг холихгүй.",
+      "neighbor_scope_draft": "L06 'миний' эзэмшил, L07 'түүний' эзэмшил.",
+      "register_and_context_draft": "Гэр бүл сэдвийн нөхцөл; хэлэгч, харилцааны хүндэтгэлийн хэлбэрийн эцсийн хяналт хүлээгдэж байна.",
+      "issue_or_blocker": "Эзэмшигчийн хүйс ба эзэмшүүлж буй хүний хүйсийг ялга; phrase bank-д jeho/její байхгүй.",
+      "requires_scope_review": true,
+      "evidence_level": "REPO_SOURCE_AND_EDITORIAL_DRAFT_NATIVE_PENDING",
+      "source_document": "docs/data/a0_wording_review_batch_02_v0_1.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T06-L08",
+      "topic_id": "A0-T06",
+      "drive_title_mn": "Гэр бүлийн танилцуулгын сорил",
+      "github_title_mn": "Гэр бүлийг танилцуулах сорил",
+      "original_classification": "wording_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "Гэр бүлээ танилцуулах сорил",
+      "recommended_can_do_mn": "Зураг/хувьчилсан дүрээр гэр бүлийн хоёр хүнийг нэрлэж, хамаарлыг тайлбарлана.",
+      "target_examples_draft": [
+        {
+          "cz_text_unsegmented": "To je moje máma. / Mám sestru.",
+          "mn": "Энэ миний ээж. / Би эгч/эмэгтэй дүүтэй.",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "Шинэ гэр бүлийн зураг дээр хоёр өөр хамаарлыг зөв хэлэх; худал хувийн өгөгдөл шаардахгүй.",
+      "neighbor_scope_draft": "L01–L07-гийн нийлмэл сорил, шинэ чадвар нэмэхгүй.",
+      "register_and_context_draft": "Гэр бүл сэдвийн нөхцөл; хэлэгч, харилцааны хүндэтгэлийн хэлбэрийн эцсийн хяналт хүлээгдэж байна.",
+      "issue_or_blocker": "Ярианы урсгал, асуулт-хариулт, богино хариу сонсох банк дутуу; нэг мөр уншуулж сорил гэж зарлахгүй.",
+      "requires_scope_review": false,
+      "evidence_level": "REPO_SOURCE_AND_EDITORIAL_DRAFT_NATIVE_PENDING",
+      "source_document": "docs/data/a0_wording_review_batch_02_v0_1.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T07-L01",
+      "topic_id": "A0-T07",
+      "drive_title_mn": "Ус, кофе, талх зэрэг зүйлс",
+      "github_title_mn": "Ус, кофе, талх",
+      "original_classification": "wording_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "Ус, кофе, талхыг нэрлэх",
+      "recommended_can_do_mn": "Ус, кофе, талхыг зурагт таньж Чехээр нэрлэнэ.",
+      "target_examples_draft": [
+        {
+          "cz_text_unsegmented": "voda / káva / chléb",
+          "mn": "ус / кофе / талх",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "Хоёр шинээр эрэмбэлсэн 3 зургаас нэрлэж хэлнэ.",
+      "neighbor_scope_draft": "L01 хүнсийг таних, L02 эд зүйлийг хүсэх.",
+      "register_and_context_draft": "Хоол ба дэлгүүр сэдвийн нөхцөл; хэлэгч, харилцааны хүндэтгэлийн хэлбэрийн эцсийн хяналт хүлээгдэж байна.",
+      "issue_or_blocker": "Drive 'зэрэг зүйлс' өргөн, GH зөвхөн 3 зүйл; нэрлэх эсвэл сонсож таних modality-г шийдэх.",
+      "requires_scope_review": true,
+      "evidence_level": "REPO_SOURCE_AND_EDITORIAL_DRAFT_NATIVE_PENDING",
+      "source_document": "docs/data/a0_wording_review_batch_02_v0_1.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T07-L03",
+      "topic_id": "A0-T07",
+      "drive_title_mn": "Нэг, хоёр ширхэг хүсэх",
+      "github_title_mn": "Нэг, хоёр ширхэг",
+      "original_classification": "wording_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "Нэг, хоёр ширхэгийг эелдгээр хүсэх",
+      "recommended_can_do_mn": "Кафе/дэлгүүрт тоо хэмжээг 1 эсвэл 2 гэж тодруулан хүснэ.",
+      "target_examples_draft": [
+        {
+          "cz_text_unsegmented": "Jednu kávu, prosím. / Dvě kávy, prosím.",
+          "mn": "Нэг кофе өгнө үү. / Хоёр кофе өгнө үү.",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "Нэг/хоёр кофе зурагтай нөхцөлд тохирох хэмжээг хэлж захиална.",
+      "neighbor_scope_draft": "L02 энгийн хүсэлт; L03 тоо хэмжээ, L09 захиалгыг батлах.",
+      "register_and_context_draft": "Хоол ба дэлгүүр сэдвийн нөхцөл; хэлэгч, харилцааны хүндэтгэлийн хэлбэрийн эцсийн хяналт хүлээгдэж байна.",
+      "issue_or_blocker": "Нэг, хоёрын хүйс/тоо/тийн ялгалт: jedna→jednu, dva→dvě, káva→kávy; нэг тоог бүх нэр үгэнд хуулж болохгүй.",
+      "requires_scope_review": true,
+      "evidence_level": "REPO_SOURCE_AND_EDITORIAL_DRAFT_NATIVE_PENDING",
+      "source_document": "docs/data/a0_wording_review_batch_02_v0_1.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T07-L09",
+      "topic_id": "A0-T07",
+      "drive_title_mn": "Тоо хэмжээ батлах",
+      "github_title_mn": "Тоо хэмжээг батлах",
+      "original_classification": "wording_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "Захиалгын тоо хэмжээг батлах",
+      "recommended_can_do_mn": "Худалдагчийн хэлсэн тоог сонсоод зөв эсэхийг батална.",
+      "target_examples_draft": [
+        {
+          "cz_text_unsegmented": "Jednu kávu? – Ano, jednu.",
+          "mn": "Нэг кофе юу? – Тийм, нэгийг.",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "Нэг/хоёр тоотой өөр өөр асуултад сонсоод батлах эсвэл буруу гэдгийг илэрхийлнэ.",
+      "neighbor_scope_draft": "L03 тоо хүсэх, L09 сонсож батлах.",
+      "register_and_context_draft": "Хоол ба дэлгүүр сэдвийн нөхцөл; хэлэгч, харилцааны хүндэтгэлийн хэлбэрийн эцсийн хяналт хүлээгдэж байна.",
+      "issue_or_blocker": "Одоогийн хэллэгүүдэд кассын буцааж лавлах/залруулах реплик алга; хүсэлт ба баталгаа тусдаа.",
+      "requires_scope_review": false,
+      "evidence_level": "REPO_SOURCE_AND_EDITORIAL_DRAFT_NATIVE_PENDING",
+      "source_document": "docs/data/a0_wording_review_batch_02_v0_1.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T07-L10",
+      "topic_id": "A0-T07",
+      "drive_title_mn": "Кафе ба дэлгүүрийн сорил",
+      "github_title_mn": "Кафе, дэлгүүрийн сорил",
+      "original_classification": "wording_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "Кафе, дэлгүүрт энгийн худалдан авалт хийх сорил",
+      "recommended_can_do_mn": "Нэг зүйл хүсэж, тоо хэмжээг хэлж, төлбөрийн энгийн үйлдэлд оролцоно.",
+      "target_examples_draft": [
+        {
+          "cz_text_unsegmented": "Dám si kávu. / Jednu kávu, prosím. / To je všechno.",
+          "mn": "Кофе авъя. / Нэг кофе өгнө үү. / Ингээд боллоо.",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "Кафены нэг сцен + дэлгүүрийн нэг сцен; үнийн хариу, баталгаажуулалт, эцсийн хаалтыг шалгана.",
+      "neighbor_scope_draft": "L01–L09 нийлмэл сорил, T04-L08 төлбөрийн өмнөх чадвар.",
+      "register_and_context_draft": "Хоол ба дэлгүүр сэдвийн нөхцөл; хэлэгч, харилцааны хүндэтгэлийн хэлбэрийн эцсийн хяналт хүлээгдэж байна.",
+      "issue_or_blocker": "Кафе жишээгээр 'дэлгүүрийн' чадварыг баталж болохгүй; хоёр нөхцөл тусдаа хүсэлт, хариулт хэрэгтэй.",
+      "requires_scope_review": false,
+      "evidence_level": "REPO_SOURCE_AND_EDITORIAL_DRAFT_NATIVE_PENDING",
+      "source_document": "docs/data/a0_wording_review_batch_02_v0_1.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T08-L02",
+      "topic_id": "A0-T08",
+      "drive_title_mn": "Энд, тэнд гэж хэлэх",
+      "github_title_mn": "Энд, тэнд",
+      "original_classification": "wording_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "«Энд», «тэнд» гэж байршил заах",
+      "recommended_can_do_mn": "Тодорхой хоёр байршлыг тady/tam хэлбэрээр зааж хэлнэ.",
+      "target_examples_draft": [
+        {
+          "cz_text_unsegmented": "Tady. / Tam.",
+          "mn": "Энд. / Тэнд.",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "Хоёр буудал бүхий зурагт нэгийг нь 'энд', нөгөөг нь 'тэнд' гэж ялгаж заана.",
+      "neighbor_scope_draft": "L01 буудал хайх, L02 ойр/хол байршил, L03 баруун/зүүн.",
+      "register_and_context_draft": "Тээвэр ба зам сэдвийн нөхцөл; хэлэгч, харилцааны хүндэтгэлийн хэлбэрийн эцсийн хяналт хүлээгдэж байна.",
+      "issue_or_blocker": "Ерөнхий байрлалын энэ чадварыг T09-L05 ажлын багажийн байршилтай ялгана; жишээ phrase bank-д байхгүй.",
+      "requires_scope_review": true,
+      "evidence_level": "REPO_SOURCE_AND_EDITORIAL_DRAFT_NATIVE_PENDING",
+      "source_document": "docs/data/a0_wording_review_batch_02_v0_1.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T08-L03",
+      "topic_id": "A0-T08",
+      "drive_title_mn": "Баруун, зүүн ялгах",
+      "github_title_mn": "Баруун, зүүн",
+      "original_classification": "wording_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "Баруун, зүүн чиглэлийг сонсож ялгах",
+      "recommended_can_do_mn": "Зам заах үед хэлсэн баруун/зүүн чиглэлийг сонсоод зөв эргэх дүрс сонгоно.",
+      "target_examples_draft": [
+        {
+          "cz_text_unsegmented": "Doprava. / Doleva.",
+          "mn": "Баруун тийш. / Зүүн тийш.",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "4 өөр замын аудио зааварт зөв сум/эргэлтийг сонгоно.",
+      "neighbor_scope_draft": "L02 энд/тэнд байршил, L03 баруун/зүүн, L04 шулуун чиглэл.",
+      "register_and_context_draft": "Тээвэр ба зам сэдвийн нөхцөл; хэлэгч, харилцааны хүндэтгэлийн хэлбэрийн эцсийн хяналт хүлээгдэж байна.",
+      "issue_or_blocker": "Drive 'ялгах' нь сонсгол эсвэл хараа тодорхойгүй; шинэ сорилд сонсгол сонгосон нь редакцын хамрах хүрээний санал.",
+      "requires_scope_review": true,
+      "evidence_level": "REPO_SOURCE_AND_EDITORIAL_DRAFT_NATIVE_PENDING",
+      "source_document": "docs/data/a0_wording_review_batch_02_v0_1.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T08-L04",
+      "topic_id": "A0-T08",
+      "drive_title_mn": "Шулуун явах заавар",
+      "github_title_mn": "Шулуун явах",
+      "original_classification": "wording_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "Шулуун явах зааврыг ойлгох",
+      "recommended_can_do_mn": "Явган зорчигчид өгсөн шулуун явах зааврыг сонсоод зөв зам сонгоно.",
+      "target_examples_draft": [
+        {
+          "cz_text_unsegmented": "Jděte rovně.",
+          "mn": "Шулуун яваарай. (хүндэтгэлийн хэлбэр)",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "Дүрс бүхий уулзварт шулуун чиглэлийг сонгож, баруун/зүүнээс ялгана.",
+      "neighbor_scope_draft": "L03 баруун/зүүн, L04 шулуун явах.",
+      "register_and_context_draft": "Тээвэр ба зам сэдвийн нөхцөл; хэлэгч, харилцааны хүндэтгэлийн хэлбэрийн эцсийн хяналт хүлээгдэж байна.",
+      "issue_or_blocker": "Drive 'заавар' нь хэлэх/ойлгохын аль нь гэдэг тодорхойгүй; Jděte нь vy/олон тооны тушаах хэлбэр; bank-д байхгүй.",
+      "requires_scope_review": true,
+      "evidence_level": "REPO_SOURCE_AND_EDITORIAL_DRAFT_NATIVE_PENDING",
+      "source_document": "docs/data/a0_wording_review_batch_02_v0_1.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T08-L08",
+      "topic_id": "A0-T08",
+      "drive_title_mn": "Хэдэн цагт явахыг асуух",
+      "github_title_mn": "Хэдэн цагт явах вэ?",
+      "original_classification": "wording_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "Тээврийн хэрэгсэл хэдэн цагт хөдлөхийг асуух",
+      "recommended_can_do_mn": "Автобус эсвэл трамвай хэдэн цагт явахыг тодорхой асууна.",
+      "target_examples_draft": [
+        {
+          "cz_text_unsegmented": "V kolik hodin odjíždí autobus?",
+          "mn": "Автобус хэдэн цагт хөдөлдөг/хөдлөх вэ?",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "Самбар дээрх хоёр цагтай автобусны аль нэгний хөдлөх цагийг лавлан зөв цагийг ойлгоно.",
+      "neighbor_scope_draft": "T05-L05 ерөнхий цаг асуулт, T08-L08 тээврийн departure цаг.",
+      "register_and_context_draft": "Тээвэр ба зам сэдвийн нөхцөл; хэлэгч, харилцааны хүндэтгэлийн хэлбэрийн эцсийн хяналт хүлээгдэж байна.",
+      "issue_or_blocker": "GH 'Хэдэн цагт явах вэ?' нь хүн явахыг асуусан мэт ойлгогдоно; тээврийн сэдэвт нарийсгах хэрэгтэй.",
+      "requires_scope_review": true,
+      "evidence_level": "REPO_SOURCE_AND_EDITORIAL_DRAFT_NATIVE_PENDING",
+      "source_document": "docs/data/a0_wording_review_batch_02_v0_1.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T09-L01",
+      "topic_id": "A0-T09",
+      "drive_title_mn": "Ажил мэргэжлээ хэлэх",
+      "github_title_mn": "Ажил, хамтрагчаа танилцуулах",
+      "original_classification": "scope_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "Ажил мэргэжлээ энгийнээр хэлэх",
+      "recommended_can_do_mn": "Өөрийн мэргэжлийг нэг энгийн Чех өгүүлбэрээр нэрлэнэ.",
+      "target_examples_draft": [
+        {
+          "cz": "Jsem svářeč.",
+          "mn": "Би гагнуурчин. (эрэгтэй хэлэгч)",
+          "editorial_verified": false
+        },
+        {
+          "cz": "Jsem svářečka.",
+          "mn": "Би гагнуурчин. (эмэгтэй хэлэгч)",
+          "editorial_verified": false
+        },
+        {
+          "cz": "Pracuji tady.",
+          "mn": "Би энд ажилладаг. (мэргэжил нэрлээгүй)",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "Өөрийн дүрийн мэргэжлийг хэлнэ, дараа нь өөр мэргэжилтэй шинэ дүрээр хэлнэ; 'Pracuji tady.'-г зорилго хангасанд тооцохгүй.",
+      "neighbor_scope_draft": "L01 зөвхөн мэргэжлээ хэлэх; хамтрагчаа танилцуулахыг энэ ID-д хамруулахгүй; L02 багажийн нэр.",
+      "register_and_context_draft": "Албан/дотно хэлбэрийн ялгаа хамаарахгүй; мэргэжлийн үгийн хүйс, ярьж байгаа хүний хэлбэрийг шалгах.",
+      "issue_or_blocker": "Мэргэжлийн жишээ одоогийн phrase bank-д алга; чех морфологи, хувийн дүр ба монгол утга нягтлах.",
+      "requires_scope_review": true,
+      "evidence_level": "EXTERNAL_CROSSCHECK_LIMITED_NATIVE_PENDING",
+      "source_document": "docs/data/a0_14_scope_editorial_decisions_v0_2.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T09-L05",
+      "topic_id": "A0-T09",
+      "drive_title_mn": "Энд, тэнд гэсэн байрлал",
+      "github_title_mn": "Энд, тэнд байгаа багаж",
+      "original_classification": "scope_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "Ажлын багажийн байршлыг зааж хэлэх",
+      "recommended_can_do_mn": "Хоёр өөр байрлалд байгаа танил багажийг нэрлээд хаана байгааг хэлнэ.",
+      "target_examples_draft": [
+        {
+          "cz": "Kde je kladivo?",
+          "mn": "Алх хаана байна?",
+          "editorial_verified": false
+        },
+        {
+          "cz": "Kladivo je tady.",
+          "mn": "Алх энд байна.",
+          "editorial_verified": false
+        },
+        {
+          "cz": "Kladivo je tam.",
+          "mn": "Алх тэнд байна.",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "Алхыг дүрсэнд хоёр байрлалд сольж үзүүлнэ, суралцагч тус бүрд зааж, тайлбарлана; зүгээр 'энд' гэж хэлэх нь хангалтгүй.",
+      "neighbor_scope_draft": "T08-L02 ерөнхий энд/тэнд; T09-L02 багаж нэрлэх; T09-L04 багаж хүсэх; L05 байршил.",
+      "register_and_context_draft": "Хүндэтгэлийн хэлбэр хамаарахгүй; ажлын нөхцөл дэх байрлалын үндсэн хэллэг.",
+      "issue_or_blocker": "Одоо `Pracuji tady.` л байгаа нь багажийн байршлын нотолгоо биш; шинэ текст/зураг дутуу.",
+      "requires_scope_review": true,
+      "evidence_level": "EXTERNAL_CROSSCHECK_LIMITED_NATIVE_PENDING",
+      "source_document": "docs/data/a0_14_scope_editorial_decisions_v0_2.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T09-L06",
+      "topic_id": "A0-T09",
+      "drive_title_mn": "Хий, бүү хий гэсэн заавар",
+      "github_title_mn": "Хий, бүү хий заавар",
+      "original_classification": "wording_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "«Хий», «Бүү хий» гэсэн зааврыг ойлгох",
+      "recommended_can_do_mn": "Ажлын энгийн эерэг/хориглосон тушаалыг сонсоод зөв үйлдлийг симуляцад танина.",
+      "target_examples_draft": [
+        {
+          "cz_text_unsegmented": "Udělejte to. / Nedělejte to.",
+          "mn": "Үүнийг хийгээрэй. / Үүнийг битгий хийгээрэй.",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "Зөвхөн дэлгэц дээрх хоёр үйлдлийн аль нь зааварт нийцэхийг сонгоно; бодит тоног төхөөрөмж ажиллуулахгүй.",
+      "neighbor_scope_draft": "L05 байршил, L06 хийх/хийхгүй байх, L07 зогсох тушаал.",
+      "register_and_context_draft": "Ажил, багаж, аюулгүй ажиллагаа сэдвийн нөхцөл; хэлэгч, харилцааны хүндэтгэлийн хэлбэрийн эцсийн хяналт хүлээгдэж байна.",
+      "issue_or_blocker": "Drive 'заавар' ойлгох/хэлэх тодорхойгүй; Czech vy хэлбэрийн контекст, аюулгүй ажиллагааны үгсийг мэргэжлийн QA шаардлагатай.",
+      "requires_scope_review": false,
+      "evidence_level": "REPO_SOURCE_AND_EDITORIAL_DRAFT_NATIVE_PENDING",
+      "source_document": "docs/data/a0_wording_review_batch_03_v0_1.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T09-L07",
+      "topic_id": "A0-T09",
+      "drive_title_mn": "Зогс гэсэн дохиог ойлгох",
+      "github_title_mn": "Зогс гэсэн дохио",
+      "original_classification": "scope_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "«Зогс!» тушаалыг сонсоод ойлгох",
+      "recommended_can_do_mn": "Хөдөлгөөнөө зогсоох тушаал ба ерөнхий анхааруулгын утгыг ялгаж, симуляц дахь зөв хариуг сонгоно.",
+      "target_examples_draft": [
+        {
+          "cz": "Stůj!",
+          "mn": "Зогс! (нэг хүнд дотно шууд тушаал)",
+          "editorial_verified": false
+        },
+        {
+          "cz": "Stůjte!",
+          "mn": "Зогсоорой! (хүндэтгэлтэй/олон хүнд)",
+          "editorial_verified": false
+        },
+        {
+          "cz": "Zastavte stroj!",
+          "mn": "Машиныг зогсоо! (хүндэтгэлтэй/олон хүнд)",
+          "editorial_verified": false
+        },
+        {
+          "cz": "Pozor!",
+          "mn": "Анхаар! (зогсоох тушаалын ижил утга биш)",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "'Pozor!' ба 'Stůj!' хоёр аудиог ялгаж, зөв текст/анимацын үр дагаврыг сонгоно. Машинтай бодит ажиллагаа хийлгэхгүй.",
+      "neighbor_scope_draft": "T09-L06 хий/бүү хий ерөнхий заавар; L07 зогсох тушаал; L08 аюулын анхааруулга.",
+      "register_and_context_draft": "Stůj! нь ty нэг тоо, Stůjte! нь vy/олон тоо; тоног төхөөрөмж зогсоох зааврыг хүн зогсох тушаалаас салга.",
+      "issue_or_blocker": "`Pozor!`-оор `Stůj!` сорилыг оноож болохгүй; safety-specific Czech expert + бодит safety training тусад нь шаардлагатай.",
+      "requires_scope_review": true,
+      "evidence_level": "EXTERNAL_CROSSCHECK_LIMITED_NATIVE_PENDING",
+      "source_document": "docs/data/a0_14_scope_editorial_decisions_v0_2.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T09-L08",
+      "topic_id": "A0-T09",
+      "drive_title_mn": "Аюулын анхааруулга таних",
+      "github_title_mn": "Аюулын анхааруулга",
+      "original_classification": "scope_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "Ажлын аюулын энгийн анхааруулгыг таних",
+      "recommended_can_do_mn": "Ерөнхий болон нэг тодорхой аюулын анхааруулгыг сонсоод/хараад эрсдэлтэй нөхцөл гэж танина.",
+      "target_examples_draft": [
+        {
+          "cz": "Pozor!",
+          "mn": "Анхаар! (ерөнхий дохио)",
+          "editorial_verified": false
+        },
+        {
+          "cz": "Pozor, horký povrch!",
+          "mn": "Анхаар, халуун гадаргуу!",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "Ерөнхий анхааруулга ба халуун гадаргууны шошгыг аюулгүй зурагтай харьцуулж ялгана; L07-ийн шууд зогс тушаалтай холихгүй.",
+      "neighbor_scope_draft": "L07 зогсох тушаал; L08 аюулын анхааруулга; L09 ойлгоогүй зааврыг давтуулах.",
+      "register_and_context_draft": "Хүндэтгэлийн хэлбэргүй анхааруулга. `Pozor!` ганцаараа аюулын төрлийг хэлдэггүй.",
+      "issue_or_blocker": "Тодорхой аюулын label/visual одоогоор алга; safety/native Czech редакц шаардлагатай. Энэ апп нь ажлын байран дахь албан BOZP сургалтыг орлохгүй.",
+      "requires_scope_review": true,
+      "evidence_level": "EXTERNAL_CROSSCHECK_LIMITED_NATIVE_PENDING",
+      "source_document": "docs/data/a0_14_scope_editorial_decisions_v0_2.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T09-L10",
+      "topic_id": "A0-T09",
+      "drive_title_mn": "Ажил дээр тусламж хүсэх сорил",
+      "github_title_mn": "Тусламж хүсэх сорил",
+      "original_classification": "wording_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "Ажил дээр тусламж хүсэх сорил",
+      "recommended_can_do_mn": "Ажлын энгийн хүндрэлд хамт ажиллагчаас тусламж хүсэж, хариуг ойлгоно.",
+      "target_examples_draft": [
+        {
+          "cz_text_unsegmented": "Můžete mi prosím pomoct? / Pomoc!",
+          "mn": "Надад туслаач, болох уу? / Туслаарай!",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "Аюулгүй сургалтын 2 сцен: ердийн тусламж хүсэх ба яаралтай дохио; зөв утгыг ялгана.",
+      "neighbor_scope_draft": "L09 ойлгоогүй зааврыг давтуулах, L10 ердийн тусламж ба яаралтай тусламж.",
+      "register_and_context_draft": "Ажил, багаж, аюулгүй ажиллагаа сэдвийн нөхцөл; хэлэгч, харилцааны хүндэтгэлийн хэлбэрийн эцсийн хяналт хүлээгдэж байна.",
+      "issue_or_blocker": "Одоогийн Помoc! бол яаралтай хашхиралт, зөвхөн түүгээр өдөр тутмын ажил дээр эелдэг хүсэлт шалгаж болохгүй.",
+      "requires_scope_review": true,
+      "evidence_level": "REPO_SOURCE_AND_EDITORIAL_DRAFT_NATIVE_PENDING",
+      "source_document": "docs/data/a0_wording_review_batch_03_v0_1.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T10-L05",
+      "topic_id": "A0-T10",
+      "drive_title_mn": "Эмч хэрэгтэй гэж хэлэх",
+      "github_title_mn": "Надад эмч хэрэгтэй",
+      "original_classification": "wording_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "Эмч хэрэгтэйгээ хэлэх",
+      "recommended_can_do_mn": "Өвдсөн үед эмчтэй уулзах хэрэгтэй байгаагаа хэлнэ.",
+      "target_examples_draft": [
+        {
+          "cz_text_unsegmented": "Potřebuji lékaře.",
+          "mn": "Надад эмч хэрэгтэй.",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "Шинэ эмнэлгийн нөхцөлд хүсэлтээ хэлж, эмч эсвэл эмийн сангийн зураг сонгоно.",
+      "neighbor_scope_draft": "L04 биеийн байдал хэлэх, L05 эмч хэрэгтэй, L06 эмийн сан хайх.",
+      "register_and_context_draft": "Бие ба эрүүл мэнд сэдвийн нөхцөл; хэлэгч, харилцааны хүндэтгэлийн хэлбэрийн эцсийн хяналт хүлээгдэж байна.",
+      "issue_or_blocker": "L07 ердийн тусламж хүсэхээс эмч шаардлагатайг тусгайлан ялгана.",
+      "requires_scope_review": false,
+      "evidence_level": "REPO_SOURCE_AND_EDITORIAL_DRAFT_NATIVE_PENDING",
+      "source_document": "docs/data/a0_wording_review_batch_03_v0_1.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T10-L07",
+      "topic_id": "A0-T10",
+      "drive_title_mn": "Тусламж хэрэгтэй гэж хэлэх",
+      "github_title_mn": "Тусламж хүсэх",
+      "original_classification": "wording_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "Тусламж хэрэгтэйгээ хэлэх",
+      "recommended_can_do_mn": "Өөрт тусламж хэрэгтэй гэдгийг энгийнээр хэлж, шаардлагатай үед тусламж дуудна.",
+      "target_examples_draft": [
+        {
+          "cz_text_unsegmented": "Potřebuji pomoc. / Pomoc!",
+          "mn": "Надад тусламж хэрэгтэй. / Туслаарай!",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "Өдөр тутмын тусламж/яаралтай тусламжийн 2 дүрс дээр зөв хэллэгийг сонгон хэлнэ.",
+      "neighbor_scope_draft": "L05 эмч хэрэгтэй; L07 өргөн тусламж; L08 шинж тэмдэг.",
+      "register_and_context_draft": "Бие ба эрүүл мэнд сэдвийн нөхцөл; хэлэгч, харилцааны хүндэтгэлийн хэлбэрийн эцсийн хяналт хүлээгдэж байна.",
+      "issue_or_blocker": "Ажил дээрх T09-L10 тусламж хүсэх чадвартай давхардах учир эрүүл мэндийн нөхцөл ба тусламжийн төрлийг ялга.",
+      "requires_scope_review": true,
+      "evidence_level": "REPO_SOURCE_AND_EDITORIAL_DRAFT_NATIVE_PENDING",
+      "source_document": "docs/data/a0_wording_review_batch_03_v0_1.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T10-L08",
+      "topic_id": "A0-T10",
+      "drive_title_mn": "Энгийн шинж тэмдэг хэлэх",
+      "github_title_mn": "Энгийн шинж тэмдэг",
+      "original_classification": "wording_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "Энгийн шинж тэмдгээ хэлэх",
+      "recommended_can_do_mn": "Толгой өвдөх эсвэл бие тавгүйрхэхийг энгийн өгүүлбэрээр хэлнэ.",
+      "target_examples_draft": [
+        {
+          "cz_text_unsegmented": "Bolí mě hlava. / Je mi špatně.",
+          "mn": "Миний толгой өвдөж байна. / Миний бие муу байна.",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "Хоёр өөр өвчтөний дүрийн шинж тэмдгийг тус тус хэлнэ, онош тогтоохгүй.",
+      "neighbor_scope_draft": "L07 тусламж хүсэх, L08 шинж тэмдэг мэдээлэх, L09 ойлгоогүйгээ лавлах.",
+      "register_and_context_draft": "Бие ба эрүүл мэнд сэдвийн нөхцөл; хэлэгч, харилцааны хүндэтгэлийн хэлбэрийн эцсийн хяналт хүлээгдэж байна.",
+      "issue_or_blocker": "Одоо хоёр хэллэг phrase bank-д байгаа; хэрэглээний нөхцөл/ойлгомжтой дуудлага тусдаа QA.",
+      "requires_scope_review": false,
+      "evidence_level": "REPO_SOURCE_AND_EDITORIAL_DRAFT_NATIVE_PENDING",
+      "source_document": "docs/data/a0_wording_review_batch_03_v0_1.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T10-L10",
+      "topic_id": "A0-T10",
+      "drive_title_mn": "Эмчтэй богино харилцах сорил",
+      "github_title_mn": "Эмчтэй харилцах сорил",
+      "original_classification": "wording_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "Эмчтэй богино харилцах сорил",
+      "recommended_can_do_mn": "Эмчийн нэг асуултыг ойлгож, өөрт илэрч буй нэг шинж тэмдгийг хэлээд шаардлагатай үед лавлана.",
+      "target_examples_draft": [
+        {
+          "cz_text_unsegmented": "Co vás bolí? – Bolí mě hlava.",
+          "mn": "Таны юу өвдөж байна вэ? – Миний толгой өвдөж байна.",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "Шинэ дүр дээр эмчийн асуултыг сонсоод зохих шинж тэмдэг хэлнэ; ойлгоогүй бол дахин асууна.",
+      "neighbor_scope_draft": "L08 шинж тэмдэг, L09 лавлах, L10 нийлмэл эмчийн харилцаа.",
+      "register_and_context_draft": "Бие ба эрүүл мэнд сэдвийн нөхцөл; хэлэгч, харилцааны хүндэтгэлийн хэлбэрийн эцсийн хяналт хүлээгдэж байна.",
+      "issue_or_blocker": "Эмчийн асуулт repo phrase bank-д байхгүй; зөвлөмж/эмчилгээ, клиникийн нарийн ойлголт энэ A0 сорилд хамаарахгүй.",
+      "requires_scope_review": false,
+      "evidence_level": "REPO_SOURCE_AND_EDITORIAL_DRAFT_NATIVE_PENDING",
+      "source_document": "docs/data/a0_wording_review_batch_03_v0_1.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T11-L02",
+      "topic_id": "A0-T11",
+      "drive_title_mn": "Өрөөнүүдийг нэрлэх",
+      "github_title_mn": "Өрөөнүүд",
+      "original_classification": "wording_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "Гэрийн өрөөнүүдийг нэрлэх",
+      "recommended_can_do_mn": "Зурагт буй гал тогоо, ариун цэврийн өрөө болон өөр энгийн өрөөг Чехээр нэрлэнэ.",
+      "target_examples_draft": [
+        {
+          "cz_text_unsegmented": "kuchyň / koupelna / pokoj",
+          "mn": "гал тогоо / угаалгын өрөө / өрөө",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "Орон сууцны зурагт 3 өрөөний нэрийг зөв харгалзуулж нэрлэнэ.",
+      "neighbor_scope_draft": "L01 байр танилцуулах, L02 өрөө, L03 хаалга/цонх.",
+      "register_and_context_draft": "Гэр ба орон байр сэдвийн нөхцөл; хэлэгч, харилцааны хүндэтгэлийн хэлбэрийн эцсийн хяналт хүлээгдэж байна.",
+      "issue_or_blocker": "Одоогийн phrase bank зөвхөн Kde je koupelna? агуулдаг тул олон өрөөг нэрлэж чаддаг гэсэн баталгаа байхгүй.",
+      "requires_scope_review": false,
+      "evidence_level": "REPO_SOURCE_AND_EDITORIAL_DRAFT_NATIVE_PENDING",
+      "source_document": "docs/data/a0_wording_review_batch_03_v0_1.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T11-L03",
+      "topic_id": "A0-T11",
+      "drive_title_mn": "Хаалга, цонх, эд зүйл",
+      "github_title_mn": "Хаалга, цонх",
+      "original_classification": "scope_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "Хаалга, цонхыг зааж нэрлэх",
+      "recommended_can_do_mn": "Гэрийн зурагт хаалга, цонхыг зааж Чехээр тус тус нэрлэнэ.",
+      "target_examples_draft": [
+        {
+          "cz": "dveře",
+          "mn": "хаалга (Чех хэлэнд олон тооны хэлбэртэй)",
+          "editorial_verified": false
+        },
+        {
+          "cz": "okno",
+          "mn": "цонх",
+          "editorial_verified": false
+        },
+        {
+          "cz": "To jsou dveře.",
+          "mn": "Энэ бол хаалга.",
+          "editorial_verified": false
+        },
+        {
+          "cz": "To je okno.",
+          "mn": "Энэ бол цонх.",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "Танил бус байрны зурагт door/window-ыг 2/2 зөв зааж нэрлэнэ; бусад эд зүйлийг T11-L04-д үлдээнэ.",
+      "neighbor_scope_draft": "T11-L02 өрөөнүүд; L03 хаалга/цонх; L04 бусад гэрийн эд зүйл. Drive-ийн өргөн `эд зүйл` хэсгийг L04-д хуваарилсан нь ил тод scope decision.",
+      "register_and_context_draft": "Хүндэтгэлийн ялгаа хамаарахгүй; `dveře`-г `To je dveře` гэж алдаатай бүү нийлүүл.",
+      "issue_or_blocker": "Drive-ийн өргөн нэрээс зориуд нарийсгасан шийдвэрийг native+MN редакц батлах шаардлагатай; хичээлийн жишээ phrase bank-д байхгүй.",
+      "requires_scope_review": true,
+      "evidence_level": "EXTERNAL_CROSSCHECK_LIMITED_NATIVE_PENDING",
+      "source_document": "docs/data/a0_14_scope_editorial_decisions_v0_2.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T12-L01",
+      "topic_id": "A0-T12",
+      "drive_title_mn": "Үндсэн өнгийг сонсож ялгах",
+      "github_title_mn": "Үндсэн өнгийг таних",
+      "original_classification": "scope_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "Үндсэн өнгийг сонсож ялгах",
+      "recommended_can_do_mn": "Энгийн Чех өнгөний нэрийг сонсоод тохирох өнгийн дүрсийг сонгоно.",
+      "target_examples_draft": [
+        {
+          "cz": "červená barva",
+          "mn": "улаан өнгө",
+          "editorial_verified": false
+        },
+        {
+          "cz": "modrá barva",
+          "mn": "цэнхэр өнгө",
+          "editorial_verified": false
+        },
+        {
+          "cz": "zelená barva",
+          "mn": "ногоон өнгө",
+          "editorial_verified": false
+        },
+        {
+          "cz": "Je to červené.",
+          "mn": "Энэ улаан өнгөтэй. (нийцлийн нөхцөлийг шалгах)",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "3 өнгө, тус бүр 2 шинэ дүрсний байрлал дээр зөв сонгох; L02 өнгийг өөрөө хэлж сонгох чадварыг энд давхар шалгахгүй.",
+      "neighbor_scope_draft": "L01 сонсож ялгах; L02 нэрлэж сонгох; L03 том/жижиг. Нэг чех өгүүлбэр гурван өнгийг шалгахад хангалтгүй.",
+      "register_and_context_draft": "Өнгөний тодотгол нь нэр үгийн хүйс/тоотой тохирно; `barva` эм хүйс тул `červená/modrá/zelená`. Дуугүй дүрсийг хараад таах биш аудиогоор ялгана.",
+      "issue_or_blocker": "Цэнхэр/ногоон бодит Чех аудио байхгүй; текстээр сонсголын чадварыг батлах боломжгүй.",
+      "requires_scope_review": true,
+      "evidence_level": "EXTERNAL_CROSSCHECK_LIMITED_NATIVE_PENDING",
+      "source_document": "docs/data/a0_14_scope_editorial_decisions_v0_2.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T12-L03",
+      "topic_id": "A0-T12",
+      "drive_title_mn": "Том, жижиг гэж хэлэх",
+      "github_title_mn": "Том, жижиг",
+      "original_classification": "wording_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "«Том», «жижиг» шинжийг хэлэх",
+      "recommended_can_do_mn": "Өгөгдсөн хоёр эд зүйлийн том/жижиг шинжийг энгийн хэллэгээр хэлнэ.",
+      "target_examples_draft": [
+        {
+          "cz_text_unsegmented": "velký dům / malý dům",
+          "mn": "том байшин / жижиг байшин",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "Том/жижиг байшинг зурагт хоёр өөр дарааллаар зөв хэлнэ.",
+      "neighbor_scope_draft": "L02 өнгө нэрлэх, L03 хэмжээ, L04 хэлбэр.",
+      "register_and_context_draft": "Өнгө ба хэлбэр сэдвийн нөхцөл; хэлэгч, харилцааны хүндэтгэлийн хэлбэрийн эцсийн хяналт хүлээгдэж байна.",
+      "issue_or_blocker": "Adjective gender agreement: velký/malý нь dům эр хүйстэй тохирсон; өөр нэр үгт шууд хуулж болохгүй.",
+      "requires_scope_review": false,
+      "evidence_level": "REPO_SOURCE_AND_EDITORIAL_DRAFT_NATIVE_PENDING",
+      "source_document": "docs/data/a0_wording_review_batch_03_v0_1.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T12-L04",
+      "topic_id": "A0-T12",
+      "drive_title_mn": "Дугуй хэлбэр таних",
+      "github_title_mn": "Дугуй хэлбэр",
+      "original_classification": "wording_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "Дугуй хэлбэрийг таних",
+      "recommended_can_do_mn": "Зурагт дугуй хэлбэртэй эд зүйл эсвэл дугуй дүрсийг бусад хэлбэрээс ялгана.",
+      "target_examples_draft": [
+        {
+          "cz_text_unsegmented": "kruh / Je to kulaté.",
+          "mn": "дугуй дүрс (тойрог) / Энэ дугуй хэлбэртэй.",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "Дугуй болон дөрвөлжин дүрстэй 4 картнаас дугуйг сонгоно; нэр үг ба тэмдэг нэрийн ялгааг ойлгуулна.",
+      "neighbor_scope_draft": "L03 хэмжээ; L04 дугуй, L05 дөрвөлжин.",
+      "register_and_context_draft": "Өнгө ба хэлбэр сэдвийн нөхцөл; хэлэгч, харилцааны хүндэтгэлийн хэлбэрийн эцсийн хяналт хүлээгдэж байна.",
+      "issue_or_blocker": "kruh (тойрог дүрс) ба kulaté (дугуй хэлбэртэй) нь өөр төрлийн хэллэг; modality, adjective agreement нягтлах.",
+      "requires_scope_review": true,
+      "evidence_level": "REPO_SOURCE_AND_EDITORIAL_DRAFT_NATIVE_PENDING",
+      "source_document": "docs/data/a0_wording_review_batch_03_v0_1.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T12-L05",
+      "topic_id": "A0-T12",
+      "drive_title_mn": "Дөрвөлжин хэлбэр таних",
+      "github_title_mn": "Дөрвөлжин хэлбэр",
+      "original_classification": "wording_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "Квадрат хэлбэрийг бусдаас ялган таних",
+      "recommended_can_do_mn": "Тэгш талт дөрвөлжин дүрсийг (квадрат) тэгш өнцөгт болон дугуй дүрсээс ялгана.",
+      "target_examples_draft": [
+        {
+          "cz_text_unsegmented": "čtverec / obdélník",
+          "mn": "квадрат / тэгш өнцөгт",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "Зургаас квадрат, урт тэгш өнцөгт хоёрыг ялгах сорил; юу ойлгуулахыг Монгол нэрээр тодорхой заана.",
+      "neighbor_scope_draft": "L04 дугуй; L05 дөрвөлжин; L06 өнгөт эд зүйл.",
+      "register_and_context_draft": "Өнгө ба хэлбэр сэдвийн нөхцөл; хэлэгч, харилцааны хүндэтгэлийн хэлбэрийн эцсийн хяналт хүлээгдэж байна.",
+      "issue_or_blocker": "Монгол 'дөрвөлжин' нь rectangle/square хоёуланг хамарч магадгүй. Чех čtverec≠obdélník; нэрийн scope-г редакцаар шийдэх.",
+      "requires_scope_review": true,
+      "evidence_level": "REPO_SOURCE_AND_EDITORIAL_DRAFT_NATIVE_PENDING",
+      "source_document": "docs/data/a0_wording_review_batch_03_v0_1.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T12-L06",
+      "topic_id": "A0-T12",
+      "drive_title_mn": "Өнгө, эд зүйлийг хамт хэлэх",
+      "github_title_mn": "Өнгө ба эд зүйл",
+      "original_classification": "wording_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "Эд зүйлийг өнгөтэй нь хамт нэрлэх",
+      "recommended_can_do_mn": "Эд зүйл болон түүний өнгийг Чехээр нэг утгатай хэллэгт хамтатгана.",
+      "target_examples_draft": [
+        {
+          "cz_text_unsegmented": "červené auto / modré auto",
+          "mn": "улаан машин / цэнхэр машин",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "Ижил нэртэй хоёр өөр өнгийн эд зүйлийг зөв хослолтой нэрлэнэ.",
+      "neighbor_scope_draft": "L01 өнгө сонсох, L02 өнгө нэрлэх, L06 эд зүйлтэй нэгтгэх.",
+      "register_and_context_draft": "Өнгө ба хэлбэр сэдвийн нөхцөл; хэлэгч, харилцааны хүндэтгэлийн хэлбэрийн эцсийн хяналт хүлээгдэж байна.",
+      "issue_or_blocker": "Өнгөний тэмдэг нэр ба нэр үгийн хүйс/тооны нийцлийг батлах; зүгээр хоёр үгийг тус тус мэдэх нь хангалтгүй.",
+      "requires_scope_review": true,
+      "evidence_level": "REPO_SOURCE_AND_EDITORIAL_DRAFT_NATIVE_PENDING",
+      "source_document": "docs/data/a0_wording_review_batch_03_v0_1.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T13-L01",
+      "topic_id": "A0-T13",
+      "drive_title_mn": "Хувцасны үндсэн нэр",
+      "github_title_mn": "Хувцасны нэрс",
+      "original_classification": "wording_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "Хувцасны үндсэн төрлийг таньж нэрлэх",
+      "recommended_can_do_mn": "Дэлгүүрийн зураг дээр хүрэм, цамц, өмд зэргийг нэрлэнэ.",
+      "target_examples_draft": [
+        {
+          "cz_text_unsegmented": "bunda / tričko / kalhoty",
+          "mn": "хүрэм / футболк / өмд",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "Гурван нэр төрөл бүхий шинэ зурагт эд зүйлийг зөв нэрлэнэ.",
+      "neighbor_scope_draft": "L01 хувцасны нэр, L02 өнгө, L03 хэмжээ.",
+      "register_and_context_draft": "Хувцас сэдвийн нөхцөл; хэлэгч, харилцааны хүндэтгэлийн хэлбэрийн эцсийн хяналт хүлээгдэж байна.",
+      "issue_or_blocker": "Kalhoty нь Чех хэлэнд олон тооны хэлбэр; одоогийн банканд хувцасны нэрс бараг байхгүй.",
+      "requires_scope_review": false,
+      "evidence_level": "REPO_SOURCE_AND_EDITORIAL_DRAFT_NATIVE_PENDING",
+      "source_document": "docs/data/a0_wording_review_batch_04_v0_1.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T13-L04",
+      "topic_id": "A0-T13",
+      "drive_title_mn": "Хүссэн зүйлээ хэлэх",
+      "github_title_mn": "Хүссэн хувцсаа хэлэх",
+      "original_classification": "scope_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "Хүссэн хувцсаа нэрлэж хүсэх",
+      "recommended_can_do_mn": "Хувцасны дэлгүүрт хайж буй хувцсаа нэрлэж энгийн хүсэлт тавина.",
+      "target_examples_draft": [
+        {
+          "cz": "Hledám bundu.",
+          "mn": "Би хүрэм хайж байна.",
+          "editorial_verified": false
+        },
+        {
+          "cz": "Tuhle bundu, prosím.",
+          "mn": "Энэ хүрмийг өгнө үү.",
+          "editorial_verified": false
+        },
+        {
+          "cz": "Vezmu si to.",
+          "mn": "Үүнийг авъя. (худалдан авах шийдвэр)",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "Дэлгүүрийн зурагт 2 өөр хувцасны нэгийг нэрлэн хайж байгаагаа хэлнэ; зөвхөн `Vezmu si to.` хэлсэн бол хүсэлт гэж оноохгүй.",
+      "neighbor_scope_draft": "L03 хэмжээ асуух; L04 хүссэн бараагаа нэрлэж хүсэх; L05 өмсөж үзэх зөвшөөрөл; L07 өөр хэмжээ хүсэх.",
+      "register_and_context_draft": "Дэлгүүрийн үйлчилгээний албан нөхцөл; `tuhle` зааж байгаа зүйл тодорхой үед, informal speech nuance хянана.",
+      "issue_or_blocker": "Drive ерөнхий 'зүйл' гэснийг хувцасны сэдэвт нарийсгасан; native review, барааны жишээ, Монгол байгалийн орчуулга дутуу.",
+      "requires_scope_review": true,
+      "evidence_level": "EXTERNAL_CROSSCHECK_LIMITED_NATIVE_PENDING",
+      "source_document": "docs/data/a0_14_scope_editorial_decisions_v0_2.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T13-L05",
+      "topic_id": "A0-T13",
+      "drive_title_mn": "Өмсөж үзэхийг хүсэх",
+      "github_title_mn": "Өмсөж үзэх",
+      "original_classification": "scope_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "Хувцас өмсөж үзэх зөвшөөрөл хүсэх",
+      "recommended_can_do_mn": "Худалдагчид тодорхой хувцсыг өмсөж үзэж болох эсэхийг эелдгээр асууна.",
+      "target_examples_draft": [
+        {
+          "cz": "Můžu si to zkusit?",
+          "mn": "Үүнийг өмсөж үзэж болох уу?",
+          "editorial_verified": false
+        },
+        {
+          "cz": "Ano, můžete.",
+          "mn": "Тийм, болно.",
+          "editorial_verified": false
+        },
+        {
+          "cz": "Bohužel ne.",
+          "mn": "Харамсалтай нь болохгүй.",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "Хувцсаа заасан шинэ сценд зөвшөөрөл асуугаад эерэг эсвэл сөрөг хариуг ойлгоно; 2-turn interaction нь хариултын шинэ өгөгдөлгүй бол дутуу.",
+      "neighbor_scope_draft": "L04 хүссэн хувцсаа олох/хүсэх; L05 өмсөж үзэх зөвшөөрөл; L07 өөр хэмжээ хүсэх.",
+      "register_and_context_draft": "Худалдагчид хандсан эелдэг асуулт; хариултын `můžete` бол vy хэлбэр. `Můžu si to zkusit?` асуулт өөрөө ty/vy төгсгөлгүй.",
+      "issue_or_blocker": "Асуултын эх жишээ байгаа боловч хариу болон жинхэнэ дэлгүүрийн аудио/харилцан яриа дутуу.",
+      "requires_scope_review": true,
+      "evidence_level": "EXTERNAL_CROSSCHECK_LIMITED_NATIVE_PENDING",
+      "source_document": "docs/data/a0_14_scope_editorial_decisions_v0_2.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T13-L08",
+      "topic_id": "A0-T13",
+      "drive_title_mn": "Дэлгүүрт хувцас авах сорил",
+      "github_title_mn": "Хувцас авах сорил",
+      "original_classification": "wording_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "Хувцасны дэлгүүрт худалдан авах сорил",
+      "recommended_can_do_mn": "Хувцас сонгож, өмсөж үзэхийг хүсэж, хэмжээ тохирох эсэхийг асуугаад авах шийдвэрээ хэлнэ.",
+      "target_examples_draft": [
+        {
+          "cz_text_unsegmented": "Můžu si to zkusit? / Máte větší? / Vezmu si to.",
+          "mn": "Үүнийг өмсөж үзэж болох уу? / Илүү том хэмжээ байна уу? / Үүнийг авъя.",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "Дэлгүүрийн шинэ дүрд хэмжээ/өмсөж үзэх/сонгох дарааллын 3 асуулт ба хариуг хэрэгжүүлнэ.",
+      "neighbor_scope_draft": "L03 хэмжээ асуух, L04 хүссэн хувцас, L05 өмсөж үзэх, L07 өөр хэмжээ.",
+      "register_and_context_draft": "Хувцас сэдвийн нөхцөл; хэлэгч, харилцааны хүндэтгэлийн хэлбэрийн эцсийн хяналт хүлээгдэж байна.",
+      "issue_or_blocker": "Худалдагчийн хариу phrase bank-д дутуу; ярианы сорилыг дан 3 өгүүлбэртэй бичвэрээр баталж болохгүй.",
+      "requires_scope_review": false,
+      "evidence_level": "REPO_SOURCE_AND_EDITORIAL_DRAFT_NATIVE_PENDING",
+      "source_document": "docs/data/a0_wording_review_batch_04_v0_1.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T14-L01",
+      "topic_id": "A0-T14",
+      "drive_title_mn": "Халуун, хүйтнийг хэлэх",
+      "github_title_mn": "Халуун, хүйтэн",
+      "original_classification": "wording_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "Цаг агаар халуун эсвэл хүйтнийг хэлэх",
+      "recommended_can_do_mn": "Гадаах цаг агаарын халуун/хүйтнийг зураг/нөхцөлд тохируулан хэлнэ.",
+      "target_examples_draft": [
+        {
+          "cz_text_unsegmented": "Je zima. / Je horko.",
+          "mn": "Хүйтэн байна. / Халуун байна.",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "Хүйтэн/халуун цаг агаарын шинэ хоёр зурагт зөв хэллэгийг сонгож хэлнэ.",
+      "neighbor_scope_draft": "L01 халуун/хүйтэн, L02 бороо, L03 цас.",
+      "register_and_context_draft": "Цаг агаар сэдвийн нөхцөл; хэлэгч, харилцааны хүндэтгэлийн хэлбэрийн эцсийн хяналт хүлээгдэж байна.",
+      "issue_or_blocker": "Je zima. бол орчны хүйтэн, Je mi zima. бол хүний даарч байгаа мэдрэмж; Je horko. агаар халуун. Эд зүйл халуун байгааг энд оруулахгүй.",
+      "requires_scope_review": false,
+      "evidence_level": "REPO_SOURCE_AND_EDITORIAL_DRAFT_NATIVE_PENDING",
+      "source_document": "docs/data/a0_wording_review_batch_04_v0_1.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T14-L07",
+      "topic_id": "A0-T14",
+      "drive_title_mn": "Цаг агаарын богино ярианы сорил",
+      "github_title_mn": "Цаг агаарын сорил",
+      "original_classification": "wording_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "Цаг агаарын тухай богино ярилцах сорил",
+      "recommended_can_do_mn": "Цаг агаарын тухай энгийн асуултад зөв нөхцөлд хариулж, нэг нэмэлт мэдээлэл өгнө.",
+      "target_examples_draft": [
+        {
+          "cz_text_unsegmented": "Jaké je počasí? – Prší.",
+          "mn": "Цаг агаар ямар байна? – Бороо орж байна.",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "Хоёр шинэ цаг агаарын зурагт асуулт сонсоод тохирох хариуг сонгон хэлнэ.",
+      "neighbor_scope_draft": "L01–L06 тайлбар, L07 нийлмэл цаг агаарын яриа.",
+      "register_and_context_draft": "Цаг агаар сэдвийн нөхцөл; хэлэгч, харилцааны хүндэтгэлийн хэлбэрийн эцсийн хяналт хүлээгдэж байна.",
+      "issue_or_blocker": "Нөгөө хүний хариу сонсох, дагалдах нэмэлт реплик/асуулт дутуу. Цаг агаарын 1 өгүүлбэр ярианы сорил биш.",
+      "requires_scope_review": true,
+      "evidence_level": "REPO_SOURCE_AND_EDITORIAL_DRAFT_NATIVE_PENDING",
+      "source_document": "docs/data/a0_wording_review_batch_04_v0_1.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T15-L01",
+      "topic_id": "A0-T15",
+      "drive_title_mn": "Багш, сурагчийг таних",
+      "github_title_mn": "Багш, сурагч",
+      "original_classification": "wording_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "Багш, суралцагчийг таних",
+      "recommended_can_do_mn": "Хичээлийн зурагт хэн нь багш, хэн нь суралцагч болохыг танина.",
+      "target_examples_draft": [
+        {
+          "cz_text_unsegmented": "To je učitel. / To je student.",
+          "mn": "Энэ багш (эрэгтэй). / Энэ суралцагч (эрэгтэй).",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "Багш/оюутан/сурагчдын зурагт үгтэй тохирох хүнээ танина; дүрийг эрэмбэлж сольж шалгана.",
+      "neighbor_scope_draft": "L01 оролцогчийн дүр таних, L02 ном/дэвтэр/үзэг.",
+      "register_and_context_draft": "Сургууль ба суралцах орчин сэдвийн нөхцөл; хэлэгч, харилцааны хүндэтгэлийн хэлбэрийн эцсийн хяналт хүлээгдэж байна.",
+      "issue_or_blocker": "Багш = učitel/učitelka, сурагч хүүхэд = žák/žákyně, насанд хүрсэн оюутан = student/studentka. Нэг хэллэг бүх контекстийг хамрахгүй.",
+      "requires_scope_review": true,
+      "evidence_level": "REPO_SOURCE_AND_EDITORIAL_DRAFT_NATIVE_PENDING",
+      "source_document": "docs/data/a0_wording_review_batch_04_v0_1.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T15-L03",
+      "topic_id": "A0-T15",
+      "drive_title_mn": "Нээ, хаа, сонс гэсэн заавар",
+      "github_title_mn": "Нээ, хаа, сонс",
+      "original_classification": "wording_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "«Нээ», «Хаа», «Сонс» зааврыг ойлгох",
+      "recommended_can_do_mn": "Хичээлийн багшийн нээх, хаах, сонсох энгийн зааврыг сонсоод зөв үйлдэл сонгоно.",
+      "target_examples_draft": [
+        {
+          "cz_text_unsegmented": "Otevřete knihu. / Zavřete knihu. / Poslouchejte.",
+          "mn": "Номоо нээгээрэй. / Номоо хаагаарай. / Сонсоорой.",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "Гурван өгүүлбэрийг сонсоод дүрс дээр зөв үйлдэл сонгоно.",
+      "neighbor_scope_draft": "L02 ном/дэвтэр/үзэг; L03 заавар; L04 ойлгосон эсэхээ хэлэх.",
+      "register_and_context_draft": "Сургууль ба суралцах орчин сэдвийн нөхцөл; хэлэгч, харилцааны хүндэтгэлийн хэлбэрийн эцсийн хяналт хүлээгдэж байна.",
+      "issue_or_blocker": "Zavřete knihu. одоогийн банканд алга; vy/олон тооны тушаах хэлбэр; текст л байвал сонсгол батлагдахгүй.",
+      "requires_scope_review": true,
+      "evidence_level": "REPO_SOURCE_AND_EDITORIAL_DRAFT_NATIVE_PENDING",
+      "source_document": "docs/data/a0_wording_review_batch_04_v0_1.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T16-L01",
+      "topic_id": "A0-T16",
+      "drive_title_mn": "Нохой, муур, шувууг нэрлэх",
+      "github_title_mn": "Нохой, муур, шувуу",
+      "original_classification": "wording_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "Нохой, муур, шувууг нэрлэх",
+      "recommended_can_do_mn": "Нохой, муур, шувууг зурагт зөв таньж нэрлэнэ.",
+      "target_examples_draft": [
+        {
+          "cz_text_unsegmented": "To je pes. / To je kočka. / To je pták.",
+          "mn": "Энэ нохой. / Энэ муур. / Энэ шувуу.",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "3 амьтны зурагт тохирох энгийн өгүүлбэр тус бүрийг хэлнэ.",
+      "neighbor_scope_draft": "L01 амьтны нэр, L02 'энэ юу вэ?' асуулт.",
+      "register_and_context_draft": "Амьтан сэдвийн нөхцөл; хэлэгч, харилцааны хүндэтгэлийн хэлбэрийн эцсийн хяналт хүлээгдэж байна.",
+      "issue_or_blocker": "To je pták. repo phrase bank-д байхгүй; нохой ба муураар шувууг нэрлэж чадна гэж тооцохгүй.",
+      "requires_scope_review": false,
+      "evidence_level": "REPO_SOURCE_AND_EDITORIAL_DRAFT_NATIVE_PENDING",
+      "source_document": "docs/data/a0_wording_review_batch_04_v0_1.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    },
+    {
+      "skill_id": "A0-T16-L06",
+      "topic_id": "A0-T16",
+      "drive_title_mn": "Амьтны тухай богино ярианы сорил",
+      "github_title_mn": "Амьтны тухай ярианы сорил",
+      "original_classification": "wording_review",
+      "source_audit_approval": false,
+      "recommended_title_mn": "Амьтны тухай богино ярилцах сорил",
+      "recommended_can_do_mn": "Энгийн асуултад ямар амьтантай/байгааг хэлж, нэг хариу ойлгоно.",
+      "target_examples_draft": [
+        {
+          "cz_text_unsegmented": "Máte domácí zvíře? / Mám psa.",
+          "mn": "Та гэрийн тэжээвэр амьтантай юу? / Би нохойтой.",
+          "editorial_verified": false
+        }
+      ],
+      "assessment_draft": "Тэжээвэр амьтантай болон үгүй хоёр дүрийн 2-turn харилцан яриа; хэвшмэл худал хувийн мэдээлэл шаардахгүй.",
+      "neighbor_scope_draft": "L01–L05 нэр, эзэмшил; L06 нэгтгэсэн яриа.",
+      "register_and_context_draft": "Амьтан сэдвийн нөхцөл; хэлэгч, харилцааны хүндэтгэлийн хэлбэрийн эцсийн хяналт хүлээгдэж байна.",
+      "issue_or_blocker": "Одоогийн банк зөвхөн Mám psa. өгүүлбэр агуулдаг; асуулт/үгүйсгэлтэй хариу, дотно/албан нөхцөл шинээр шаардлагатай.",
+      "requires_scope_review": false,
+      "evidence_level": "REPO_SOURCE_AND_EDITORIAL_DRAFT_NATIVE_PENDING",
+      "source_document": "docs/data/a0_wording_review_batch_04_v0_1.json",
+      "czech_review": "PENDING",
+      "mongolian_review": "PENDING",
+      "phonetic_or_audio_review": "NOT_TESTED",
+      "audio_ready": false,
+      "approved": false,
+      "published": false
+    }
+  ]
+}
