@@ -25,3 +25,13 @@ Build 3–6 complete greetings / asking-to-repeat lesson vertical slice (A0-T02 
 
 ## Parallel AUDIO G1 (separate repo, not to be confused with CONTENT next action)
 AUTO AUDIO v1.2 is USER-CONFIRMED as technical primary policy. Audio Factory draft PR #7: https://github.com/enkhbat194/Audio-uildwerlel/pull/7 . Private 246 manifest from Google Drive; 124 Hana +122 Jan; actual Drive MP3 count in manifest 0. Six ElevenLabs Flows currently show 246 completed and 6 historic failed states. The PR adds read-only History matcher/downloader and offline tests; code is NOT production-deployed, History access and Drive OAuth write/readback remain unverified. **Next single Audio task:** verify authenticated ElevenLabs History Read lookup for Flow generations using narrowly scoped private key in an authorized runner, first LIST ONLY, without TTS generation. No API key in chat/public repo. If Flow history is absent, record blocker and do not regenerate. No public R2 or app publication.
+
+## 2026-11-23 CONTENT checkpoint (added after original state)
+
+The live Google Docs A0 source has been read again and matches the 140-title snapshot in PR #30 (0 live-title drift). On PR #30's feature branch, new unmerged editorial artifacts now exist:
+- `docs/data/a0_14_scope_editorial_decisions_v0_2.json` — 14 proposed title/can-do/CZ/MN/register/assessment/overlap/evidence decisions, **all approved=false**.
+- `docs/A0_14_SCOPE_EDITORIAL_REVIEW_v0_2.md` — human-readable scope comparison and release gates.
+- `docs/A0_CONTENT_CRITICAL_PATH_v0_1.md` — content-first dependency graph and parallelizable work.
+- `scripts/check-a0-outline-reconciliation.mjs` — expanded to check 14-case structural completeness in existing CI lint.
+
+**NEXT ACTION REMAINS:** Independent Czech/Mongolian editorial validation of these 14 candidate resolutions, especially safety commands, occupation, ty/vy and test scope. Then review 48 wording records. This checkpoint does **not** claim pedagogical approval or a finished lesson and does not merge PR #30. Check PR #30 CI conclusion on its latest HEAD before reporting success.
