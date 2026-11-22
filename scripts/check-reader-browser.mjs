@@ -159,6 +159,76 @@ try {
     await page.close();
   }
 
+  // Browser-only deterministic smoke: this tests UI state and word matching,
+  // NOT actual microphone audio quality or iOS recognition reliability.
+  {
+    const micPage = await browser.newPage({ viewport: { width: 390, height: 844 } });
+    await micPage.addInitScript(() => {
+      window.__spokenTts = [];
+      window.SpeechSynthesisUtterance = class {
+        constructor(text) { this.text = text; this.rate = 1; }
+      };
+      Object.defineProperty(window, "speechSynthesis", {
+        configurable: true,
+        value: {
+          speaking: false, paused: false,
+          getVoices() { return [{ name: "Mock Czech voice", lang: "cs-CZ" }]; },
+          addEventListener() {}, removeEventListener() {},
+          speak(utterance) { this.speaking = true; window.__spokenTts.push(utterance); },
+          cancel() { this.speaking = false; },
+          pause() { this.paused = true; }, resume() { this.paused = false; },
+        },
+      });
+      window.SpeechRecognition = class {
+        constructor() { window.__lastRecognizer = this; }
+        start() { this.onstart?.(); }
+        abort() { this.onend?.(); }
+        emit(transcript) {
+          const result = [{ transcript }];
+          result.isFinal = true;
+          this.onresult?.({ resultIndex: 0, results: [result] });
+        }
+      };
+    });
+    await micPage.goto(url, { waitUntil: "domcontentloaded" });
+    await micPage.locator('[data-tab="read"]').click();
+    await micPage.locator(".book-card").first().click();
+    await micPage.locator("#detailContinueBtn").click();
+    await micPage.locator("#readerShell.aho-reader-shell").waitFor();
+    await micPage.locator("#ar-play").click();
+    const tts = await micPage.evaluate(() => ({
+      count: window.__spokenTts.length,
+      text: window.__spokenTts[0]?.text || "",
+    }));
+    assert.equal(tts.count, 1, "A chapter must be a SINGLE TTS utterance");
+    assert.ok(tts.text.includes("Slunce svítí") && tts.text.includes("Na stole"),
+      "Full Czech chapter text was not sent to browser TTS");
+    await micPage.locator("#ar-guided-toggle").click();
+    assert.equal(await micPage.locator("#ar-guided-toggle").getAttribute("aria-checked"), "true");
+    assert.equal(await micPage.locator(".ar-word.is-current").innerText(), "Slunce");
+    await micPage.evaluate(() => window.__lastRecognizer.emit("Slunce svítí nad Prahou"));
+    assert.equal(await micPage.locator(".ar-word.is-current").innerText(), "Ema",
+      "Czech STT did not advance past recognized sequence");
+    await micPage.evaluate(() => window.__lastRecognizer.emit("Slunce svítí nad Prahou"));
+    assert.equal(await micPage.locator(".ar-word.is-current").innerText(), "Ema",
+      "Duplicated STT final result incorrectly advanced");
+    await micPage.locator("#ar-word-help").click();
+    assert.equal(await micPage.locator(".ar-word.is-current").innerText(), "Ema");
+    assert.equal(await micPage.evaluate(() => window.__spokenTts.at(-1)?.text), "Ema",
+      "Word-help speaker must play only the stuck CURRENT word");
+    await micPage.evaluate(() => window.__spokenTts.at(-1).onend?.());
+    assert.equal(await micPage.locator("#ar-guided-retry").isVisible(), true,
+      "Microphone restart must be explicit after example TTS on Safari");
+    await micPage.locator("#ar-guided-retry").click();
+    await micPage.evaluate(() => window.__lastRecognizer.emit("wrong word"));
+    assert.equal(await micPage.locator(".ar-word.is-current").innerText(), "Ema",
+      "Wrong/misrecognized word must not advance");
+    await micPage.locator("#ar-guided-toggle").click();
+    assert.equal(await micPage.locator("#ar-guided-toggle").getAttribute("aria-checked"), "false");
+    await micPage.close();
+    console.log("PASS mocked Czech browser TTS chapter continuity + STT guided word sequence + word-help");
+  }
+
   // Real HTMLAudioElement test with short locally generated WAV (not the story dataset).
   const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
   await page.goto(url, { waitUntil: "domcontentloaded" });
