@@ -268,4 +268,44 @@ for(const ex of pack.exercises){
 assert.equal(pack.release.published,false);
 assert.equal(pack.release.audio,'NOT_REQUESTED');
 
+
+const readerGates=read('curriculum/system-v1/reader-series-gates.draft.json');
+assert.equal(readerGates.status,'SERIES_CONCEPTS_ONLY_NO_APPROVED_READER_CHAPTERS');
+assert.equal(readerGates.series.length,4,'Reader needs at least four independent story tracks');
+assert.equal(new Set(readerGates.series.map(s=>s.story_id)).size,readerGates.series.length);
+assert.equal(new Set(readerGates.series.map(s=>s.genre)).size,readerGates.series.length);
+assert.equal(readerGates.current_main_audit.book_count,2);
+assert.equal(readerGates.current_main_audit.chapter_count,4);
+assert.deepEqual(readerGates.current_main_audit.chapter_new_words_labels,[7,8,6,7]);
+assert.equal(readerGates.current_main_audit.current_lexicon_id_links_found,false);
+assert.equal(readerGates.lexical_gate.never_mark_unmapped_inflections_as_known,true);
+assert.equal(readerGates.literary_quality_gate.independent_editorial_gate,true);
+for(const s of readerGates.series){
+ assert.ok(s.title_mn&&s.title_cs&&s.story_premise_mn);
+ assert.ok(s.target_mission_ids.every(id=>allMissionIds.has(id)));
+ assert.equal(s.narration_voice,'male_only');
+ assert.equal(s.written_chapters,0);
+ assert.deepEqual(s.episodes,[]);
+ assert.equal(s.published,false);
+ assert.equal(s.audio_requested,false);
+}
+const lessonForms=read('curriculum/system-v1/lessons/a0-intro-word-forms.draft.json');
+const tokenSeen=new Set();
+for(const utt of pack.utterances)
+ for(const tok of utt.text_cs.normalize('NFC').match(/\p{L}+(?:[’']\p{L}+)*/gu)??[])
+  tokenSeen.add(tok.toLocaleLowerCase('cs-CZ'));
+assert.equal(lessonForms.items.length,11);
+assert.equal(lessonForms.unique_surface_form_count,11);
+assert.equal(lessonForms.missing_single_word_audio_count,11);
+assert.deepEqual([...new Set(lessonForms.items.map(x=>x.surface_form_cs))].sort(),[...tokenSeen].sort());
+for(const f of lessonForms.items){
+ if(f.lexeme_id_candidate)assert.ok(lexById.has(f.lexeme_id_candidate));
+ assert.equal(f.single_word_audio_asset_id,null);
+ assert.equal(f.word_audio_status,'MISSING');
+ assert.equal(f.production_safe,false);
+ assert.ok(f.source_utterance_ids.length);
+}
+assert.deepEqual(lessonForms.items.filter(x=>!x.lexeme_id_candidate).map(x=>x.surface_form_cs).sort(),
+ ['anna','petr','shledanou']);
+
 console.log('Learning system QA PASS: 72 proposed missions, 16 source A0 topics, 140 stable skills, 53 provisional A0 sessions, 15-stage cycle; 0 published.');
