@@ -11,6 +11,7 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <title>Čeština • A0</title>
   <link rel="stylesheet" href="./reader-experience.css?v=4" />
+  <link rel="stylesheet" href="./a0-lesson-pilot.css?v=1" />
   <style>
     /* =========================================================
        1. ҮНДСЭН ӨНГӨ, ХЭМЖЭЭ БА GLASSMORPHISM ТОКЕНУУД
@@ -2636,6 +2637,7 @@
 
   <script src="./a0-curriculum.js?v=1"></script>
   <script src="./reader-experience.js?v=5"></script>
+  <script src="./a0-lesson-pilot.js?v=1"></script>
   <script>
     (function () {
       "use strict";
@@ -3216,21 +3218,35 @@
             '<li style="padding:12px 14px;margin:0 0 8px;border:1px solid rgba(255,255,255,.1);border-radius:13px;background:rgba(255,255,255,.035);list-style:none">' +
               '<div style="font-size:11px;color:#b8a592;margin-bottom:5px">' + escapeHtml(lesson.id) + ' · ЗУРАГЛАЛ</div>' +
               '<div style="font-size:14px;font-weight:650;color:#fff">' + escapeHtml(lesson.title_mn) + '</div>' +
+              (window.AhojLessonPilot?.has(lesson.id)
+                ? '<button type="button" data-pilot-lesson="' + escapeHtml(lesson.id) + '" style="margin-top:11px;padding:10px 13px;border:1px solid #d96c2e;border-radius:10px;color:#fff;background:#653619;font-size:13px;font-weight:650">' +
+                  (window.AhojLessonPilot.getStatus(lesson.id) === 'review_due' ? 'Давтах хугацаа болсон' :
+                   window.AhojLessonPilot.getStatus(lesson.id) === 'practice_done' ? 'Дасгалаа дахин үзэх' :
+                   window.AhojLessonPilot.getStatus(lesson.id) === 'in_progress' ? 'Дасгалаа үргэлжлүүлэх' :
+                   'Туршилтын дасгал эхлүүлэх') + '</button>'
+                : '') +
             '</li>'
           ).join("");
           mainArea.innerHTML =
-            '<section style="height:100%;overflow-y:auto;padding:18px 16px 100px;overscroll-behavior:contain">' +
+            '<section id="a0TopicOutline" style="height:100%;overflow-y:auto;padding:18px 16px 100px;overscroll-behavior:contain">' +
               '<button type="button" id="a0OutlineBack" style="padding:9px 13px;border-radius:12px;background:#2a2a2e;color:#fff;border:1px solid rgba(255,255,255,.16);font:inherit">‹ Бүх сэдэв</button>' +
               '<div style="margin:22px 2px 14px">' +
                 '<p style="color:#d8b56a;font-size:11px;letter-spacing:1.2px">A0 • ' + escapeHtml(ch.id) + ' • ХӨТӨЛБӨРИЙН ЗУРАГЛАЛ</p>' +
                 '<h2 style="margin:10px 0 5px;font-size:24px;line-height:1.2">' + escapeHtml(ch.title) + '</h2>' +
                 '<p style="font-size:14px;color:#aaa">' + escapeHtml(ch.subtitle) + '</p>' +
-                '<p style="font-size:13px;margin:15px 0;color:#ccc">' + ch.lessons.length + ' жижиг хичээл төлөвлөсөн. Аудио, дасгал, ярианы шалгалт хараахан нийтлэгдээгүй.</p>' +
+                '<p style="font-size:13px;margin:15px 0;color:#ccc">' + ch.lessons.length + ' жижиг хичээл төлөвлөсөн. Баталгаажсан аудио болон дуудлагын шалгалт нийтлэгдээгүй. Туршилтын дасгал байгаа бол доороос нээнэ.</p>' +
               '</div>' +
               '<ol style="padding:0;margin:0">' + lessonRows + '</ol>' +
               '<p style="padding:16px;border-radius:12px;background:#242428;font-size:13px;line-height:1.55;color:#ddd;margin-top:16px"><b>Эцсийн зорилго:</b> ' + escapeHtml(ch.finalTask) + '</p>' +
             '</section>';
           mainArea.querySelector("#a0OutlineBack").addEventListener("click", renderStagesView);
+          mainArea.querySelector("#a0TopicOutline").addEventListener("click", (event) => {
+            const button = event.target.closest("[data-pilot-lesson]");
+            if (!button || !window.AhojLessonPilot?.has(button.dataset.pilotLesson)) return;
+            window.AhojLessonPilot.mount(mainArea, button.dataset.pilotLesson, {
+              onBack: () => showTopicOutline(ch),
+            });
+          });
         }
 
         const slidesHtml = STAGE_CHAPTERS.map((ch, idx) => {
@@ -4481,6 +4497,7 @@
       }
 
       function renderApp() {
+        window.AhojLessonPilot?.destroy();
         renderNav();
         if (state.activeTab === "stages") renderStagesView();
         else if (state.activeTab === "read") renderReadingView();
