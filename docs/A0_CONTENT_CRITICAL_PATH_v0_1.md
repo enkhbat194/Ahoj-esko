@@ -44,3 +44,10 @@ A **content freeze** records the hash for every approved utterance. If a CZ phra
 4. Finalize 62 decisions; only then create canonical data update PR.
 
 **Current state:** G0 PASS; G1 draft data and evidence complete but NOT approved; G2–G9 not complete. Never use deadlines or learner gains as fabricated promises.
+
+## 2026-11-23 batch continuation checkpoint
+- **G1 — 14 scope cases:** v0.2 recommended titles, can-do, Czech/Mongolian draft examples, exit tests and neighbors **are recorded**. Expert linguistic approval is still pending.
+- **G2 — 48 wording cases:** completed 4 structured review batches, **48/48 proposals drafted**, 30 without new flagged scope ambiguity and 18 marked as further scope-confirmation candidates. These are **NOT 48 approved entries**. See `docs/A0_48_WORDING_BATCH_REVIEW_v0_1.md`.
+- **G3 — 62 ledger:** `docs/data/a0_62_editorial_decision_register_v0_1.json` now consolidates 14+48 with stable IDs, provenance, draft Czech/Mongolian samples, assessment, neighbor boundaries and explicit release blockers. **62/62 drafted, 0 accepted, 0 audio-ready, 0 published**.
+- **QA coverage:** extended existing `scripts/check-a0-outline-reconciliation.mjs` in `npm lint` for 14/48/62 counts, unique/unchanged IDs, source matching, full entry coverage and no silent `approved=true`. This is structural, not language approval.
+- **NEXT ACTION:** perform Czech/Mongolian editorial adjudication in focused groups (original 14 first and 18 escalations; 30 lower-risk name edits may be separately reviewed), with new sample strings checked against authoritative sources, tested register/context and manual language signoff by a genuinely qualified source. No production JSON or audio work before content lock. User does no ordinary manual QA.
