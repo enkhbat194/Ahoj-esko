@@ -2634,13 +2634,14 @@
   <!-- Мэдэгдэл (Toast) -->
   <div id="toast" class="toast" role="status" hidden></div>
 
+  <script src="./a0-curriculum.js?v=1"></script>
   <script src="./reader-experience.js?v=5"></script>
   <script>
     (function () {
       "use strict";
 
       /* =========================================================
-         1. ӨГӨГДӨЛ: НАВИГАЦИ, 13 БҮЛЭГ БА 10 ЧЕХ ЗОХИОЛ (ТУС БҮР 9 БҮЛЭГ)
+         1. ӨГӨГДӨЛ: НАВИГАЦИ, 16 БҮЛЭГ БА 10 ЧЕХ ЗОХИОЛ (ТУС БҮР 9 БҮЛЭГ)
          ========================================================= */
       const NAV_ITEMS = [
         { id: "stages", label: "Үе давах" },
@@ -2652,21 +2653,25 @@
 
       const MENU_ITEMS = ["Номын сан", "Сургалтын хичээлүүд", "Миний профайл", "Тохиргоо", "Тусламж"];
 
-      const STAGE_CHAPTERS = [
-        { chapter: 0,  title: "Цагаан толгой",  subtitle: "Česká abeceda", word: "Abeceda",  done: 0,  total: 14, accent: "#D96C2E" },
-        { chapter: 1,  title: "Мэндчилгээ",     subtitle: "Pozdravy",      word: "Ahoj!",    done: 0, total: 15, accent: "#5A7A9A" },
-        { chapter: 2,  title: "Тоо",            subtitle: "Čísla",         word: "Čísla",    done: 0, total: 15, accent: "#7A8A6A" },
-        { chapter: 3,  title: "Гэр бүл",        subtitle: "Rodina",        word: "Rodina",   done: 0, total: 15, accent: "#E8DCC8" },
-        { chapter: 4,  title: "Өнгө ба хэлбэр", subtitle: "Barvy a tvary", word: "Barvy",    done: 0, total: 15, accent: "#D96C2E" },
-        { chapter: 5,  title: "Хоол",           subtitle: "Jídlo",         word: "Jídlo",    done: 0,  total: 15, accent: "#5A7A9A" },
-        { chapter: 6,  title: "Гэр",            subtitle: "Dům",           word: "Dům",      done: 0,  total: 15, accent: "#7A8A6A" },
-        { chapter: 7,  title: "Амьтан",         subtitle: "Zvířata",       word: "Zvířata",  done: 0,  total: 15, accent: "#E8DCC8" },
-        { chapter: 8,  title: "Хувцас",         subtitle: "Oblečení",      word: "Oblečení", done: 0,  total: 15, accent: "#D96C2E" },
-        { chapter: 9,  title: "Цаг агаар",      subtitle: "Počasí",        word: "Počasí",   done: 0,  total: 15, accent: "#5A7A9A" },
-        { chapter: 10, title: "Тээвэр",         subtitle: "Doprava",       word: "Doprava",  done: 0,  total: 15, accent: "#7A8A6A" },
-        { chapter: 11, title: "Бие",            subtitle: "Tělo",          word: "Tělo",     done: 0,  total: 15, accent: "#E8DCC8" },
-        { chapter: 12, title: "Сургууль",       subtitle: "Škola",         word: "Škola",    done: 0,  total: 15, accent: "#D96C2E" },
-      ];
+      const a0Course = window.AHOJ_A0_CURRICULUM;
+      if (!a0Course || !Array.isArray(a0Course.topics) || a0Course.topics.length !== 16) {
+        throw new Error("A0 curriculum data not loaded: expected 16 topics");
+      }
+      // UI is a view of the curriculum, not a second hard-coded source.
+      const STAGE_CHAPTERS = a0Course.topics.map((topic, idx) => ({
+        chapter: idx,
+        id: topic.id,
+        title: topic.title_mn,
+        subtitle: topic.title_cz,
+        word: topic.word,
+        done: 0,
+        total: topic.lessons.length,
+        lessons: topic.lessons,
+        finalTask: topic.final_task_mn,
+        icon: topic.icon_legacy,
+        accent: topic.accent,
+        isOutline: topic.content_status !== "published",
+      }));
 
       /** Зөвхөн бодитоор бичсэн бүлгийг бүртгэнэ. Загвар өгүүлбэр автоматаар зохиохгүй. */
       function buildStoryChapters(spec) {
@@ -3041,7 +3046,7 @@
         return UI_ICONS.book;
       }
 
-      /** 13 сэдвийн шилэн вектор дүрсүүд */
+      /** Сэдэв дээр тохирох 13 төрлийн вектор дүрсийг дахин ашиглана. */
       function getStageSvg(chapter, accent) {
         const tint = accent;
         let body = "";
@@ -3202,13 +3207,41 @@
          5. TAB 1 — ҮЕ ДАВАХ (STAGES)
          ========================================================= */
       function renderStagesView() {
+
+        // This is a syllabus preview. It must not pretend that audio or graded lessons exist.
+        function showTopicOutline(ch) {
+          window.__goToStage = null;
+          window.__syncTrackResize = null;
+          const lessonRows = ch.lessons.map((lesson) =>
+            '<li style="padding:12px 14px;margin:0 0 8px;border:1px solid rgba(255,255,255,.1);border-radius:13px;background:rgba(255,255,255,.035);list-style:none">' +
+              '<div style="font-size:11px;color:#b8a592;margin-bottom:5px">' + escapeHtml(lesson.id) + ' · ЗУРАГЛАЛ</div>' +
+              '<div style="font-size:14px;font-weight:650;color:#fff">' + escapeHtml(lesson.title_mn) + '</div>' +
+            '</li>'
+          ).join("");
+          mainArea.innerHTML =
+            '<section style="height:100%;overflow-y:auto;padding:18px 16px 100px;overscroll-behavior:contain">' +
+              '<button type="button" id="a0OutlineBack" style="padding:9px 13px;border-radius:12px;background:#2a2a2e;color:#fff;border:1px solid rgba(255,255,255,.16);font:inherit">‹ Бүх сэдэв</button>' +
+              '<div style="margin:22px 2px 14px">' +
+                '<p style="color:#d8b56a;font-size:11px;letter-spacing:1.2px">A0 • ' + escapeHtml(ch.id) + ' • ХӨТӨЛБӨРИЙН ЗУРАГЛАЛ</p>' +
+                '<h2 style="margin:10px 0 5px;font-size:24px;line-height:1.2">' + escapeHtml(ch.title) + '</h2>' +
+                '<p style="font-size:14px;color:#aaa">' + escapeHtml(ch.subtitle) + '</p>' +
+                '<p style="font-size:13px;margin:15px 0;color:#ccc">' + ch.lessons.length + ' жижиг хичээл төлөвлөсөн. Аудио, дасгал, ярианы шалгалт хараахан нийтлэгдээгүй.</p>' +
+              '</div>' +
+              '<ol style="padding:0;margin:0">' + lessonRows + '</ol>' +
+              '<p style="padding:16px;border-radius:12px;background:#242428;font-size:13px;line-height:1.55;color:#ddd;margin-top:16px"><b>Эцсийн зорилго:</b> ' + escapeHtml(ch.finalTask) + '</p>' +
+            '</section>';
+          mainArea.querySelector("#a0OutlineBack").addEventListener("click", renderStagesView);
+        }
+
         const slidesHtml = STAGE_CHAPTERS.map((ch, idx) => {
           const isDone = ch.done >= ch.total;
           const isNew = ch.done === 0;
           const pct = Math.round((ch.done / ch.total) * 100);
           const isCream = ch.accent === "#E8DCC8";
-          const statusTag = isNew
-            ? `<span class="mini-tag status">ШИНЭ</span>`
+          const statusTag = ch.isOutline
+            ? `<span class="mini-tag status">ТӨЛӨВЛӨСӨН</span>`
+            : isNew
+              ? `<span class="mini-tag status">ШИНЭ</span>`
             : isDone
               ? `<span class="mini-tag status">ДУУССАН</span>`
               : "";
@@ -3220,7 +3253,7 @@
                   <div class="chapter-glow" style="background: radial-gradient(230px 145px at 50% 38%, ${ch.accent}3D 0%, transparent 72%);"></div>
                   <div class="chapter-top-line"></div>
                   <div class="emblem-area">
-                    <div class="emblem-frame glass-tile">${getStageSvg(ch.chapter, ch.accent)}</div>
+                    <div class="emblem-frame glass-tile">${getStageSvg(ch.icon, ch.accent)}</div>
                   </div>
                   <div class="chapter-hero-caption">
                     <span class="cefr-hero-pill glass-pill">ČEŠTINA • A0</span>
@@ -3241,7 +3274,7 @@
 
                   <div>
                     <div class="chapter-progress-row">
-                      <span>${ch.done} / ${ch.total} хичээл</span>
+                      <span>${ch.total} хичээлийн зураглал</span>
                       <span class="chapter-pct" style="background:${ch.accent}26;color:${ch.accent}">${pct}%</span>
                     </div>
                     <div class="progress-track" role="progressbar" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100">
@@ -3255,7 +3288,7 @@
                     data-chapter-start="${ch.chapter}"
                     style="background:${ch.accent};color:${isCream ? "#141414" : "#FFFFFF"}"
                   >
-                    ${isDone ? "↻ Дахин үе давах" : "Үе давах"}
+                    ${ch.isOutline ? "Хичээлүүдийг харах" : isDone ? "↻ Дахин үе давах" : "Үе давах"}
                   </button>
                 </div>
               </div>
@@ -3269,7 +3302,7 @@
 
         mainArea.innerHTML = `
           <div class="stages-container">
-            <p style="margin:0 16px 12px;color:#b8a592;font-size:12px;line-height:1.4">Шинэ сургалтын интерфейс · хичээлийн агуулга холбогдоогүй</p>
+            <p style="margin:0 16px 12px;color:#b8a592;font-size:12px;line-height:1.4">A0 · ${STAGE_CHAPTERS.length} сэдэв · ${STAGE_CHAPTERS.reduce((n, ch) => n + ch.total, 0)} жижиг хичээлийн зураглал</p>
             <button type="button" id="alphabetBtn" class="alphabet-banner glass-surface">
               <span class="alphabet-row">
                 <span class="alphabet-tile glass-tile" aria-hidden="true"><span style="position:relative;z-index:2">Aa</span></span>
@@ -3311,7 +3344,7 @@
           });
           prevBtn.disabled = state.activeStageIdx === 0;
           nextBtn.disabled = state.activeStageIdx === STAGE_CHAPTERS.length - 1;
-          counterEl.textContent = `CHAPTER ${current.chapter} / ${STAGE_CHAPTERS.length - 1} • ${current.title}`;
+          counterEl.textContent = `СЭДЭВ ${current.chapter + 1} / ${STAGE_CHAPTERS.length} • ${current.title}`;
         }
 
         function goToStage(index, smooth = true) {
@@ -3322,7 +3355,7 @@
         }
 
         document.getElementById("alphabetBtn").addEventListener("click", () => {
-          showToast("Шинэ сургалтын агуулга хараахан холбогдоогүй. Хуучин хөтөлбөрийг ашиглахгүй.");
+          showTopicOutline(STAGE_CHAPTERS[0]);
         });
         prevBtn.addEventListener("click", () => goToStage(state.activeStageIdx - 1));
         nextBtn.addEventListener("click", () => goToStage(state.activeStageIdx + 1));
@@ -3340,7 +3373,7 @@
           const btn = e.target.closest("[data-chapter-start]");
           if (!btn) return;
           const ch = STAGE_CHAPTERS[Number(btn.dataset.chapterStart)];
-          showToast(`Бүлэг ${ch.chapter} — шинэ хөтөлбөрийн агуулга холбогдоогүй байна`);
+          if (ch) showTopicOutline(ch);
         });
 
         document.getElementById("dotsContainer").addEventListener("click", (e) => {
