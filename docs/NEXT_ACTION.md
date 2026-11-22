@@ -6,10 +6,12 @@ GitHub main: 4431da3eb6ea8e65266e8c30e3df741fcbe4be3e (verify newest SHA again o
 Continuity docs: Draft PR #29, https://github.com/enkhbat194/Ahoj-esko/pull/29
 A0 Drive/GitHub source audit: Draft PR #30, https://github.com/enkhbat194/Ahoj-esko/pull/30
 PR #30 compares the latest connected Drive doc against main curriculum JSON: 16 topics, 140 unique IDs, 0 missing/duplicate, 78 title matches, 62 title differences: 48 preliminary wording, 14 potential scope discrepancies. The report, Drive snapshot, machine-readable proposals, and lint audit are in the PR. ALL proposed titles remain pending editorial review. No existing curriculum JSON, UI, audio, or lesson status was altered.
-PR #30 CI was in progress at the time this file was edited; check actual run result rather than assuming PASS. CI verifies a historical Drive snapshot, not live Drive sync.
+PR #30 original CI completed SUCCESS: https://github.com/enkhbat194/Ahoj-esko/actions/runs/45056208325 . CI verifies a historical Drive snapshot, not live Drive sync. New commits need fresh CI.
+PR #30 14-scope evidence worksheet: docs/A0_14_SCOPE_REVIEW_EVIDENCE_v0_1.md (same PR branch). It records proposed can-do, Czech sample gaps, exit scenarios, overlaps and blocker cases. It is NOT editorial sign-off; all 14 remain approved=false.
+PR #31 (premature interactive pilot) was CLOSED UNMERGED on explicit curriculum-order correction: https://github.com/enkhbat194/Ahoj-esko/pull/31 . No lesson code was merged into main.
 
 ## Exactly one next task
-Resolve the 14 flagged learning-objective / scope discrepancies from PR #30, checking Czech target utterances, natural Mongolian interpretation, social register, and exit-task suitability. Use docs/data/a0_outline_reconciliation_2026-11-23.json and docs/A0_OUTLINE_RECONCILIATION_REPORT.md from branch feat/a0-outline-source-reconciliation-v1. Review the other 48 editorial-wording proposals for consistency. Treat all proposals as unapproved until Czech/Mongolian review. Do NOT send routine manual QA to the user.
+Finalize the 14 flagged learning-objective / scope discrepancies from PR #30, using the new **evidence worksheet** docs/A0_14_SCOPE_REVIEW_EVIDENCE_v0_1.md plus docs/data/a0_outline_reconciliation_2026-11-23.json from branch feat/a0-outline-source-reconciliation-v1. Resolve missing sample phrases, register, semantic blockers (especially Pozor ≠ Stůj; Pracuji tady ≠ occupation), and exit-task/neighbor overlap. The worksheet is a draft source review only: editorial validation is still pending. Then review the other 48 wording proposals. DO NOT write production lesson content, claim approval, or send routine manual QA to the user before the accepted curriculum data is locked.
 
 ## Definition of done
 1. Each of 62 rows has one accepted canonical title and can-do with evidence; scope cases have scenario/target utterances.
