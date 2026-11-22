@@ -25,10 +25,16 @@
       "exit_check_draft": "Гурван нэр төрөл бүхий шинэ зурагт эд зүйлийг зөв нэрлэнэ.",
       "neighbor_skill_boundary": "L01 хувцасны нэр, L02 өнгө, L03 хэмжээ.",
       "classification_at_audit": "wording_review",
-      "further_scope_review": true,
+      "further_scope_review": false,
       "review_issue": "Kalhoty нь Чех хэлэнд олон тооны хэлбэр; одоогийн банканд хувцасны нэрс бараг байхгүй.",
       "editorial_status": "DRAFT_PENDING_CZ_MN",
-      "approved": false
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "WORDING_ONLY_PROPOSAL",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_NOT_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
     },
     {
       "skill_id": "A0-T13-L08",
@@ -50,10 +56,16 @@
       "exit_check_draft": "Дэлгүүрийн шинэ дүрд хэмжээ/өмсөж үзэх/сонгох дарааллын 3 асуулт ба хариуг хэрэгжүүлнэ.",
       "neighbor_skill_boundary": "L03 хэмжээ асуух, L04 хүссэн хувцас, L05 өмсөж үзэх, L07 өөр хэмжээ.",
       "classification_at_audit": "wording_review",
-      "further_scope_review": true,
+      "further_scope_review": false,
       "review_issue": "Худалдагчийн хариу phrase bank-д дутуу; ярианы сорилыг дан 3 өгүүлбэртэй бичвэрээр баталж болохгүй.",
       "editorial_status": "DRAFT_PENDING_CZ_MN",
-      "approved": false
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "WORDING_ONLY_PROPOSAL",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_NOT_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
     },
     {
       "skill_id": "A0-T14-L01",
@@ -75,10 +87,16 @@
       "exit_check_draft": "Хүйтэн/халуун цаг агаарын шинэ хоёр зурагт зөв хэллэгийг сонгож хэлнэ.",
       "neighbor_skill_boundary": "L01 халуун/хүйтэн, L02 бороо, L03 цас.",
       "classification_at_audit": "wording_review",
-      "further_scope_review": true,
+      "further_scope_review": false,
       "review_issue": "Je zima. бол орчны хүйтэн, Je mi zima. бол хүний даарч байгаа мэдрэмж; Je horko. агаар халуун. Эд зүйл халуун байгааг энд оруулахгүй.",
       "editorial_status": "DRAFT_PENDING_CZ_MN",
-      "approved": false
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "WORDING_ONLY_PROPOSAL",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_NOT_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
     },
     {
       "skill_id": "A0-T14-L07",
@@ -103,7 +121,13 @@
       "further_scope_review": true,
       "review_issue": "Нөгөө хүний хариу сонсох, дагалдах нэмэлт реплик/асуулт дутуу. Цаг агаарын 1 өгүүлбэр ярианы сорил биш.",
       "editorial_status": "DRAFT_PENDING_CZ_MN",
-      "approved": false
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "TARGETED_SCOPE_CHECK",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_NOT_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
     },
     {
       "skill_id": "A0-T15-L01",
@@ -128,7 +152,13 @@
       "further_scope_review": true,
       "review_issue": "Багш = učitel/učitelka, сурагч хүүхэд = žák/žákyně, насанд хүрсэн оюутан = student/studentka. Нэг хэллэг бүх контекстийг хамрахгүй.",
       "editorial_status": "DRAFT_PENDING_CZ_MN",
-      "approved": false
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "TARGETED_SCOPE_CHECK",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_NOT_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
     },
     {
       "skill_id": "A0-T15-L03",
@@ -153,7 +183,13 @@
       "further_scope_review": true,
       "review_issue": "Zavřete knihu. одоогийн банканд алга; vy/олон тооны тушаах хэлбэр; текст л байвал сонсгол батлагдахгүй.",
       "editorial_status": "DRAFT_PENDING_CZ_MN",
-      "approved": false
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "TARGETED_SCOPE_CHECK",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_NOT_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
     },
     {
       "skill_id": "A0-T16-L01",
@@ -175,10 +211,16 @@
       "exit_check_draft": "3 амьтны зурагт тохирох энгийн өгүүлбэр тус бүрийг хэлнэ.",
       "neighbor_skill_boundary": "L01 амьтны нэр, L02 'энэ юу вэ?' асуулт.",
       "classification_at_audit": "wording_review",
-      "further_scope_review": true,
+      "further_scope_review": false,
       "review_issue": "To je pták. repo phrase bank-д байхгүй; нохой ба муураар шувууг нэрлэж чадна гэж тооцохгүй.",
       "editorial_status": "DRAFT_PENDING_CZ_MN",
-      "approved": false
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "WORDING_ONLY_PROPOSAL",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_NOT_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
     },
     {
       "skill_id": "A0-T16-L06",
@@ -200,10 +242,17 @@
       "exit_check_draft": "Тэжээвэр амьтантай болон үгүй хоёр дүрийн 2-turn харилцан яриа; хэвшмэл худал хувийн мэдээлэл шаардахгүй.",
       "neighbor_skill_boundary": "L01–L05 нэр, эзэмшил; L06 нэгтгэсэн яриа.",
       "classification_at_audit": "wording_review",
-      "further_scope_review": true,
+      "further_scope_review": false,
       "review_issue": "Одоогийн банк зөвхөн Mám psa. өгүүлбэр агуулдаг; асуулт/үгүйсгэлтэй хариу, дотно/албан нөхцөл шинээр шаардлагатай.",
       "editorial_status": "DRAFT_PENDING_CZ_MN",
-      "approved": false
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "WORDING_ONLY_PROPOSAL",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_NOT_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
     }
-  ]
+  ],
+  "review_note": "Scope risk is distinguished from missing Czech phrase/audio evidence. False scope risk does not mean lesson/audio quality approved."
 }
