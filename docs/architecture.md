@@ -3,7 +3,7 @@ Verified current app: premium PWA, Express/TypeScript server, Vite build. Actual
 
 ## Data flow
 Versioned CZ/MN canonical lesson JSON in repo -> schema + editorial content QA -> build -> reusable Lesson Engine -> Premium PWA (Stages, Reader, AI, Cards, Dictionary).
-Approved text + context + content hash -> TTS provider adapter -> generated WAV checks -> native Czech sample QA -> immutable object storage -> manifest referencing text hash, model, voice, locale, format, duration, version -> player/reader/review.
+Owner-approved AUTO AUDIO v1.2: approved text in an audio_ready state -> segmentation by word / phrase / sentence / dialogue turn / story sentence -> exact text+voice+model+style hash -> reuse existing ElevenLabs History or private MP3 -> separately generated MP3 only when necessary -> technical, transcript and phonetic-risk QA -> PRIVATE Google Drive archive + verified SHA256/readback -> immutable audio manifest (publish_allowed=false). Main voices Hana/Jan, provider ElevenLabs; NO automatic app/R2 delivery. Cloudflare Workers + D1 + Queues is target architecture in separate Audio-uildwerlel repo, not deployed. Only after explicit public delivery approval may app use R2/CDN/service worker, with release manifests.
 STT provider adapter/browser ASR -> transcription with confidence/evidence -> intent/task evaluator; separate pronunciation rubric verified on accented Czech learner speech; fallback to non-STT comprehension and repeat without fabricated successes.
 Review store -> lesson attempts/retrieval history/next review; export/restore/migration. Use privacy-minimal events.
 
