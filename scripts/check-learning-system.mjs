@@ -97,4 +97,40 @@ for(const m of a0){
 }
 assert.equal(map.counts.existing_a0_micro_skill_ids,140);
 assert.equal(map.counts.provisional_a0_sessions,53);
+
+const pilot=read('curriculum/system-v1/pilots/a0-t02-l01-greetings.draft.json');
+assert.equal(pilot.lesson_id,'A0-T02-L01');
+assert.equal(pilot.mission_id,'A0-M02');
+assert.equal(pilot.session_id,'A0-S004');
+assert.equal(pilot.content_status,'EDITORIAL_DRAFT_NO_AUDIO');
+assert.equal(pilot.editorial_approved,false);
+assert.equal(pilot.audio_ready,false);
+assert.equal(pilot.published,false);
+assert.equal(pilot.steps.length,15);
+assert.deepEqual(pilot.steps.map(s=>s.id),contract.lesson_cycle.steps.map(s=>s.id));
+const utterances=new Map(pilot.utterances.map(u=>[u.utterance_id,u]));
+assert.equal(utterances.size,pilot.utterances.length,'Repeated utterance identifiers');
+assert.equal(utterances.size,7);
+const greetingTopic=sourceA0ByTopic.get('A0-T02');
+const phraseBank=new Set(greetingTopic.phrases.map(p=>p.cz));
+for(const utterance of utterances.values()){
+ assert.match(utterance.utterance_id,/^CZ_A0_T02_L01_U\d{3}$/);
+ assert.ok(utterance.text_cs&&utterance.mn_natural&&utterance.role);
+ assert.equal(utterance.audio_status,'NOT_GENERATED');
+ assert.equal(utterance.storage_key,null);
+ assert.equal(utterance.content_review,'PENDING');
+ if(utterance.type!=='word')
+   assert.ok(phraseBank.has(utterance.text_cs),'Unreviewed Czech sentence added to pilot '+utterance.text_cs);
+}
+for(const step of pilot.steps){
+ assert.ok(step.prompt_mn&&step.prompt_mn.length>5,'Missing student-facing instruction '+step.id);
+ assert.ok(Array.isArray(step.answer_key),'Step answer key must be explicit '+step.id);
+ for(const id of step.utterance_ids??[]) assert.ok(utterances.has(id),'Missing audio unit '+id);
+ for(const turn of step.turns??[]) assert.ok(utterances.has(turn.audio_id),'Missing turn '+turn.audio_id);
+}
+assert.equal(pilot.steps[13].novel_scenario,true);
+assert.equal(pilot.steps[14].novel_scenario,true);
+assert.equal(pilot.steps[14].scenarios.length,2);
+assert.ok(pilot.assessment_warning.includes('cannot certify pronunciation'));
+
 console.log('Learning system QA PASS: 72 proposed missions, 16 source A0 topics, 140 stable skills, 53 provisional A0 sessions, 15-stage cycle; 0 published.');
