@@ -1,0 +1,354 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "lesson_content_draft",
+  "lesson_id": "A0-T02-L01",
+  "mission_id": "A0-M02",
+  "session_id": "A0-S004",
+  "title_mn": "Сайн уу, баяртай — дотно ба албан мэндчилгээ",
+  "can_do_mn": "Найз болон танихгүй хүнтэй таарах, салах үед тохирох Чех мэндчилгээ, үдэлтийг хэрэглэнэ.",
+  "scenario_mn": "Найз Сараг гудамжинд харах; танихгүй үйлчилгээний ажилтантай дэлгүүрт уулзах.",
+  "content_status": "EDITORIAL_DRAFT_NO_AUDIO",
+  "editorial_approved": false,
+  "audio_ready": false,
+  "published": false,
+  "note": "One authored micro-skill pilot inside provisional A0-S004 session, which also contains neighboring skills. This is NOT the entire session A0-S004 and NOT a deployed lesson.",
+  "evidence": [
+    {
+      "label": "Existing A0 main topic phrase bank",
+      "url": "public/cesky-reading-uiux/a0-curriculum.json#A0-T02",
+      "kind": "original_repo"
+    },
+    {
+      "label": "Czech Ministry of Foreign Affairs: Czech language vocabulary greeting guide",
+      "url": "https://mzv.gov.cz/file/2078194/_2014_Guide_to_Studying_and_Living_in_the_Czech_Republic.pdf",
+      "kind": "supporting_public"
+    },
+    {
+      "label": "Radio Prague International: greetings and register",
+      "url": "https://english.radio.cz/g-greetings-8062443",
+      "kind": "supporting_public"
+    }
+  ],
+  "utterances": [
+    {
+      "utterance_id": "CZ_A0_T02_L01_U001",
+      "type": "sentence",
+      "text_cs": "Ahoj!",
+      "mn_natural": "Сайн уу! / Баяртай! (найздаа)",
+      "register": "informal",
+      "role": "friend",
+      "use": [
+        "hello",
+        "goodbye"
+      ],
+      "voice_profile": "native_cz_friendly",
+      "audio_status": "NOT_GENERATED",
+      "storage_key": null,
+      "content_review": "PENDING"
+    },
+    {
+      "utterance_id": "CZ_A0_T02_L01_U002",
+      "type": "sentence",
+      "text_cs": "Dobrý den.",
+      "mn_natural": "Сайн байна уу. (албан/танихгүй хүн)",
+      "register": "formal",
+      "role": "shop_staff",
+      "use": [
+        "hello"
+      ],
+      "voice_profile": "native_cz_polite",
+      "audio_status": "NOT_GENERATED",
+      "storage_key": null,
+      "content_review": "PENDING"
+    },
+    {
+      "utterance_id": "CZ_A0_T02_L01_U003",
+      "type": "sentence",
+      "text_cs": "Na shledanou.",
+      "mn_natural": "Баяртай. (албан)",
+      "register": "formal",
+      "role": "shop_staff",
+      "use": [
+        "goodbye"
+      ],
+      "voice_profile": "native_cz_polite",
+      "audio_status": "NOT_GENERATED",
+      "storage_key": null,
+      "content_review": "PENDING"
+    },
+    {
+      "utterance_id": "CZ_A0_T02_L01_U004",
+      "type": "word",
+      "text_cs": "Dobrý",
+      "mn_natural": "сайн (өгүүлбэр доторх хэлбэр)",
+      "register": "formal",
+      "role": "tutor",
+      "use": [
+        "chunk"
+      ],
+      "voice_profile": "native_cz_slow",
+      "audio_status": "NOT_GENERATED",
+      "storage_key": null,
+      "content_review": "PENDING"
+    },
+    {
+      "utterance_id": "CZ_A0_T02_L01_U005",
+      "type": "word",
+      "text_cs": "den",
+      "mn_natural": "өдөр",
+      "register": "formal",
+      "role": "tutor",
+      "use": [
+        "chunk"
+      ],
+      "voice_profile": "native_cz_slow",
+      "audio_status": "NOT_GENERATED",
+      "storage_key": null,
+      "content_review": "PENDING"
+    },
+    {
+      "utterance_id": "CZ_A0_T02_L01_U006",
+      "type": "dialogue_turn",
+      "text_cs": "Dobrý den.",
+      "mn_natural": "Сайн байна уу.",
+      "register": "formal",
+      "role": "second_voice_shop_staff",
+      "use": [
+        "assessment_new_voice"
+      ],
+      "voice_profile": "native_cz_polite_alt",
+      "audio_status": "NOT_GENERATED",
+      "storage_key": null,
+      "content_review": "PENDING"
+    },
+    {
+      "utterance_id": "CZ_A0_T02_L01_U007",
+      "type": "dialogue_turn",
+      "text_cs": "Na shledanou.",
+      "mn_natural": "Баяртай.",
+      "register": "formal",
+      "role": "second_voice_shop_staff",
+      "use": [
+        "assessment_new_voice"
+      ],
+      "voice_profile": "native_cz_polite_alt",
+      "audio_status": "NOT_GENERATED",
+      "storage_key": null,
+      "content_review": "PENDING"
+    }
+  ],
+  "steps": [
+    {
+      "id": "S01",
+      "type": "scene",
+      "prompt_mn": "Нэг зурагт Сара найз, нөгөө зурагт дэлгүүрийн ажилтан. Хүн бүрт хэрхэн мэндлэхээ сурна.",
+      "scene_ids": [
+        "street_friend",
+        "shop_staff"
+      ],
+      "answer_key": []
+    },
+    {
+      "id": "S02",
+      "type": "model_input",
+      "prompt_mn": "Хоёр сценд тус тус ямар мэндчилгээ хэлж байгааг сонс.",
+      "utterance_ids": [
+        "CZ_A0_T02_L01_U001",
+        "CZ_A0_T02_L01_U002"
+      ],
+      "answer_key": []
+    },
+    {
+      "id": "S03",
+      "type": "meaning_check",
+      "prompt_mn": "«Ahoj!» гэдгийг аль нөхцөлд хэлэх вэ?",
+      "choices": [
+        "Найздаа",
+        "Танихгүй албан хаагчид"
+      ],
+      "answer_key": [
+        "Найздаа"
+      ]
+    },
+    {
+      "id": "S04",
+      "type": "chunk_listen",
+      "prompt_mn": "«Dobrý» дараа нь «den» гэсэн хоёр хэсгийн загварыг сонсоод дуурай.",
+      "utterance_ids": [
+        "CZ_A0_T02_L01_U004",
+        "CZ_A0_T02_L01_U005"
+      ],
+      "answer_key": []
+    },
+    {
+      "id": "S05",
+      "type": "word_focus",
+      "prompt_mn": "«Dobrý den.» бол ердийн эелдэг мэндчилгээ; «Na shledanou.» бол эелдэг үдэлт. Хэнтэй хэлж буйгаа бод.",
+      "utterance_ids": [
+        "CZ_A0_T02_L01_U002",
+        "CZ_A0_T02_L01_U003"
+      ],
+      "answer_key": []
+    },
+    {
+      "id": "S06",
+      "type": "chunk_recombine",
+      "prompt_mn": "Хоёр хэсгийг бүтэн мэндчилгээ болгон нийлүүл.",
+      "choices": [
+        "Dobrý den.",
+        "Den dobrý."
+      ],
+      "answer_key": [
+        "Dobrý den."
+      ],
+      "utterance_ids": [
+        "CZ_A0_T02_L01_U002"
+      ]
+    },
+    {
+      "id": "S07",
+      "type": "full_sentence",
+      "prompt_mn": "«Ahoj!» ба «Dobrý den.»-ийг нөхцөлд нь хэлэхээр бүхэлд нь дуурай.",
+      "utterance_ids": [
+        "CZ_A0_T02_L01_U001",
+        "CZ_A0_T02_L01_U002"
+      ],
+      "answer_key": []
+    },
+    {
+      "id": "S08",
+      "type": "pattern_discover",
+      "prompt_mn": "Найзтайгаа дотно ярьж байвал «Ahoj!», танихгүй хүнтэй бол «Dobrý den.», салахдаа «Na shledanou.» гэж хүндэтгэлтэй хэлнэ.",
+      "utterance_ids": [
+        "CZ_A0_T02_L01_U001",
+        "CZ_A0_T02_L01_U002",
+        "CZ_A0_T02_L01_U003"
+      ],
+      "answer_key": []
+    },
+    {
+      "id": "S09",
+      "type": "substitute",
+      "prompt_mn": "Эхний зураг найз, хоёр дахь зураг дэлгүүрийн ажилтан. Зураг бүрт хэлэх мэндчилгээг сонго.",
+      "choices": [
+        "Ahoj!",
+        "Dobrý den."
+      ],
+      "answer_key": [
+        "Ahoj!",
+        "Dobrý den."
+      ]
+    },
+    {
+      "id": "S10",
+      "type": "meaning_retrieval",
+      "prompt_mn": "Ямар ч бичвэргүй. Танихгүй ажилтны хажууд ирлээ — мэндчил.",
+      "expected_text_cs": [
+        "Dobrý den."
+      ],
+      "answer_key": [
+        "Dobrý den."
+      ],
+      "independent": true
+    },
+    {
+      "id": "S11",
+      "type": "listen_without_text",
+      "prompt_mn": "Өөр хоолойгоор хэлсэн үгийг сонсоод «мэндчилж байна» эсвэл «үдэж байна» гэж ялга.",
+      "utterance_ids": [
+        "CZ_A0_T02_L01_U006",
+        "CZ_A0_T02_L01_U007"
+      ],
+      "answer_key": [
+        "мэндчилж байна",
+        "үдэж байна"
+      ]
+    },
+    {
+      "id": "S12",
+      "type": "guided_dialogue",
+      "prompt_mn": "Сара мэндэллээ. Хариуд нь мэндлээд, зам салж байвал дотно хэлбэрээр үд.",
+      "turns": [
+        {
+          "prompt_role": "friend",
+          "audio_id": "CZ_A0_T02_L01_U001",
+          "learner_expected": "Ahoj!"
+        },
+        {
+          "prompt_role": "friend_leaving",
+          "audio_id": "CZ_A0_T02_L01_U001",
+          "learner_expected": "Ahoj!"
+        }
+      ],
+      "answer_key": [
+        "Ahoj!",
+        "Ahoj!"
+      ]
+    },
+    {
+      "id": "S13",
+      "type": "independent_reply",
+      "prompt_mn": "Шинэ хүн дэлгүүрийн хаалгаар орж ирлээ. Албан ёсоор мэндчил.",
+      "expected_text_cs": [
+        "Dobrý den."
+      ],
+      "independent": true,
+      "answer_key": [
+        "Dobrý den."
+      ]
+    },
+    {
+      "id": "S14",
+      "type": "transfer",
+      "prompt_mn": "Өмнө үзүүлээгүй сцен: шуудангийн цонхон дээр ажилтантай мэндлээд, бичгээ өгсний дараа үд.",
+      "expected_text_cs": [
+        "Dobrý den.",
+        "Na shledanou."
+      ],
+      "independent": true,
+      "novel_scenario": true,
+      "answer_key": [
+        "Dobrý den.",
+        "Na shledanou."
+      ]
+    },
+    {
+      "id": "S15",
+      "type": "exit_check",
+      "prompt_mn": "Шинэ хоёр сцен: 1) найзтайгаа санамсаргүй уулзах 2) үйлчилгээний танихгүй хүнтэй уулзаж салах. Хэллэг, хүндэтгэлийн тохирлыг шалга.",
+      "scenarios": [
+        {
+          "scenario": "new_friend_encounter",
+          "expected": [
+            "Ahoj!",
+            "Ahoj!"
+          ]
+        },
+        {
+          "scenario": "new_formal_encounter",
+          "expected": [
+            "Dobrý den.",
+            "Na shledanou."
+          ]
+        }
+      ],
+      "answer_key": [
+        "Ahoj!",
+        "Dobrý den.",
+        "Na shledanou."
+      ],
+      "independent": true,
+      "novel_scenario": true,
+      "scoring": {
+        "dimensions": [
+          "task_success",
+          "appropriacy",
+          "comprehensibility",
+          "interaction_repair"
+        ],
+        "passing_rule_provisional": "total>=6/8, must pass new scenario, no automatic CEFR claim"
+      }
+    }
+  ],
+  "assessment_warning": "All speaking results are practice only until real audio capture, speech understanding and human-calibrated evaluation exist. Text answer keys cannot certify pronunciation."
+}
