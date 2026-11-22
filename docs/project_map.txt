@@ -1,0 +1,25 @@
+AHOJ PROJECT MAP — verified main tree 2026-11-23, proposed docs only.
+REPO: enkhbat194/Ahoj-esko
+MAIN SHA VERIFIED: 4431da3eb6ea8e65266e8c30e3df741fcbe4be3e
+README.md -> current project summary
+package.json -> npm scripts, dependencies
+index.html -> redirect to premium Stage PWA
+server.ts -> Express AI and TTS APIs, in-memory TTS cache
+vite.config.ts -> frontend build and PWA
+public/cesky-reading-uiux/index.html -> single premium app tabs and current A0 outline cards
+public/cesky-reading-uiux/a0-curriculum.json -> 16 topics and 140 outline IDs, not finished content
+public/cesky-reading-uiux/a0-curriculum.js -> generated browser global copy from JSON
+public/cesky-reading-uiux/reader-experience.js -> chapter audio/TTS and guided speech browser logic
+public/cesky-reading-uiux/reader-experience.css -> reader layout
+src/utils/ttsCacheMeta.ts -> TTS model identifier and metadata
+src/utils/tokenPricing.ts -> usage cost logic
+src/utils/usageMonitor.ts -> usage records
+scripts/check-cesky-uiux.mjs -> JSON/JS parity, count, syntax and structure
+scripts/check-reader-browser.mjs -> mocked browser speech and synthetic WAV media test
+.github/workflows/ci.yml -> unit, lint, build
+.github/workflows/reader-browser.yml -> automated reader tests, screenshots
+docs/A0_SCIENCE_DESIGN_DECISIONS_v1.md -> existing research decisions
+docs/CZECH_READING_EXPERIENCE_MASTER_V1_1.md -> reader UX master
+archive/pre-separation-2026-11-22 -> historical old code and prototypes, NOT the product
+NEW PROPOSAL DOCS (this PR): PROJECT_STATE_MASTER.md, NEXT_ACTION.md, CHAT_HANDOFF_PROTOCOL.md, CURRICULUM_MASTER_DRAFT.md, DECISIONS.md, architecture.md, project_map.txt
+Do not assume the mapped files remain unchanged: refresh GitHub main SHA and tree at every new work session.
