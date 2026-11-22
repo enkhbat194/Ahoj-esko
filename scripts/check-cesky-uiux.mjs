@@ -11,6 +11,32 @@ if (!html.includes('<html lang="mn">') || !html.trim().endsWith('</html>')) {
   throw new Error('Czech UI/UX document must have a complete HTML wrapper.');
 }
 if (!scripts.length) throw new Error('Czech UI/UX has no inline JavaScript.');
+
+const curriculumJson = JSON.parse(readFileSync(resolve('public/cesky-reading-uiux/a0-curriculum.json'), 'utf8'));
+const curriculumJs = readFileSync(resolve('public/cesky-reading-uiux/a0-curriculum.js'), 'utf8');
+const curriculumContext = { window: {} };
+new Script(curriculumJs, { filename: 'a0-curriculum.js' }).runInNewContext(curriculumContext);
+const a0 = curriculumContext.window.AHOJ_A0_CURRICULUM;
+if (!a0 || JSON.stringify(a0) !== JSON.stringify(curriculumJson)) {
+  throw new Error('A0 curriculum browser JS must match versioned JSON source.');
+}
+if (!Array.isArray(a0.topics) || a0.topics.length !== 16) {
+  throw new Error('Expected 16 A0 topics, read from curriculum data.');
+}
+const lessons = a0.topics.flatMap((topic, index) => {
+  if (topic.order !== index + 1 || topic.chapter !== index || topic.id !== 'A0-T' + String(index + 1).padStart(2, '0')) {
+    throw new Error('A0 topics are not sequential with stable IDs.');
+  }
+  if (!Array.isArray(topic.lessons) || !topic.lessons.length) throw new Error('A0 topic has no lesson outline: ' + topic.id);
+  return topic.lessons;
+});
+if (lessons.length !== 140 || new Set(lessons.map(lesson => lesson.id)).size !== 140) {
+  throw new Error('A0 curriculum lesson count/IDs invalid.');
+}
+if (!html.includes('a0-curriculum.js?v=1') || html.includes('const STAGE_CHAPTERS = [')) {
+  throw new Error('Stage cards must load data-driven 16-topic curriculum.');
+}
+
 for (const js of scripts) new Script(js, { filename: 'cesky-reading-uiux-inline.js' });
 if (!html.includes('fetch("/api/ai/tutor"') || !html.includes('fetch("/api/ai/reading-help"')) {
   throw new Error('Reading UI must call the existing real server AI endpoints.');
