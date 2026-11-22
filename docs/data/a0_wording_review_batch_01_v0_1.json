@@ -28,7 +28,13 @@
       "further_scope_review": true,
       "review_issue": "Pan/pán утгын ялгаа ба авианы загварыг phonetics редакцаар батлах; өнөөгийн phrase bank-д байхгүй.",
       "editorial_status": "DRAFT_PENDING_CZ_MN",
-      "approved": false
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "TARGETED_SCOPE_CHECK",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_NOT_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
     },
     {
       "skill_id": "A0-T01-L07",
@@ -50,10 +56,16 @@
       "exit_check_draft": "2 өөр загварыг сонсож, зөв үгийг сонгоод дуурайж хэлнэ; STT-г дуудлагын баталгаа болгохгүй.",
       "neighbor_skill_boundary": "L06 Ď/Ť/Ň, L07 R/Ř, L08 шинэ үг унших.",
       "classification_at_audit": "wording_review",
-      "further_scope_review": true,
+      "further_scope_review": false,
       "review_issue": "R/Ř нь энгийн бичлэг танихтай адилгүй; хоёр үг минимал хос биш, авиазүйн аудио шаардлагатай.",
       "editorial_status": "DRAFT_PENDING_CZ_MN",
-      "approved": false
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "WORDING_ONLY_PROPOSAL",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_NOT_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
     },
     {
       "skill_id": "A0-T01-L08",
@@ -75,10 +87,16 @@
       "exit_check_draft": "Урьдчилан заагаагүй 3–5 үгийг харуулаад үсэг–авиа холбоог шалгана; дуудлагын үнэлгээг хараат бус хэмжүүргүй PASS гэж үзэхгүй.",
       "neighbor_skill_boundary": "L01–L07 авианы мэдлэгийн нийлмэл сорил.",
       "classification_at_audit": "wording_review",
-      "further_scope_review": true,
+      "further_scope_review": false,
       "review_issue": "Үг сорилын өмнө харуулбал 'танил бус' нөхцөл нурна; жишээг зөвхөн өгөгдлийн загвар гэж үзнэ.",
       "editorial_status": "DRAFT_PENDING_CZ_MN",
-      "approved": false
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "WORDING_ONLY_PROPOSAL",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_NOT_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
     },
     {
       "skill_id": "A0-T02-L13",
@@ -100,10 +118,16 @@
       "exit_check_draft": "Хоёр дүрийг шинэ зурагт тус тус зааж танилцуулна; můj/moje хэлбэрийн тохирцыг шалгана.",
       "neighbor_skill_boundary": "L12 'хэн бэ' асуулт, L13 өөрийн найз/багш, L14 өөр хүний найз/багш.",
       "classification_at_audit": "wording_review",
-      "further_scope_review": true,
+      "further_scope_review": false,
       "review_issue": "Одоогийн phrase bank-д зөвхөн To je Sára. байна; эзэмшлийн хэлбэр ба хүйсийн хэлбэр шинээр нягтлах.",
       "editorial_status": "DRAFT_PENDING_CZ_MN",
-      "approved": false
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "WORDING_ONLY_PROPOSAL",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_NOT_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
     },
     {
       "skill_id": "A0-T03-L03",
@@ -128,7 +152,13 @@
       "further_scope_review": false,
       "review_issue": "Тухайн хэллэг phrase bank-д байгаа; prosím эелдэг хүсэлт.",
       "editorial_status": "DRAFT_PENDING_CZ_MN",
-      "approved": false
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "WORDING_ONLY_PROPOSAL",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
     },
     {
       "skill_id": "A0-T04-L01",
@@ -150,10 +180,16 @@
       "exit_check_draft": "0–10-ын 5 санамсаргүй цифрийг багшийн дэмжлэггүй нэрлэнэ.",
       "neighbor_skill_boundary": "L02 11–20; L03 аравтуудыг сонсох.",
       "classification_at_audit": "wording_review",
-      "further_scope_review": true,
+      "further_scope_review": false,
       "review_issue": "Жишээ дөрөвхөн тоотой; бүрэн 0–10 багц, 1/2-ын хүйсний хэрэглээ ба аудио дутуу.",
       "editorial_status": "DRAFT_PENDING_CZ_MN",
-      "approved": false
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "WORDING_ONLY_PROPOSAL",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_NOT_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
     },
     {
       "skill_id": "A0-T04-L02",
@@ -175,10 +211,16 @@
       "exit_check_draft": "11–20-ын 5 санамсаргүй цифрийг нэрлэнэ; бүрэн тоон сан шаардлагатай.",
       "neighbor_skill_boundary": "L01 0–10; L03 аравтуудыг сонсох.",
       "classification_at_audit": "wording_review",
-      "further_scope_review": true,
+      "further_scope_review": false,
       "review_issue": "Одоогийн phrase bank-д 11–20 тоонууд алга.",
       "editorial_status": "DRAFT_PENDING_CZ_MN",
-      "approved": false
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "WORDING_ONLY_PROPOSAL",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_NOT_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
     },
     {
       "skill_id": "A0-T04-L03",
@@ -203,7 +245,13 @@
       "further_scope_review": true,
       "review_issue": "Аудио болон 20–90-ын бүх жишээ дутуу, сонсголын үр дүнг бичмэл жагсаалтаар үнэлж болохгүй.",
       "editorial_status": "DRAFT_PENDING_CZ_MN",
-      "approved": false
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "TARGETED_SCOPE_CHECK",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_NOT_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
     },
     {
       "skill_id": "A0-T04-L04",
@@ -225,10 +273,16 @@
       "exit_check_draft": "23, 56, 99, 100 гэх мэт анх хараагүй цифрийг хэлнэ.",
       "neighbor_skill_boundary": "L03 аравтууд сонсох, L05 утасны дугаарыг дарааллаар хэлэх.",
       "classification_at_audit": "wording_review",
-      "further_scope_review": true,
+      "further_scope_review": false,
       "review_issue": "Одоогийн банканд зөвхөн Sto korun. байна; 0–100 үйлдвэрлэх чадварыг үүгээр батлахгүй.",
       "editorial_status": "DRAFT_PENDING_CZ_MN",
-      "approved": false
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "WORDING_ONLY_PROPOSAL",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_NOT_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
     },
     {
       "skill_id": "A0-T04-L07",
@@ -253,7 +307,13 @@
       "further_scope_review": false,
       "review_issue": "Барааны үнийг асуух болон 'энэ хэд вэ' гэсэн тоо ширхэгийн асуултыг холихгүй; MN gloss-ийг контекстээр нэг мөр болгоно.",
       "editorial_status": "DRAFT_PENDING_CZ_MN",
-      "approved": false
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "WORDING_ONLY_PROPOSAL",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
     },
     {
       "skill_id": "A0-T04-L08",
@@ -275,10 +335,16 @@
       "exit_check_draft": "Шинэ үнэ сонсоод төлбөрийн аргаа сонгон хэлж, кассын нэг асуултад хариулна.",
       "neighbor_skill_boundary": "L07 үнэ асуух; L08 нийт төлбөрийн үйл явц.",
       "classification_at_audit": "wording_review",
-      "further_scope_review": true,
+      "further_scope_review": false,
       "review_issue": "Кассын нөгөө талын асуулт/хариу банканд дутуу; бодит төлбөр хийх чадварыг нэг үгээр батлахгүй.",
       "editorial_status": "DRAFT_PENDING_CZ_MN",
-      "approved": false
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "WORDING_ONLY_PROPOSAL",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_NOT_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
     },
     {
       "skill_id": "A0-T05-L04",
@@ -303,7 +369,13 @@
       "further_scope_review": false,
       "review_issue": "Одоогоор зөвхөн V osm. байна; бусад цагийн хэлбэрийг зааж батлах шаардлагатай.",
       "editorial_status": "DRAFT_PENDING_CZ_MN",
-      "approved": false
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "WORDING_ONLY_PROPOSAL",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
     },
     {
       "skill_id": "A0-T05-L05",
@@ -328,7 +400,13 @@
       "further_scope_review": false,
       "review_issue": "Цагийн тодорхой цэг асуух нь Kdy? ерөнхий асуултаас ялгаатай.",
       "editorial_status": "DRAFT_PENDING_CZ_MN",
-      "approved": false
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "WORDING_ONLY_PROPOSAL",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
     },
     {
       "skill_id": "A0-T05-L06",
@@ -353,7 +431,14 @@
       "further_scope_review": false,
       "review_issue": "Kdy? нь Drive жишигт байгаа боловч одоогийн repo phrase bank-д алга.",
       "editorial_status": "DRAFT_PENDING_CZ_MN",
-      "approved": false
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "WORDING_ONLY_PROPOSAL",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_NOT_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
     }
-  ]
+  ],
+  "review_note": "Scope risk is distinguished from missing Czech phrase/audio evidence. False scope risk does not mean lesson/audio quality approved."
 }
