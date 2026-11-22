@@ -52,3 +52,54 @@ for (const r of scopeRows){
 assert.equal(scope.status,'EDITORIAL_DECISION_DRAFT_NOT_APPROVED');
 console.log('A0 editorial scope audit PASS: 14/14 source-linked cases, 0 approved; language/audio QA pending');
 
+
+
+// Four wording batches are editorial proposals, NOT 48 approved lessons.
+const wordingBatches=[1,2,3,4].map(n=>
+  get('docs/data/a0_wording_review_batch_0'+n+'_v0_1.json'));
+const wordEntries=wordingBatches.flatMap(b=>b.entries);
+const wordingRows=rec.entries.filter(x=>x.classification==='wording_review');
+assert.equal(wordEntries.length,48,'wording 48 total');
+assert.equal(wordingRows.length,48,'wording classification 48');
+assert.equal(new Set(wordEntries.map(x=>x.skill_id)).size,48,'wording duplicated IDs');
+assert.equal(wordEntries.filter(x=>x.further_scope_review).length,18,'candidate scope escalation count changed');
+const recById=new Map(rec.entries.map(x=>[x.skill_id,x]));
+for(const w of wordEntries){
+  const r=recById.get(w.skill_id);
+  assert.ok(r&&r.classification==='wording_review','unexpected wording id '+w.skill_id);
+  assert.equal(w.drive_title_mn,r.drive_title_mn,'wording Drive title changed '+w.skill_id);
+  assert.equal(w.github_title_mn,r.github_title_mn,'wording GitHub title changed '+w.skill_id);
+  assert.equal(w.initial_proposed_title_mn,r.proposed_title_mn,'wording audit proposal changed '+w.skill_id);
+  for(const key of ['recommended_title_mn','recommended_can_do_mn','exit_check_draft',
+    'neighbor_skill_boundary','review_issue']) assert.ok(w[key]&&w[key].length>5,key+' missing for '+w.skill_id);
+  assert.ok(w.sample_draft?.cz_text&&w.sample_draft?.mn_context_gloss,'sample gap '+w.skill_id);
+  assert.equal(w.sample_draft.editorial_verified,false);
+  assert.equal(w.approved,false,'wording proposal incorrectly approved '+w.skill_id);
+}
+const decision=get('docs/data/a0_62_editorial_decision_register_v0_1.json');
+assert.equal(decision.register_status,'CONSOLIDATED_EDITORIAL_WORKING_DRAFT_NOT_CANONICAL');
+assert.equal(decision.entries.length,62,'62 consolidated cases');
+assert.equal(new Set(decision.entries.map(x=>x.skill_id)).size,62,'62-case registry duplicates');
+assert.equal(decision.total_counts.original_scope_cases,14);
+assert.equal(decision.total_counts.original_wording_cases,48);
+assert.equal(decision.total_counts.wording_escalated_scope_candidates,18);
+assert.equal(decision.total_counts.wording_only_drafts,30);
+const sourceById=new Map([...scope.entries,...wordEntries].map(x=>[x.skill_id,x]));
+for(const d of decision.entries){
+  const audit=recById.get(d.skill_id);
+  assert.ok(audit&&sourceById.has(d.skill_id),'orphan decision '+d.skill_id);
+  assert.equal(d.original_classification,audit.classification,'classification drift '+d.skill_id);
+  assert.equal(d.drive_title_mn,audit.drive_title_mn,'Drive origin mismatch '+d.skill_id);
+  assert.equal(d.github_title_mn,audit.github_title_mn,'repo origin mismatch '+d.skill_id);
+  assert.ok(d.recommended_title_mn&&d.recommended_can_do_mn&&d.assessment_draft);
+  assert.ok(d.neighbor_scope_draft&&d.issue_or_blocker,'missing decision review '+d.skill_id);
+  assert.ok(d.target_examples_draft.length>0,'missing CZ draft '+d.skill_id);
+  assert.equal(d.approved,false,'unapproved case falsely published '+d.skill_id);
+  assert.equal(d.audio_ready,false,'draft case falsely audio-ready '+d.skill_id);
+  assert.equal(d.published,false,'draft case falsely published '+d.skill_id);
+  assert.equal(d.czech_review,'PENDING');
+  assert.equal(d.mongolian_review,'PENDING');
+  assert.equal(d.requires_scope_review,audit.classification==='scope_review'?
+    true:sourceById.get(d.skill_id).further_scope_review,'scope classification mismatch');
+}
+console.log('A0 62-case editorial register QA PASS: 14 scope + 48 wording (18 flagged for scope recheck), 0 approved, 0 audio-ready');
