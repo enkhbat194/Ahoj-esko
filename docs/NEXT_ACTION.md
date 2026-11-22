@@ -43,3 +43,14 @@ PR #30: `feat/a0-outline-source-reconciliation-v1`. New draft files on that bran
 - `docs/data/a0_62_editorial_decision_register_v0_1.json`: 14 original scope + 48 wording = 62 exact unique IDs with evidence and blockers. **18 of the 48 original wording cases are additional scope-risk *questions*, not newly proven errors**. Remaining 30 are wording draft proposals.
 - `scripts/check-a0-outline-reconciliation.mjs`: strengthened automated structural verification for 14/48/62 entries and mandatory draft flags.
 **Exactly one next CONTENT task:** Independently adjudicate the **14 original scope** and **18 additional scope-risk candidates** at Czech/Mongolian text and test level. Prioritize T09-L07/08 (safety), T06-L05 (Mongolian kinship vs Czech brother/sister), T12-L05 (square/rectangle), T09-L01 (profession), T02-L09/L10/L18 (formal/informal). Record approved/blocked **only with actual review evidence**. Batch the remaining 30 naming edits for subsequent editorial checks. Do NOT publish canonical JSON, perform TTS, or merge PR #30 while approved=false. CI on the final PR head must be checked separately (latest may be pending).
+
+## 2026-11-23 VOICE + PRIVATE AUDIO ARCHIVE checkpoint
+- **Private audio found and counted in connected secondary Google Drive:** `AHOJ_AUTO_AUDIO_PRIVATE_20261123` contains **246 MP3** `HANA_JAN_246_MP3` and **30 MP3** `REMAINING_ELEVENLABS_MP3`, total **276**. Both folder listings directly verified. Private archive integrity/tech QA reports state 276/276 MP3 matched receipts/ZIP checks and 276/276 decoded with no technical warnings. **Czech text/pronunciation NOT verified.**
+- **Explicit owner voice requirement:** Reader/Graded Reader audio **male-only** (including current stuck-word playback). Lessons use **female + male speaker voices** assigned by scene roles. Dictionary must reuse **separate per-word audio for every approved Czech spoken surface form** used by content; a sentence MP3 is not a word MP3.
+- **Do not delete, regenerate, publish or copy private 276 to R2/GitHub.** Voice quality and Czech text signoff needed before any application use.
+- Actual machine policies recorded on **PR #32** `feat/curriculum-system-v1-2026-11-23`:
+  - `curriculum/system-v1/audio-voice-policy.json`
+  - `curriculum/system-v1/learning-contract.json` cumulative Top100→200→300→500→1000 lexeme/sense/form registry contract
+  - `curriculum/system-v1/a0-topic-word-audio-inventory.draft.json` contains **81 orthographic word forms from 60 current A0 topic sample phrases only**; all unmapped/unapproved (not all app/reader words).
+  - `scripts/check-learning-system.mjs` includes voice and lexicon backlog regression assertions.
+- **NEXT REAL WORK:** tie all actual approved lessons and reader chapter text to the single lexicon's lemma/sense/form IDs, then map each to individually verified word assets; new TTS is forbidden before exact text approval. This is **not** app playback implemented.
