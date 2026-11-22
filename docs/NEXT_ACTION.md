@@ -54,3 +54,14 @@ PR #30: `feat/a0-outline-source-reconciliation-v1`. New draft files on that bran
   - `curriculum/system-v1/a0-topic-word-audio-inventory.draft.json` contains **81 orthographic word forms from 60 current A0 topic sample phrases only**; all unmapped/unapproved (not all app/reader words).
   - `scripts/check-learning-system.mjs` includes voice and lexicon backlog regression assertions.
 - **NEXT REAL WORK:** tie all actual approved lessons and reader chapter text to the single lexicon's lemma/sense/form IDs, then map each to individually verified word assets; new TTS is forbidden before exact text approval. This is **not** app playback implemented.
+
+
+## 2026-11-23 CONTENT-FIRST HANDOFF (PR #32)
+- AUDIO ownership: different chat. Current curriculum work **must not call ElevenLabs, copy Drive assets, publish audio or mark audio QA pass**.
+- Added `curriculum/system-v1/lexicon/top100.candidate.json`: **100 unique contextual Czech lemma candidates** with linked first session, CZ editorial PENDING, frequency NOT MEASURED. A candidate shortlist, not approved Czech corpus Top100.
+- Added `curriculum/system-v1/exercise-catalog.json`: **12 exercise types**, pilot **7–9 visible exercises** and 15 pedagogical functions (the functions are not 15 compulsory separate screens).
+- Added `curriculum/system-v1/lessons/a0-intro-001.content.draft.json`: **6 target lexemes, 7 draft utterances, 9 exercises with answer keys, unseen transfer**. Covers `A0-T02-L01` + `A0-T02-L02` only, NOT the third skill in provisional `A0-S004`. One audio exercise BLOCKED.
+- Added `curriculum/system-v1/lessons/a0-intro-word-forms.draft.json`: **11 unique Czech orthographic forms, all individual word audio MISSING**, learner dialogue/lesson/reader word playback must share the eventual verified word form assets.
+- Reader main has **two sample A0 books and four chapters without curriculum lexeme mappings or validated vocab coverage**. Added `curriculum/system-v1/reader-series-gates.draft.json`: four different adult graded series outlines + release/unknown-word/narrative quality gates. No story prose declared ready.
+- CI script `scripts/check-learning-system.mjs` validates counts, references and all not-published flags. PR #32 is still DRAFT; main untouched.
+- **NEXT ACTION:** complete CZ+MN editorial validation of the Top100 and first pilot content against actual Czech A1 and corpus evidence; fix the missing A0-T02-L03 packaging, then implement text-only A0 lesson engine and test scenario flows. Do not start reading novels or TTS before stable content and lexicon references.
