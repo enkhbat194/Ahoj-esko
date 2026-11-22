@@ -95,8 +95,10 @@ try {
       "Reference reader keeps speakers out of the Czech text");
     assert.equal(await page.locator(".ar-chapter-title").count(), 0,
       "Reader must not duplicate the chapter heading under its header");
-    assert.equal(await page.locator(".ar-guided-disabled[aria-disabled='true']").count(), 1,
-      "Guided reading preview must show a disabled control, not a fake working mic");
+    assert.equal(await page.locator("#ar-guided-toggle[role='switch']").count(), 1,
+      "Czech guided reading microphone switch missing");
+    assert.equal(await page.locator("#ar-word-help").count(), 1,
+      "Stuck-word speaker helper missing");
     assert.equal(await page.locator("#ar-seek").isDisabled(), true,
       "Untimed demo TTS must not fake native seek controls");
     assert.equal(await page.locator("#ar-back").isDisabled(), true,
