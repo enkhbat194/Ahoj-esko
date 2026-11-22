@@ -28,7 +28,13 @@
       "further_scope_review": false,
       "review_issue": "Одоогийн хоёр жишээ бэлэн, môj/moje хүйсийн тохирлыг алдаагүй хэрэглэх.",
       "editorial_status": "DRAFT_PENDING_CZ_MN",
-      "approved": false
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "WORDING_ONLY_PROPOSAL",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_NOT_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
     },
     {
       "skill_id": "A0-T06-L03",
@@ -50,10 +56,16 @@
       "exit_check_draft": "Өөр өөр хоёр дүрээр тус бүр зөв нэршилтэй нэг өгүүлбэр хэлнэ.",
       "neighbor_skill_boundary": "L01 эцэг эх, L03 хань, L04 хүүхэд.",
       "classification_at_audit": "wording_review",
-      "further_scope_review": true,
+      "further_scope_review": false,
       "review_issue": "Шинэ manžel/manželka хоёр phrase bank-д алга; жишээ хэллэгийн хэлэгч/дүрийн гэр бүлийн нөхцөл заах.",
       "editorial_status": "DRAFT_PENDING_CZ_MN",
-      "approved": false
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "WORDING_ONLY_PROPOSAL",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_NOT_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
     },
     {
       "skill_id": "A0-T06-L04",
@@ -75,10 +87,16 @@
       "exit_check_draft": "Зурагт хүү/охиноо зөв нэрлэх ба өөр зурагт зөв хэлбэрийг сонгох.",
       "neighbor_skill_boundary": "L03 хань, L04 хүү/охин, L05 ах дүүс.",
       "classification_at_audit": "wording_review",
-      "further_scope_review": true,
+      "further_scope_review": false,
       "review_issue": "Хүүхэдгүй суралцагчаас худал хувийн баримт шаардахгүй; дүрээр ажиллуулна; шинэ жишээ.",
       "editorial_status": "DRAFT_PENDING_CZ_MN",
-      "approved": false
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "WORDING_ONLY_PROPOSAL",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_NOT_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
     },
     {
       "skill_id": "A0-T06-L05",
@@ -103,7 +121,13 @@
       "further_scope_review": true,
       "review_issue": "Чех sestra/bratr нь ахмад/дүүг шууд ялгахгүй; starší/mladší нэмэлт хэллэг ба Монгол орчуулгын мэргэжлийн хяналт шаардлагатай.",
       "editorial_status": "DRAFT_PENDING_CZ_MN",
-      "approved": false
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "TARGETED_SCOPE_CHECK",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_NOT_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
     },
     {
       "skill_id": "A0-T06-L06",
@@ -125,10 +149,16 @@
       "exit_check_draft": "Эрэгтэй ба эмэгтэй нэр үгийн зурагт тохирох můj/moje хэлбэрийг сонгон нэг өгүүлбэр хэлнэ.",
       "neighbor_skill_boundary": "L01/L03 хүн нэрлэх; L06 'миний' тохируулах, L07 'түүний' өөр хүн.",
       "classification_at_audit": "wording_review",
-      "further_scope_review": true,
+      "further_scope_review": false,
       "review_issue": "Үг 'миний'-г орчуулж хэлэхээс илүү Чехийн gender agreement шалгах; бүрэн дүрмийн хүснэгтээр эхлэхгүй.",
       "editorial_status": "DRAFT_PENDING_CZ_MN",
-      "approved": false
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "WORDING_ONLY_PROPOSAL",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_NOT_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
     },
     {
       "skill_id": "A0-T06-L07",
@@ -153,7 +183,13 @@
       "further_scope_review": true,
       "review_issue": "Эзэмшигчийн хүйс ба эзэмшүүлж буй хүний хүйсийг ялга; phrase bank-д jeho/její байхгүй.",
       "editorial_status": "DRAFT_PENDING_CZ_MN",
-      "approved": false
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "TARGETED_SCOPE_CHECK",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_NOT_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
     },
     {
       "skill_id": "A0-T06-L08",
@@ -175,10 +211,16 @@
       "exit_check_draft": "Шинэ гэр бүлийн зураг дээр хоёр өөр хамаарлыг зөв хэлэх; худал хувийн өгөгдөл шаардахгүй.",
       "neighbor_skill_boundary": "L01–L07-гийн нийлмэл сорил, шинэ чадвар нэмэхгүй.",
       "classification_at_audit": "wording_review",
-      "further_scope_review": true,
+      "further_scope_review": false,
       "review_issue": "Ярианы урсгал, асуулт-хариулт, богино хариу сонсох банк дутуу; нэг мөр уншуулж сорил гэж зарлахгүй.",
       "editorial_status": "DRAFT_PENDING_CZ_MN",
-      "approved": false
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "WORDING_ONLY_PROPOSAL",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_NOT_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
     },
     {
       "skill_id": "A0-T07-L01",
@@ -203,7 +245,13 @@
       "further_scope_review": true,
       "review_issue": "Drive 'зэрэг зүйлс' өргөн, GH зөвхөн 3 зүйл; нэрлэх эсвэл сонсож таних modality-г шийдэх.",
       "editorial_status": "DRAFT_PENDING_CZ_MN",
-      "approved": false
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "TARGETED_SCOPE_CHECK",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_NOT_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
     },
     {
       "skill_id": "A0-T07-L03",
@@ -228,7 +276,13 @@
       "further_scope_review": true,
       "review_issue": "Нэг, хоёрын хүйс/тоо/тийн ялгалт: jedna→jednu, dva→dvě, káva→kávy; нэг тоог бүх нэр үгэнд хуулж болохгүй.",
       "editorial_status": "DRAFT_PENDING_CZ_MN",
-      "approved": false
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "TARGETED_SCOPE_CHECK",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_NOT_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
     },
     {
       "skill_id": "A0-T07-L09",
@@ -250,10 +304,16 @@
       "exit_check_draft": "Нэг/хоёр тоотой өөр өөр асуултад сонсоод батлах эсвэл буруу гэдгийг илэрхийлнэ.",
       "neighbor_skill_boundary": "L03 тоо хүсэх, L09 сонсож батлах.",
       "classification_at_audit": "wording_review",
-      "further_scope_review": true,
+      "further_scope_review": false,
       "review_issue": "Одоогийн хэллэгүүдэд кассын буцааж лавлах/залруулах реплик алга; хүсэлт ба баталгаа тусдаа.",
       "editorial_status": "DRAFT_PENDING_CZ_MN",
-      "approved": false
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "WORDING_ONLY_PROPOSAL",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_NOT_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
     },
     {
       "skill_id": "A0-T07-L10",
@@ -275,10 +335,16 @@
       "exit_check_draft": "Кафены нэг сцен + дэлгүүрийн нэг сцен; үнийн хариу, баталгаажуулалт, эцсийн хаалтыг шалгана.",
       "neighbor_skill_boundary": "L01–L09 нийлмэл сорил, T04-L08 төлбөрийн өмнөх чадвар.",
       "classification_at_audit": "wording_review",
-      "further_scope_review": true,
+      "further_scope_review": false,
       "review_issue": "Кафе жишээгээр 'дэлгүүрийн' чадварыг баталж болохгүй; хоёр нөхцөл тусдаа хүсэлт, хариулт хэрэгтэй.",
       "editorial_status": "DRAFT_PENDING_CZ_MN",
-      "approved": false
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "WORDING_ONLY_PROPOSAL",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_NOT_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
     },
     {
       "skill_id": "A0-T08-L02",
@@ -303,7 +369,13 @@
       "further_scope_review": true,
       "review_issue": "Ерөнхий байрлалын энэ чадварыг T09-L05 ажлын багажийн байршилтай ялгана; жишээ phrase bank-д байхгүй.",
       "editorial_status": "DRAFT_PENDING_CZ_MN",
-      "approved": false
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "TARGETED_SCOPE_CHECK",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_NOT_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
     },
     {
       "skill_id": "A0-T08-L03",
@@ -328,7 +400,13 @@
       "further_scope_review": true,
       "review_issue": "Drive 'ялгах' нь сонсгол эсвэл хараа тодорхойгүй; шинэ сорилд сонсгол сонгосон нь редакцын хамрах хүрээний санал.",
       "editorial_status": "DRAFT_PENDING_CZ_MN",
-      "approved": false
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "TARGETED_SCOPE_CHECK",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_NOT_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
     },
     {
       "skill_id": "A0-T08-L04",
@@ -353,7 +431,13 @@
       "further_scope_review": true,
       "review_issue": "Drive 'заавар' нь хэлэх/ойлгохын аль нь гэдэг тодорхойгүй; Jděte нь vy/олон тооны тушаах хэлбэр; bank-д байхгүй.",
       "editorial_status": "DRAFT_PENDING_CZ_MN",
-      "approved": false
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "TARGETED_SCOPE_CHECK",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_NOT_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
     },
     {
       "skill_id": "A0-T08-L08",
@@ -378,7 +462,14 @@
       "further_scope_review": true,
       "review_issue": "GH 'Хэдэн цагт явах вэ?' нь хүн явахыг асуусан мэт ойлгогдоно; тээврийн сэдэвт нарийсгах хэрэгтэй.",
       "editorial_status": "DRAFT_PENDING_CZ_MN",
-      "approved": false
+      "approved": false,
+      "review_dimensions": {
+        "title_scope_risk": "TARGETED_SCOPE_CHECK",
+        "language_editorial": "PENDING",
+        "sample_content_coverage": "FULL_SAMPLE_NOT_IN_TOPIC_BANK",
+        "audio_assessment": "NOT_TESTED"
+      }
     }
-  ]
+  ],
+  "review_note": "Scope risk is distinguished from missing Czech phrase/audio evidence. False scope risk does not mean lesson/audio quality approved."
 }
