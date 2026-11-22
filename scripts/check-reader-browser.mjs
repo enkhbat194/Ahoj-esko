@@ -44,6 +44,13 @@ try {
     await pwa.waitForURL("**/cesky-reading-uiux/index.html?tab=stages", { timeout: 10000 });
     assert.equal(await pwa.locator(".premium-home").count(), 0, "Old green React home is still visible");
     assert.ok(await pwa.locator(".chapter-slide").count() > 0, "New Stage landing page is missing");
+    // Old installed icons can keep ?tab=read: the start page MUST still be stages.
+    await pwa.goto("http://127.0.0.1:17777/cesky-reading-uiux/index.html?tab=read", { waitUntil: "domcontentloaded" });
+    assert.ok(await pwa.locator('[data-tab="stages"][aria-current="page"]').count() === 1,
+      "Legacy ?tab=read PWA starts on the wrong tab");
+    assert.ok(await pwa.locator(".chapter-slide").count() > 0, "Stage content missing at legacy start URL");
+    assert.equal(new URL(pwa.url()).searchParams.get("tab"), "stages",
+      "Legacy old PWA URL was not normalized to the Stage landing");
     await pwa.locator('[data-tab="read"]').click();
     assert.ok(await pwa.locator(".book-card").count() > 0, "New reading library is missing");
     await pwa.locator(".book-card").first().click();
@@ -74,6 +81,15 @@ try {
     await page.locator("#readerShell.aho-reader-shell").waitFor();
     await page.locator("#readerShell").evaluate((el) => Promise.all(el.getAnimations().map((animation) => animation.finished.catch(() => {}))));
     assert.ok(await page.locator("#ar-text .ar-word").count() > 3, "Word-tap tokens missing");
+    // At least two sentences in the first paragraph must occupy separate lines.
+    const sentenceNodes = page.locator("#ar-text .ar-paragraph").first().locator(".ar-sentence");
+    assert.ok(await sentenceNodes.count() >= 2, "Expected multi-sentence Czech paragraph for line-break QA");
+    const firstSentence = await sentenceNodes.nth(0).boundingBox();
+    const secondSentence = await sentenceNodes.nth(1).boundingBox();
+    assert.ok(firstSentence && secondSentence &&
+      secondSentence.y >= firstSentence.y + firstSentence.height + 8 &&
+      Math.abs(secondSentence.x - firstSentence.x) <= 2,
+      "Each Czech sentence must begin on a new line: " + JSON.stringify({ firstSentence, secondSentence }));
     assert.ok(await page.locator("#ar-player").isVisible(), "Player missing");
     assert.equal(await page.locator(".ar-sentence-audio").count(), 0,
       "Reference reader keeps speakers out of the Czech text");

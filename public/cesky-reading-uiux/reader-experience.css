@@ -348,3 +348,24 @@
     max-height: 62dvh;
   }
 }
+
+
+/* Reader v1.2 — each Czech sentence begins on a new line.
+   Keep original paragraph boundaries, word-tap controls, and karaoke state. */
+.aho-reader-shell .ar-paragraph {
+  margin-bottom: 30px;
+}
+.aho-reader-shell .ar-paragraph .ar-sentence {
+  display: block;
+  width: 100%;
+  margin: 0;
+  border-radius: 6px;
+}
+.aho-reader-shell .ar-paragraph .ar-sentence + .ar-sentence {
+  margin-top: 15px;
+}
+@media (max-width: 360px) {
+  .aho-reader-shell .ar-paragraph .ar-sentence + .ar-sentence {
+    margin-top: 12px;
+  }
+}

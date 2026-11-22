@@ -10,7 +10,7 @@
   <link rel="manifest" href="/manifest.webmanifest" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <title>Čeština • A0</title>
-  <link rel="stylesheet" href="./reader-experience.css?v=2" />
+  <link rel="stylesheet" href="./reader-experience.css?v=3" />
   <style>
     /* =========================================================
        1. ҮНДСЭН ӨНГӨ, ХЭМЖЭЭ БА GLASSMORPHISM ТОКЕНУУД
@@ -3113,7 +3113,7 @@
          2. АПП-ЫН ТӨЛӨВ (STATE)
          ========================================================= */
       const state = {
-        activeTab: new URLSearchParams(window.location.search).get("tab") === "read" ? "read" : "stages", // шинэ аппын нүүр — Үе давах
+        activeTab: "stages", // PWA-г ямар ч хуучин ?tab=read хаягаар эхлүүлсэн анхны дэлгэц үргэлж Үе давах
         activeStageIdx: 0,
         searchQuery: "",
         activeReadingBookId: null,  // ЧУХАЛ: Эхэндээ null тул "ОДОО УНШИЖ БАЙНА" самбар нууц байна
@@ -4717,6 +4717,13 @@
          14. ЭВЕНТ ХОЛБОЛТ БА ЭХЛҮҮЛЭЛТ
          ========================================================= */
       function init() {
+        // Previous PWA installs can keep an old start_url ending in ?tab=read.
+        // Normalize it to the single approved Stage-first landing.
+        if (new URLSearchParams(window.location.search).get("tab") === "read") {
+          const updatedUrl = new URL(window.location.href);
+          updatedUrl.searchParams.set("tab", "stages");
+          window.history.replaceState(null, "", updatedUrl.pathname + updatedUrl.search + updatedUrl.hash);
+        }
         drawerList.innerHTML = MENU_ITEMS.map(
           (label) => `<button type="button" class="drawer-item" data-menu="${escapeHtml(label)}">${escapeHtml(label)}</button>`
         ).join("");
