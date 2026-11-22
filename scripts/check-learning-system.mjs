@@ -162,7 +162,7 @@ assert.equal(inventory.source_scope,'ONLY_TOPIC_PHRASES_16_A0');
 assert.equal(inventory.source_phrase_count,source.topics.reduce((n,t)=>n+t.phrases.length,0));
 const generated=new Map();
 for(const topic of source.topics)for(const phrase of topic.phrases){
- for(const surface of (phrase.cz.normalize('NFC').match(/\\p{L}+(?:[’']\\p{L}+)*/gu)??[])){
+ for(const surface of (phrase.cz.normalize('NFC').match(/\p{L}+(?:[’']\p{L}+)*/gu)??[])){
   const normalized=surface.toLocaleLowerCase('cs-CZ');
   if(!generated.has(normalized))generated.set(normalized,new Set());
   generated.get(normalized).add(topic.id);
