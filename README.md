@@ -1,22 +1,27 @@
-# Ahoj Česko — шинэ хар–улбар шар апп
+# Ahoj Česko — үндсэн апп (main)
 
-**Нэг үндсэн апп: `public/cesky-reading-uiux/index.html`.** Энэ бол бүтээгдэхүүний интерфейсийн эх сурвалж.
+## Салбарын бүтэц
+- `main`: одоо ашиглагдаж байгаа ганц PWA, reader UI, үндсэн серверийн API, PWA тохиргоо, автоматаар ажиллах CI/reader QA.
+- `archive/pre-separation-2026-11-22`: цэвэрлэгээ хийхийн өмнөх **бүрэн snapshot**. Туршилтын 8 ном, 86 автоматаар нөхөгддөг бүлэг, ашиглагдахгүй байсан AI API, хуучин Render smoke script энд хэвээр хадгалагдсан.
 
-## Эзний баталсан өөрчлөгдөшгүй шийдвэр
-- Хуучин ногоон React нүүр, хуучин сургалтын хөтөлбөр/өгөгдөл, хуучин 72 хичээлийн хөдөлгүүрийг **дахин импортлохгүй**.
-- Шинэ таван таб: **Үе давах** (үндсэн нүүр), **Унших**, **AI**, **Карт**, **Толь**.
-- **Унших** → 10 номын сан → Ном сонгох → Бүлэг → `reader-experience.js` тоглуулагч.
-- `reader-experience.css` нь шинэ уншлагын layout. Шинэ мастер стандарт: `docs/CZECH_READING_EXPERIENCE_MASTER_V1_1.md`.
-- `Үе давах` картуудын **бодит шинэ хичээлийн өгөгдөл хараахан холбогдоогүй**. Хуучин хичээлээр орлуулах, хуурамч ахиц үзүүлэхийг хориглоно.
+## Үндсэн апп
+- `/` → `/cesky-reading-uiux/index.html?tab=stages`.
+- Үндсэн UI: `public/cesky-reading-uiux/index.html`.
+- Уншлагын хөдөлгүүр: `reader-experience.js`, `reader-experience.css`.
+- Зөвхөн бие даан бичигдсэн 4 бүлэг бүхий 2 жишээ ном одоо уншлагын хэсэгт үлдсэн. Дутуу 86 бүлгийг хиймэл загвараар нөхөхгүй.
+- Хичээлийн бүрэн өгөгдөл, баталгаажсан толь, бэлэн аудио сан, жинхэнэ дуудлагын үнэлгээ одоогоор холбогдоогүй.
 
-## Нэвтрэх ба deploy
-- `/` → `/cesky-reading-uiux/index.html?tab=stages` (нэг origin).
-- `/cesky-reading-uiux/index.html?tab=read` → шинэ уншлагын номын сан.
-- `npm run lint`; `npm run build`; `node scripts/check-reader-browser.mjs` (Chrome CI environment).
-- Render: `ahoj-cesko-main-server-preview`, GitHub `main`, Node.
-- Утсанд суулгасан өмнөх PWA хуучин кэштэй байж болно; хэзээ ч хэрэглэгчийн орон нутгийн ахиц/кэшийг далдуур арчиж болохгүй.
+## Сервер дээр үлдсэн API
+- `GET /api/health`
+- `GET /api/ai/usage`, `POST /api/ai/usage/limits`
+- `POST /api/ai/tutor`, `POST /api/ai/reading-help`
+- `POST /api/ai/tts` (үүсгэсэн аудио сервер restart хийхэд алдагдах боломжтой; persistent audio factory биш)
 
-## Бодитоор холбогдоогүй зүйл
-Шинэ сургалтын баталгаажсан өгөгдөл, бодит story audio + үгийн тайминг, Guided Read Aloud STT, зөв дуудлагын үнэлгээ, Чех үгийн үндсэн/дэлгэрэнгүй толь. Холбогдоогүй функц ажиллаж байгаа мэт дүр эсгэхгүй.
+## Гүйцэтгэлийн дүрэм
+- `main` дээр үндсэн бүтээгдэхүүн болон түүнд шууд шаардлагатай кодыг л хадгална.
+- Шинэ prototype / туршилтыг тусдаа feature branch дээр хөгжүүлж, зөвхөн баталгаажсан үед main руу нийлүүлнэ.
+- Автомат CI, reader-browser QA-г main дээр хадгална. Хэрэглэгчийг гар QA хийлгэхгүй.
+- `docs/CZECH_READING_EXPERIENCE_MASTER_V1_1.md` нь уншлагын UX суурь баримт бичиг.
 
-**Ногоон React апп болон өмнөх сургалтын модуль одоогийн `main`-д байх ёсгүй.**
+## Command
+`npm run dev` · `npm run build` · `npm run lint`
