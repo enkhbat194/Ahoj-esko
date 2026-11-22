@@ -65,3 +65,9 @@ PR #30: `feat/a0-outline-source-reconciliation-v1`. New draft files on that bran
 - Reader main has **two sample A0 books and four chapters without curriculum lexeme mappings or validated vocab coverage**. Added `curriculum/system-v1/reader-series-gates.draft.json`: four different adult graded series outlines + release/unknown-word/narrative quality gates. No story prose declared ready.
 - CI script `scripts/check-learning-system.mjs` validates counts, references and all not-published flags. PR #32 is still DRAFT; main untouched.
 - **NEXT ACTION:** complete CZ+MN editorial validation of the Top100 and first pilot content against actual Czech A1 and corpus evidence; fix the missing A0-T02-L03 packaging, then implement text-only A0 lesson engine and test scenario flows. Do not start reading novels or TTS before stable content and lexicon references.
+
+
+### 2026-11-23 FIRST LESSON TEXT ENGINE CHECKPOINT
+- PR #32 now also has `curriculum/system-v1/lesson-engine.mjs` and `scripts/test-lesson-engine.mjs` wired to `npm run lint`. Text exercise evaluator grades choice/match/token-order/cloze; DOES NOT invent STT pronunciation scores, open-ended semantic grading, learner mastery or audio success.
+- First pack `A0-PACK-INTRO-001` has 6 draft lexemes, 9 exercise blocks (8 viewable text and 1 audio blocked), but is **not integrated in PWA** and source S004 has still 1 missing skill L03. Top100 and reading series are draft/editorial pending.
+- Next code task (curriculum/engine only): versioned schema validation of approved lexeme/form/sentence boundaries and minimal Premium PWA mounting of the text-only pack in a feature branch, no fake production audio. Cross-chat audio owns ElevenLabs.
