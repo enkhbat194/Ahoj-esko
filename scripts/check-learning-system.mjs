@@ -183,4 +183,89 @@ for(const entry of inventory.items){
  assert.equal(entry.lexeme_id,null,'Do not guess lemma mappings automatically');
 }
 
+
+const top100=read('curriculum/system-v1/lexicon/top100.candidate.json');
+assert.equal(top100.status,'MODEL_EDITORIAL_TOP100_CANDIDATE_UNAPPROVED_NOT_CORPUS_TOP100');
+assert.equal(top100.items.length,100,'Top100 candidate requires 100 lexemes');
+assert.equal(top100.exact_count,100);
+const lexById=new Map(top100.items.map(x=>[x.lexeme_id,x]));
+assert.equal(lexById.size,100,'Top100 duplicated ID');
+assert.equal(new Set(top100.items.map(x=>x.lemma_cs.normalize('NFC'))).size,100,'Top100 duplicated Czech lemma');
+assert.deepEqual(top100.cumulative_stages.top100.ids,top100.items.map(x=>x.lexeme_id));
+for(let i=0;i<top100.items.length;i++){
+ const w=top100.items[i];
+ assert.equal(w.lexeme_id,'CS-LEX-'+String(i+1).padStart(4,'0'));
+ assert.equal(w.learning_priority_order,i+1);
+ assert.equal(w.sense_id,w.lexeme_id+'-S01');
+ assert.ok(w.lemma_cs&&w.part_of_speech&&w.mn_meaning_contextual_draft);
+ assert.ok(sids.has(w.first_proposed_session_id),'Lexicon references unknown session '+w.lemma_cs);
+ assert.equal(w.corpus_rank,null,'Never fake Czech corpus frequency rank');
+ assert.equal(w.approved,false,'No native speaker review yet');
+ assert.equal(w.published,false);
+ assert.equal(w.audio_status,'NOT_REQUESTED');
+}
+assert.ok(lexById.has(top100.items.find(x=>x.lemma_cs==='být').lexeme_id),
+ 'Core být missing');
+for(const w of ['to','a','na','do','v'])assert.ok(top100.items.some(x=>x.lemma_cs===w),
+ 'Missing Czech function word '+w);
+
+const cat=read('curriculum/system-v1/exercise-catalog.json');
+assert.equal(cat.templates.length,12);
+assert.deepEqual(cat.core_exercises_per_learning_session_recommendation,[7,9]);
+assert.ok(cat.pedagogical_stage_relation.includes('NOT 15 separate'));
+const byType=new Map(cat.templates.map(x=>[x.exercise_type,x]));
+assert.equal(byType.size,cat.templates.length);
+for(const type of cat.selection_rules.mandatory)assert.ok(byType.has(type));
+for(const x of cat.templates){
+ assert.ok(x.title_mn&&Array.isArray(x.required_fields));
+ for(const stage of x.pedagogical_stage_ids)assert.ok(
+ contract.lesson_cycle.steps.some(s=>s.id===stage),'Unknown stage '+stage);
+}
+
+const pack=read('curriculum/system-v1/lessons/a0-intro-001.content.draft.json');
+assert.equal(pack.status,'FIRST_A0_TEACHING_PACK_DRAFT_EDITORIAL_PENDING_NOT_IN_APP');
+assert.equal(pack.pack_id,'A0-PACK-INTRO-001');
+assert.equal(pack.linked_provisional_session_id,'A0-S004');
+assert.deepEqual(pack.coverage.authored_skill_ids,['A0-T02-L01','A0-T02-L02']);
+assert.deepEqual(pack.coverage.NOT_YET_AUTHORED,['A0-T02-L03']);
+const session004=sessionById.get('A0-S004');
+assert.deepEqual(pack.coverage.source_session_skill_ids,session004.skill_ids,
+ 'Declared partial source coverage must be exact');
+for(const id of pack.coverage.authored_skill_ids)assert.ok(session004.skill_ids.includes(id));
+const newIds=new Set(pack.new_lexeme_ids);
+assert.equal(newIds.size,pack.new_lexeme_ids.length);
+assert.equal(newIds.size,6,'Intro pilot exceeds 6 new lexemes');
+for(const id of newIds){
+ assert.ok(lexById.has(id),'unknown lesson lexeme '+id);
+ assert.equal(lexById.get(id).first_proposed_session_id,'A0-S004','word assigned to wrong session: '+id);
+}
+assert.equal(pack.exercises.length,9);
+const exerciseIds=new Set();
+for(const item of pack.exercises){
+ assert.ok(!exerciseIds.has(item.exercise_id));exerciseIds.add(item.exercise_id);
+ assert.ok(byType.has(item.type),'Unknown exercise type '+item.type);
+ assert.ok(item.instructions_mn&&item.answer_key&&Number.isFinite(item.estimated_seconds));
+ if(item.type==='listen_choose')assert.equal(item.gating.status,'BLOCKED_MISSING_APPROVED_AUDIO');
+}
+for(const type of cat.selection_rules.mandatory)
+ assert.ok(pack.exercises.some(x=>x.type===type),'Missing mandatory introductory exercise '+type);
+assert.equal(pack.exercises.filter(x=>x.type==='novel_transfer').length,1);
+assert.equal(pack.exercises.filter(x=>x.type==='novel_transfer')[0].novel,true);
+const packAudioIds=new Set(pack.utterances.map(x=>x.utterance_id));
+assert.equal(packAudioIds.size,pack.utterances.length);
+for(const u of pack.utterances){
+ assert.ok(u.text_cs&&u.mn_natural_draft);
+ assert.equal(u.audio_status,'NOT_REQUESTED');
+ assert.equal(u.audio_asset_id,null);
+ assert.equal(u.published,false);
+}
+for(const ex of pack.exercises){
+ for(const id of ex.utterance_ids??[])assert.ok(packAudioIds.has(id),'Missing utterance '+id);
+ for(const pair of ex.pairs??[])assert.ok(packAudioIds.has(pair.utterance_id));
+ for(const word of ex.cards??[])assert.ok(newIds.has(word.lexeme_id),'Card outside first lesson vocabulary');
+ for(const review of ex.review_targets??[])assert.ok(newIds.has(review.lexeme_id));
+}
+assert.equal(pack.release.published,false);
+assert.equal(pack.release.audio,'NOT_REQUESTED');
+
 console.log('Learning system QA PASS: 72 proposed missions, 16 source A0 topics, 140 stable skills, 53 provisional A0 sessions, 15-stage cycle; 0 published.');
