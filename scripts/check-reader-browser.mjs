@@ -338,7 +338,7 @@ try {
     assert.equal(saved.selfReportedSpoken, true);
     assert.ok(saved.reviewDueAt > saved.completedAt);
     await pilotPage.screenshot({ path: "test-artifacts/a0-pilot-complete-390.png" });
-    await pilotPage.locator("[data-pilot-back]").click();
+    await pilotPage.locator(".lp-primary[data-pilot-back]").click();
     assert.ok(await pilotPage.locator('[data-pilot-lesson="A0-T02-L01"]').innerText().then((value) => value.includes("дахин үзэх")));
     assert.deepEqual(pilotErrors, [], "Pilot JS errors: " + pilotErrors.join("; "));
     await pilotPage.close();
