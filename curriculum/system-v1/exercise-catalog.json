@@ -1,0 +1,278 @@
+{
+  "schema_version": "1.0.0",
+  "status": "CATALOGUE_AND_DRAFT_LESSON_RENDERER_CONTRACT_NO_APP_DEPLOY",
+  "lesson_length_minutes_recommendation": [
+    12,
+    18
+  ],
+  "core_exercises_per_learning_session_recommendation": [
+    7,
+    9
+  ],
+  "range_is_trial": true,
+  "pedagogical_stage_relation": "Original 15 stages are pedagogical FUNCTIONS, NOT 15 separate compulsory on-screen cards. A 7–9-exercise session can cover stages by mapping them to exercises and feedback/review actions; missing audio stages remain blocked, not counted as fulfilled.",
+  "selection_rules": {
+    "new_lexemes_typical": [
+      4,
+      6
+    ],
+    "new_lexemes_minimum": 0,
+    "new_lexemes_maximum_for_a0_first_pass": 6,
+    "mandatory": [
+      "context_hook",
+      "word_card",
+      "meaning_match",
+      "guided_dialogue",
+      "novel_transfer"
+    ],
+    "choose_additionally": [
+      "sentence_reorder",
+      "cloze",
+      "listen_choose",
+      "listen_repeat",
+      "spoken_roleplay"
+    ],
+    "add_due_reviews_separately": "review at session entry/exit as learner data allows; not counted as new vocabulary",
+    "constraints": [
+      "never reward visual tapping as mastery of speaking",
+      "novel transfer hidden during lesson until test",
+      "do not use future unintroduced words without contextual scaffold",
+      "word_card is short exposure not a complete lesson",
+      "a single scenario measures at most one main can-do with supplementary skills"
+    ]
+  },
+  "stage_coverage_profile": {
+    "S01": "context_hook",
+    "S02": "listen_choose",
+    "S03": "context_hook,meaning_match",
+    "S04": "listen_repeat",
+    "S05": "word_card",
+    "S06": "listen_repeat",
+    "S07": "listen_repeat",
+    "S08": "cloze",
+    "S09": "sentence_reorder",
+    "S10": "cloze,delayed_review",
+    "S11": "listen_choose",
+    "S12": "guided_dialogue,spoken_roleplay",
+    "S13": "guided_dialogue,spoken_roleplay",
+    "S14": "novel_transfer",
+    "S15": "novel_transfer,delayed_review"
+  },
+  "actual_audio_contract": "Audio chat owns recording/production. This branch creates canonical text and utterance IDs but never calls ElevenLabs or publishes Drive/R2.",
+  "templates": [
+    {
+      "exercise_type": "context_hook",
+      "title_mn": "Нөхцөл ойлгуулах",
+      "modality": "visual_text",
+      "required_fields": [
+        "scene_id",
+        "goal_mn",
+        "context_choices"
+      ],
+      "evaluation_kind": "scene_choice",
+      "pedagogical_stage_ids": [
+        "S01",
+        "S03"
+      ],
+      "can_validate_without_audio": true,
+      "template_status": "DESIGN_SPEC",
+      "auto_grading_policy": "EXACT_OR_SEMANTIC_PREDEFINED_AS_SPECIFIED"
+    },
+    {
+      "exercise_type": "word_card",
+      "title_mn": "Шинэ үгийн карт",
+      "modality": "visual_text",
+      "required_fields": [
+        "lexeme_id",
+        "form_cs",
+        "mn_sense",
+        "context_utterance_id"
+      ],
+      "evaluation_kind": "meaning_choice_or_recall",
+      "pedagogical_stage_ids": [
+        "S03",
+        "S05"
+      ],
+      "can_validate_without_audio": true,
+      "template_status": "DESIGN_SPEC",
+      "auto_grading_policy": "EXACT_OR_SEMANTIC_PREDEFINED_AS_SPECIFIED"
+    },
+    {
+      "exercise_type": "meaning_match",
+      "title_mn": "Чех хэллэг ↔ Монгол утга холбох",
+      "modality": "visual_text",
+      "required_fields": [
+        "pair_ids",
+        "option_shuffle_seed"
+      ],
+      "evaluation_kind": "pair_map",
+      "pedagogical_stage_ids": [
+        "S03",
+        "S09"
+      ],
+      "can_validate_without_audio": true,
+      "template_status": "DESIGN_SPEC",
+      "auto_grading_policy": "EXACT_OR_SEMANTIC_PREDEFINED_AS_SPECIFIED"
+    },
+    {
+      "exercise_type": "sentence_reorder",
+      "title_mn": "Өгүүлбэрийг үгээр эвлүүлэх",
+      "modality": "visual_text",
+      "required_fields": [
+        "ordered_token_ids",
+        "shuffled_tokens"
+      ],
+      "evaluation_kind": "token_sequence",
+      "pedagogical_stage_ids": [
+        "S08",
+        "S09"
+      ],
+      "can_validate_without_audio": true,
+      "template_status": "DESIGN_SPEC",
+      "auto_grading_policy": "EXACT_OR_SEMANTIC_PREDEFINED_AS_SPECIFIED"
+    },
+    {
+      "exercise_type": "cloze",
+      "title_mn": "Нөхцөлд зөв үг, хэлбэр нөхөх",
+      "modality": "visual_text",
+      "required_fields": [
+        "utterance_id",
+        "blank_form_id",
+        "accepted_answers"
+      ],
+      "evaluation_kind": "form_text",
+      "pedagogical_stage_ids": [
+        "S08",
+        "S10"
+      ],
+      "can_validate_without_audio": true,
+      "template_status": "DESIGN_SPEC",
+      "auto_grading_policy": "EXACT_OR_SEMANTIC_PREDEFINED_AS_SPECIFIED"
+    },
+    {
+      "exercise_type": "guided_dialogue",
+      "title_mn": "Дүрээр харилцах",
+      "modality": "visual_text",
+      "required_fields": [
+        "turns",
+        "register",
+        "accepted_intents"
+      ],
+      "evaluation_kind": "utterance_or_semantic_intent",
+      "pedagogical_stage_ids": [
+        "S12",
+        "S13"
+      ],
+      "can_validate_without_audio": true,
+      "template_status": "DESIGN_SPEC",
+      "auto_grading_policy": "EXACT_OR_SEMANTIC_PREDEFINED_AS_SPECIFIED"
+    },
+    {
+      "exercise_type": "novel_transfer",
+      "title_mn": "Өмнө үзээгүй нөхцөлд хэрэглэх",
+      "modality": "visual_text",
+      "required_fields": [
+        "unseen_scene_id",
+        "goal",
+        "accepted_intents"
+      ],
+      "evaluation_kind": "task_success_rubric",
+      "pedagogical_stage_ids": [
+        "S14",
+        "S15"
+      ],
+      "can_validate_without_audio": true,
+      "template_status": "DESIGN_SPEC",
+      "auto_grading_policy": "RUBRIC_REQUIRES_CALIBRATION"
+    },
+    {
+      "exercise_type": "delayed_review",
+      "title_mn": "Хугацааны зайтай эргэн санах",
+      "modality": "visual_text",
+      "required_fields": [
+        "review_target_id",
+        "scheduled_due_day"
+      ],
+      "evaluation_kind": "independent_recall",
+      "pedagogical_stage_ids": [
+        "S10",
+        "S13",
+        "S15"
+      ],
+      "can_validate_without_audio": true,
+      "template_status": "DESIGN_SPEC",
+      "auto_grading_policy": "EXACT_OR_SEMANTIC_PREDEFINED_AS_SPECIFIED"
+    },
+    {
+      "exercise_type": "listen_choose",
+      "title_mn": "Бичвэргүй сонсоод ялгах",
+      "modality": "audio",
+      "required_fields": [
+        "utterance_id",
+        "options"
+      ],
+      "evaluation_kind": "meaning_or_utterance_id",
+      "pedagogical_stage_ids": [
+        "S02",
+        "S11"
+      ],
+      "can_validate_without_audio": false,
+      "template_status": "DESIGN_SPEC",
+      "auto_grading_policy": "EXACT_OR_SEMANTIC_PREDEFINED_AS_SPECIFIED"
+    },
+    {
+      "exercise_type": "listen_repeat",
+      "title_mn": "Утгын хэсэг/үг/өгүүлбэрийг дуурайх",
+      "modality": "audio_speech",
+      "required_fields": [
+        "utterance_id",
+        "chunk_or_form_id"
+      ],
+      "evaluation_kind": "speech_attempt",
+      "pedagogical_stage_ids": [
+        "S04",
+        "S06",
+        "S07"
+      ],
+      "can_validate_without_audio": false,
+      "template_status": "DESIGN_SPEC",
+      "auto_grading_policy": "EXACT_OR_SEMANTIC_PREDEFINED_AS_SPECIFIED"
+    },
+    {
+      "exercise_type": "spoken_roleplay",
+      "title_mn": "AI-тай аман харилцах",
+      "modality": "audio_speech",
+      "required_fields": [
+        "turns",
+        "goal",
+        "context"
+      ],
+      "evaluation_kind": "semantic_task_rubric",
+      "pedagogical_stage_ids": [
+        "S12",
+        "S13",
+        "S14"
+      ],
+      "can_validate_without_audio": false,
+      "template_status": "DESIGN_SPEC",
+      "auto_grading_policy": "NO_NATIVE_PRONUNCIATION_SCORE_FROM_STT"
+    },
+    {
+      "exercise_type": "story_recall",
+      "title_mn": "Уншлагаас ойлгож дахин ярих",
+      "modality": "reading_text",
+      "required_fields": [
+        "story_chapter_id",
+        "question_set"
+      ],
+      "evaluation_kind": "meaning_or_open_reply",
+      "pedagogical_stage_ids": [
+        "S11",
+        "S14"
+      ],
+      "can_validate_without_audio": false,
+      "template_status": "DESIGN_SPEC",
+      "auto_grading_policy": "EXACT_OR_SEMANTIC_PREDEFINED_AS_SPECIFIED"
+    }
+  ]
+}
