@@ -1,20 +1,22 @@
 # AHOJ — NEXT ACTION
-Last updated: 2026-11-23. Proposal status.
-Owner: MASTER / CURRICULUM workstream; branch target: new feature branch, NOT main.
+Last updated: 2026-11-23. Status: IN PROGRESS, no production writes.
+
+## Verified baseline
+GitHub main: 4431da3eb6ea8e65266e8c30e3df741fcbe4be3e (verify newest SHA again on any next chat).
+Continuity docs: Draft PR #29, https://github.com/enkhbat194/Ahoj-esko/pull/29
+A0 Drive/GitHub source audit: Draft PR #30, https://github.com/enkhbat194/Ahoj-esko/pull/30
+PR #30 compares the latest connected Drive doc against main curriculum JSON: 16 topics, 140 unique IDs, 0 missing/duplicate, 78 title matches, 62 title differences: 48 preliminary wording, 14 potential scope discrepancies. The report, Drive snapshot, machine-readable proposals, and lint audit are in the PR. ALL proposed titles remain pending editorial review. No existing curriculum JSON, UI, audio, or lesson status was altered.
+PR #30 CI was in progress at the time this file was edited; check actual run result rather than assuming PASS. CI verifies a historical Drive snapshot, not live Drive sync.
 
 ## Exactly one next task
-Reconcile the 140 A0 micro-skill IDs between Drive AHOJ_A0_16_TOPICS_140_LESSON_OUTLINE_v1_0, the canonical repository JSON, and the detailed research plan. There are 62 title mismatches, mostly stylistic but some semantic. Record for each mismatch: ID, Drive title, GitHub title, intended communicative can-do, final proposed wording, reason, editorial status. Explicitly investigate A0-T02-L10, A0-T02-L13, A0-T05-L08, A0-T09-L01.
-DO NOT alter existing IDs or published student progress; propose mappings only until validated.
+Resolve the 14 flagged learning-objective / scope discrepancies from PR #30, checking Czech target utterances, natural Mongolian interpretation, social register, and exit-task suitability. Use docs/data/a0_outline_reconciliation_2026-11-23.json and docs/A0_OUTLINE_RECONCILIATION_REPORT.md from branch feat/a0-outline-source-reconciliation-v1. Review the other 48 editorial-wording proposals for consistency. Treat all proposals as unapproved until Czech/Mongolian review. Do NOT send routine manual QA to the user.
 
-## Deliverables
-- A machine-readable decision table for every conflicting ID and a consistent schema for skill_id / session_id.
-- A generated readable report (not two divergent manual copies).
-- One PR into main with validation for 16 topic IDs, 140 micro-skill IDs, no duplicate IDs and Drive-export parity.
-- CI PASS and code review; do not label human Czech QA as completed if it is not.
+## Definition of done
+1. Each of 62 rows has one accepted canonical title and can-do with evidence; scope cases have scenario/target utterances.
+2. Stable A0-Tnn-Lnn skill IDs never reassign meaning; explicit versioning/migration for true semantic changes.
+3. Update canonical repo JSON and generated JS in a new PR only after editorial validation, not by silently overwriting the Drive or main.
+4. CI passes. Distinguish scripted coverage check from human Czech review and real learner/iPhone testing.
+5. Update NEXT_ACTION with newest main SHA, PRs, validated results and the next single concrete task.
 
-## After completing this task
-Start a 3–6 lesson vertical slice using A0-T02, early A0-T03 repair phrases and audio-manifest validation.
-Update this NEXT_ACTION with: verified main SHA, branch/PR, completed work, failures, concrete next step. Only one active next action; track parallel workstreams in PROJECT_STATE_MASTER.
-
-## Done means
-Evidence of reconciled IDs and can-do mapping, tests passing, and no false claim that 140 lessons are live.
+## Following milestone
+Build 3–6 complete greetings / asking-to-repeat lesson vertical slice (A0-T02 and early A0-T03) using reusable lesson runner, persisted WAV manifest, meaningful practice, exit test and adaptive review; do not fabricate live lesson count.
