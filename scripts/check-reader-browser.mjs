@@ -312,6 +312,39 @@ try {
   await page.locator("#ar-play").click();
   console.log("PASS HTMLAudioElement: play, pause, ±5 sec, seek");
   await page.close();
+  // A0 pilot vertical slice: real Stage navigation, recall, speaking self-report and persistence.
+  {
+    const pilotPage = await browser.newPage({ viewport: { width: 390, height: 844 } });
+    const pilotErrors = [];
+    pilotPage.on("pageerror", (error) => pilotErrors.push(error.message));
+    await pilotPage.goto(url, { waitUntil: "domcontentloaded" });
+    await pilotPage.locator('[data-dot="1"]').click();
+    await pilotPage.locator('[data-chapter-start="1"]').click();
+    await pilotPage.locator('[data-pilot-lesson="A0-T02-L01"]').click();
+    assert.ok(await pilotPage.locator("#a0PilotRoot").isVisible(), "Pilot lesson did not open from Stage");
+    assert.ok((await pilotPage.locator("#a0PilotRoot").innerText()).includes("Ahoj!"), "Canonical greeting phrase missing");
+    await pilotPage.locator("[data-pilot-next]").click();
+    await pilotPage.locator("[data-pilot-choice]").filter({ hasText: "Dobrý den." }).click();
+    await pilotPage.locator("[data-pilot-next]").click();
+    assert.ok(await pilotPage.locator("[data-pilot-record]").isVisible(), "Local speaking capture action missing");
+    await pilotPage.locator("[data-pilot-said]").click();
+    await pilotPage.locator("[data-pilot-choice]").filter({ hasText: "Ahoj!" }).click();
+    await pilotPage.locator("[data-pilot-next]").click();
+    await pilotPage.locator("[data-pilot-choice]").filter({ hasText: "Na shledanou." }).click();
+    await pilotPage.locator("[data-pilot-next]").click();
+    assert.ok((await pilotPage.locator("#a0PilotRoot").innerText()).includes("Эзэмшсэн"), "Practice-only disclaimer missing");
+    const saved = await pilotPage.evaluate(() => JSON.parse(localStorage.getItem("ahoj.a0.pilot.v1"))["A0-T02-L01"]);
+    assert.equal(saved.result, "practice_only");
+    assert.equal(saved.selfReportedSpoken, true);
+    assert.ok(saved.reviewDueAt > saved.completedAt);
+    await pilotPage.screenshot({ path: "test-artifacts/a0-pilot-complete-390.png" });
+    await pilotPage.locator("[data-pilot-back]").click();
+    assert.ok(await pilotPage.locator('[data-pilot-lesson="A0-T02-L01"]').innerText().then((value) => value.includes("дахин үзэх")));
+    assert.deepEqual(pilotErrors, [], "Pilot JS errors: " + pilotErrors.join("; "));
+    await pilotPage.close();
+    console.log("PASS A0 pilot Stage → greeting lesson → recall → speaking → exit → local progress");
+  }
+
   console.log("PASS responsive reader browser interaction suite");
 } finally {
   if (browser) await browser.close();
