@@ -35,3 +35,11 @@ The live Google Docs A0 source has been read again and matches the 140-title sna
 - `scripts/check-a0-outline-reconciliation.mjs` — expanded to check 14-case structural completeness in existing CI lint.
 
 **NEXT ACTION REMAINS:** Independent Czech/Mongolian editorial validation of these 14 candidate resolutions, especially safety commands, occupation, ty/vy and test scope. Then review 48 wording records. This checkpoint does **not** claim pedagogical approval or a finished lesson and does not merge PR #30. Check PR #30 CI conclusion on its latest HEAD before reporting success.
+
+## 2026-11-23 BATCH CONTENT checkpoint: 48 review proposals complete, NOT approved
+PR #30: `feat/a0-outline-source-reconciliation-v1`. New draft files on that branch:
+- `docs/data/a0_wording_review_batch_01_v0_1.json` through `04`: review 48 original wording cases, individually proposing name/can-do/CZ+MN examples/exit task/neighbor boundary.
+- `docs/A0_48_WORDING_BATCH_REVIEW_v0_1.md`: four-batch summary.
+- `docs/data/a0_62_editorial_decision_register_v0_1.json`: 14 original scope + 48 wording = 62 exact unique IDs with evidence and blockers. **18 of the 48 original wording cases are additional scope-risk *questions*, not newly proven errors**. Remaining 30 are wording draft proposals.
+- `scripts/check-a0-outline-reconciliation.mjs`: strengthened automated structural verification for 14/48/62 entries and mandatory draft flags.
+**Exactly one next CONTENT task:** Independently adjudicate the **14 original scope** and **18 additional scope-risk candidates** at Czech/Mongolian text and test level. Prioritize T09-L07/08 (safety), T06-L05 (Mongolian kinship vs Czech brother/sister), T12-L05 (square/rectangle), T09-L01 (profession), T02-L09/L10/L18 (formal/informal). Record approved/blocked **only with actual review evidence**. Batch the remaining 30 naming edits for subsequent editorial checks. Do NOT publish canonical JSON, perform TTS, or merge PR #30 while approved=false. CI on the final PR head must be checked separately (latest may be pending).
