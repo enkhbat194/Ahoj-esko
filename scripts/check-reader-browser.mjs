@@ -196,13 +196,23 @@ try {
     await micPage.locator("#detailContinueBtn").click();
     await micPage.locator("#readerShell.aho-reader-shell").waitFor();
     await micPage.locator("#ar-play").click();
-    const tts = await micPage.evaluate(() => ({
+    const firstTts = await micPage.evaluate(() => ({
       count: window.__spokenTts.length,
       text: window.__spokenTts[0]?.text || "",
     }));
-    assert.equal(tts.count, 1, "A chapter must be a SINGLE TTS utterance");
-    assert.ok(tts.text.includes("Slunce svítí") && tts.text.includes("Na stole"),
-      "Full Czech chapter text was not sent to browser TTS");
+    assert.equal(firstTts.count, 1, "Chapter should start with one TTS chunk");
+    assert.ok(firstTts.text.includes("Slunce svítí"), "Opening Czech sentence missing");
+    for (let chunk = 0; chunk < 12; chunk += 1) {
+      const current = await micPage.evaluate(() =>
+        window.__spokenTts.map((x) => x.text).join(" "));
+      if (current.includes("Na stole") && current.includes("Dnes začíná")) break;
+      await micPage.evaluate(() => window.__spokenTts.at(-1).onend?.());
+      await micPage.waitForTimeout(360);
+    }
+    const utterances = await micPage.evaluate(() => window.__spokenTts.map((x) => x.text));
+    assert.ok(utterances.length > 1, "Long chapter must be split into short Czech chunks");
+    assert.ok(utterances.join(" ").includes("Na stole") &&
+      utterances.join(" ").includes("Dnes začíná"), "TTS chunks skipped a sentence");
     await micPage.locator("#ar-guided-toggle").click();
     assert.equal(await micPage.locator("#ar-guided-toggle").getAttribute("aria-checked"), "true");
     assert.equal(await micPage.locator(".ar-word.is-current").innerText(), "Slunce");
@@ -227,6 +237,36 @@ try {
     assert.equal(await micPage.locator("#ar-guided-toggle").getAttribute("aria-checked"), "false");
     await micPage.close();
     console.log("PASS mocked Czech browser TTS chapter continuity + STT guided word sequence + word-help");
+  }
+
+  // Report unsupported SpeechRecognition separately from microphone denial.
+  {
+    const diagPage = await browser.newPage({ viewport: { width: 390, height: 844 } });
+    await diagPage.addInitScript(() => {
+      Object.defineProperty(window, "SpeechRecognition", { configurable: true, value: undefined });
+      Object.defineProperty(window, "webkitSpeechRecognition", { configurable: true, value: undefined });
+      Object.defineProperty(navigator, "mediaDevices", {
+        configurable: true,
+        value: { getUserMedia: async () => ({
+          getTracks: () => [{ stop() { window.__micTrackStopped = true; } }],
+        }) },
+      });
+    });
+    await diagPage.goto(url, { waitUntil: "domcontentloaded" });
+    await diagPage.locator('[data-tab="read"]').click();
+    await diagPage.locator(".book-card").first().click();
+    await diagPage.locator("#detailContinueBtn").click();
+    await diagPage.locator("#readerShell.aho-reader-shell").waitFor();
+    assert.equal(await diagPage.locator("#ar-guided-toggle").isDisabled(), false,
+      "Unsupported STT switch must remain clickable for diagnostics");
+    assert.match(await diagPage.locator("#ar-guided-message").innerText(), /SpeechRecognition API байхгүй/);
+    await diagPage.locator("#ar-guided-toggle").click();
+    assert.match(await diagPage.locator("#ar-guided-message").innerText(), /SpeechRecognition API байхгүй/);
+    await diagPage.locator("#ar-guided-retry").click();
+    assert.match(await diagPage.locator("#ar-guided-message").innerText(), /Микрофон ажиллаж байна/);
+    assert.equal(await diagPage.evaluate(() => window.__micTrackStopped), true);
+    await diagPage.close();
+    console.log("PASS separate unsupported STT vs browser microphone diagnostic");
   }
 
   // Real HTMLAudioElement test with short locally generated WAV (not the story dataset).

@@ -2634,7 +2634,7 @@
   <!-- Мэдэгдэл (Toast) -->
   <div id="toast" class="toast" role="status" hidden></div>
 
-  <script src="./reader-experience.js?v=4"></script>
+  <script src="./reader-experience.js?v=5"></script>
   <script>
     (function () {
       "use strict";
@@ -4831,7 +4831,9 @@
     // because previous course progress may be stored there.
     if ("serviceWorker" in navigator && location.protocol === "https:") {
       window.addEventListener("load", () => {
-        navigator.serviceWorker.register("/sw.js").catch(() => {
+        navigator.serviceWorker.register("/sw.js").then((registration) => {
+          registration.update().catch(() => {});
+        }).catch(() => {
           // Unavailable offline mode must not stop reading.
         });
       });

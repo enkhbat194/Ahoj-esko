@@ -32,7 +32,7 @@ new Script(readerCode, { filename: 'reader-experience.js' });
 for (const marker of [
   'AhojReaderExperience.mount',
   'reader-experience.css?v=4',
-  'reader-experience.js?v=4',
+  'reader-experience.js?v=5',
 ]) {
   if (!html.includes(marker)) throw new Error('Reader integration missing: ' + marker);
 }

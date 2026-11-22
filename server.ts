@@ -1399,7 +1399,13 @@ async function startServer() {
       res.set('Cache-Control', 'no-store');
       res.redirect(302, '/cesky-reading-uiux/index.html?tab=stages');
     });
-    app.use(express.static(distDir));
+    app.use(express.static(distDir, {
+      setHeaders(res, filePath) {
+        if (/\.(?:html|webmanifest)$/.test(filePath) || filePath.endsWith('/sw.js')) {
+          res.setHeader('Cache-Control', 'no-cache, must-revalidate');
+        }
+      },
+    }));
     app.get('*', (_req, res) => {
       res.set('Cache-Control', 'no-store');
       res.redirect(302, '/cesky-reading-uiux/index.html?tab=stages');

@@ -6,6 +6,8 @@ export default defineConfig(() => {
   return {
     plugins: [
       VitePWA({
+        // The static Reader is the only /sw.js registration entry point.
+        injectRegister: null,
         registerType: 'autoUpdate',
         includeAssets: ['icon.svg', 'apple-touch-icon.png', 'pwa-192x192.png', 'pwa-512x512.png', 'pwa-maskable-512x512.png'],
         manifest: {
