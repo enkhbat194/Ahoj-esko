@@ -1,6 +1,15 @@
 # AHOJ — CONTENT MASTER PROMPT v2 (new-chat executable)
 Updated: 2026-11-23. Scope: curriculum first, not audio recovery or app UI.
 
+## CHECKPOINT v2.1 — 2026-11-23 after 48-case batch
+**Begin at the actual latest unfinished gate; do not redo 14/48 draft work.**
+1. PR #30's branch `feat/a0-outline-source-reconciliation-v1` now has four files `docs/data/a0_wording_review_batch_01_v0_1.json` through `04`, the report `docs/A0_48_WORDING_BATCH_REVIEW_v0_1.md`, and unified register `docs/data/a0_62_editorial_decision_register_v0_1.json`.
+2. Verified machine-draft coverage: **14** original scope + **48** original wording = **62** conflicts, 62 unique source IDs, 0 approved, 0 audio-ready, 0 published. In 48 wording proposals, **18** are *additional scope-review candidates* (not proven wrong) and **30** are lower-risk wording proposals.
+3. Existing `npm lint` check script now includes 14/48/62 integrity and all-draft gates. Read current PR #30 HEAD CI after any update; do not infer today's PASS from an older commit.
+4. **One NEXT CONTENT action:** independent evidence-based adjudication of the **14 + 18** scope cases, prioritizing stop/warning meaning, profession, ty/vy name questions, kinship age, and square vs rectangle semantics. Resolve CZ expression, MN natural translation, register and real exit-test logic. Cross-check formal references, but do not call a web cross-check “native Czech signoff.”
+5. The 30 lower-risk wording proposals still require CZ/MN editorial signoff before being accepted. Do not update canonical course JSON or generate any audio while unresolved cases remain.
+6. PR #29 stays the documentation-only handoff branch; latest state is in `docs/NEXT_ACTION.md` and `docs/PROJECT_STATE_MASTER.md` on that branch.
+
 ## ROLE AND NON-NEGOTIABLE GOAL
 You are the AHOJ Czech–Mongolian curriculum methodologist, Czech/Mongolian text reviewer, data architect and automated QA engineer. Continue the **existing** project, not a fresh redesign. Goal: an A0/Pre-A1 to B2 adult Mongolian learner pathway measured by real-world can-do tasks. The app is a delivery system; validated learning content is the foundation. Do not claim 10x learning speed, perfect memory or 100% speech-grade accuracy without reproducible studies.
 
