@@ -1,0 +1,453 @@
+{
+  "schema_version": "0.1.0",
+  "status": "FIRST_A0_TEACHING_PACK_DRAFT_EDITORIAL_PENDING_NOT_IN_APP",
+  "pack_id": "A0-PACK-INTRO-001",
+  "level": "A0",
+  "mission_id": "A0-M02",
+  "linked_provisional_session_id": "A0-S004",
+  "coverage": {
+    "source_session_skill_ids": [
+      "A0-T02-L01",
+      "A0-T02-L02",
+      "A0-T02-L03"
+    ],
+    "authored_skill_ids": [
+      "A0-T02-L01",
+      "A0-T02-L02"
+    ],
+    "NOT_YET_AUTHORED": [
+      "A0-T02-L03"
+    ],
+    "why": "The existing automatic S004 grouping of 3 skills is overcompressed; this pack delivers two correctly scoped micro-skills, not an entire finished S004. Restructure session count only after real content/time trials."
+  },
+  "title_mn": "Мэндлэх ба өөрийн нэрийг хэлэх",
+  "can_do_mn": "Найз эсвэл танихгүй хүнтэй тохирсон хэлбэрээр мэндэлж, өөрийн нэрийг хэлээд эелдгээр үднэ.",
+  "scenario_ids": [
+    "friend_at_street",
+    "formal_at_counter",
+    "new_visitor_at_post_office"
+  ],
+  "new_lexeme_ids": [
+    "CS-LEX-0001",
+    "CS-LEX-0002",
+    "CS-LEX-0003",
+    "CS-LEX-0004",
+    "CS-LEX-0005",
+    "CS-LEX-0006"
+  ],
+  "lexeme_ids_reviewed": [],
+  "recycled_lexeme_ids": [],
+  "fixed_expressions": [
+    {
+      "expression_id": "CZ-FX-0001",
+      "text_cs": "Dobrý den.",
+      "mn": "Сайн байна уу.",
+      "meaning_type": "greeting",
+      "register": "formal"
+    },
+    {
+      "expression_id": "CZ-FX-0002",
+      "text_cs": "Na shledanou.",
+      "mn": "Баяртай.",
+      "meaning_type": "farewell",
+      "register": "formal"
+    },
+    {
+      "expression_id": "CZ-FX-0003",
+      "text_cs": "Jmenuji se…",
+      "mn": "Намайг ... гэдэг.",
+      "meaning_type": "self_introduction",
+      "register": "neutral"
+    }
+  ],
+  "grammar_notes": [
+    {
+      "point": "jmenovat se",
+      "mn": "«jmenuji se» нь нэрээ хэлэх тогтсон хэлбэр; «se»-г дур мэдэн хасахгүй."
+    },
+    {
+      "point": "register",
+      "mn": "Найздаа Ahoj; танихгүй хүнтэй Dobrý den./Na shledanou."
+    },
+    {
+      "point": "ja_jsem",
+      "mn": "«já jsem» хувилбарыг нэмэлт хүлээн авах чадварын жишээ болгон харуулна; být үйл үгийн үндсэн өөрчлөлтийг дараагийн хичээлд дэлгэрүүлнэ."
+    }
+  ],
+  "utterances": [
+    {
+      "utterance_id": "CZ-A0-S004-U001",
+      "text_cs": "Ahoj.",
+      "mn_natural_draft": "Сайн уу. (дотно мэндчилгээ; үдэхэд ч хэрэглэдэг)",
+      "register": "informal",
+      "speaker_role": "friend",
+      "unit_type": "sentence",
+      "editorial_status": "CZ_MN_PENDING",
+      "preview_only": false,
+      "audio_status": "NOT_REQUESTED",
+      "audio_asset_id": null,
+      "published": false,
+      "sentence_count": 1,
+      "utterance_tts_split_policy": "ONE_CANONICAL_SINGLE_SENTENCE_PER_ASSET; MULTI_SENTENCE_TURN_REQUIRES_SPLIT_BEFORE_AUDIO"
+    },
+    {
+      "utterance_id": "CZ-A0-S004-U002",
+      "text_cs": "Dobrý den.",
+      "mn_natural_draft": "Сайн байна уу. (албан, танихгүй хүн)",
+      "register": "formal",
+      "speaker_role": "staff",
+      "unit_type": "sentence",
+      "editorial_status": "CZ_MN_PENDING",
+      "preview_only": false,
+      "audio_status": "NOT_REQUESTED",
+      "audio_asset_id": null,
+      "published": false,
+      "sentence_count": 1,
+      "utterance_tts_split_policy": "ONE_CANONICAL_SINGLE_SENTENCE_PER_ASSET; MULTI_SENTENCE_TURN_REQUIRES_SPLIT_BEFORE_AUDIO"
+    },
+    {
+      "utterance_id": "CZ-A0-S004-U003",
+      "text_cs": "Na shledanou.",
+      "mn_natural_draft": "Баяртай. (эелдэг үдэлт)",
+      "register": "formal",
+      "speaker_role": "staff",
+      "unit_type": "sentence",
+      "editorial_status": "CZ_MN_PENDING",
+      "preview_only": false,
+      "audio_status": "NOT_REQUESTED",
+      "audio_asset_id": null,
+      "published": false,
+      "sentence_count": 1,
+      "utterance_tts_split_policy": "ONE_CANONICAL_SINGLE_SENTENCE_PER_ASSET; MULTI_SENTENCE_TURN_REQUIRES_SPLIT_BEFORE_AUDIO"
+    },
+    {
+      "utterance_id": "CZ-A0-S004-U004",
+      "text_cs": "Jmenuji se Anna.",
+      "mn_natural_draft": "Намайг Анна гэдэг.",
+      "register": "neutral",
+      "speaker_role": "female_learner",
+      "unit_type": "sentence",
+      "editorial_status": "CZ_MN_PENDING",
+      "preview_only": false,
+      "audio_status": "NOT_REQUESTED",
+      "audio_asset_id": null,
+      "published": false,
+      "sentence_count": 1,
+      "utterance_tts_split_policy": "ONE_CANONICAL_SINGLE_SENTENCE_PER_ASSET; MULTI_SENTENCE_TURN_REQUIRES_SPLIT_BEFORE_AUDIO"
+    },
+    {
+      "utterance_id": "CZ-A0-S004-U005",
+      "text_cs": "Jmenuji se Petr.",
+      "mn_natural_draft": "Намайг Петр гэдэг.",
+      "register": "neutral",
+      "speaker_role": "male_learner",
+      "unit_type": "sentence",
+      "editorial_status": "CZ_MN_PENDING",
+      "preview_only": false,
+      "audio_status": "NOT_REQUESTED",
+      "audio_asset_id": null,
+      "published": false,
+      "sentence_count": 1,
+      "utterance_tts_split_policy": "ONE_CANONICAL_SINGLE_SENTENCE_PER_ASSET; MULTI_SENTENCE_TURN_REQUIRES_SPLIT_BEFORE_AUDIO"
+    },
+    {
+      "utterance_id": "CZ-A0-S004-U006",
+      "text_cs": "Ahoj, já jsem Anna.",
+      "mn_natural_draft": "Сайн уу, би Анна байна.",
+      "register": "informal",
+      "speaker_role": "female_learner",
+      "unit_type": "sentence",
+      "editorial_status": "CZ_MN_PENDING",
+      "preview_only": true,
+      "audio_status": "NOT_REQUESTED",
+      "audio_asset_id": null,
+      "published": false,
+      "sentence_count": 1,
+      "utterance_tts_split_policy": "ONE_CANONICAL_SINGLE_SENTENCE_PER_ASSET; MULTI_SENTENCE_TURN_REQUIRES_SPLIT_BEFORE_AUDIO"
+    },
+    {
+      "utterance_id": "CZ-A0-S004-U007",
+      "text_cs": "Dobrý den. Jmenuji se Anna.",
+      "mn_natural_draft": "Сайн байна уу. Намайг Анна гэдэг.",
+      "register": "formal",
+      "speaker_role": "female_learner",
+      "unit_type": "dialogue_turn",
+      "editorial_status": "CZ_MN_PENDING",
+      "preview_only": false,
+      "audio_status": "NOT_REQUESTED",
+      "audio_asset_id": null,
+      "published": false,
+      "sentence_count": 2,
+      "utterance_tts_split_policy": "ONE_CANONICAL_SINGLE_SENTENCE_PER_ASSET; MULTI_SENTENCE_TURN_REQUIRES_SPLIT_BEFORE_AUDIO"
+    }
+  ],
+  "exercises": [
+    {
+      "exercise_id": "A0-P001-E01",
+      "type": "context_hook",
+      "estimated_seconds": 55,
+      "instructions_mn": "Нэг зурагт найз, нөгөөд нь танихгүй үйлчилгээний ажилтан байна. Аль хүнд «Dobrý den.» гэж хэлэх вэ?",
+      "choices": [
+        {
+          "id": "FRIEND",
+          "label_mn": "Дотно найз"
+        },
+        {
+          "id": "STAFF",
+          "label_mn": "Үйлчилгээний танихгүй ажилтан"
+        }
+      ],
+      "answer_key": {
+        "choice": "STAFF"
+      },
+      "scaffolds": [
+        "role_hint"
+      ],
+      "auto_grade": "exact"
+    },
+    {
+      "exercise_id": "A0-P001-E02",
+      "type": "word_card",
+      "estimated_seconds": 95,
+      "instructions_mn": "Эдгээр 6 үгийн үүргийг утгатай нь тань. «jmenovat se»-г нэг хэрэгцээтэй хэллэг болгон хар.",
+      "cards": [
+        {
+          "lexeme_id": "CS-LEX-0001",
+          "front": "Ahoj",
+          "back_mn": "Найзтай мэндлэх/үдэх"
+        },
+        {
+          "lexeme_id": "CS-LEX-0002",
+          "front": "dobrý",
+          "back_mn": "сайн (Dobrý den. дотор)"
+        },
+        {
+          "lexeme_id": "CS-LEX-0003",
+          "front": "den",
+          "back_mn": "өдөр"
+        },
+        {
+          "lexeme_id": "CS-LEX-0004",
+          "front": "já",
+          "back_mn": "би"
+        },
+        {
+          "lexeme_id": "CS-LEX-0005",
+          "front": "se",
+          "back_mn": "«jmenovat se» хэллэгийн зайлшгүй хэсэг"
+        },
+        {
+          "lexeme_id": "CS-LEX-0006",
+          "front": "jmenovat se",
+          "back_mn": "нэртэй байх: Jmenuji se…"
+        }
+      ],
+      "answer_key": {
+        "check": "meaning_recall_not_flip_alone"
+      },
+      "auto_grade": "practice_only"
+    },
+    {
+      "exercise_id": "A0-P001-E03",
+      "type": "meaning_match",
+      "estimated_seconds": 75,
+      "instructions_mn": "Хэллэгүүдийг Монгол утгатай нь зөв холбо.",
+      "pairs": [
+        {
+          "id": "P1",
+          "utterance_id": "CZ-A0-S004-U001",
+          "meaning_mn": "Сайн уу."
+        },
+        {
+          "id": "P2",
+          "utterance_id": "CZ-A0-S004-U002",
+          "meaning_mn": "Сайн байна уу."
+        },
+        {
+          "id": "P3",
+          "utterance_id": "CZ-A0-S004-U003",
+          "meaning_mn": "Баяртай."
+        },
+        {
+          "id": "P4",
+          "utterance_id": "CZ-A0-S004-U004",
+          "meaning_mn": "Намайг Анна гэдэг."
+        }
+      ],
+      "answer_key": {
+        "pairs": {
+          "P1": "Сайн уу.",
+          "P2": "Сайн байна уу.",
+          "P3": "Баяртай.",
+          "P4": "Намайг Анна гэдэг."
+        }
+      },
+      "auto_grade": "exact"
+    },
+    {
+      "exercise_id": "A0-P001-E04",
+      "type": "sentence_reorder",
+      "estimated_seconds": 65,
+      "instructions_mn": "Өөрийн нэрийг хэлэх өгүүлбэрийг зөв дараалалд оруул.",
+      "tokens": [
+        {
+          "id": "t3",
+          "text": "Anna."
+        },
+        {
+          "id": "t2",
+          "text": "se"
+        },
+        {
+          "id": "t1",
+          "text": "Jmenuji"
+        }
+      ],
+      "answer_key": {
+        "token_sequence": [
+          "t1",
+          "t2",
+          "t3"
+        ]
+      },
+      "normalized_result_cs": "Jmenuji se Anna.",
+      "auto_grade": "exact_token_ids"
+    },
+    {
+      "exercise_id": "A0-P001-E05",
+      "type": "cloze",
+      "estimated_seconds": 70,
+      "instructions_mn": "«Jmenuji ___ Petr.» өгүүлбэрийг гүйцээ.",
+      "prompt_cs": "Jmenuji ___ Petr.",
+      "choices": [
+        "se",
+        "já",
+        "den"
+      ],
+      "answer_key": {
+        "text": "se"
+      },
+      "auto_grade": "exact"
+    },
+    {
+      "exercise_id": "A0-P001-E06",
+      "type": "guided_dialogue",
+      "estimated_seconds": 110,
+      "instructions_mn": "Хоёр хүний ярианд зөв хэллэгийг сонгож хэл. Дотно ба албан хэлбэрийг ялга.",
+      "turns": [
+        {
+          "scene_id": "friend_at_street",
+          "other_message_cs": "Ahoj.",
+          "expected_cs": [
+            "Ahoj."
+          ]
+        },
+        {
+          "scene_id": "formal_at_counter",
+          "other_message_cs": "Dobrý den.",
+          "expected_cs": [
+            "Dobrý den."
+          ]
+        },
+        {
+          "scene_id": "formal_at_counter",
+          "other_message_mn": "Нэрээ хэлнэ үү.",
+          "expected_pattern": "Jmenuji se {learner_name}."
+        }
+      ],
+      "answer_key": {
+        "turn_intents": [
+          "greet_informal",
+          "greet_formal",
+          "introduce_self"
+        ]
+      },
+      "auto_grade": "pattern_and_register_text_only"
+    },
+    {
+      "exercise_id": "A0-P001-E07",
+      "type": "listen_choose",
+      "estimated_seconds": 80,
+      "instructions_mn": "Хоолойг сонсоод мэндчилж байна уу, үдэж байна уу гэдгийг ялга.",
+      "utterance_ids": [
+        "CZ-A0-S004-U002",
+        "CZ-A0-S004-U003"
+      ],
+      "answer_key": {
+        "utterance_intents": {
+          "CZ-A0-S004-U002": "greeting",
+          "CZ-A0-S004-U003": "farewell"
+        }
+      },
+      "gating": {
+        "status": "BLOCKED_MISSING_APPROVED_AUDIO",
+        "available_without_audio": false
+      },
+      "auto_grade": "pending_audio_not_counted"
+    },
+    {
+      "exercise_id": "A0-P001-E08",
+      "type": "novel_transfer",
+      "estimated_seconds": 125,
+      "instructions_mn": "Өмнө харуулаагүй шуудангийн цонхонд танихгүй ажилтантай мэндэлж, нэрээ хэлээд, үд.",
+      "unseen_scene_id": "new_visitor_at_post_office",
+      "required_intents": [
+        "greet_formal",
+        "introduce_self",
+        "farewell_formal"
+      ],
+      "rubric": {
+        "task_success": 2,
+        "appropriacy": 2,
+        "comprehensibility": 2,
+        "interaction_repair": 2
+      },
+      "answer_key": {
+        "utterance_patterns": [
+          "Dobrý den.",
+          "Jmenuji se {learner_name}.",
+          "Na shledanou."
+        ]
+      },
+      "auto_grade": "text_meaning_and_template_only_not_pronunciation",
+      "novel": true,
+      "role_swap_allowed": true
+    },
+    {
+      "exercise_id": "A0-P001-E09",
+      "type": "delayed_review",
+      "estimated_seconds": 60,
+      "instructions_mn": "Маргааш дэлгүүрийн ажилтны шинэ зураг дээр нэрээ хэл. Чех хэллэгийг эхлээд нууж үз.",
+      "review_targets": [
+        {
+          "lexeme_id": "CS-LEX-0006",
+          "due_after_days": 1
+        },
+        {
+          "lexeme_id": "CS-LEX-0001",
+          "due_after_days": 3
+        }
+      ],
+      "answer_key": {
+        "required_intents": [
+          "introduce_self",
+          "greet_informal"
+        ]
+      },
+      "scheduled_status": "SPEC_ONLY_NO_LEARNER_DATA",
+      "auto_grade": "future_due"
+    }
+  ],
+  "timing": {
+    "estimated_active_seconds": 735,
+    "estimate_is_not_empirical": true
+  },
+  "graduation_rule": "NO_PASS_UNTIL_UNSEEN_TRANSFER_AND_AUDIO_PRONUNCIATION_GATE_IF_REQUIRED",
+  "release": {
+    "czech_mongolian_editorial": "PENDING",
+    "audio": "NOT_REQUESTED",
+    "audio_chat_owner": "EXTERNAL_OTHER_CHAT",
+    "ui_engine": "NOT_CONNECTED",
+    "published": false
+  }
+}
