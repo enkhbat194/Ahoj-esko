@@ -133,4 +133,54 @@ assert.equal(pilot.steps[14].novel_scenario,true);
 assert.equal(pilot.steps[14].scenarios.length,2);
 assert.ok(pilot.assessment_warning.includes('cannot certify pronunciation'));
 
+
+const audioPolicy=read('curriculum/system-v1/audio-voice-policy.json');
+assert.equal(audioPolicy.status,'POLICY_DEFINED_NOT_APPLIED_TO_LIVE_APP');
+assert.equal(audioPolicy.owner_requirements.reading_section,'male_voice_only');
+assert.equal(audioPolicy.owner_requirements.lesson_section,'female_and_male_voices');
+assert.equal(audioPolicy.owner_requirements.dictionary,'every_published_czech_spoken_word_form_has_reusable_audio');
+for(const k of ['narration','story_dialogue_turns','guided_current_word']){
+ assert.deepEqual(audioPolicy.voice_roles.reading[k].allowed_genders,['male'],
+  'Reading section should be male-only: '+k);
+}
+assert.equal(audioPolicy.voice_roles.reading.guided_current_word.playback_scope,'CURRENT_STUCK_WORD_ONLY');
+const voices=audioPolicy.voice_roles.lessons.speaker_roles;
+assert.equal(voices.dialogue_speaker_a.gender,'female');
+assert.equal(voices.dialogue_speaker_b.gender,'male');
+assert.equal(audioPolicy.legacy_archive.combined_count,276);
+assert.equal(audioPolicy.legacy_archive.original_archive_count+audioPolicy.legacy_archive.remaining_count,276);
+assert.equal(Object.values(audioPolicy.legacy_archive.recorded_voice_distribution).reduce((a,b)=>a+b,0),276);
+assert.equal(audioPolicy.legacy_archive.publication_allowed,false);
+assert.equal(audioPolicy.legacy_archive.regeneration_allowed,false);
+assert.equal(audioPolicy.approval.approved,false);
+assert.equal(audioPolicy.approval.published,false);
+assert.equal(audioPolicy.audio_asset_contract.publication_gate.includes('per_word_published_token_coverage_100_percent'),true);
+assert.equal(audioPolicy.voice_roles.dictionary.unit,'pronounced_surface_form');
+const inventory=read('curriculum/system-v1/a0-topic-word-audio-inventory.draft.json');
+assert.equal(inventory.status,'AUTOMATED_SOURCE_TOKENS_NOT_A_DICTIONARY_AND_NOT_PUBLISHED');
+assert.equal(inventory.source_scope,'ONLY_TOPIC_PHRASES_16_A0');
+assert.equal(inventory.source_phrase_count,source.topics.reduce((n,t)=>n+t.phrases.length,0));
+const generated=new Map();
+for(const topic of source.topics)for(const phrase of topic.phrases){
+ for(const surface of (phrase.cz.normalize('NFC').match(/\\p{L}+(?:[’']\\p{L}+)*/gu)??[])){
+  const normalized=surface.toLocaleLowerCase('cs-CZ');
+  if(!generated.has(normalized))generated.set(normalized,new Set());
+  generated.get(normalized).add(topic.id);
+ }
+}
+const inventoryForms=new Set(inventory.items.map(x=>x.orthographic_form_cs));
+assert.equal(inventoryForms.size,inventory.items.length,'duplicated lexicon form seeds');
+assert.equal(inventoryForms.size,generated.size,'word coverage inventory out of sync');
+assert.equal(inventory.count_unique_orthographic_forms,inventoryForms.size);
+assert.deepEqual([...inventoryForms].sort(),[...generated.keys()].sort(),
+  'Missing/redundant A0 topic word forms');
+for(const entry of inventory.items){
+ assert.equal(entry.form_id,'cs-form:'+entry.orthographic_form_cs);
+ assert.deepEqual([...entry.source_topic_ids].sort(),[...generated.get(entry.orthographic_form_cs)].sort());
+ assert.equal(entry.audio_asset_id,null);
+ assert.equal(entry.audio_status,'UNMAPPED_WORD_AUDIO');
+ assert.equal(entry.release_approved,false);
+ assert.equal(entry.lexeme_id,null,'Do not guess lemma mappings automatically');
+}
+
 console.log('Learning system QA PASS: 72 proposed missions, 16 source A0 topics, 140 stable skills, 53 provisional A0 sessions, 15-stage cycle; 0 published.');
