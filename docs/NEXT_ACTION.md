@@ -20,3 +20,6 @@ Resolve the 14 flagged learning-objective / scope discrepancies from PR #30, che
 
 ## Following milestone
 Build 3–6 complete greetings / asking-to-repeat lesson vertical slice (A0-T02 and early A0-T03) using reusable lesson runner, persisted WAV manifest, meaningful practice, exit test and adaptive review; do not fabricate live lesson count.
+
+## Parallel AUDIO G1 (separate repo, not to be confused with CONTENT next action)
+AUTO AUDIO v1.2 is USER-CONFIRMED as technical primary policy. Audio Factory draft PR #7: https://github.com/enkhbat194/Audio-uildwerlel/pull/7 . Private 246 manifest from Google Drive; 124 Hana +122 Jan; actual Drive MP3 count in manifest 0. Six ElevenLabs Flows currently show 246 completed and 6 historic failed states. The PR adds read-only History matcher/downloader and offline tests; code is NOT production-deployed, History access and Drive OAuth write/readback remain unverified. **Next single Audio task:** verify authenticated ElevenLabs History Read lookup for Flow generations using narrowly scoped private key in an authorized runner, first LIST ONLY, without TTS generation. No API key in chat/public repo. If Flow history is absent, record blocker and do not regenerate. No public R2 or app publication.
