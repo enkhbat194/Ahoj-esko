@@ -1,0 +1,173 @@
+{
+  "schema_version": "1.0.0",
+  "status": "POLICY_DEFINED_NOT_APPLIED_TO_LIVE_APP",
+  "decision_date": "2026-11-23",
+  "owner_requirements": {
+    "reading_section": "male_voice_only",
+    "lesson_section": "female_and_male_voices",
+    "dictionary": "every_published_czech_spoken_word_form_has_reusable_audio",
+    "archival": "retain_existing_private_drive_audio; no delete/no regenerate/no R2/no public GitHub audio"
+  },
+  "voice_roles": {
+    "reading": {
+      "narration": {
+        "allowed_genders": [
+          "male"
+        ],
+        "preferred_legacy_voice": "Jan",
+        "fallback": "BLOCK_OR_PENDING_REVIEW",
+        "voice_review": "PENDING"
+      },
+      "story_dialogue_turns": {
+        "allowed_genders": [
+          "male"
+        ],
+        "note": "Reader section male-only includes characters and dialogue, unless owner later changes policy."
+      },
+      "guided_current_word": {
+        "allowed_genders": [
+          "male"
+        ],
+        "playback_scope": "CURRENT_STUCK_WORD_ONLY",
+        "next_word_rule": "advance after acceptable recognition or explicit assisted path; not automatically mastered"
+      },
+      "alignment": "real timestamps from approved audio, never fabricated word timing"
+    },
+    "lessons": {
+      "speaker_roles": {
+        "narrator": {
+          "gender": "female",
+          "preferred_legacy_voice": "Hana"
+        },
+        "dialogue_speaker_a": {
+          "gender": "female",
+          "preferred_legacy_voice": "Hana"
+        },
+        "dialogue_speaker_b": {
+          "gender": "male",
+          "preferred_legacy_voice": "Jan"
+        }
+      },
+      "dialogue_voice_policy": "Assign male and female voices to natural distinct roles within a dialogue; preserve one voice per role across turns. Do not require both genders on every isolated utterance.",
+      "speaker_role_consistency_required": true,
+      "volume_normalization": "POSTPROCESS_ONLY_WITH_QA",
+      "legacy_voice_quality_review": "PENDING"
+    },
+    "dictionary": {
+      "default_pronunciation": {
+        "gender": "male",
+        "preferred_legacy_voice": "Jan",
+        "status": "PROVISIONAL_VOICE_NOT_QA_CERTIFIED"
+      },
+      "optional_variants": [
+        "female_pronunciation_if_quality_approved"
+      ],
+      "lexical_coverage": "Every Czech word FORM displayed in PUBLISHED lessons, stories, or dictionary reading views must resolve to one suitable, individually playable audio unit.",
+      "unit": "pronounced_surface_form",
+      "link_chain": "lesson/story token → form_id → lexeme_id + sense_id(context) → approved word audio asset",
+      "lexeme_policy": "voda and vodu share one lemma entry, but each distinct spoken inflected FORM needs its own correct pronunciation asset. Sense IDs and forms must not be conflated.",
+      "homographs": "Do not collapse genuinely different pronunciations to one audio even when spelling matches; dialect/accent and register need explicit metadata.",
+      "lookup_audio_scope": "Word player plays single selected form; it must never play whole sentence/narration as a word recording.",
+      "duplicate_reuse_key_fields": [
+        "locale",
+        "canonical_spoken_text_nfc",
+        "voice_profile_id",
+        "audio_unit_type",
+        "pronunciation_variant",
+        "speaking_style",
+        "speed_profile",
+        "content_revision"
+      ],
+      "reuse_condition": "Reuse if all key fields match and audio/content quality is independently approved; otherwise keep archived and do not auto-reuse."
+    }
+  },
+  "legacy_archive": {
+    "provenance": "READ_ONLY_CONNECTED_PRIVATE_GOOGLE_DRIVE; reported and directory checked 2026-11-23",
+    "storage": "PRIVATE_GOOGLE_DRIVE_ONLY",
+    "original_archive_count": 246,
+    "remaining_count": 30,
+    "combined_count": 276,
+    "generated_by": "ElevenLabs history (legacy recordings)",
+    "recorded_voice_distribution": {
+      "Hana": 125,
+      "Jan": 123,
+      "other": 28
+    },
+    "prior_archive_report": {
+      "file_integrity_zip_sha_receipts": "REPORTED_PASS_276_OF_276",
+      "technical_decode_duration_silence": "REPORTED_PASS_276_OF_276",
+      "native_czech_pronunciation": "NOT_VERIFIED",
+      "canonical_text_matching": "NOT_VERIFIED"
+    },
+    "immutable_originals": true,
+    "publication_allowed": false,
+    "regeneration_allowed": false,
+    "notes": "The 276 private MP3s are NOT 276 verified dictionary word assets. Most are phrases/sentences. Preserve original record/voice/hash and exact Czech text in private manifest. Do not leak private file IDs or metadata into public app or repo.",
+    "operational_constraints": [
+      "do_not_delete",
+      "do_not_modify_source_audio",
+      "do_not_generate_duplicate",
+      "do_not_publish_to_R2_or_GitHub",
+      "do_not_expose_drive_private_links_in_client"
+    ]
+  },
+  "audio_asset_contract": {
+    "fields": [
+      "asset_id",
+      "utterance_id",
+      "audio_type",
+      "form_id_if_word",
+      "lexeme_id_if_word",
+      "canonical_text_cs",
+      "voice_profile_id",
+      "gender",
+      "speaker_role",
+      "locale",
+      "content_revision",
+      "content_hash",
+      "sha256",
+      "duration_ms",
+      "storage_ref_private",
+      "review_status",
+      "publish_status"
+    ],
+    "audio_types": [
+      "word",
+      "chunk",
+      "sentence",
+      "dialogue_turn",
+      "narration_paragraph",
+      "reader_current_word"
+    ],
+    "storage_ref_private": "server-side or private manifest only; never public client",
+    "dedupe": "Do not conflate same source text with different voice, form, style, speed, audio type or revision.",
+    "text_change": "Exact canonical spoken text or revision change invalidates active mapping; archive unchanged; new audio only after editorial approval.",
+    "publication_gate": [
+      "czech_text_approved",
+      "natural_mongolian_meaning_approved",
+      "voice_policy_match",
+      "file_present",
+      "hash_match",
+      "audio_content_match",
+      "pronunciation_quality_approved",
+      "per_word_published_token_coverage_100_percent"
+    ],
+    "fallback_rule": "Missing word audio is MISSING/BLOCKED; do not fabricate playback success or use nonconsensual on-demand TTS.",
+    "deployment": "No public R2/CDN/GitHub media until separately approved by owner."
+  },
+  "module_dependencies": {
+    "lexicon_master": "one lexeme source Top100→200→300→500→1000, stable lexeme/sense/form IDs; vocabulary stages cumulative, no duplicate lemmas",
+    "dictionary": "surface token lookup uses lexeme sense in context, not English/other language default sense",
+    "learning_content": "reuse word audio via stable form references and approved manifest; not independent word renders",
+    "graded_reader": "male only; all displayed tokens link to single-word playback as requested",
+    "QA": "aggregate coverage counts PUBLISHED content only; source A0 outlines are draft and not included as published lesson coverage"
+  },
+  "approval": {
+    "editorial_czech": "PENDING",
+    "voice_pronunciation": "PENDING",
+    "production_storage": "NOT_AUTHORIZED",
+    "owner_private_archival": "PRESERVE_ONLY",
+    "approved": false,
+    "published": false
+  }
+}
