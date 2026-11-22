@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 """HTTP smoke test for Ahoj Render previews, no secrets and no changes to deployments."""
 import json
+import socket
+import ssl
 import sys
 import time
 import urllib.error
 import urllib.request
+from urllib.parse import urlparse
 
 MAIN = "https://ahoj-cesko-main-server-preview.onrender.com"
 UI = "https://cesky-reading-uiux-preview.onrender.com"
@@ -27,6 +30,29 @@ checks = [
 ]
 
 failures = 0
+# Diagnose the user's Chrome iOS "Connection is not secure" warning separately
+# from HTTP 200 health checks. Default SSL trust validation is mandatory.
+try:
+    host = urlparse(MAIN).hostname
+    with socket.create_connection((host, 443), timeout=20) as sock:
+        with ssl.create_default_context().wrap_socket(sock, server_hostname=host) as tls:
+            cert = tls.getpeercert()
+            print("PASS TLS certificate verified:", tls.version(), "expires", cert.get("notAfter"))
+    with urllib.request.urlopen("http://" + host + "/?transport_probe=1", timeout=45) as response:
+        final_url = response.geturl()
+        print("HTTP navigation final URL:", final_url)
+        if not final_url.startswith("https://"):
+            raise ValueError("HTTP navigation did not upgrade to HTTPS")
+        print("PASS HTTP → HTTPS redirect")
+    with urllib.request.urlopen(MAIN + "/?transport_probe=2", timeout=45) as response:
+        print("HTTPS headers:", {
+            "HSTS": response.headers.get("Strict-Transport-Security"),
+            "CSP": response.headers.get("Content-Security-Policy"),
+        })
+except Exception as exc:
+    failures += 1
+    print("FAIL browser transport/security probe:", type(exc).__name__, str(exc)[:250])
+
 for label, url, method, data, expected, marker in checks:
     result = None
     for attempt in range(4):
