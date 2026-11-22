@@ -44,6 +44,8 @@
       this.playOnlySentence = false;
       this.generation = 0;
       this.utterance = null;
+      this.ttsTimer = null;
+      this.ttsPendingNext = null;
       this.audio = null;
       this.quickSheet = null;
       this.voicesChanged = () => this.syncUI();
@@ -213,7 +215,10 @@
       this.refs.play.addEventListener("click", () => this.togglePlay());
       this.refs.guideToggle.addEventListener("click", () => this.toggleGuided());
       this.refs.guideHelp.addEventListener("click", () => this.playStuckWord());
-      this.refs.guideRetry.addEventListener("click", () => this.startGuidedRecognition());
+      this.refs.guideRetry.addEventListener("click", () => {
+        if (!this.guidedActive) this.checkMicrophone();
+        else this.startGuidedRecognition();
+      });
       this.refs.back.addEventListener("click", () => this.skip(-5));
       this.refs.forward.addEventListener("click", () => this.skip(5));
       this.refs.seek.addEventListener("input", (event) => this.seek(Number(event.target.value)));
@@ -368,9 +373,17 @@
         return;
       }
       if (this.paused) {
-        window.speechSynthesis.resume();
         this.paused = false;
         this.speaking = true;
+        const next = this.ttsPendingNext;
+        this.ttsPendingNext = null;
+        if (next) next();
+        else if (window.speechSynthesis.speaking || window.speechSynthesis.paused) {
+          window.speechSynthesis.resume();
+        } else {
+          this.startTts(this.sentenceIndex, this.playOnlySentence);
+          return;
+        }
         this.syncUI();
         return;
       }
@@ -382,82 +395,120 @@
       this.startTts(this.sentenceIndex < this.sentences.length ? this.sentenceIndex : 0, false);
     }
 
-    // iOS Safari can drop the beginning of the next utterance when the previous
-    // sentence ends and we synchronously cancel + speak again. Use ONE native
-    // utterance for the whole remaining chapter; keep word boundaries optional.
+    // iOS WebKit can truncate long SpeechSynthesisUtterances. Split ONLY at
+    // complete Czech sentence boundaries (prefer 120-180 characters), never
+    // arbitrarily by words. Allow the previous onend to release the speech
+    // queue before speaking the next chunk; never cancel between chunks.
     startTts(index, oneSentence) {
       const voice = this.getCzechVoice();
       if (!voice || !this.sentences.length) {
-        this.report("Чех TTS дуу хоолой олдсонгүй.");
+        this.report("Чех TTS дуу хоолой олдсонгүй. Төхөөрөмжийн Чех хоолойг шалгана уу.");
         return;
       }
       if (this.guidedActive) this.stopGuided();
       this.generation += 1;
       const gen = this.generation;
-      window.speechSynthesis.cancel();
+      if (this.ttsTimer !== null) clearTimeout(this.ttsTimer);
+      this.ttsTimer = null;
+      this.ttsPendingNext = null;
+      window.speechSynthesis.cancel(); // Once, on deliberate playback restart.
       const startIndex = Math.max(0, Math.min(this.sentences.length - 1, index));
-      const selection = oneSentence ? this.sentences.slice(startIndex, startIndex + 1) :
+      const selected = oneSentence ? this.sentences.slice(startIndex, startIndex + 1) :
         this.sentences.slice(startIndex);
-      let transcript = "";
-      const sections = selection.map((entry, i) => {
-        if (i) transcript += "\n";
-        const start = transcript.length;
-        transcript += entry.text;
-        return { entry, sentenceId: startIndex + i, start, end: transcript.length };
+      const chunks = [];
+      let chunk = null;
+      selected.forEach((entry, i) => {
+        const sentenceId = startIndex + i;
+        if (!chunk || (chunk.text.length + entry.text.length + 1 > 170 && chunk.text.length)) {
+          chunk = { text: "", parts: [] };
+          chunks.push(chunk);
+        }
+        if (chunk.text) chunk.text += "\n";
+        const offset = chunk.text.length;
+        chunk.text += entry.text;
+        chunk.parts.push({ entry, sentenceId, start: offset, end: chunk.text.length });
       });
       this.speaking = true;
       this.paused = false;
       this.playOnlySentence = oneSentence;
       this.setWord(-1);
       this.setSentence(startIndex);
-      const utterance = new SpeechSynthesisUtterance(transcript);
-      utterance.lang = "cs-CZ";
-      utterance.voice = voice;
-      utterance.rate = this.speed;
-      this.utterance = utterance;
-      utterance.onboundary = (event) => {
-        if (gen !== this.generation || (event.name && event.name !== "word")) return;
-        if (!Number.isFinite(event.charIndex)) return;
-        const section = sections.find((part) =>
-          event.charIndex >= part.start && event.charIndex < part.end);
-        if (!section) return;
-        this.setSentence(section.sentenceId);
-        const charIndex = event.charIndex - section.start;
-        const token = section.entry.tokens.find((w) =>
-          charIndex >= w.start && charIndex < w.end);
-        if (token) this.setWord(token.id);
-      };
-      utterance.onend = () => {
+      const finish = () => {
         if (gen !== this.generation) return;
         this.speaking = false;
         this.paused = false;
+        this.ttsPendingNext = null;
+        this.ttsTimer = null;
         this.setWord(-1);
         this.clearSentenceHighlight();
         this.syncUI();
         if (!oneSentence && this.repeat) {
-          // Do not reenter speechSynthesis.cancel()/speak() inside Safari's
-          // completion callback. The delay is a queue cleanup, NOT word timing.
-          setTimeout(() => {
-            if (gen === this.generation && this.repeat && !this.guidedActive) {
-              this.startTts(0, false);
-            }
-          }, 180);
+          this.ttsTimer = setTimeout(() => {
+            this.ttsTimer = null;
+            if (gen === this.generation && this.repeat && !this.guidedActive) this.startTts(0, false);
+          }, 260);
         } else {
-          this.sentenceIndex = oneSentence ? this.sentenceIndex : 0;
+          if (!oneSentence) this.sentenceIndex = 0;
           this.report("");
         }
       };
-      utterance.onerror = (event) => {
-        if (gen !== this.generation) return;
-        this.speaking = false;
-        this.paused = false;
-        this.syncUI();
-        if (event.error !== "interrupted" && event.error !== "canceled") {
-          this.report("Төхөөрөмжийн TTS уншлага тасарлаа. Play дарж дахин оролдоно уу.");
+      const speakChunk = (chunkIndex) => {
+        if (gen !== this.generation || this.guidedActive) return;
+        if (chunkIndex >= chunks.length) { finish(); return; }
+        const current = chunks[chunkIndex];
+        this.setSentence(current.parts[0].sentenceId);
+        const utterance = new SpeechSynthesisUtterance(current.text);
+        utterance.lang = "cs-CZ";
+        utterance.voice = voice;
+        utterance.rate = this.speed;
+        this.utterance = utterance; // Retain a strong reference on iOS.
+        utterance.onboundary = (event) => {
+          if (gen !== this.generation || (event.name && event.name !== "word")) return;
+          if (!Number.isFinite(event.charIndex)) return;
+          const section = current.parts.find((p) =>
+            event.charIndex >= p.start && event.charIndex < p.end);
+          if (!section) return;
+          this.setSentence(section.sentenceId);
+          const charIndex = event.charIndex - section.start;
+          const token = section.entry.tokens.find((w) =>
+            charIndex >= w.start && charIndex < w.end);
+          if (token) this.setWord(token.id);
+        };
+        utterance.onend = () => {
+          if (gen !== this.generation) return;
+          this.setWord(-1);
+          if (chunkIndex === chunks.length - 1) { finish(); return; }
+          const moveNext = () => speakChunk(chunkIndex + 1);
+          this.ttsTimer = setTimeout(() => {
+            this.ttsTimer = null;
+            if (gen !== this.generation) return;
+            if (this.paused) this.ttsPendingNext = moveNext;
+            else moveNext();
+          }, 260);
+        };
+        utterance.onerror = (event) => {
+          if (gen !== this.generation) return;
+          this.generation += 1;
+          this.speaking = false;
+          this.paused = false;
+          if (this.ttsTimer !== null) clearTimeout(this.ttsTimer);
+          this.ttsTimer = null;
+          this.ttsPendingNext = null;
+          this.utterance = null;
+          this.syncUI();
+          if (event.error !== "interrupted" && event.error !== "canceled") {
+            this.report("Чех TTS тасарлаа (" + (event.error || "unknown") +
+              "). Play дарвал сүүлийн өгүүлбэрээс үргэлжилнэ.");
+          }
+        };
+        try {
+          window.speechSynthesis.speak(utterance);
+        } catch (_err) {
+          utterance.onerror({ error: "start-failed" });
         }
       };
-      window.speechSynthesis.speak(utterance);
       this.report("");
+      speakChunk(0);
       this.syncUI();
     }
 
@@ -484,6 +535,40 @@
       return window.SpeechRecognition || window.webkitSpeechRecognition || null;
     }
 
+    speechSupportMessage() {
+      if (!window.isSecureContext)
+        return "Аюулгүй орчин биш (isSecureContext=false). HTTPS хаягаар нээнэ үү.";
+      if (!this.getRecognitionConstructor())
+        return "Энэ браузерт SpeechRecognition API байхгүй. Микрофон ажиллах эсэхийг тусад нь шалгаж болно.";
+      return "";
+    }
+
+    async checkMicrophone() {
+      if (!window.isSecureContext) {
+        this.setGuidedPhase("error", this.speechSupportMessage());
+        return;
+      }
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        this.setGuidedPhase("error", "Энэ браузерт getUserMedia микрофоны API байхгүй.");
+        return;
+      }
+      this.setGuidedPhase("starting", "Микрофон шалгаж байна…");
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+        stream.getTracks().forEach((track) => track.stop());
+        const stt = this.getRecognitionConstructor();
+        this.setGuidedPhase("ready", stt ?
+          "Микрофон ажиллаж байна. Чех яриа танилтыг асааж туршина уу." :
+          "Микрофон ажиллаж байна. Гэхдээ браузер Чех яриа таних API-гүй.");
+      } catch (error) {
+        const n = error?.name || "unknown";
+        this.setGuidedPhase("error", n === "NotAllowedError" ?
+          "Микрофоны зөвшөөрөл хаалттай байна (NotAllowedError)." :
+          n === "NotFoundError" ? "Микрофон олдсонгүй (NotFoundError)." :
+          "Микрофон шалгахад алдаа: " + n);
+      }
+    }
+
     setGuidedPhase(phase, message = "") {
       this.guidedPhase = phase;
       this.guidedError = message;
@@ -492,8 +577,10 @@
 
     syncGuidedUI() {
       if (!this.refs || !this.refs.guideToggle) return;
-      const available = !!this.getRecognitionConstructor() && window.isSecureContext;
-      this.refs.guideToggle.disabled = !available && !this.guidedActive;
+      const supportError = this.speechSupportMessage();
+      const available = !supportError;
+      // Do NOT disable the switch: user must see the exact reason it cannot run.
+      this.refs.guideToggle.disabled = false;
       this.refs.guideToggle.setAttribute("aria-checked", String(this.guidedActive));
       this.refs.guideToggle.setAttribute("aria-label", this.guidedActive ?
         "Дуудаж унших горимыг унтраах" : "Дуудаж унших горимыг асаах");
@@ -508,14 +595,15 @@
         this.guidedPhase === "completed" ? "Бүх үг танигдлаа (дуудлагын оноо биш)" :
         this.guidedPhase === "paused" ? "Толь нээлттэй · Үргэлжлүүлэх дарна уу" :
         this.guidedActive ? "Үргэлжлүүлэх дарж микрофоноо нээнэ үү · " + word :
-        available ? "Чех үгийг дарааллаар нь таних туршилт" :
-        "Энэ браузерт Чех STT дэмжигдээгүй эсвэл HTTPS шаардлагатай");
+        available ? "Чех үгийг дарааллаар нь таних туршилт" : supportError);
       this.refs.guideMessage.textContent = message;
       this.refs.guideHelp.disabled = !this.guidedActive ||
         this.guidedPhase === "completed" || this.guidedPhase === "help" ||
         !this.getCzechVoice();
-      this.refs.guideRetry.hidden = !this.guidedActive ||
-        !["ready", "paused", "error"].includes(this.guidedPhase);
+      this.refs.guideRetry.hidden = this.guidedActive ?
+        !["ready", "paused", "error"].includes(this.guidedPhase) : available;
+      this.refs.guideRetry.textContent = this.guidedActive ?
+        "Үргэлжлүүлэх" : "Микрофон шалгах";
     }
 
     toggleGuided() {
@@ -524,14 +612,18 @@
         this.syncUI();
         return;
       }
-      if (!window.isSecureContext || !this.getRecognitionConstructor()) {
-        this.report("Энэ браузер Чех яриа танихыг дэмжихгүй. Safari-г HTTPS хаягаар нээнэ үү.");
-        this.syncGuidedUI();
+      const supportError = this.speechSupportMessage();
+      if (supportError) {
+        this.setGuidedPhase("error", supportError);
+        this.report(supportError);
         return;
       }
       if (!this.words.length) return;
       if (this.audio && !this.audio.paused) this.audio.pause();
       this.generation += 1;
+      if (this.ttsTimer !== null) clearTimeout(this.ttsTimer);
+      this.ttsTimer = null;
+      this.ttsPendingNext = null;
       if (window.speechSynthesis) window.speechSynthesis.cancel();
       this.speaking = false;
       this.paused = false;
@@ -574,7 +666,7 @@
       if (!this.guidedActive) return;
       const Recognition = this.getRecognitionConstructor();
       if (!Recognition || !window.isSecureContext) {
-        this.setGuidedPhase("error", "Микрофон/яриа таних боломжгүй (HTTPS эсвэл STT дэмжлэг шалга).");
+        this.setGuidedPhase("error", this.speechSupportMessage());
         return;
       }
       this.abortGuidedRecognition();
@@ -737,7 +829,7 @@
         this.syncTimeline();
       } else if (this.kind === "tts") {
         this.refs.source.textContent = this.getCzechVoice() ?
-          "Төхөөрөмжийн Чех TTS · секундээр шилжүүлэхгүй" :
+          "Төхөөрөмжийн Чех TTS · богино хэсгээр · секундээр шилжүүлэхгүй" :
           "Чех TTS хоолой шаардана · бэлэн аудио байхгүй";
         this.refs.elapsed.textContent = "—:—";
         this.refs.duration.textContent = "—:—";
@@ -804,6 +896,9 @@
 
     destroy() {
       this.generation += 1;
+      if (this.ttsTimer !== null) clearTimeout(this.ttsTimer);
+      this.ttsTimer = null;
+      this.ttsPendingNext = null;
       this.stopGuided();
       this.hideWord();
       if (this.audio) {
