@@ -442,7 +442,12 @@ async function boot(){
   const additional=await fetch("./lesson-a0-t01-l04.draft.json",{cache:"no-store"});
   if(!additional.ok)throw Error("Additional lesson HTTP "+additional.status);
   const ext=await additional.json();
-  const lessons=[...d.lessons,...ext.lessons].sort((a,b)=>a.order-b.order);
+  const more=await fetch("./lesson-a0-t01-l05-to-l08.draft.json",{cache:"no-store"});
+  if(!more.ok)throw Error("L05-L08 lesson HTTP "+more.status);
+  const rest=await more.json();
+  if(rest.publication?.approved!==false || rest.publication?.published!==false)
+    throw Error("Unreviewed extra lesson pack must not claim publication");
+  const lessons=[...d.lessons,...ext.lessons,...rest.lessons].sort((a,b)=>a.order-b.order);
   if(d.status!=="FIRST_3_LESSON_INTERACTIVE_PREVIEW_NOT_LINGUISTIC_OR_AUDIO_RELEASE" ||
      ext.publication?.approved!==false || ext.publication?.published!==false ||
      lessons.some((l,i)=>l.order!==i+1 || l.steps.length!==9 ||
