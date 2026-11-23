@@ -398,6 +398,8 @@ try {
               await cp.locator('[data-cl-action="option"][data-answer="'+wrong.id+'"]').click();
               assert.equal(await cp.locator('[data-kind="bad"]').count(),1,
                 "Wrong answer must NOT complete step");
+              assert.equal(await cp.locator(".cl-button.option.is-wrong[aria-invalid='true']").count(),1,
+                "Incorrect choice must be visibly marked before retry");
               assert.equal(await cp.locator('[data-cl-action="next-step"]').count(),0);
             }
             await cp.locator('[data-cl-action="option"][data-answer="'+step.answer_id+'"]').click();
