@@ -68,6 +68,12 @@
 - **Still NOT verified:** native iPhone Safari UX, Czech-native phonetics, real audio QA, pedagogical efficacy with users. Lesson text/audio remains DRAFT/UNAPPROVED; no publication or `main` merge.
 - Existing Render preview must be checked separately for exact branch SHA. Do not confuse GitHub CI PASS with Render LIVE.
 
+## 2026-11-23 — Safari preview freshness for UX v2
+
+- The live link previously showed stale content once because Render had not deployed the latest branch. For UX v2, `index.html` now references `lesson-lab-ui.mjs?v=3` and `lesson-lab-ui.css?v=2` (commit `889f47dc`), and `scripts/check-first-a0-lessons.mjs` locks these exact revisions (commit `ee5e06ed`). This is a **cache-bust for existing assets**, not a new application.
+- The latest UX v2 functionality was validated on code `f9690393` with lint `45201101304` and browser `45201101309`, both PASS. Later docs `af917748` also passed lint `45201395332` and browser `45201395254`. **Recheck the exact latest SHA** after the cache-bust commits before declaring production-ready.
+- Existing Render service `srv-dc21v9qvcj2c73a0g8k0` was explicitly deployed once for `af917748` (`dep-dc25cvijnfac738pvhu0`); this deploy **does not include** the later Safari asset version bumps. Confirm live service deploy commit is at least `ee5e06ed` or this docs-only successor before giving the user the preview link. Keep PR #32 in draft and leave `main` unchanged.
+
 ## 0. Шинэ чат шууд эхлэх горим
 
 1. GitHub connector-оор репогийн **тухайн үеийн** `main` commit, PR #32-ийн `head_sha`, CI, PR #29 ба #30-ийн төлөвийг шалга. Өмнөх SHA-г шинэ мэт битгий зарла.
