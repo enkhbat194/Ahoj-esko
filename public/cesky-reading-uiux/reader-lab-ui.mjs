@@ -180,12 +180,62 @@ function readerBody() {
   '<div class="lab-gloss-shade" id="lab-gloss-shade" hidden></div>';
 }
 function updateReader() {
- const shell=byId("readerShell"),scroll=byId("lab-reader-scroll");
- const top=scroll?.scrollTop??0;
- shell.innerHTML=readerBody();
- shell.classList.add("reader-lab-shell");
- const next=byId("lab-reader-scroll");if(next)next.scrollTop=top;
- setupReaderEvents();
+ // One shared player for both the two existing books and the three new drafts.
+ if(!active||!activeBook||!activeChapter)return;
+ const shell=byId("readerShell");
+ const ch={
+   num:1,title:activeBook.title_cs,
+   cz:activeChapter.sentences.map(x=>x.text_cs),
+   mn:activeChapter.sentences.map(x=>x.translation_mn_draft),
+   vocab:content.form_annotations.map(x=>({
+     cz:x.surface_form_cs,mn:x.meaning_mn_in_this_context_draft
+   })),
+   audioUrl:null
+ };
+ const book={
+   id:activeBook.story_id,title:activeBook.title_mn,
+   chapters:[ch],completedChapters:active.chapter_read?[1]:[]
+ };
+ shell.classList.remove("reader-lab-shell");
+ window.AhojReaderExperience.mount({
+   host:shell,book,chapter:ch,readingState:{showTranslation:false},
+   onClose:closeReader,
+   onPrevious:()=>{},
+   onComplete:finishChapter,
+   onWordTap:(word)=>{
+     const source=activeChapter.sentences[word.sentenceId];
+     const token=active.tokens.find(x=>
+       x.sentence_id===source?.sentence_id&&x.start===word.start);
+     if(!token)return false;
+     openGloss(token.token_order);
+     return true;
+   }
+ });
+ const scroll=shell.querySelector("#ar-scroll");
+ const end=scroll?.querySelector(".ar-end");
+ if(!end)return;
+ const quiz=document.createElement("section");
+ quiz.id="lab-comprehension";
+ quiz.className="lab-comprehension";
+ quiz.innerHTML='<h2>Ойлгосноо шалгах · сонголттой</h2>'+quizMarkup(activeChapter);
+ end.before(quiz);
+ quiz.addEventListener("click",e=>{
+   const btn=e.target.closest("[data-lab-q]");
+   if(btn)answerQuiz(btn.dataset.labQ,Number(btn.dataset.labChoice));
+ });
+ const cards=document.createElement("button");
+ cards.type="button";cards.id="lab-open-cards";cards.className="lab-secondary";
+ cards.textContent="Уншлагын карт руу очих";
+ end.append(cards);
+ cards.addEventListener("click",()=>{
+    if(!active.chapter_read)finishChapter();
+    closeReader();
+    byId("navGrid")?.querySelector('[data-tab="cards"]')?.click();
+ });
+ const warning=document.createElement("p");
+ warning.className="lab-disclaimer";
+ warning.textContent=profileSourceInfo();
+ end.append(warning);
 }
 function openReader(bookId) {
  const book=findBook(bookId);
@@ -200,22 +250,25 @@ function openReader(bookId) {
       knownSenseKeys:profile.known_reading_sense_keys,
       knownFormIds:[],cardActivationCap:4
     });
-  if(!active.reader_attempt_id) active.reader_attempt_id=activeChapter.chapter_id+":"+now();
+  if(!active.reader_attempt_id)active.reader_attempt_id=activeChapter.chapter_id+":"+now();
   selectedToken=null;lastError="";persistChapter();
   const overlay=byId("readerOverlay");
-  const shell=byId("readerShell");
-  if(!overlay||!shell)throw new Error("Existing reader overlay not found");
-  overlay.hidden=false;updateReader();
+  if(!overlay||!byId("readerShell")||!window.AhojReaderExperience?.mount)
+    throw new Error("Shared Czech reader player unavailable");
+  overlay.hidden=false;
+  updateReader();
  }catch(err){
-  console.error("Reader lab chapter cannot open:",err);
-  alert("Уншлагын өгөгдөл алдаатай тул нээсэнгүй.");
+  console.error("Reader Lab open:",err);
+  alert("Уншлагын тоглуулагч ачаалагдсангүй. Шинээр нээгээд үзнэ үү.");
+  const overlay=byId("readerOverlay");if(overlay)overlay.hidden=true;
  }
 }
 function closeReader() {
+ window.AhojReaderExperience?.destroy?.();
  const overlay=byId("readerOverlay"),shell=byId("readerShell");
- byId("lab-gloss-shade")?.remove();
  if(overlay)overlay.hidden=true;
- if(shell){shell.innerHTML="";shell.classList.remove("reader-lab-shell");}
+ byId("lab-gloss-shade")?.remove();
+ if(shell){shell.classList.remove("reader-lab-shell");shell.innerHTML="";}
  active=null;activeBook=null;activeChapter=null;selectedToken=null;
  decorateReadingView();
 }
@@ -224,30 +277,36 @@ function openGloss(order) {
  const token=active?.tokens.find(x=>x.token_order===order);
  if(!token)return;
  selectedToken=token;
- const tooltip=readerWordTooltip(active,{sentence_id:token.sentence_id,start:token.start});
+ const tooltip=readerWordTooltip(active,{
+   sentence_id:token.sentence_id,start:token.start
+ });
  active=recordReaderEvent(active,{
   type:"gloss_opened",token_order:order,at_ms:now(),
   event_id:"gloss-"+active.chapter_id+"-"+order+"-"+now()
  });
  persistChapter();
  const card=[...active.flashcards,...active.card_backlog].find(x=>x.card_key===token.card_key);
- const shade=byId("lab-gloss-shade");
- if(!shade)return;
- const note=token.sense_known?"Өмнө танилцсан утга":"Шинэ эсвэл баталгаагүй утга";
+ const shell=byId("readerShell");
+ if(!shell)return;
+ let shade=byId("lab-gloss-shade");
+ if(!shade){shade=document.createElement("div");
+   shade.id="lab-gloss-shade";shade.className="lab-gloss-shade";
+   shell.appendChild(shade);}
  shade.hidden=false;
+ const note=token.sense_known?"Өмнө танилцсан утга":"Шинэ эсвэл баталгаажаагүй утга";
  shade.innerHTML='<section class="lab-gloss" role="dialog" aria-modal="true" '+
  'aria-label="Контекст толь"><button type="button" id="lab-gloss-close" class="lab-x">✕</button>'+
  '<span class="lab-eyebrow">'+escapeHtml(note)+'</span>'+
  '<h3 lang="cs">'+escapeHtml(tooltip.surface_cs)+'</h3>'+
  '<p class="lab-lemma">Үндсэн хэлбэр: <b lang="cs">'+escapeHtml(tooltip.lemma_cs)+'</b></p>'+
  '<p class="lab-meaning">'+escapeHtml(tooltip.mn_meaning_draft)+'</p>'+
- '<div class="lab-note">'+(card?"Картын жагсаалтад нэмэгдсэн.":"Энэ нэр/контекст тусад нь цээжлэх карт биш.")+
- '</div><p class="lab-disclaimer">Энэ нь редакц хүлээж буй утгын тайлбар. '+
- 'Нэг үг олон утгатай байж болно.</p>'+
+ '<div class="lab-note">'+(card?"Картын жагсаалтад нэмэгдлээ.":"Энэ нь тусдаа үгийн карт биш.")+
+ '</div><p class="lab-disclaimer">Энэ тайлбар Чех редакцаар батлагдаагүй.</p>'+
  '<button type="button" id="lab-gloss-dismiss" class="lab-primary">Үргэлжлүүлэн унших</button></section>';
- const close=()=>{shade.hidden=true;shade.innerHTML="";};
  shade.onclick=e=>{
-  if(e.target===shade||e.target.closest("#lab-gloss-close, #lab-gloss-dismiss"))close();
+   if(e.target===shade||e.target.closest("#lab-gloss-close,#lab-gloss-dismiss")){
+     shade.hidden=true;shade.innerHTML="";
+   }
  };
 }
 function answerQuiz(questionId,choiceIndex) {
@@ -258,12 +317,14 @@ function answerQuiz(questionId,choiceIndex) {
   type:"optional_comprehension_answer",question_id:questionId,
   choice_index:choiceIndex,at_ms:now(),event_id:active.chapter_id+":q:"+questionId
  },{chapter:activeChapter});
- persistChapter();updateReader();
+ persistChapter();
+ const node=byId("lab-comprehension");
+ if(node)node.innerHTML='<h2>Ойлгосноо шалгах · сонголттой</h2>'+quizMarkup(activeChapter);
 }
 function finishChapter() {
  if(!active)return;
  active=recordReaderEvent(active,{
-  type:"chapter_finished",at_ms:now(),event_id:active.chapter_id+":finished"
+   type:"chapter_finished",at_ms:now(),event_id:active.chapter_id+":finished"
  },{chapter:activeChapter});
  profile=commitReaderAttempt(profile,active,{
   attempt_id:active.reader_attempt_id,story_id:activeBook.story_id,
@@ -272,14 +333,17 @@ function finishChapter() {
  profile=activateGlobalReadingCards(profile,{max_active:4});
  persistChapter();
  const guide=suggestLearningFocus(profile,{now_ms:now(),desired_genre:activeBook.genre});
- const shelf=byId("lab-reader-scroll");
- if(shelf && !shelf.querySelector(".lab-finish-note")){
+ const button=byId("ar-complete");
+ if(button){button.textContent="✓ Уншсанаар тэмдэглэсэн";button.disabled=true;}
+ const end=byId("ar-scroll")?.querySelector(".ar-end");
+ if(end&&!end.querySelector(".lab-finish-note")){
   const note=document.createElement("p");
-  note.className="lab-finish-note";note.textContent="Бүлгийг уншсан гэж тэмдэглэлээ. "+
-    "Карт: "+profile.flashcards.length+" идэвхтэй, "+profile.card_backlog.length+
+  note.className="lab-finish-note";
+  note.textContent="Уншсан гэж тэмдэглэлээ. Карт: "+
+    profile.flashcards.length+" идэвхтэй, "+profile.card_backlog.length+
     " дараалалд. "+(guide.weak_contextual_sense_keys.length?
-     "Хэцүү утгуудыг дараагийн давтлагад оруулна.":"Дараагийн уншлагаа сонгож болно.");
-  byId("lab-finish")?.insertAdjacentElement("afterend",note);
+    "Хэцүү үгсийг давтлагад оруулна.":"Дараагийн уншлагаа сонгоорой.");
+  end.append(note);
  }
 }
 function setupReaderEvents() {
