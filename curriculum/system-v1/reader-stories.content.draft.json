@@ -397,7 +397,10 @@
       "verified_czech_morphology": false,
       "contextual_sense_review": "PENDING",
       "audio_asset_id": null,
-      "editorial_status": "PENDING"
+      "editorial_status": "PENDING",
+      "sense_key": "@person:Anna::intro_reader_context",
+      "card_unit": "lexeme_in_context",
+      "morphology_status": "PENDING_INFLECTION_VERIFICATION"
     },
     {
       "form_id": "CS-READ-FORM-čaj",
@@ -410,7 +413,10 @@
       "verified_czech_morphology": false,
       "contextual_sense_review": "PENDING",
       "audio_asset_id": null,
-      "editorial_status": "PENDING"
+      "editorial_status": "PENDING",
+      "sense_key": "čaj::intro_reader_context",
+      "card_unit": "lexeme_in_context",
+      "morphology_status": "PENDING_LEMMA_VERIFICATION"
     },
     {
       "form_id": "CS-READ-FORM-čaje",
@@ -423,7 +429,10 @@
       "verified_czech_morphology": false,
       "contextual_sense_review": "PENDING",
       "audio_asset_id": null,
-      "editorial_status": "PENDING"
+      "editorial_status": "PENDING",
+      "sense_key": "čaj::intro_reader_context",
+      "card_unit": "lexeme_in_context",
+      "morphology_status": "PENDING_INFLECTION_VERIFICATION"
     },
     {
       "form_id": "CS-READ-FORM-čte",
@@ -436,7 +445,10 @@
       "verified_czech_morphology": false,
       "contextual_sense_review": "PENDING",
       "audio_asset_id": null,
-      "editorial_status": "PENDING"
+      "editorial_status": "PENDING",
+      "sense_key": "číst::intro_reader_context",
+      "card_unit": "lexeme_in_context",
+      "morphology_status": "PENDING_INFLECTION_VERIFICATION"
     },
     {
       "form_id": "CS-READ-FORM-dívá",
@@ -449,7 +461,10 @@
       "verified_czech_morphology": false,
       "contextual_sense_review": "PENDING",
       "audio_asset_id": null,
-      "editorial_status": "PENDING"
+      "editorial_status": "PENDING",
+      "sense_key": "dívat se::intro_reader_context",
+      "card_unit": "lexeme_in_context",
+      "morphology_status": "PENDING_INFLECTION_VERIFICATION"
     },
     {
       "form_id": "CS-READ-FORM-doma",
@@ -462,7 +477,10 @@
       "verified_czech_morphology": false,
       "contextual_sense_review": "PENDING",
       "audio_asset_id": null,
-      "editorial_status": "PENDING"
+      "editorial_status": "PENDING",
+      "sense_key": "doma::intro_reader_context",
+      "card_unit": "lexeme_in_context",
+      "morphology_status": "PENDING_LEMMA_VERIFICATION"
     },
     {
       "form_id": "CS-READ-FORM-dopis",
@@ -475,7 +493,10 @@
       "verified_czech_morphology": false,
       "contextual_sense_review": "PENDING",
       "audio_asset_id": null,
-      "editorial_status": "PENDING"
+      "editorial_status": "PENDING",
+      "sense_key": "dopis::intro_reader_context",
+      "card_unit": "lexeme_in_context",
+      "morphology_status": "PENDING_LEMMA_VERIFICATION"
     },
     {
       "form_id": "CS-READ-FORM-dopise",
@@ -488,7 +509,10 @@
       "verified_czech_morphology": false,
       "contextual_sense_review": "PENDING",
       "audio_asset_id": null,
-      "editorial_status": "PENDING"
+      "editorial_status": "PENDING",
+      "sense_key": "dopis::intro_reader_context",
+      "card_unit": "lexeme_in_context",
+      "morphology_status": "PENDING_INFLECTION_VERIFICATION"
     },
     {
       "form_id": "CS-READ-FORM-dveří",
@@ -501,7 +525,10 @@
       "verified_czech_morphology": false,
       "contextual_sense_review": "PENDING",
       "audio_asset_id": null,
-      "editorial_status": "PENDING"
+      "editorial_status": "PENDING",
+      "sense_key": "dveře::intro_reader_context",
+      "card_unit": "lexeme_in_context",
+      "morphology_status": "PENDING_INFLECTION_VERIFICATION"
     },
     {
       "form_id": "CS-READ-FORM-eva",
@@ -514,7 +541,10 @@
       "verified_czech_morphology": false,
       "contextual_sense_review": "PENDING",
       "audio_asset_id": null,
-      "editorial_status": "PENDING"
+      "editorial_status": "PENDING",
+      "sense_key": "@person:Eva::intro_reader_context",
+      "card_unit": "lexeme_in_context",
+      "morphology_status": "PENDING_INFLECTION_VERIFICATION"
     },
     {
       "form_id": "CS-READ-FORM-jde",
@@ -527,7 +557,10 @@
       "verified_czech_morphology": false,
       "contextual_sense_review": "PENDING",
       "audio_asset_id": null,
-      "editorial_status": "PENDING"
+      "editorial_status": "PENDING",
+      "sense_key": "jít::intro_reader_context",
+      "card_unit": "lexeme_in_context",
+      "morphology_status": "PENDING_INFLECTION_VERIFICATION"
     },
     {
       "form_id": "CS-READ-FORM-je",
@@ -540,7 +573,10 @@
       "verified_czech_morphology": false,
       "contextual_sense_review": "PENDING",
       "audio_asset_id": null,
-      "editorial_status": "PENDING"
+      "editorial_status": "PENDING",
+      "sense_key": "být::intro_reader_context",
+      "card_unit": "lexeme_in_context",
+      "morphology_status": "PENDING_INFLECTION_VERIFICATION"
     },
     {
       "form_id": "CS-READ-FORM-jméno",
@@ -553,7 +589,10 @@
       "verified_czech_morphology": false,
       "contextual_sense_review": "PENDING",
       "audio_asset_id": null,
-      "editorial_status": "PENDING"
+      "editorial_status": "PENDING",
+      "sense_key": "jméno::intro_reader_context",
+      "card_unit": "lexeme_in_context",
+      "morphology_status": "PENDING_LEMMA_VERIFICATION"
     },
     {
       "form_id": "CS-READ-FORM-k",
@@ -566,7 +605,10 @@
       "verified_czech_morphology": false,
       "contextual_sense_review": "PENDING",
       "audio_asset_id": null,
-      "editorial_status": "PENDING"
+      "editorial_status": "PENDING",
+      "sense_key": "k::intro_reader_context",
+      "card_unit": "lexeme_in_context",
+      "morphology_status": "PENDING_LEMMA_VERIFICATION"
     },
     {
       "form_id": "CS-READ-FORM-kavárně",
@@ -579,7 +621,10 @@
       "verified_czech_morphology": false,
       "contextual_sense_review": "PENDING",
       "audio_asset_id": null,
-      "editorial_status": "PENDING"
+      "editorial_status": "PENDING",
+      "sense_key": "kavárna::intro_reader_context",
+      "card_unit": "lexeme_in_context",
+      "morphology_status": "PENDING_INFLECTION_VERIFICATION"
     },
     {
       "form_id": "CS-READ-FORM-leží",
@@ -592,7 +637,10 @@
       "verified_czech_morphology": false,
       "contextual_sense_review": "PENDING",
       "audio_asset_id": null,
-      "editorial_status": "PENDING"
+      "editorial_status": "PENDING",
+      "sense_key": "ležet::intro_reader_context",
+      "card_unit": "lexeme_in_context",
+      "morphology_status": "PENDING_INFLECTION_VERIFICATION"
     },
     {
       "form_id": "CS-READ-FORM-mám",
@@ -605,7 +653,10 @@
       "verified_czech_morphology": false,
       "contextual_sense_review": "PENDING",
       "audio_asset_id": null,
-      "editorial_status": "PENDING"
+      "editorial_status": "PENDING",
+      "sense_key": "mít::intro_reader_context",
+      "card_unit": "lexeme_in_context",
+      "morphology_status": "PENDING_INFLECTION_VERIFICATION"
     },
     {
       "form_id": "CS-READ-FORM-na",
@@ -618,7 +669,10 @@
       "verified_czech_morphology": false,
       "contextual_sense_review": "PENDING",
       "audio_asset_id": null,
-      "editorial_status": "PENDING"
+      "editorial_status": "PENDING",
+      "sense_key": "na::intro_reader_context",
+      "card_unit": "lexeme_in_context",
+      "morphology_status": "PENDING_LEMMA_VERIFICATION"
     },
     {
       "form_id": "CS-READ-FORM-ne",
@@ -631,7 +685,10 @@
       "verified_czech_morphology": false,
       "contextual_sense_review": "PENDING",
       "audio_asset_id": null,
-      "editorial_status": "PENDING"
+      "editorial_status": "PENDING",
+      "sense_key": "ne::intro_reader_context",
+      "card_unit": "lexeme_in_context",
+      "morphology_status": "PENDING_LEMMA_VERIFICATION"
     },
     {
       "form_id": "CS-READ-FORM-není",
@@ -644,7 +701,10 @@
       "verified_czech_morphology": false,
       "contextual_sense_review": "PENDING",
       "audio_asset_id": null,
-      "editorial_status": "PENDING"
+      "editorial_status": "PENDING",
+      "sense_key": "být::intro_reader_context",
+      "card_unit": "lexeme_in_context",
+      "morphology_status": "PENDING_INFLECTION_VERIFICATION"
     },
     {
       "form_id": "CS-READ-FORM-od",
@@ -657,7 +717,10 @@
       "verified_czech_morphology": false,
       "contextual_sense_review": "PENDING",
       "audio_asset_id": null,
-      "editorial_status": "PENDING"
+      "editorial_status": "PENDING",
+      "sense_key": "od::intro_reader_context",
+      "card_unit": "lexeme_in_context",
+      "morphology_status": "PENDING_LEMMA_VERIFICATION"
     },
     {
       "form_id": "CS-READ-FORM-okně",
@@ -670,7 +733,10 @@
       "verified_czech_morphology": false,
       "contextual_sense_review": "PENDING",
       "audio_asset_id": null,
-      "editorial_status": "PENDING"
+      "editorial_status": "PENDING",
+      "sense_key": "okno::intro_reader_context",
+      "card_unit": "lexeme_in_context",
+      "morphology_status": "PENDING_INFLECTION_VERIFICATION"
     },
     {
       "form_id": "CS-READ-FORM-oknu",
@@ -683,7 +749,10 @@
       "verified_czech_morphology": false,
       "contextual_sense_review": "PENDING",
       "audio_asset_id": null,
-      "editorial_status": "PENDING"
+      "editorial_status": "PENDING",
+      "sense_key": "okno::intro_reader_context",
+      "card_unit": "lexeme_in_context",
+      "morphology_status": "PENDING_INFLECTION_VERIFICATION"
     },
     {
       "form_id": "CS-READ-FORM-pavel",
@@ -696,7 +765,10 @@
       "verified_czech_morphology": false,
       "contextual_sense_review": "PENDING",
       "audio_asset_id": null,
-      "editorial_status": "PENDING"
+      "editorial_status": "PENDING",
+      "sense_key": "@person:Pavel::intro_reader_context",
+      "card_unit": "lexeme_in_context",
+      "morphology_status": "PENDING_INFLECTION_VERIFICATION"
     },
     {
       "form_id": "CS-READ-FORM-ptá",
@@ -709,20 +781,26 @@
       "verified_czech_morphology": false,
       "contextual_sense_review": "PENDING",
       "audio_asset_id": null,
-      "editorial_status": "PENDING"
+      "editorial_status": "PENDING",
+      "sense_key": "ptát se::intro_reader_context",
+      "card_unit": "lexeme_in_context",
+      "morphology_status": "PENDING_INFLECTION_VERIFICATION"
     },
     {
       "form_id": "CS-READ-FORM-rád",
       "surface_form_cs": "rád",
       "lemma_cs": "rád",
       "lexeme_id": "CS-READ-CAND-013",
-      "meaning_mn_in_this_context_draft": "дуртай/хайртай (эрэгтэй хүн хэлж байна)",
+      "meaning_mn_in_this_context_draft": "Mám tě rád. хэллэг дотор: «Би чамд хайртай.» (эрэгтэй хүн хэлсэн)",
       "teaching_role": "target",
       "lexeme_source": "new_candidate",
       "verified_czech_morphology": false,
-      "contextual_sense_review": "PENDING",
+      "contextual_sense_review": "PENDING_IDIOM_GENDER_CONTEXT",
       "audio_asset_id": null,
-      "editorial_status": "PENDING"
+      "editorial_status": "PENDING",
+      "sense_key": "rád::intro_reader_context",
+      "card_unit": "fixed_phrase_mam_te_rad",
+      "morphology_status": "PENDING_LEMMA_VERIFICATION"
     },
     {
       "form_id": "CS-READ-FORM-říká",
@@ -735,7 +813,10 @@
       "verified_czech_morphology": false,
       "contextual_sense_review": "PENDING",
       "audio_asset_id": null,
-      "editorial_status": "PENDING"
+      "editorial_status": "PENDING",
+      "sense_key": "říkat::intro_reader_context",
+      "card_unit": "lexeme_in_context",
+      "morphology_status": "PENDING_INFLECTION_VERIFICATION"
     },
     {
       "form_id": "CS-READ-FORM-se",
@@ -748,20 +829,26 @@
       "verified_czech_morphology": false,
       "contextual_sense_review": "PENDING",
       "audio_asset_id": null,
-      "editorial_status": "PENDING"
+      "editorial_status": "PENDING",
+      "sense_key": "se::intro_reader_context",
+      "card_unit": "lexeme_in_context",
+      "morphology_status": "PENDING_LEMMA_VERIFICATION"
     },
     {
       "form_id": "CS-READ-FORM-stojí",
       "surface_form_cs": "stojí",
       "lemma_cs": "stát",
       "lexeme_id": "CS-LEX-0078",
-      "meaning_mn_in_this_context_draft": "зогсож байна",
+      "meaning_mn_in_this_context_draft": "зогсож байна; ЭНЭ өгүүлбэрт үнэ биш",
       "teaching_role": "known_or_recycle",
-      "lexeme_source": "existing_candidate",
+      "lexeme_source": "existing_lemma_but_NEW_SENSE",
       "verified_czech_morphology": false,
-      "contextual_sense_review": "PENDING",
+      "contextual_sense_review": "PENDING_CRITICAL_PRICE_VS_STAND",
       "audio_asset_id": null,
-      "editorial_status": "PENDING"
+      "editorial_status": "PENDING",
+      "sense_key": "stát::stand_position",
+      "card_unit": "lexeme_in_context",
+      "morphology_status": "PENDING_INFLECTION_VERIFICATION"
     },
     {
       "form_id": "CS-READ-FORM-stole",
@@ -774,7 +861,10 @@
       "verified_czech_morphology": false,
       "contextual_sense_review": "PENDING",
       "audio_asset_id": null,
-      "editorial_status": "PENDING"
+      "editorial_status": "PENDING",
+      "sense_key": "stůl::intro_reader_context",
+      "card_unit": "lexeme_in_context",
+      "morphology_status": "PENDING_INFLECTION_VERIFICATION"
     },
     {
       "form_id": "CS-READ-FORM-světlo",
@@ -787,7 +877,10 @@
       "verified_czech_morphology": false,
       "contextual_sense_review": "PENDING",
       "audio_asset_id": null,
-      "editorial_status": "PENDING"
+      "editorial_status": "PENDING",
+      "sense_key": "světlo::intro_reader_context",
+      "card_unit": "lexeme_in_context",
+      "morphology_status": "PENDING_LEMMA_VERIFICATION"
     },
     {
       "form_id": "CS-READ-FORM-tam",
@@ -800,7 +893,10 @@
       "verified_czech_morphology": false,
       "contextual_sense_review": "PENDING",
       "audio_asset_id": null,
-      "editorial_status": "PENDING"
+      "editorial_status": "PENDING",
+      "sense_key": "tam::intro_reader_context",
+      "card_unit": "lexeme_in_context",
+      "morphology_status": "PENDING_LEMMA_VERIFICATION"
     },
     {
       "form_id": "CS-READ-FORM-tě",
@@ -813,7 +909,10 @@
       "verified_czech_morphology": false,
       "contextual_sense_review": "PENDING",
       "audio_asset_id": null,
-      "editorial_status": "PENDING"
+      "editorial_status": "PENDING",
+      "sense_key": "ty::intro_reader_context",
+      "card_unit": "lexeme_in_context",
+      "morphology_status": "PENDING_INFLECTION_VERIFICATION"
     },
     {
       "form_id": "CS-READ-FORM-tebe",
@@ -826,7 +925,10 @@
       "verified_czech_morphology": false,
       "contextual_sense_review": "PENDING",
       "audio_asset_id": null,
-      "editorial_status": "PENDING"
+      "editorial_status": "PENDING",
+      "sense_key": "ty::intro_reader_context",
+      "card_unit": "lexeme_in_context",
+      "morphology_status": "PENDING_INFLECTION_VERIFICATION"
     },
     {
       "form_id": "CS-READ-FORM-to",
@@ -839,7 +941,10 @@
       "verified_czech_morphology": false,
       "contextual_sense_review": "PENDING",
       "audio_asset_id": null,
-      "editorial_status": "PENDING"
+      "editorial_status": "PENDING",
+      "sense_key": "to::intro_reader_context",
+      "card_unit": "lexeme_in_context",
+      "morphology_status": "PENDING_LEMMA_VERIFICATION"
     },
     {
       "form_id": "CS-READ-FORM-u",
@@ -852,7 +957,10 @@
       "verified_czech_morphology": false,
       "contextual_sense_review": "PENDING",
       "audio_asset_id": null,
-      "editorial_status": "PENDING"
+      "editorial_status": "PENDING",
+      "sense_key": "u::intro_reader_context",
+      "card_unit": "lexeme_in_context",
+      "morphology_status": "PENDING_LEMMA_VERIFICATION"
     },
     {
       "form_id": "CS-READ-FORM-usmívá",
@@ -865,7 +973,10 @@
       "verified_czech_morphology": false,
       "contextual_sense_review": "PENDING",
       "audio_asset_id": null,
-      "editorial_status": "PENDING"
+      "editorial_status": "PENDING",
+      "sense_key": "usmívat se::intro_reader_context",
+      "card_unit": "lexeme_in_context",
+      "morphology_status": "PENDING_INFLECTION_VERIFICATION"
     },
     {
       "form_id": "CS-READ-FORM-už",
@@ -878,7 +989,10 @@
       "verified_czech_morphology": false,
       "contextual_sense_review": "PENDING",
       "audio_asset_id": null,
-      "editorial_status": "PENDING"
+      "editorial_status": "PENDING",
+      "sense_key": "už::intro_reader_context",
+      "card_unit": "lexeme_in_context",
+      "morphology_status": "PENDING_LEMMA_VERIFICATION"
     },
     {
       "form_id": "CS-READ-FORM-v",
@@ -891,7 +1005,10 @@
       "verified_czech_morphology": false,
       "contextual_sense_review": "PENDING",
       "audio_asset_id": null,
-      "editorial_status": "PENDING"
+      "editorial_status": "PENDING",
+      "sense_key": "v::intro_reader_context",
+      "card_unit": "lexeme_in_context",
+      "morphology_status": "PENDING_LEMMA_VERIFICATION"
     },
     {
       "form_id": "CS-READ-FORM-večer",
@@ -904,7 +1021,10 @@
       "verified_czech_morphology": false,
       "contextual_sense_review": "PENDING",
       "audio_asset_id": null,
-      "editorial_status": "PENDING"
+      "editorial_status": "PENDING",
+      "sense_key": "večer::intro_reader_context",
+      "card_unit": "lexeme_in_context",
+      "morphology_status": "PENDING_LEMMA_VERIFICATION"
     },
     {
       "form_id": "CS-READ-FORM-vedle",
@@ -917,7 +1037,10 @@
       "verified_czech_morphology": false,
       "contextual_sense_review": "PENDING",
       "audio_asset_id": null,
-      "editorial_status": "PENDING"
+      "editorial_status": "PENDING",
+      "sense_key": "vedle::intro_reader_context",
+      "card_unit": "lexeme_in_context",
+      "morphology_status": "PENDING_LEMMA_VERIFICATION"
     },
     {
       "form_id": "CS-READ-FORM-ven",
@@ -930,7 +1053,10 @@
       "verified_czech_morphology": false,
       "contextual_sense_review": "PENDING",
       "audio_asset_id": null,
-      "editorial_status": "PENDING"
+      "editorial_status": "PENDING",
+      "sense_key": "ven::intro_reader_context",
+      "card_unit": "lexeme_in_context",
+      "morphology_status": "PENDING_LEMMA_VERIFICATION"
     },
     {
       "form_id": "CS-READ-FORM-zítra",
@@ -943,7 +1069,10 @@
       "verified_czech_morphology": false,
       "contextual_sense_review": "PENDING",
       "audio_asset_id": null,
-      "editorial_status": "PENDING"
+      "editorial_status": "PENDING",
+      "sense_key": "zítra::intro_reader_context",
+      "card_unit": "lexeme_in_context",
+      "morphology_status": "PENDING_LEMMA_VERIFICATION"
     },
     {
       "form_id": "CS-READ-FORM-znovu",
@@ -956,9 +1085,29 @@
       "verified_czech_morphology": false,
       "contextual_sense_review": "PENDING",
       "audio_asset_id": null,
-      "editorial_status": "PENDING"
+      "editorial_status": "PENDING",
+      "sense_key": "znovu::intro_reader_context",
+      "card_unit": "lexeme_in_context",
+      "morphology_status": "PENDING_LEMMA_VERIFICATION"
     }
   ],
   "approved": false,
-  "published": false
+  "published": false,
+  "phrase_annotations": [
+    {
+      "phrase_id": "CS-READ-PHR-LOVE-001",
+      "chapter_id": "R-LOVE-01-CH01",
+      "text_cs": "Mám tě rád.",
+      "translation_mn": "Би чамд хайртай. (эрэгтэй хүн ярьж буй хэлбэр)",
+      "speaker_gender_requirement": "male_form_in_text",
+      "contrast_form_cs": "Mám tě ráda.",
+      "contrast_gender": "female",
+      "lookup_behavior": "display_and_reinforce_as_ONE_EXPRESSION; preserve constituent word lookup if tapped",
+      "card_unit": "fixed_phrase",
+      "source_sentence_id": "R-LOVE-01-CH01-S05",
+      "lexical_status": "PENDING_EDITORIAL",
+      "published": false
+    }
+  ],
+  "known_word_rule": "Never equate familiarity with lexeme spelling to mastery of its inflected form or contextual sense. For example stát (cost) ≠ stojí (stands); both have distinct sense_key and learner evidence."
 }
