@@ -88,3 +88,10 @@ PR #30: `feat/a0-outline-source-reconciliation-v1`. New draft files on that bran
 - New files `public/cesky-reading-uiux/reader-lab-ui.mjs`, `reader-lab-ui.css`, mirrored `reader-lab-engine.mjs`, `reader-lab-content.draft.json`; new test `scripts/check-reader-lab-integration.mjs` compares browser assets byte-for-byte to canonical sources and checks PWA integration. Wired into lint and GitHub Actions.
 - **Release constraints:** content and speech not approved; no audio generated or published; no native Czech editorial signoff; no tested iPhone Safari end-to-end; no account sync; no LLM coach. A feature flag is NOT private access control to copied public JSON. Keep Draft PR unmerged.
 - **NEXT ACTION:** E2E browser smoke on branch preview and address defects; CZ/MN editorial review of 25 sentence drafts, check contextual senses; only then plan production reader release. Do NOT touch ElevenLabs/Drive/R2 here.
+
+## 2026-11-23 iPHONE FEEDBACK REPAIR — READER LAB v2
+- PR #32 branch has all six user screenshot fixes: Safari viewport scale + width; three new books in original 5-book library; shared existing Czech reader player for all five books; per-sentence browser Czech TTS fallback with sentence prev/next; lesson outlines as swipeable cards; guided mic play button with current-word-only help, auto STT resume attempt, explicit skip (not graded as correct).
+- Separate ElevenLabs/audio work and private 276 MP3 unchanged. Male-only final narration policy still applies; browser TTS fallback may have unverified voice/gender/accuracy.
+- CI PASS (Test Ahoj Cesko), mobile Chrome browser QA PASS (#45174002347) at code SHA 1f9fe9f82b1b8b78effc0f23c0794df3d2266de6. Chrome mocked voice does not prove actual iPhone Safari TTS/STT.
+- Existing Render Reader Lab service srv-dc21v9qvcj2c73a0g8k0: cache-clear redeploy dep-dc2326cs728c73drolmg requested after branch auto-deploy failed to trigger; check LIVE status before claiming.
+- NEXT: confirm Render deployment LIVE, verify preview link, track any genuine hardware Safari problems; do not merge unreviewed draft story content to main.
