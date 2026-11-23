@@ -386,3 +386,18 @@
 .aho-reader-shell .ar-guided-toggle:disabled{opacity:.45}
 @media(max-width:360px){.aho-reader-shell .ar-guided{gap:3px;padding-inline:5px}.aho-reader-shell .ar-guided-icon{width:23px}.aho-reader-shell .ar-guided-copy strong{font-size:11px}.aho-reader-shell .ar-guided-copy small{font-size:9px}.aho-reader-shell .ar-guided-toggle{width:41px}.aho-reader-shell .ar-guided-toggle.is-active::after{transform:translateX(17px)}}
 @media(prefers-reduced-motion:reduce){.aho-reader-shell .ar-guided-toggle::after{transition:none}}
+
+/* 2026-11 mobile guided reading controls */
+#readerShell.aho-reader-shell{width:100%;max-width:100%;min-width:0;touch-action:pan-y;overscroll-behavior:contain}
+.aho-reader-shell .ar-scroll,.aho-reader-shell .ar-text,.aho-reader-shell .ar-player{min-width:0;max-width:100%;overflow-wrap:anywhere}
+.aho-reader-shell .ar-word{overflow-wrap:normal}
+.aho-reader-shell .ar-player-controls{gap:clamp(14px,6vw,30px)}
+.aho-reader-shell .ar-guided{min-width:0;flex-wrap:wrap;gap:7px}
+.aho-reader-shell .ar-guided-copy{min-width:95px;flex:1 1 100px}
+.aho-reader-shell .ar-guided-copy small{overflow-wrap:anywhere;line-height:1.4}
+.aho-reader-shell .ar-guided-skip{flex:none;min-height:35px;min-width:67px;padding:6px 8px;border-radius:10px;background:#34343a;border:1px solid #a76e3b;color:#ffba7c;font-size:11px;font-weight:700}
+.aho-reader-shell .ar-round.main.is-listening{background:linear-gradient(135deg,#fa9030,#dc542b);color:#16110d;box-shadow:0 0 0 5px #fa91301c,0 0 23px #e56c3a66;animation:reader-mic-pulse 1.8s ease-in-out infinite}
+@keyframes reader-mic-pulse{50%{box-shadow:0 0 0 10px #fa913011,0 0 32px #e56c3a77}}
+@media(prefers-reduced-motion:reduce){.aho-reader-shell .ar-round.main.is-listening{animation:none}}
+.aho-reader-shell .ar-quick-shade{max-width:100%}
+@media(max-width:350px){.aho-reader-shell .ar-guided-icon{display:none}.aho-reader-shell .ar-guided-copy{flex-basis:100px}}

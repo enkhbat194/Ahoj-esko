@@ -1,6 +1,21 @@
 name: Ahoj Czech Reader Browser QA
 
 on:
+  pull_request:
+    branches: [main]
+    paths:
+      - .github/workflows/reader-browser.yml
+      - scripts/check-reader-browser.mjs
+      - scripts/check-first-a0-lessons.mjs
+      - public/cesky-reading-uiux/lesson-lab-ui.mjs
+      - public/cesky-reading-uiux/lesson-lab-ui.css
+      - public/cesky-reading-uiux/lesson-a0-t01-first3.draft.json
+      - curriculum/system-v1/lessons/a0-t01-l01-to-l03.interactive.draft.json
+      - public/cesky-reading-uiux/reader-experience.js
+      - public/cesky-reading-uiux/reader-experience.css
+      - public/cesky-reading-uiux/reader-lab-ui.mjs
+      - public/cesky-reading-uiux/reader-lab-ui.css
+      - public/cesky-reading-uiux/index.html
   push:
     branches: [main]
     paths:
@@ -8,6 +23,8 @@ on:
       - scripts/check-reader-browser.mjs
       - public/cesky-reading-uiux/reader-experience.js
       - public/cesky-reading-uiux/reader-experience.css
+      - public/cesky-reading-uiux/reader-lab-ui.mjs
+      - public/cesky-reading-uiux/reader-lab-ui.css
       - public/cesky-reading-uiux/index.html
   workflow_dispatch:
 

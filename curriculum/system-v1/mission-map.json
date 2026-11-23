@@ -1,0 +1,3028 @@
+{
+  "schema_version": "1.0.0",
+  "status": "ARCHITECTURE_AND_MISSION_MAP_DRAFT_NOT_PUBLISHED",
+  "date": "2026-11-23",
+  "product_goal": "Монгол хэлтэй насанд хүрэгчид Чех хэлээр бодит ажлуудыг бие даан хийх",
+  "target_population": "Mongolian-speaking adult learners",
+  "level_order": [
+    "A0",
+    "A1",
+    "A2",
+    "B1",
+    "B2"
+  ],
+  "cefr_label": {
+    "A0": "Pre-A1 (product-specific A0 label)",
+    "A1": "A1",
+    "A2": "A2",
+    "B1": "B1",
+    "B2": "B2"
+  },
+  "definitions": {
+    "mission": "Сэдэвт суурилсан гадаад нөхцөлийн зорилго; хичээл биш",
+    "skill": "Тусгай ID-тай хэмжигдэх жижиг чадвар; хичээл биш",
+    "session": "Суралцах 12–15 минутын нэг мөчлөг; агуулга, аудио, тест тусдаа бэлдэх ёстой",
+    "exit_task": "Урьд нь давтаагүй бодит нөхцөлд өгөгдсөн зорилго биелснийг шалгах даалгавар",
+    "pathway": "Дараалсан түвшин–mission–skill–session–assessment бүтэц"
+  },
+  "scale_warning": "72 mission is NOT 72 completed lessons. CEFR B2 is NOT guaranteed by completing 72 short sessions; independent calibrated integrated assessment is required. A0 has 140 existing micro-skill outline IDs and provisional 53 session groupings; A1–B2 only mission outcomes, no ready-to-teach lessons.",
+  "learning_principles": {
+    "approach": "CEFR action-oriented, context-first, active retrieval, spaced review, responsive feedback",
+    "max_new_lexical_items_per_12_15_min_session": 6,
+    "typical_new_items_range": [
+      4,
+      6
+    ],
+    "target_patterns_per_session": [
+      1,
+      2
+    ],
+    "target_independent_replies": [
+      2,
+      6
+    ],
+    "session_step_template_id": "task_cycle_v1_15",
+    "practice_layers": [
+      "comprehend",
+      "listen",
+      "chunk",
+      "word",
+      "sentence",
+      "retrieve",
+      "dialogue",
+      "novel_transfer"
+    ],
+    "pronunciation_rule": "chunk→word→sentence; not syllable-by-syllable Czech segmentation",
+    "reading_guidance": "Advance word only on acceptable recognition or explicit assisted pathway. In guided word-reading mode speaker icon plays CURRENT stuck word only; never a global audio toggle.",
+    "spaced_review_algorithm": "adaptive_review_v1",
+    "feedback": "error_correction_during_practice; no fabricated certainty",
+    "safety": "Never rely on speech-to-text transcription alone for Czech phonetic scores or real-world safety instruction."
+  },
+  "gating": {
+    "student_advancement": "requires scored transfer task and review followup; not lesson click-through",
+    "release_pipeline": [
+      "editorial_review",
+      "czech_mongolian_lexical_validation",
+      "phonetic_and_register_review",
+      "schema_validation",
+      "unique_utterance_audio_manifest",
+      "audio_qa",
+      "interaction_qa",
+      "release"
+    ],
+    "publication_policy": "Do not set approved or published until real evidence covers all hard gates.",
+    "pronunciation_review": "Specialized vetted phonetic scoring or human review; STT transcript only confirms an approximate word match.",
+    "safety_override": "Wrong stop/warning command fails safety scenario regardless of aggregate points."
+  },
+  "metrics": {
+    "independent_task_success": "completion without hint",
+    "interaction_repair": "recovery after misunderstanding",
+    "linguistic_appropriacy": "register and context",
+    "comprehensibility": "learner expression meaning clear",
+    "retention": "delayed novel replay"
+  },
+  "source_links": [
+    "https://www.coe.int/en/web/common-european-framework-reference-languages/cefr-companion-volume-and-its-language-versions",
+    "https://www.coe.int/en/web/common-european-framework-reference-languages/cefr-descriptors-search",
+    "https://www.coe.int/en/web/common-european-framework-reference-languages/cefr-in-the-classroom"
+  ],
+  "counts": {
+    "missions": 72,
+    "stage_counts": {
+      "A0": 16,
+      "A1": 16,
+      "A2": 16,
+      "B1": 12,
+      "B2": 12
+    },
+    "existing_a0_micro_skill_ids": 140,
+    "provisional_a0_sessions": 53,
+    "published_missions": 0
+  },
+  "missions": [
+    {
+      "mission_id": "A0-M01",
+      "level": "A0",
+      "mission_order": 1,
+      "title_mn": "Цагаан толгой ба дуудлага",
+      "scenario_mn": "Цагаан толгой ба дуудлага",
+      "can_do_mn": "Танил бус богино чех үгийг уншиж, агуулгатай хэллэгийг ойлгомжтой дуудна.",
+      "final_task_mn": "Танил бус богино чех үгийг уншиж, агуулгатай хэллэгийг ойлгомжтой дуудна.",
+      "language_functions": [
+        "topic_specific_micro_skills"
+      ],
+      "skills_ids": [
+        "A0-T01-L01",
+        "A0-T01-L02",
+        "A0-T01-L03",
+        "A0-T01-L04",
+        "A0-T01-L05",
+        "A0-T01-L06",
+        "A0-T01-L07",
+        "A0-T01-L08"
+      ],
+      "planned_sessions": [
+        "A0-S001",
+        "A0-S002",
+        "A0-S003"
+      ],
+      "prerequisite_mission_id": null,
+      "source_ref": "public/cesky-reading-uiux/a0-curriculum.json#A0-T01",
+      "outline_status": "EXISTING_140_SKILL_SOURCE_UNRECONCILED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "A0-M02",
+      "level": "A0",
+      "mission_order": 2,
+      "title_mn": "Мэндчилгээ ба танилцах",
+      "scenario_mn": "Мэндчилгээ ба танилцах",
+      "can_do_mn": "Танил бус хүнтэй мэндэлж, өөрийгөө болон өөр хүнийг танилцуулж, нэр асууж, талархан сална.",
+      "final_task_mn": "Танил бус хүнтэй мэндэлж, өөрийгөө болон өөр хүнийг танилцуулж, нэр асууж, талархан сална.",
+      "language_functions": [
+        "topic_specific_micro_skills"
+      ],
+      "skills_ids": [
+        "A0-T02-L01",
+        "A0-T02-L02",
+        "A0-T02-L03",
+        "A0-T02-L04",
+        "A0-T02-L05",
+        "A0-T02-L06",
+        "A0-T02-L07",
+        "A0-T02-L08",
+        "A0-T02-L09",
+        "A0-T02-L10",
+        "A0-T02-L11",
+        "A0-T02-L12",
+        "A0-T02-L13",
+        "A0-T02-L14",
+        "A0-T02-L15",
+        "A0-T02-L16",
+        "A0-T02-L17",
+        "A0-T02-L18"
+      ],
+      "planned_sessions": [
+        "A0-S004",
+        "A0-S005",
+        "A0-S006",
+        "A0-S007",
+        "A0-S008",
+        "A0-S009"
+      ],
+      "prerequisite_mission_id": "A0-M01",
+      "source_ref": "public/cesky-reading-uiux/a0-curriculum.json#A0-T02",
+      "outline_status": "EXISTING_140_SKILL_SOURCE_UNRECONCILED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "A0-M03",
+      "level": "A0",
+      "mission_order": 3,
+      "title_mn": "Ойлгоогүйгээ лавлах",
+      "scenario_mn": "Ойлгоогүйгээ лавлах",
+      "can_do_mn": "Хэт хурдан яриа сонсоход зөв давтан хэлүүлэх хүсэлт тавьж чадна.",
+      "final_task_mn": "Хэт хурдан яриа сонсоход зөв давтан хэлүүлэх хүсэлт тавьж чадна.",
+      "language_functions": [
+        "topic_specific_micro_skills"
+      ],
+      "skills_ids": [
+        "A0-T03-L01",
+        "A0-T03-L02",
+        "A0-T03-L03",
+        "A0-T03-L04",
+        "A0-T03-L05",
+        "A0-T03-L06",
+        "A0-T03-L07",
+        "A0-T03-L08"
+      ],
+      "planned_sessions": [
+        "A0-S010",
+        "A0-S011",
+        "A0-S012"
+      ],
+      "prerequisite_mission_id": "A0-M02",
+      "source_ref": "public/cesky-reading-uiux/a0-curriculum.json#A0-T03",
+      "outline_status": "EXISTING_140_SKILL_SOURCE_UNRECONCILED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "A0-M04",
+      "level": "A0",
+      "mission_order": 4,
+      "title_mn": "Тоо ба мөнгө",
+      "scenario_mn": "Тоо ба мөнгө",
+      "can_do_mn": "Үнэ сонсож зөв тоо ойлгоод төлөх хэлбэрээ хэлнэ.",
+      "final_task_mn": "Үнэ сонсож зөв тоо ойлгоод төлөх хэлбэрээ хэлнэ.",
+      "language_functions": [
+        "topic_specific_micro_skills"
+      ],
+      "skills_ids": [
+        "A0-T04-L01",
+        "A0-T04-L02",
+        "A0-T04-L03",
+        "A0-T04-L04",
+        "A0-T04-L05",
+        "A0-T04-L06",
+        "A0-T04-L07",
+        "A0-T04-L08"
+      ],
+      "planned_sessions": [
+        "A0-S013",
+        "A0-S014",
+        "A0-S015"
+      ],
+      "prerequisite_mission_id": "A0-M03",
+      "source_ref": "public/cesky-reading-uiux/a0-curriculum.json#A0-T04",
+      "outline_status": "EXISTING_140_SKILL_SOURCE_UNRECONCILED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "A0-M05",
+      "level": "A0",
+      "mission_order": 5,
+      "title_mn": "Өдөр, цаг, уулзалт",
+      "scenario_mn": "Өдөр, цаг, уулзалт",
+      "can_do_mn": "Хоёр санал болгосон цагаас тохирохыг сонгож товоо батална.",
+      "final_task_mn": "Хоёр санал болгосон цагаас тохирохыг сонгож товоо батална.",
+      "language_functions": [
+        "topic_specific_micro_skills"
+      ],
+      "skills_ids": [
+        "A0-T05-L01",
+        "A0-T05-L02",
+        "A0-T05-L03",
+        "A0-T05-L04",
+        "A0-T05-L05",
+        "A0-T05-L06",
+        "A0-T05-L07",
+        "A0-T05-L08"
+      ],
+      "planned_sessions": [
+        "A0-S016",
+        "A0-S017",
+        "A0-S018"
+      ],
+      "prerequisite_mission_id": "A0-M04",
+      "source_ref": "public/cesky-reading-uiux/a0-curriculum.json#A0-T05",
+      "outline_status": "EXISTING_140_SKILL_SOURCE_UNRECONCILED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "A0-M06",
+      "level": "A0",
+      "mission_order": 6,
+      "title_mn": "Гэр бүл",
+      "scenario_mn": "Гэр бүл",
+      "can_do_mn": "Гэр бүлийн 3 хүнийг танилцуулж, нэг асуултад хариулна.",
+      "final_task_mn": "Гэр бүлийн 3 хүнийг танилцуулж, нэг асуултад хариулна.",
+      "language_functions": [
+        "topic_specific_micro_skills"
+      ],
+      "skills_ids": [
+        "A0-T06-L01",
+        "A0-T06-L02",
+        "A0-T06-L03",
+        "A0-T06-L04",
+        "A0-T06-L05",
+        "A0-T06-L06",
+        "A0-T06-L07",
+        "A0-T06-L08"
+      ],
+      "planned_sessions": [
+        "A0-S019",
+        "A0-S020",
+        "A0-S021"
+      ],
+      "prerequisite_mission_id": "A0-M05",
+      "source_ref": "public/cesky-reading-uiux/a0-curriculum.json#A0-T06",
+      "outline_status": "EXISTING_140_SKILL_SOURCE_UNRECONCILED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "A0-M07",
+      "level": "A0",
+      "mission_order": 7,
+      "title_mn": "Хоол ба дэлгүүр",
+      "scenario_mn": "Хоол ба дэлгүүр",
+      "can_do_mn": "Кафед өөрийн сонгосон зүйлээ захиалж, үнийг ойлгоно.",
+      "final_task_mn": "Кафед өөрийн сонгосон зүйлээ захиалж, үнийг ойлгоно.",
+      "language_functions": [
+        "topic_specific_micro_skills"
+      ],
+      "skills_ids": [
+        "A0-T07-L01",
+        "A0-T07-L02",
+        "A0-T07-L03",
+        "A0-T07-L04",
+        "A0-T07-L05",
+        "A0-T07-L06",
+        "A0-T07-L07",
+        "A0-T07-L08",
+        "A0-T07-L09",
+        "A0-T07-L10"
+      ],
+      "planned_sessions": [
+        "A0-S022",
+        "A0-S023",
+        "A0-S024",
+        "A0-S025"
+      ],
+      "prerequisite_mission_id": "A0-M06",
+      "source_ref": "public/cesky-reading-uiux/a0-curriculum.json#A0-T07",
+      "outline_status": "EXISTING_140_SKILL_SOURCE_UNRECONCILED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "A0-M08",
+      "level": "A0",
+      "mission_order": 8,
+      "title_mn": "Тээвэр ба зам",
+      "scenario_mn": "Тээвэр ба зам",
+      "can_do_mn": "Буудал асууж, хоёр чиглэлийн заавар ойлгож, буух газраа батална.",
+      "final_task_mn": "Буудал асууж, хоёр чиглэлийн заавар ойлгож, буух газраа батална.",
+      "language_functions": [
+        "topic_specific_micro_skills"
+      ],
+      "skills_ids": [
+        "A0-T08-L01",
+        "A0-T08-L02",
+        "A0-T08-L03",
+        "A0-T08-L04",
+        "A0-T08-L05",
+        "A0-T08-L06",
+        "A0-T08-L07",
+        "A0-T08-L08",
+        "A0-T08-L09"
+      ],
+      "planned_sessions": [
+        "A0-S026",
+        "A0-S027",
+        "A0-S028"
+      ],
+      "prerequisite_mission_id": "A0-M07",
+      "source_ref": "public/cesky-reading-uiux/a0-curriculum.json#A0-T08",
+      "outline_status": "EXISTING_140_SKILL_SOURCE_UNRECONCILED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "A0-M09",
+      "level": "A0",
+      "mission_order": 9,
+      "title_mn": "Ажил, багаж, аюулгүй ажиллагаа",
+      "scenario_mn": "Ажил, багаж, аюулгүй ажиллагаа",
+      "can_do_mn": "Ажил дээр аюултай болон ойлгомжгүй зааврыг баталгаажуулж, тусламж хүснэ.",
+      "final_task_mn": "Ажил дээр аюултай болон ойлгомжгүй зааврыг баталгаажуулж, тусламж хүснэ.",
+      "language_functions": [
+        "topic_specific_micro_skills"
+      ],
+      "skills_ids": [
+        "A0-T09-L01",
+        "A0-T09-L02",
+        "A0-T09-L03",
+        "A0-T09-L04",
+        "A0-T09-L05",
+        "A0-T09-L06",
+        "A0-T09-L07",
+        "A0-T09-L08",
+        "A0-T09-L09",
+        "A0-T09-L10"
+      ],
+      "planned_sessions": [
+        "A0-S029",
+        "A0-S030",
+        "A0-S031",
+        "A0-S032"
+      ],
+      "prerequisite_mission_id": "A0-M08",
+      "source_ref": "public/cesky-reading-uiux/a0-curriculum.json#A0-T09",
+      "outline_status": "EXISTING_140_SKILL_SOURCE_UNRECONCILED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "A0-M10",
+      "level": "A0",
+      "mission_order": 10,
+      "title_mn": "Бие ба эрүүл мэнд",
+      "scenario_mn": "Бие ба эрүүл мэнд",
+      "can_do_mn": "Өвдөлтөө энгийнээр хэлж, тусламж хүснэ.",
+      "final_task_mn": "Өвдөлтөө энгийнээр хэлж, тусламж хүснэ.",
+      "language_functions": [
+        "topic_specific_micro_skills"
+      ],
+      "skills_ids": [
+        "A0-T10-L01",
+        "A0-T10-L02",
+        "A0-T10-L03",
+        "A0-T10-L04",
+        "A0-T10-L05",
+        "A0-T10-L06",
+        "A0-T10-L07",
+        "A0-T10-L08",
+        "A0-T10-L09",
+        "A0-T10-L10"
+      ],
+      "planned_sessions": [
+        "A0-S033",
+        "A0-S034",
+        "A0-S035",
+        "A0-S036"
+      ],
+      "prerequisite_mission_id": "A0-M09",
+      "source_ref": "public/cesky-reading-uiux/a0-curriculum.json#A0-T10",
+      "outline_status": "EXISTING_140_SKILL_SOURCE_UNRECONCILED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "A0-M11",
+      "level": "A0",
+      "mission_order": 11,
+      "title_mn": "Гэр ба орон байр",
+      "scenario_mn": "Гэр ба орон байр",
+      "can_do_mn": "Шинэ байранд өрөө асууж, энгийн гэмтлийг мэдээлнэ.",
+      "final_task_mn": "Шинэ байранд өрөө асууж, энгийн гэмтлийг мэдээлнэ.",
+      "language_functions": [
+        "topic_specific_micro_skills"
+      ],
+      "skills_ids": [
+        "A0-T11-L01",
+        "A0-T11-L02",
+        "A0-T11-L03",
+        "A0-T11-L04",
+        "A0-T11-L05",
+        "A0-T11-L06",
+        "A0-T11-L07",
+        "A0-T11-L08"
+      ],
+      "planned_sessions": [
+        "A0-S037",
+        "A0-S038",
+        "A0-S039"
+      ],
+      "prerequisite_mission_id": "A0-M10",
+      "source_ref": "public/cesky-reading-uiux/a0-curriculum.json#A0-T11",
+      "outline_status": "EXISTING_140_SKILL_SOURCE_UNRECONCILED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "A0-M12",
+      "level": "A0",
+      "mission_order": 12,
+      "title_mn": "Өнгө ба хэлбэр",
+      "scenario_mn": "Өнгө ба хэлбэр",
+      "can_do_mn": "Нэг төстэй хоёр зүйлээс өнгө, хэмжээгээр нь зөвийг сонгоно.",
+      "final_task_mn": "Нэг төстэй хоёр зүйлээс өнгө, хэмжээгээр нь зөвийг сонгоно.",
+      "language_functions": [
+        "topic_specific_micro_skills"
+      ],
+      "skills_ids": [
+        "A0-T12-L01",
+        "A0-T12-L02",
+        "A0-T12-L03",
+        "A0-T12-L04",
+        "A0-T12-L05",
+        "A0-T12-L06",
+        "A0-T12-L07"
+      ],
+      "planned_sessions": [
+        "A0-S040",
+        "A0-S041",
+        "A0-S042"
+      ],
+      "prerequisite_mission_id": "A0-M11",
+      "source_ref": "public/cesky-reading-uiux/a0-curriculum.json#A0-T12",
+      "outline_status": "EXISTING_140_SKILL_SOURCE_UNRECONCILED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "A0-M13",
+      "level": "A0",
+      "mission_order": 13,
+      "title_mn": "Хувцас",
+      "scenario_mn": "Хувцас",
+      "can_do_mn": "Хэмжээ тохирохгүй хувцсыг сольж, зөвийг сонгоно.",
+      "final_task_mn": "Хэмжээ тохирохгүй хувцсыг сольж, зөвийг сонгоно.",
+      "language_functions": [
+        "topic_specific_micro_skills"
+      ],
+      "skills_ids": [
+        "A0-T13-L01",
+        "A0-T13-L02",
+        "A0-T13-L03",
+        "A0-T13-L04",
+        "A0-T13-L05",
+        "A0-T13-L06",
+        "A0-T13-L07",
+        "A0-T13-L08"
+      ],
+      "planned_sessions": [
+        "A0-S043",
+        "A0-S044",
+        "A0-S045"
+      ],
+      "prerequisite_mission_id": "A0-M12",
+      "source_ref": "public/cesky-reading-uiux/a0-curriculum.json#A0-T13",
+      "outline_status": "EXISTING_140_SKILL_SOURCE_UNRECONCILED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "A0-M14",
+      "level": "A0",
+      "mission_order": 14,
+      "title_mn": "Цаг агаар",
+      "scenario_mn": "Цаг агаар",
+      "can_do_mn": "Өнөөдөр, маргаашийн цаг агаарыг 2–3 хэллэгээр хэлнэ.",
+      "final_task_mn": "Өнөөдөр, маргаашийн цаг агаарыг 2–3 хэллэгээр хэлнэ.",
+      "language_functions": [
+        "topic_specific_micro_skills"
+      ],
+      "skills_ids": [
+        "A0-T14-L01",
+        "A0-T14-L02",
+        "A0-T14-L03",
+        "A0-T14-L04",
+        "A0-T14-L05",
+        "A0-T14-L06",
+        "A0-T14-L07"
+      ],
+      "planned_sessions": [
+        "A0-S046",
+        "A0-S047",
+        "A0-S048"
+      ],
+      "prerequisite_mission_id": "A0-M13",
+      "source_ref": "public/cesky-reading-uiux/a0-curriculum.json#A0-T14",
+      "outline_status": "EXISTING_140_SKILL_SOURCE_UNRECONCILED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "A0-M15",
+      "level": "A0",
+      "mission_order": 15,
+      "title_mn": "Сургууль ба суралцах орчин",
+      "scenario_mn": "Сургууль ба суралцах орчин",
+      "can_do_mn": "Хоёр заавар биелүүлж, нэгийг давтуулж хэлүүлнэ.",
+      "final_task_mn": "Хоёр заавар биелүүлж, нэгийг давтуулж хэлүүлнэ.",
+      "language_functions": [
+        "topic_specific_micro_skills"
+      ],
+      "skills_ids": [
+        "A0-T15-L01",
+        "A0-T15-L02",
+        "A0-T15-L03",
+        "A0-T15-L04",
+        "A0-T15-L05",
+        "A0-T15-L06",
+        "A0-T15-L07"
+      ],
+      "planned_sessions": [
+        "A0-S049",
+        "A0-S050",
+        "A0-S051"
+      ],
+      "prerequisite_mission_id": "A0-M14",
+      "source_ref": "public/cesky-reading-uiux/a0-curriculum.json#A0-T15",
+      "outline_status": "EXISTING_140_SKILL_SOURCE_UNRECONCILED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "A0-M16",
+      "level": "A0",
+      "mission_order": 16,
+      "title_mn": "Амьтан",
+      "scenario_mn": "Амьтан",
+      "can_do_mn": "Өмнөх To je, өнгө, хэмжээний хэллэгийг шинэ нөхцөлд хэрэглэнэ.",
+      "final_task_mn": "Өмнөх To je, өнгө, хэмжээний хэллэгийг шинэ нөхцөлд хэрэглэнэ.",
+      "language_functions": [
+        "topic_specific_micro_skills"
+      ],
+      "skills_ids": [
+        "A0-T16-L01",
+        "A0-T16-L02",
+        "A0-T16-L03",
+        "A0-T16-L04",
+        "A0-T16-L05",
+        "A0-T16-L06"
+      ],
+      "planned_sessions": [
+        "A0-S052",
+        "A0-S053"
+      ],
+      "prerequisite_mission_id": "A0-M15",
+      "source_ref": "public/cesky-reading-uiux/a0-curriculum.json#A0-T16",
+      "outline_status": "EXISTING_140_SKILL_SOURCE_UNRECONCILED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "A1-M01",
+      "level": "A1",
+      "mission_order": 1,
+      "title_mn": "Онгоцны буудалд мэдээлэл авах",
+      "scenario_mn": "нислэгээс бууж ирэх",
+      "can_do_mn": "Ирэх танхим, буудлын гарц, очих тээврийг тодорхой асууж ойлгоно.",
+      "final_task_mn": "Ирэх танхим, буудлын гарц, очих тээврийг тодорхой асууж ойлгоно.",
+      "language_functions": [
+        "ask_location",
+        "ask_transport",
+        "confirm"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "A0-M16",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "A1-M02",
+      "level": "A1",
+      "mission_order": 2,
+      "title_mn": "Хотын тээврээр шилжиж зорчих",
+      "scenario_mn": "автобус/трамвай",
+      "can_do_mn": "Маршрут, шилжих буудал, тасалбарын талаар асууж энгийн зорчилт хийнэ.",
+      "final_task_mn": "Маршрут, шилжих буудал, тасалбарын талаар асууж энгийн зорчилт хийнэ.",
+      "language_functions": [
+        "ask_route",
+        "ask_ticket",
+        "confirm_stop"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "A1-M01",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "A1-M03",
+      "level": "A1",
+      "mission_order": 3,
+      "title_mn": "Шинэ байранд орох",
+      "scenario_mn": "түрээсийн байр",
+      "can_do_mn": "Байрны түлхүүр, өрөө, хаяг, энгийн дүрмийг асууж ойлгоно.",
+      "final_task_mn": "Байрны түлхүүр, өрөө, хаяг, энгийн дүрмийг асууж ойлгоно.",
+      "language_functions": [
+        "introduce_housing",
+        "ask_rules",
+        "locate"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "A1-M02",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "A1-M04",
+      "level": "A1",
+      "mission_order": 4,
+      "title_mn": "Кафе, дэлгүүрт захиалах",
+      "scenario_mn": "кафе/хүнсний дэлгүүр",
+      "can_do_mn": "Энгийн захиалга хийж, тоо хэмжээ, үнийг давхар батална.",
+      "final_task_mn": "Энгийн захиалга хийж, тоо хэмжээ, үнийг давхар батална.",
+      "language_functions": [
+        "order",
+        "quantify",
+        "pay"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "A1-M03",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "A1-M05",
+      "level": "A1",
+      "mission_order": 5,
+      "title_mn": "Цаг товлох, өөрчлөх",
+      "scenario_mn": "уулзалт/үзлэг",
+      "can_do_mn": "Цаг асууж өөр боломжит цаг санал болгон товоо батална.",
+      "final_task_mn": "Цаг асууж өөр боломжит цаг санал болгон товоо батална.",
+      "language_functions": [
+        "propose",
+        "accept",
+        "reschedule"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "A1-M04",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "A1-M06",
+      "level": "A1",
+      "mission_order": 6,
+      "title_mn": "Ажлын ээлжээ ойлгож лавлах",
+      "scenario_mn": "ажлын анхны өдөр",
+      "can_do_mn": "Ажлын цаг, хэнтэй ажиллах, даалгаврын дарааллыг лавлана.",
+      "final_task_mn": "Ажлын цаг, хэнтэй ажиллах, даалгаврын дарааллыг лавлана.",
+      "language_functions": [
+        "ask_shift",
+        "clarify_task",
+        "confirm"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "A1-M05",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "A1-M07",
+      "level": "A1",
+      "mission_order": 7,
+      "title_mn": "Эмчид очих цаг авах",
+      "scenario_mn": "эмнэлэг/утас",
+      "can_do_mn": "Энгийн шинж тэмдэг хэлж цаг асууна; яаралтай тусламжийг андуурахгүй.",
+      "final_task_mn": "Энгийн шинж тэмдэг хэлж цаг асууна; яаралтай тусламжийг андуурахгүй.",
+      "language_functions": [
+        "describe_symptom",
+        "ask_appointment",
+        "confirm"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "A1-M06",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "A1-M08",
+      "level": "A1",
+      "mission_order": 8,
+      "title_mn": "Гэр бүл, танилын тухай ярих",
+      "scenario_mn": "танилцах",
+      "can_do_mn": "Ойрын хүмүүсийн хэн болох, хаана ажилладгийг богино өгүүлбэрээр хэлнэ.",
+      "final_task_mn": "Ойрын хүмүүсийн хэн болох, хаана ажилладгийг богино өгүүлбэрээр хэлнэ.",
+      "language_functions": [
+        "introduce_others",
+        "describe_relation",
+        "ask_back"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "A1-M07",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "A1-M09",
+      "level": "A1",
+      "mission_order": 9,
+      "title_mn": "Бараа, размер, буцаалтыг асуух",
+      "scenario_mn": "хувцасны дэлгүүр",
+      "can_do_mn": "Барааны хэмжээ, үнэ, солих боломжийг эелдгээр лавлана.",
+      "final_task_mn": "Барааны хэмжээ, үнэ, солих боломжийг эелдгээр лавлана.",
+      "language_functions": [
+        "ask_size",
+        "compare",
+        "ask_return"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "A1-M08",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "A1-M10",
+      "level": "A1",
+      "mission_order": 10,
+      "title_mn": "Шуудан, байгууллагад мэдээлэл авах",
+      "scenario_mn": "шуудан/үйлчилгээ",
+      "can_do_mn": "Энгийн маягт, цагийн хуваарь, хаашаа очихыг асууна.",
+      "final_task_mn": "Энгийн маягт, цагийн хуваарь, хаашаа очихыг асууна.",
+      "language_functions": [
+        "ask_form",
+        "ask_opening_time",
+        "confirm"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "A1-M09",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "A1-M11",
+      "level": "A1",
+      "mission_order": 11,
+      "title_mn": "Утсаар товч ярих",
+      "scenario_mn": "утас",
+      "can_do_mn": "Өөрийгөө танилцуулж, хэнтэй ярихыг асууж, ойлгоогүйгээ давтуулна.",
+      "final_task_mn": "Өөрийгөө танилцуулж, хэнтэй ярихыг асууж, ойлгоогүйгээ давтуулна.",
+      "language_functions": [
+        "introduce_on_phone",
+        "request_person",
+        "repair"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "A1-M10",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "A1-M12",
+      "level": "A1",
+      "mission_order": 12,
+      "title_mn": "Аялал, хоноглох газар асуух",
+      "scenario_mn": "аялал",
+      "can_do_mn": "Очих газар, нэг шөнийн байр, төлбөрийн мэдээлэл асууна.",
+      "final_task_mn": "Очих газар, нэг шөнийн байр, төлбөрийн мэдээлэл асууна.",
+      "language_functions": [
+        "ask_accommodation",
+        "ask_price",
+        "confirm"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "A1-M11",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "A1-M13",
+      "level": "A1",
+      "mission_order": 13,
+      "title_mn": "Өнөөдөр, маргаашийн төлөвлөгөө",
+      "scenario_mn": "өдөр тутмын амьдрал",
+      "can_do_mn": "Цаг агаар, хуваарьтай холбон энгийн төлөвлөгөө хэлнэ.",
+      "final_task_mn": "Цаг агаар, хуваарьтай холбон энгийн төлөвлөгөө хэлнэ.",
+      "language_functions": [
+        "state_plan",
+        "state_weather",
+        "ask_plan"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "A1-M12",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "A1-M14",
+      "level": "A1",
+      "mission_order": 14,
+      "title_mn": "Тэмдэг, хялбар маягт унших",
+      "scenario_mn": "нийтийн орчин",
+      "can_do_mn": "Түгээмэл тэмдэг, энгийн албан мэдээллийн гол утгыг танина.",
+      "final_task_mn": "Түгээмэл тэмдэг, энгийн албан мэдээллийн гол утгыг танина.",
+      "language_functions": [
+        "read_sign",
+        "identify_field",
+        "follow_instruction"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "A1-M13",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "A1-M15",
+      "level": "A1",
+      "mission_order": 15,
+      "title_mn": "Хамт ажиллагчаас тусламж хүсэх",
+      "scenario_mn": "ажлын байр",
+      "can_do_mn": "Хэрэгсэл, энгийн заавар, аюулгүй ажиллагааны сэрэмжлүүлгийг зөв ялган лавлана.",
+      "final_task_mn": "Хэрэгсэл, энгийн заавар, аюулгүй ажиллагааны сэрэмжлүүлгийг зөв ялган лавлана.",
+      "language_functions": [
+        "ask_tool",
+        "clarify_instruction",
+        "respond_warning"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "A1-M14",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "A1-M16",
+      "level": "A1",
+      "mission_order": 16,
+      "title_mn": "Хотод бие даасан нэг өдөр",
+      "scenario_mn": "өдөржин үргэлжлэх даалгавар",
+      "can_do_mn": "Өглөөний зам, худалдан авалт, уулзалт, тусламж хүсэхийг нэг сценд холбоно.",
+      "final_task_mn": "Өглөөний зам, худалдан авалт, уулзалт, тусламж хүсэхийг нэг сценд холбоно.",
+      "language_functions": [
+        "navigate",
+        "transact",
+        "repair"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "A1-M15",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "A2-M01",
+      "level": "A2",
+      "mission_order": 1,
+      "title_mn": "Өнгөрсөн амралтын өдрөө тайлбарлах",
+      "scenario_mn": "найзтай ярилцах",
+      "can_do_mn": "Өнгөрсөн үйл явдлын дарааллыг энгийн боловч холбоотойгоор хэлнэ.",
+      "final_task_mn": "Өнгөрсөн үйл явдлын дарааллыг энгийн боловч холбоотойгоор хэлнэ.",
+      "language_functions": [
+        "narrate_past",
+        "sequence"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "A1-M16",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "A2-M02",
+      "level": "A2",
+      "mission_order": 2,
+      "title_mn": "Ирээдүйн төлөвлөгөөг учирлах",
+      "scenario_mn": "чөлөөт цаг",
+      "can_do_mn": "Яагаад тэгэх гэж байгаагаа богино тайлбарлаж өөр сонголт ярилцана.",
+      "final_task_mn": "Яагаад тэгэх гэж байгаагаа богино тайлбарлаж өөр сонголт ярилцана.",
+      "language_functions": [
+        "plan",
+        "give_reason",
+        "compare"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "A2-M01",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "A2-M03",
+      "level": "A2",
+      "mission_order": 3,
+      "title_mn": "Байрны эвдрэл мэдээлэх",
+      "scenario_mn": "түрээсийн байр",
+      "can_do_mn": "Юу эвдэрсэн, хэзээ эхэлсэн, ямар тусламж хэрэгтэйг тодорхой тайлбарлана.",
+      "final_task_mn": "Юу эвдэрсэн, хэзээ эхэлсэн, ямар тусламж хэрэгтэйг тодорхой тайлбарлана.",
+      "language_functions": [
+        "report_problem",
+        "describe_effect",
+        "request_repair"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "A2-M02",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "A2-M04",
+      "level": "A2",
+      "mission_order": 4,
+      "title_mn": "Ажлын заавар дамжуулах",
+      "scenario_mn": "ээлж хүлээлцэх",
+      "can_do_mn": "Хялбар ажлын дараалал, хийсэн/хийх зүйлийг дараагийн хүнд тайлбарлана.",
+      "final_task_mn": "Хялбар ажлын дараалал, хийсэн/хийх зүйлийг дараагийн хүнд тайлбарлана.",
+      "language_functions": [
+        "sequence",
+        "handover",
+        "confirm"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "A2-M03",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "A2-M05",
+      "level": "A2",
+      "mission_order": 5,
+      "title_mn": "Аюул ба алдааг мэдээлэх",
+      "scenario_mn": "ажлын байр",
+      "can_do_mn": "Аюулын шинж, тоног төхөөрөмжийн асуудлыг ойлгомжтой мэдээлж зогсоох шаардлага илэрхийлнэ.",
+      "final_task_mn": "Аюулын шинж, тоног төхөөрөмжийн асуудлыг ойлгомжтой мэдээлж зогсоох шаардлага илэрхийлнэ.",
+      "language_functions": [
+        "report_hazard",
+        "stop_work",
+        "seek_help"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "A2-M04",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "A2-M06",
+      "level": "A2",
+      "mission_order": 6,
+      "title_mn": "Эрүүл мэндийн үзлэгт ярилцах",
+      "scenario_mn": "эмнэлэг",
+      "can_do_mn": "Өвдөлтийн хугацаа, давтамж, байрлалыг тайлбарлаж асуултад хариулна.",
+      "final_task_mn": "Өвдөлтийн хугацаа, давтамж, байрлалыг тайлбарлаж асуултад хариулна.",
+      "language_functions": [
+        "describe_duration",
+        "answer_questions",
+        "request_repeat"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "A2-M05",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "A2-M07",
+      "level": "A2",
+      "mission_order": 7,
+      "title_mn": "Замын саатлыг зохицуулах",
+      "scenario_mn": "тээвэр",
+      "can_do_mn": "Хоцролт, шилжих тээвэр, буруу тасалбарын асуудлыг тайлбарлан тусламж авна.",
+      "final_task_mn": "Хоцролт, шилжих тээвэр, буруу тасалбарын асуудлыг тайлбарлан тусламж авна.",
+      "language_functions": [
+        "explain_delay",
+        "request_option",
+        "confirm"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "A2-M06",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "A2-M08",
+      "level": "A2",
+      "mission_order": 8,
+      "title_mn": "Үйлчилгээ, үнэ харьцуулах",
+      "scenario_mn": "худалдан авалт",
+      "can_do_mn": "Хоёр үйлчилгээний үнэ, нөхцөлийг харьцуулж яагаад сонгосноо хэлнэ.",
+      "final_task_mn": "Хоёр үйлчилгээний үнэ, нөхцөлийг харьцуулж яагаад сонгосноо хэлнэ.",
+      "language_functions": [
+        "compare",
+        "justify_choice",
+        "clarify_terms"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "A2-M07",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "A2-M09",
+      "level": "A2",
+      "mission_order": 9,
+      "title_mn": "Өөр хүнд зам заах",
+      "scenario_mn": "гудамж",
+      "can_do_mn": "Тодорхой байршил хүртэлх 3–5 алхмыг ойлгомжтой тайлбарлана.",
+      "final_task_mn": "Тодорхой байршил хүртэлх 3–5 алхмыг ойлгомжтой тайлбарлана.",
+      "language_functions": [
+        "describe_route",
+        "sequence",
+        "check_understanding"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "A2-M08",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "A2-M10",
+      "level": "A2",
+      "mission_order": 10,
+      "title_mn": "Болсон явдлыг дараалж ярих",
+      "scenario_mn": "ажил/гэр",
+      "can_do_mn": "Өдөр тутмын нэг явдлыг эхлэл, асуудал, үр дүнгээр нь ярьж өгнө.",
+      "final_task_mn": "Өдөр тутмын нэг явдлыг эхлэл, асуудал, үр дүнгээр нь ярьж өгнө.",
+      "language_functions": [
+        "narrate",
+        "sequence",
+        "resolve"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "A2-M09",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "A2-M11",
+      "level": "A2",
+      "mission_order": 11,
+      "title_mn": "Суралцах арга, дадал хэлэлцэх",
+      "scenario_mn": "суралцах",
+      "can_do_mn": "Өөрийн давуу тал, хүндрэл, давтах төлөвлөгөөг товч тайлбарлана.",
+      "final_task_mn": "Өөрийн давуу тал, хүндрэл, давтах төлөвлөгөөг товч тайлбарлана.",
+      "language_functions": [
+        "describe_habit",
+        "give_preference",
+        "set_goal"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "A2-M10",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "A2-M12",
+      "level": "A2",
+      "mission_order": 12,
+      "title_mn": "Ойлголтын зөрүүг засах",
+      "scenario_mn": "үйлчилгээ/ажил",
+      "can_do_mn": "Ойлгосон мэдээллээ өөрийн үгээр баталж, алдаа гарвал засаж ярилцана.",
+      "final_task_mn": "Ойлгосон мэдээллээ өөрийн үгээр баталж, алдаа гарвал засаж ярилцана.",
+      "language_functions": [
+        "restate",
+        "correct",
+        "confirm"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "A2-M11",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "A2-M13",
+      "level": "A2",
+      "mission_order": 13,
+      "title_mn": "Ажил дээр энгийн тохиролцоо хийх",
+      "scenario_mn": "ажлын баг",
+      "can_do_mn": "Хугацаа, хэрэгсэл, туслалцааны боломжит хоёр хувилбар санал болгоно.",
+      "final_task_mn": "Хугацаа, хэрэгсэл, туслалцааны боломжит хоёр хувилбар санал болгоно.",
+      "language_functions": [
+        "negotiate_simple",
+        "explain_constraint"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "A2-M12",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "A2-M14",
+      "level": "A2",
+      "mission_order": 14,
+      "title_mn": "Имэйл, мессеж солилцох",
+      "scenario_mn": "цахим харилцаа",
+      "can_do_mn": "Богино хүсэлт, тайлбар, хариу бичиж эелдэг өнгө хадгална.",
+      "final_task_mn": "Богино хүсэлт, тайлбар, хариу бичиж эелдэг өнгө хадгална.",
+      "language_functions": [
+        "write_request",
+        "reply",
+        "confirm"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "A2-M13",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "A2-M15",
+      "level": "A2",
+      "mission_order": 15,
+      "title_mn": "Шинэ газарт дасан зохицох",
+      "scenario_mn": "шинэ хотод амьдрах",
+      "can_do_mn": "Байр, үйлчилгээ, ажлын зохион байгуулалтын хүндрэлээ тайлбарлана.",
+      "final_task_mn": "Байр, үйлчилгээ, ажлын зохион байгуулалтын хүндрэлээ тайлбарлана.",
+      "language_functions": [
+        "describe_issue",
+        "ask_advice",
+        "respond"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "A2-M14",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "A2-M16",
+      "level": "A2",
+      "mission_order": 16,
+      "title_mn": "Олон алхамт бодит зорилт",
+      "scenario_mn": "нэг өдрийн хэрэг",
+      "can_do_mn": "Байр/ажил/үйлчилгээний холбоотой асуудлыг хэдэн харилцаагаар шийднэ.",
+      "final_task_mn": "Байр/ажил/үйлчилгээний холбоотой асуудлыг хэдэн харилцаагаар шийднэ.",
+      "language_functions": [
+        "multi_stage_plan",
+        "execute",
+        "repair"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "A2-M15",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "B1-M01",
+      "level": "B1",
+      "mission_order": 1,
+      "title_mn": "Туршлагаа дэлгэрэнгүй хүүрнэх",
+      "scenario_mn": "найз, хамтрагчтай яриа",
+      "can_do_mn": "Өнгөрсөн үйл явдлыг дарааллаар тайлбарлаж мэдрэмж, үр дүн нэмнэ.",
+      "final_task_mn": "Өнгөрсөн үйл явдлыг дарааллаар тайлбарлаж мэдрэмж, үр дүн нэмнэ.",
+      "language_functions": [
+        "narrate_connected",
+        "describe_result"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "A2-M16",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "B1-M02",
+      "level": "B1",
+      "mission_order": 2,
+      "title_mn": "Үзэл бодлоо үндэслэх",
+      "scenario_mn": "хэлэлцүүлэг",
+      "can_do_mn": "Өдөр тутмын маргаантай бус сэдвээр байр суурь, хоёр үндэслэл хэлнэ.",
+      "final_task_mn": "Өдөр тутмын маргаантай бус сэдвээр байр суурь, хоёр үндэслэл хэлнэ.",
+      "language_functions": [
+        "express_opinion",
+        "justify",
+        "respond"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "B1-M01",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "B1-M03",
+      "level": "B1",
+      "mission_order": 3,
+      "title_mn": "Ажлын осолд дөхсөн явдлыг тайлбарлах",
+      "scenario_mn": "ажлын аюулгүй байдал",
+      "can_do_mn": "Ямар нөхцөл, алдаа, авах арга хэмжээ байсныг холбоотойгоор мэдээлнэ.",
+      "final_task_mn": "Ямар нөхцөл, алдаа, авах арга хэмжээ байсныг холбоотойгоор мэдээлнэ.",
+      "language_functions": [
+        "incident_report",
+        "sequence",
+        "recommend"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "B1-M02",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "B1-M04",
+      "level": "B1",
+      "mission_order": 4,
+      "title_mn": "Төлөвлөгөө өөрчлөгдсөнийг ярилцах",
+      "scenario_mn": "ажил/гэр",
+      "can_do_mn": "Төлөвлөсөн ба бодит нөхцөлийг харьцуулан шинэ хугацаа санал болгоно.",
+      "final_task_mn": "Төлөвлөсөн ба бодит нөхцөлийг харьцуулан шинэ хугацаа санал болгоно.",
+      "language_functions": [
+        "explain_change",
+        "propose_solution"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "B1-M03",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "B1-M05",
+      "level": "B1",
+      "mission_order": 5,
+      "title_mn": "Үйлчилгээний маргааныг шийдэх",
+      "scenario_mn": "үйлчилгээ/худалдан авалт",
+      "can_do_mn": "Асуудлаа тайван тайлбарлаж, боломжит шийдлийг тохиролцоно.",
+      "final_task_mn": "Асуудлаа тайван тайлбарлаж, боломжит шийдлийг тохиролцоно.",
+      "language_functions": [
+        "complain_politely",
+        "negotiate",
+        "confirm"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "B1-M04",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "B1-M06",
+      "level": "B1",
+      "mission_order": 6,
+      "title_mn": "Багийн хурлаар мэдээлэл өгөх",
+      "scenario_mn": "ажлын хурал",
+      "can_do_mn": "Ажлын явц, саад, дараагийн үйлдлийг товч цэгцтэй тайлбарлана.",
+      "final_task_mn": "Ажлын явц, саад, дараагийн үйлдлийг товч цэгцтэй тайлбарлана.",
+      "language_functions": [
+        "report_progress",
+        "ask_clarification"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "B1-M05",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "B1-M07",
+      "level": "B1",
+      "mission_order": 7,
+      "title_mn": "Эмчийн зөвлөмжийг ойлгож лавлах",
+      "scenario_mn": "эмнэлэг",
+      "can_do_mn": "Оношилгооны бус энгийн зааврыг өөрийн үгээр баталж тодруулна.",
+      "final_task_mn": "Оношилгооны бус энгийн зааврыг өөрийн үгээр баталж тодруулна.",
+      "language_functions": [
+        "summarize_advice",
+        "clarify",
+        "confirm"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "B1-M06",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "B1-M08",
+      "level": "B1",
+      "mission_order": 8,
+      "title_mn": "Мэдээ, нийтлэлийн гол утгыг тайлбарлах",
+      "scenario_mn": "мэдээлэл",
+      "can_do_mn": "Өөрт танил сэдвийн мэдээнээс гол санаа, хоёр дэмжих мэдээлэл гаргана.",
+      "final_task_mn": "Өөрт танил сэдвийн мэдээнээс гол санаа, хоёр дэмжих мэдээлэл гаргана.",
+      "language_functions": [
+        "identify_main_point",
+        "paraphrase"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "B1-M07",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "B1-M09",
+      "level": "B1",
+      "mission_order": 9,
+      "title_mn": "Холбоотой имэйл бичих",
+      "scenario_mn": "имэйл",
+      "can_do_mn": "Ажлын эсвэл албан хэрэгцээний хүсэлт, тайлбар, хариуг бүтэцтэй бичнэ.",
+      "final_task_mn": "Ажлын эсвэл албан хэрэгцээний хүсэлт, тайлбар, хариуг бүтэцтэй бичнэ.",
+      "language_functions": [
+        "write_structured",
+        "manage_tone"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "B1-M08",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "B1-M10",
+      "level": "B1",
+      "mission_order": 10,
+      "title_mn": "Хоёр талд тохирох шийдэл олох",
+      "scenario_mn": "багийн зохион байгуулалт",
+      "can_do_mn": "Хувилбаруудын ашиг, хүндрэл хэлж тохиролцоонд хүрнэ.",
+      "final_task_mn": "Хувилбаруудын ашиг, хүндрэл хэлж тохиролцоонд хүрнэ.",
+      "language_functions": [
+        "compare_options",
+        "negotiate"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "B1-M09",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "B1-M11",
+      "level": "B1",
+      "mission_order": 11,
+      "title_mn": "Соёлын үл ойлголцлыг тайлбарлах",
+      "scenario_mn": "шинэ танил/ажил",
+      "can_do_mn": "Ярианы ёс, хүндэтгэлийн зөрүүг тайлбарлаж уучлалт, засвар хийнэ.",
+      "final_task_mn": "Ярианы ёс, хүндэтгэлийн зөрүүг тайлбарлаж уучлалт, засвар хийнэ.",
+      "language_functions": [
+        "explain_culture",
+        "repair"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "B1-M10",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "B1-M12",
+      "level": "B1",
+      "mission_order": 12,
+      "title_mn": "Бие даасан нэг долоо хоног",
+      "scenario_mn": "долоо хоногийн төсөл",
+      "can_do_mn": "Ажил, байр, үйлчилгээ, харилцааны нийлмэл асуудлыг дамжлагаар шийднэ.",
+      "final_task_mn": "Ажил, байр, үйлчилгээ, харилцааны нийлмэл асуудлыг дамжлагаар шийднэ.",
+      "language_functions": [
+        "integrated_interaction",
+        "written_followup"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "B1-M11",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "B2-M01",
+      "level": "B2",
+      "mission_order": 1,
+      "title_mn": "Ажлын нарийн асуудлыг хэлэлцэх",
+      "scenario_mn": "мэргэжлийн баг",
+      "can_do_mn": "Нарийн төвөгтэй ажлын асуудлыг учир шалтгаан, үр дагавартай нь хэлэлцэнэ.",
+      "final_task_mn": "Нарийн төвөгтэй ажлын асуудлыг учир шалтгаан, үр дагавартай нь хэлэлцэнэ.",
+      "language_functions": [
+        "explain_complex",
+        "respond_to_questions"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "B1-M12",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "B2-M02",
+      "level": "B2",
+      "mission_order": 2,
+      "title_mn": "Эсрэг байр суурийг авч үзэх",
+      "scenario_mn": "хэлэлцүүлэг",
+      "can_do_mn": "Өөрийн үндэслэл, эсрэг тайлбар, нөхцөлт дүгнэлтээ холбон хэлнэ.",
+      "final_task_mn": "Өөрийн үндэслэл, эсрэг тайлбар, нөхцөлт дүгнэлтээ холбон хэлнэ.",
+      "language_functions": [
+        "argue",
+        "counterargue",
+        "synthesize"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "B2-M01",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "B2-M03",
+      "level": "B2",
+      "mission_order": 3,
+      "title_mn": "Техникийн үйл явдлын тайлан",
+      "scenario_mn": "ажлын техникийн асуудал",
+      "can_do_mn": "Техникийн гэмтэл, шийдвэр, нотолгооны зөрүүг системтэй тайлбарлана.",
+      "final_task_mn": "Техникийн гэмтэл, шийдвэр, нотолгооны зөрүүг системтэй тайлбарлана.",
+      "language_functions": [
+        "incident_analysis",
+        "report"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "B2-M02",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "B2-M04",
+      "level": "B2",
+      "mission_order": 4,
+      "title_mn": "Нарийн мэдээлэлтэй эх унших",
+      "scenario_mn": "нийтлэл/удирдамж",
+      "can_do_mn": "Мэргэжлийн бус олон хэсэгтэй эхээс байр суурь, нотолгоо, эргэлзээг ялгана.",
+      "final_task_mn": "Мэргэжлийн бус олон хэсэгтэй эхээс байр суурь, нотолгоо, эргэлзээг ялгана.",
+      "language_functions": [
+        "read_critically",
+        "compare"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "B2-M03",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "B2-M05",
+      "level": "B2",
+      "mission_order": 5,
+      "title_mn": "Ярилцлагаас далд утга ойлгох",
+      "scenario_mn": "ярилцлага",
+      "can_do_mn": "Тодорхой жишээнээс ярилцагчдын хандлага, үгийн өнгийг ялгана.",
+      "final_task_mn": "Тодорхой жишээнээс ярилцагчдын хандлага, үгийн өнгийг ялгана.",
+      "language_functions": [
+        "listen_for_stance",
+        "infer"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "B2-M04",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "B2-M06",
+      "level": "B2",
+      "mission_order": 6,
+      "title_mn": "Сонголтуудын эрсдэлийг харьцуулах",
+      "scenario_mn": "ажлын шийдвэр",
+      "can_do_mn": "Хоёр стратегийн зардал, эрсдэл, хэрэгжих нөхцөлийг тайлбарлан санал гаргана.",
+      "final_task_mn": "Хоёр стратегийн зардал, эрсдэл, хэрэгжих нөхцөлийг тайлбарлан санал гаргана.",
+      "language_functions": [
+        "evaluate_tradeoff",
+        "recommend"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "B2-M05",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "B2-M07",
+      "level": "B2",
+      "mission_order": 7,
+      "title_mn": "Мэргэжлийн имэйл, хариу боловсруулах",
+      "scenario_mn": "албан харилцаа",
+      "can_do_mn": "Албан өнгө, бүтэц, хүсэлтийн тодорхой байдлыг хадгалж бичнэ.",
+      "final_task_mn": "Албан өнгө, бүтэц, хүсэлтийн тодорхой байдлыг хадгалж бичнэ.",
+      "language_functions": [
+        "professional_writing",
+        "revise"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "B2-M06",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "B2-M08",
+      "level": "B2",
+      "mission_order": 8,
+      "title_mn": "Соёл, дадал, үнэ цэнийг хэлэлцэх",
+      "scenario_mn": "соёлын хэлэлцүүлэг",
+      "can_do_mn": "Олон өнцөгтэй сэдвийг хэт ерөнхийлөлгүй өөрийн байр сууриас хэлэлцэнэ.",
+      "final_task_mn": "Олон өнцөгтэй сэдвийг хэт ерөнхийлөлгүй өөрийн байр сууриас хэлэлцэнэ.",
+      "language_functions": [
+        "compare_perspectives",
+        "qualify"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "B2-M07",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "B2-M09",
+      "level": "B2",
+      "mission_order": 9,
+      "title_mn": "Олон эхийн мэдээллийг нэгтгэх",
+      "scenario_mn": "тайлан/яриа",
+      "can_do_mn": "Хоёр өөр эхийн санал, нийтлэг тал, зөрүүг товч нэгтгэнэ.",
+      "final_task_mn": "Хоёр өөр эхийн санал, нийтлэг тал, зөрүүг товч нэгтгэнэ.",
+      "language_functions": [
+        "synthesize_sources",
+        "attribute"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "B2-M08",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "B2-M10",
+      "level": "B2",
+      "mission_order": 10,
+      "title_mn": "Хурдан ярианд ойлголтоо сэргээх",
+      "scenario_mn": "бодит харилцан яриа",
+      "can_do_mn": "Хурдтай хэвийн ярианд ойлгоогүй хэсгээ зааглан лавлаж яриаг үргэлжлүүлнэ.",
+      "final_task_mn": "Хурдтай хэвийн ярианд ойлгоогүй хэсгээ зааглан лавлаж яриаг үргэлжлүүлнэ.",
+      "language_functions": [
+        "interaction_repair",
+        "register_adjust"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "B2-M09",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "B2-M11",
+      "level": "B2",
+      "mission_order": 11,
+      "title_mn": "Богино илтгэл ба асуулт-хариулт",
+      "scenario_mn": "танилцуулга",
+      "can_do_mn": "Сэдвийн үндсэн санааг бүтэцтэй танилцуулж гэнэтийн асуултад хариулна.",
+      "final_task_mn": "Сэдвийн үндсэн санааг бүтэцтэй танилцуулж гэнэтийн асуултад хариулна.",
+      "language_functions": [
+        "present",
+        "respond_unprepared"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "B2-M10",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "mission_id": "B2-M12",
+      "level": "B2",
+      "mission_order": 12,
+      "title_mn": "Бодит асуудлын олон талт шийдэл",
+      "scenario_mn": "төсөл",
+      "can_do_mn": "Унших, сонсох, бичих, ярих чадварыг нэг олон алхамт кейст нэгтгэнэ.",
+      "final_task_mn": "Унших, сонсох, бичих, ярих чадварыг нэг олон алхамт кейст нэгтгэнэ.",
+      "language_functions": [
+        "integrated_problem_solving",
+        "evaluate"
+      ],
+      "skills_ids": [],
+      "planned_sessions": [],
+      "prerequisite_mission_id": "B2-M11",
+      "source_ref": "EDITORIAL_CEFR_MAPPING_PROPOSAL",
+      "outline_status": "DRAFT_LEVEL_PLACEMENT_UNVERIFIED",
+      "content_status": "NOT_AUTHORED",
+      "exit_assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    }
+  ],
+  "provisional_a0_sessions": [
+    {
+      "session_id": "A0-S001",
+      "mission_id": "A0-M01",
+      "level": "A0",
+      "skill_ids": [
+        "A0-T01-L01",
+        "A0-T01-L02",
+        "A0-T01-L03"
+      ],
+      "session_format": "12-15min_task_cycle",
+      "new_lexical_target_range": [
+        0,
+        6
+      ],
+      "segmentation_status": "PROVISIONAL_AUTO_GROUPING",
+      "content_status": "NOT_AUTHORED",
+      "audio_status": "NOT_GENERATED",
+      "assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "session_id": "A0-S002",
+      "mission_id": "A0-M01",
+      "level": "A0",
+      "skill_ids": [
+        "A0-T01-L04",
+        "A0-T01-L05",
+        "A0-T01-L06"
+      ],
+      "session_format": "12-15min_task_cycle",
+      "new_lexical_target_range": [
+        0,
+        6
+      ],
+      "segmentation_status": "PROVISIONAL_AUTO_GROUPING",
+      "content_status": "NOT_AUTHORED",
+      "audio_status": "NOT_GENERATED",
+      "assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "session_id": "A0-S003",
+      "mission_id": "A0-M01",
+      "level": "A0",
+      "skill_ids": [
+        "A0-T01-L07",
+        "A0-T01-L08"
+      ],
+      "session_format": "12-15min_task_cycle",
+      "new_lexical_target_range": [
+        0,
+        6
+      ],
+      "segmentation_status": "PROVISIONAL_AUTO_GROUPING",
+      "content_status": "NOT_AUTHORED",
+      "audio_status": "NOT_GENERATED",
+      "assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "session_id": "A0-S004",
+      "mission_id": "A0-M02",
+      "level": "A0",
+      "skill_ids": [
+        "A0-T02-L01",
+        "A0-T02-L02",
+        "A0-T02-L03"
+      ],
+      "session_format": "12-15min_task_cycle",
+      "new_lexical_target_range": [
+        0,
+        6
+      ],
+      "segmentation_status": "PROVISIONAL_AUTO_GROUPING",
+      "content_status": "NOT_AUTHORED",
+      "audio_status": "NOT_GENERATED",
+      "assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "session_id": "A0-S005",
+      "mission_id": "A0-M02",
+      "level": "A0",
+      "skill_ids": [
+        "A0-T02-L04",
+        "A0-T02-L05",
+        "A0-T02-L06"
+      ],
+      "session_format": "12-15min_task_cycle",
+      "new_lexical_target_range": [
+        0,
+        6
+      ],
+      "segmentation_status": "PROVISIONAL_AUTO_GROUPING",
+      "content_status": "NOT_AUTHORED",
+      "audio_status": "NOT_GENERATED",
+      "assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "session_id": "A0-S006",
+      "mission_id": "A0-M02",
+      "level": "A0",
+      "skill_ids": [
+        "A0-T02-L07",
+        "A0-T02-L08",
+        "A0-T02-L09"
+      ],
+      "session_format": "12-15min_task_cycle",
+      "new_lexical_target_range": [
+        0,
+        6
+      ],
+      "segmentation_status": "PROVISIONAL_AUTO_GROUPING",
+      "content_status": "NOT_AUTHORED",
+      "audio_status": "NOT_GENERATED",
+      "assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "session_id": "A0-S007",
+      "mission_id": "A0-M02",
+      "level": "A0",
+      "skill_ids": [
+        "A0-T02-L10",
+        "A0-T02-L11",
+        "A0-T02-L12"
+      ],
+      "session_format": "12-15min_task_cycle",
+      "new_lexical_target_range": [
+        0,
+        6
+      ],
+      "segmentation_status": "PROVISIONAL_AUTO_GROUPING",
+      "content_status": "NOT_AUTHORED",
+      "audio_status": "NOT_GENERATED",
+      "assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "session_id": "A0-S008",
+      "mission_id": "A0-M02",
+      "level": "A0",
+      "skill_ids": [
+        "A0-T02-L13",
+        "A0-T02-L14",
+        "A0-T02-L15"
+      ],
+      "session_format": "12-15min_task_cycle",
+      "new_lexical_target_range": [
+        0,
+        6
+      ],
+      "segmentation_status": "PROVISIONAL_AUTO_GROUPING",
+      "content_status": "NOT_AUTHORED",
+      "audio_status": "NOT_GENERATED",
+      "assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "session_id": "A0-S009",
+      "mission_id": "A0-M02",
+      "level": "A0",
+      "skill_ids": [
+        "A0-T02-L16",
+        "A0-T02-L17",
+        "A0-T02-L18"
+      ],
+      "session_format": "12-15min_task_cycle",
+      "new_lexical_target_range": [
+        0,
+        6
+      ],
+      "segmentation_status": "PROVISIONAL_AUTO_GROUPING",
+      "content_status": "NOT_AUTHORED",
+      "audio_status": "NOT_GENERATED",
+      "assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "session_id": "A0-S010",
+      "mission_id": "A0-M03",
+      "level": "A0",
+      "skill_ids": [
+        "A0-T03-L01",
+        "A0-T03-L02",
+        "A0-T03-L03"
+      ],
+      "session_format": "12-15min_task_cycle",
+      "new_lexical_target_range": [
+        0,
+        6
+      ],
+      "segmentation_status": "PROVISIONAL_AUTO_GROUPING",
+      "content_status": "NOT_AUTHORED",
+      "audio_status": "NOT_GENERATED",
+      "assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "session_id": "A0-S011",
+      "mission_id": "A0-M03",
+      "level": "A0",
+      "skill_ids": [
+        "A0-T03-L04",
+        "A0-T03-L05",
+        "A0-T03-L06"
+      ],
+      "session_format": "12-15min_task_cycle",
+      "new_lexical_target_range": [
+        0,
+        6
+      ],
+      "segmentation_status": "PROVISIONAL_AUTO_GROUPING",
+      "content_status": "NOT_AUTHORED",
+      "audio_status": "NOT_GENERATED",
+      "assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "session_id": "A0-S012",
+      "mission_id": "A0-M03",
+      "level": "A0",
+      "skill_ids": [
+        "A0-T03-L07",
+        "A0-T03-L08"
+      ],
+      "session_format": "12-15min_task_cycle",
+      "new_lexical_target_range": [
+        0,
+        6
+      ],
+      "segmentation_status": "PROVISIONAL_AUTO_GROUPING",
+      "content_status": "NOT_AUTHORED",
+      "audio_status": "NOT_GENERATED",
+      "assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "session_id": "A0-S013",
+      "mission_id": "A0-M04",
+      "level": "A0",
+      "skill_ids": [
+        "A0-T04-L01",
+        "A0-T04-L02",
+        "A0-T04-L03"
+      ],
+      "session_format": "12-15min_task_cycle",
+      "new_lexical_target_range": [
+        0,
+        6
+      ],
+      "segmentation_status": "PROVISIONAL_AUTO_GROUPING",
+      "content_status": "NOT_AUTHORED",
+      "audio_status": "NOT_GENERATED",
+      "assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "session_id": "A0-S014",
+      "mission_id": "A0-M04",
+      "level": "A0",
+      "skill_ids": [
+        "A0-T04-L04",
+        "A0-T04-L05",
+        "A0-T04-L06"
+      ],
+      "session_format": "12-15min_task_cycle",
+      "new_lexical_target_range": [
+        0,
+        6
+      ],
+      "segmentation_status": "PROVISIONAL_AUTO_GROUPING",
+      "content_status": "NOT_AUTHORED",
+      "audio_status": "NOT_GENERATED",
+      "assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "session_id": "A0-S015",
+      "mission_id": "A0-M04",
+      "level": "A0",
+      "skill_ids": [
+        "A0-T04-L07",
+        "A0-T04-L08"
+      ],
+      "session_format": "12-15min_task_cycle",
+      "new_lexical_target_range": [
+        0,
+        6
+      ],
+      "segmentation_status": "PROVISIONAL_AUTO_GROUPING",
+      "content_status": "NOT_AUTHORED",
+      "audio_status": "NOT_GENERATED",
+      "assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "session_id": "A0-S016",
+      "mission_id": "A0-M05",
+      "level": "A0",
+      "skill_ids": [
+        "A0-T05-L01",
+        "A0-T05-L02",
+        "A0-T05-L03"
+      ],
+      "session_format": "12-15min_task_cycle",
+      "new_lexical_target_range": [
+        0,
+        6
+      ],
+      "segmentation_status": "PROVISIONAL_AUTO_GROUPING",
+      "content_status": "NOT_AUTHORED",
+      "audio_status": "NOT_GENERATED",
+      "assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "session_id": "A0-S017",
+      "mission_id": "A0-M05",
+      "level": "A0",
+      "skill_ids": [
+        "A0-T05-L04",
+        "A0-T05-L05",
+        "A0-T05-L06"
+      ],
+      "session_format": "12-15min_task_cycle",
+      "new_lexical_target_range": [
+        0,
+        6
+      ],
+      "segmentation_status": "PROVISIONAL_AUTO_GROUPING",
+      "content_status": "NOT_AUTHORED",
+      "audio_status": "NOT_GENERATED",
+      "assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "session_id": "A0-S018",
+      "mission_id": "A0-M05",
+      "level": "A0",
+      "skill_ids": [
+        "A0-T05-L07",
+        "A0-T05-L08"
+      ],
+      "session_format": "12-15min_task_cycle",
+      "new_lexical_target_range": [
+        0,
+        6
+      ],
+      "segmentation_status": "PROVISIONAL_AUTO_GROUPING",
+      "content_status": "NOT_AUTHORED",
+      "audio_status": "NOT_GENERATED",
+      "assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "session_id": "A0-S019",
+      "mission_id": "A0-M06",
+      "level": "A0",
+      "skill_ids": [
+        "A0-T06-L01",
+        "A0-T06-L02",
+        "A0-T06-L03"
+      ],
+      "session_format": "12-15min_task_cycle",
+      "new_lexical_target_range": [
+        0,
+        6
+      ],
+      "segmentation_status": "PROVISIONAL_AUTO_GROUPING",
+      "content_status": "NOT_AUTHORED",
+      "audio_status": "NOT_GENERATED",
+      "assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "session_id": "A0-S020",
+      "mission_id": "A0-M06",
+      "level": "A0",
+      "skill_ids": [
+        "A0-T06-L04",
+        "A0-T06-L05",
+        "A0-T06-L06"
+      ],
+      "session_format": "12-15min_task_cycle",
+      "new_lexical_target_range": [
+        0,
+        6
+      ],
+      "segmentation_status": "PROVISIONAL_AUTO_GROUPING",
+      "content_status": "NOT_AUTHORED",
+      "audio_status": "NOT_GENERATED",
+      "assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "session_id": "A0-S021",
+      "mission_id": "A0-M06",
+      "level": "A0",
+      "skill_ids": [
+        "A0-T06-L07",
+        "A0-T06-L08"
+      ],
+      "session_format": "12-15min_task_cycle",
+      "new_lexical_target_range": [
+        0,
+        6
+      ],
+      "segmentation_status": "PROVISIONAL_AUTO_GROUPING",
+      "content_status": "NOT_AUTHORED",
+      "audio_status": "NOT_GENERATED",
+      "assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "session_id": "A0-S022",
+      "mission_id": "A0-M07",
+      "level": "A0",
+      "skill_ids": [
+        "A0-T07-L01",
+        "A0-T07-L02",
+        "A0-T07-L03"
+      ],
+      "session_format": "12-15min_task_cycle",
+      "new_lexical_target_range": [
+        0,
+        6
+      ],
+      "segmentation_status": "PROVISIONAL_AUTO_GROUPING",
+      "content_status": "NOT_AUTHORED",
+      "audio_status": "NOT_GENERATED",
+      "assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "session_id": "A0-S023",
+      "mission_id": "A0-M07",
+      "level": "A0",
+      "skill_ids": [
+        "A0-T07-L04",
+        "A0-T07-L05",
+        "A0-T07-L06"
+      ],
+      "session_format": "12-15min_task_cycle",
+      "new_lexical_target_range": [
+        0,
+        6
+      ],
+      "segmentation_status": "PROVISIONAL_AUTO_GROUPING",
+      "content_status": "NOT_AUTHORED",
+      "audio_status": "NOT_GENERATED",
+      "assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "session_id": "A0-S024",
+      "mission_id": "A0-M07",
+      "level": "A0",
+      "skill_ids": [
+        "A0-T07-L07",
+        "A0-T07-L08"
+      ],
+      "session_format": "12-15min_task_cycle",
+      "new_lexical_target_range": [
+        0,
+        6
+      ],
+      "segmentation_status": "PROVISIONAL_AUTO_GROUPING",
+      "content_status": "NOT_AUTHORED",
+      "audio_status": "NOT_GENERATED",
+      "assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "session_id": "A0-S025",
+      "mission_id": "A0-M07",
+      "level": "A0",
+      "skill_ids": [
+        "A0-T07-L09",
+        "A0-T07-L10"
+      ],
+      "session_format": "12-15min_task_cycle",
+      "new_lexical_target_range": [
+        0,
+        6
+      ],
+      "segmentation_status": "PROVISIONAL_AUTO_GROUPING",
+      "content_status": "NOT_AUTHORED",
+      "audio_status": "NOT_GENERATED",
+      "assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "session_id": "A0-S026",
+      "mission_id": "A0-M08",
+      "level": "A0",
+      "skill_ids": [
+        "A0-T08-L01",
+        "A0-T08-L02",
+        "A0-T08-L03"
+      ],
+      "session_format": "12-15min_task_cycle",
+      "new_lexical_target_range": [
+        0,
+        6
+      ],
+      "segmentation_status": "PROVISIONAL_AUTO_GROUPING",
+      "content_status": "NOT_AUTHORED",
+      "audio_status": "NOT_GENERATED",
+      "assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "session_id": "A0-S027",
+      "mission_id": "A0-M08",
+      "level": "A0",
+      "skill_ids": [
+        "A0-T08-L04",
+        "A0-T08-L05",
+        "A0-T08-L06"
+      ],
+      "session_format": "12-15min_task_cycle",
+      "new_lexical_target_range": [
+        0,
+        6
+      ],
+      "segmentation_status": "PROVISIONAL_AUTO_GROUPING",
+      "content_status": "NOT_AUTHORED",
+      "audio_status": "NOT_GENERATED",
+      "assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "session_id": "A0-S028",
+      "mission_id": "A0-M08",
+      "level": "A0",
+      "skill_ids": [
+        "A0-T08-L07",
+        "A0-T08-L08",
+        "A0-T08-L09"
+      ],
+      "session_format": "12-15min_task_cycle",
+      "new_lexical_target_range": [
+        0,
+        6
+      ],
+      "segmentation_status": "PROVISIONAL_AUTO_GROUPING",
+      "content_status": "NOT_AUTHORED",
+      "audio_status": "NOT_GENERATED",
+      "assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "session_id": "A0-S029",
+      "mission_id": "A0-M09",
+      "level": "A0",
+      "skill_ids": [
+        "A0-T09-L01",
+        "A0-T09-L02",
+        "A0-T09-L03"
+      ],
+      "session_format": "12-15min_task_cycle",
+      "new_lexical_target_range": [
+        0,
+        6
+      ],
+      "segmentation_status": "PROVISIONAL_AUTO_GROUPING",
+      "content_status": "NOT_AUTHORED",
+      "audio_status": "NOT_GENERATED",
+      "assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "session_id": "A0-S030",
+      "mission_id": "A0-M09",
+      "level": "A0",
+      "skill_ids": [
+        "A0-T09-L04",
+        "A0-T09-L05",
+        "A0-T09-L06"
+      ],
+      "session_format": "12-15min_task_cycle",
+      "new_lexical_target_range": [
+        0,
+        6
+      ],
+      "segmentation_status": "PROVISIONAL_AUTO_GROUPING",
+      "content_status": "NOT_AUTHORED",
+      "audio_status": "NOT_GENERATED",
+      "assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "session_id": "A0-S031",
+      "mission_id": "A0-M09",
+      "level": "A0",
+      "skill_ids": [
+        "A0-T09-L07",
+        "A0-T09-L08"
+      ],
+      "session_format": "12-15min_task_cycle",
+      "new_lexical_target_range": [
+        0,
+        6
+      ],
+      "segmentation_status": "PROVISIONAL_AUTO_GROUPING",
+      "content_status": "NOT_AUTHORED",
+      "audio_status": "NOT_GENERATED",
+      "assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "session_id": "A0-S032",
+      "mission_id": "A0-M09",
+      "level": "A0",
+      "skill_ids": [
+        "A0-T09-L09",
+        "A0-T09-L10"
+      ],
+      "session_format": "12-15min_task_cycle",
+      "new_lexical_target_range": [
+        0,
+        6
+      ],
+      "segmentation_status": "PROVISIONAL_AUTO_GROUPING",
+      "content_status": "NOT_AUTHORED",
+      "audio_status": "NOT_GENERATED",
+      "assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "session_id": "A0-S033",
+      "mission_id": "A0-M10",
+      "level": "A0",
+      "skill_ids": [
+        "A0-T10-L01",
+        "A0-T10-L02",
+        "A0-T10-L03"
+      ],
+      "session_format": "12-15min_task_cycle",
+      "new_lexical_target_range": [
+        0,
+        6
+      ],
+      "segmentation_status": "PROVISIONAL_AUTO_GROUPING",
+      "content_status": "NOT_AUTHORED",
+      "audio_status": "NOT_GENERATED",
+      "assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "session_id": "A0-S034",
+      "mission_id": "A0-M10",
+      "level": "A0",
+      "skill_ids": [
+        "A0-T10-L04",
+        "A0-T10-L05",
+        "A0-T10-L06"
+      ],
+      "session_format": "12-15min_task_cycle",
+      "new_lexical_target_range": [
+        0,
+        6
+      ],
+      "segmentation_status": "PROVISIONAL_AUTO_GROUPING",
+      "content_status": "NOT_AUTHORED",
+      "audio_status": "NOT_GENERATED",
+      "assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "session_id": "A0-S035",
+      "mission_id": "A0-M10",
+      "level": "A0",
+      "skill_ids": [
+        "A0-T10-L07",
+        "A0-T10-L08"
+      ],
+      "session_format": "12-15min_task_cycle",
+      "new_lexical_target_range": [
+        0,
+        6
+      ],
+      "segmentation_status": "PROVISIONAL_AUTO_GROUPING",
+      "content_status": "NOT_AUTHORED",
+      "audio_status": "NOT_GENERATED",
+      "assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "session_id": "A0-S036",
+      "mission_id": "A0-M10",
+      "level": "A0",
+      "skill_ids": [
+        "A0-T10-L09",
+        "A0-T10-L10"
+      ],
+      "session_format": "12-15min_task_cycle",
+      "new_lexical_target_range": [
+        0,
+        6
+      ],
+      "segmentation_status": "PROVISIONAL_AUTO_GROUPING",
+      "content_status": "NOT_AUTHORED",
+      "audio_status": "NOT_GENERATED",
+      "assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "session_id": "A0-S037",
+      "mission_id": "A0-M11",
+      "level": "A0",
+      "skill_ids": [
+        "A0-T11-L01",
+        "A0-T11-L02",
+        "A0-T11-L03"
+      ],
+      "session_format": "12-15min_task_cycle",
+      "new_lexical_target_range": [
+        0,
+        6
+      ],
+      "segmentation_status": "PROVISIONAL_AUTO_GROUPING",
+      "content_status": "NOT_AUTHORED",
+      "audio_status": "NOT_GENERATED",
+      "assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "session_id": "A0-S038",
+      "mission_id": "A0-M11",
+      "level": "A0",
+      "skill_ids": [
+        "A0-T11-L04",
+        "A0-T11-L05",
+        "A0-T11-L06"
+      ],
+      "session_format": "12-15min_task_cycle",
+      "new_lexical_target_range": [
+        0,
+        6
+      ],
+      "segmentation_status": "PROVISIONAL_AUTO_GROUPING",
+      "content_status": "NOT_AUTHORED",
+      "audio_status": "NOT_GENERATED",
+      "assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "session_id": "A0-S039",
+      "mission_id": "A0-M11",
+      "level": "A0",
+      "skill_ids": [
+        "A0-T11-L07",
+        "A0-T11-L08"
+      ],
+      "session_format": "12-15min_task_cycle",
+      "new_lexical_target_range": [
+        0,
+        6
+      ],
+      "segmentation_status": "PROVISIONAL_AUTO_GROUPING",
+      "content_status": "NOT_AUTHORED",
+      "audio_status": "NOT_GENERATED",
+      "assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "session_id": "A0-S040",
+      "mission_id": "A0-M12",
+      "level": "A0",
+      "skill_ids": [
+        "A0-T12-L01",
+        "A0-T12-L02",
+        "A0-T12-L03"
+      ],
+      "session_format": "12-15min_task_cycle",
+      "new_lexical_target_range": [
+        0,
+        6
+      ],
+      "segmentation_status": "PROVISIONAL_AUTO_GROUPING",
+      "content_status": "NOT_AUTHORED",
+      "audio_status": "NOT_GENERATED",
+      "assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "session_id": "A0-S041",
+      "mission_id": "A0-M12",
+      "level": "A0",
+      "skill_ids": [
+        "A0-T12-L04",
+        "A0-T12-L05"
+      ],
+      "session_format": "12-15min_task_cycle",
+      "new_lexical_target_range": [
+        0,
+        6
+      ],
+      "segmentation_status": "PROVISIONAL_AUTO_GROUPING",
+      "content_status": "NOT_AUTHORED",
+      "audio_status": "NOT_GENERATED",
+      "assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "session_id": "A0-S042",
+      "mission_id": "A0-M12",
+      "level": "A0",
+      "skill_ids": [
+        "A0-T12-L06",
+        "A0-T12-L07"
+      ],
+      "session_format": "12-15min_task_cycle",
+      "new_lexical_target_range": [
+        0,
+        6
+      ],
+      "segmentation_status": "PROVISIONAL_AUTO_GROUPING",
+      "content_status": "NOT_AUTHORED",
+      "audio_status": "NOT_GENERATED",
+      "assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "session_id": "A0-S043",
+      "mission_id": "A0-M13",
+      "level": "A0",
+      "skill_ids": [
+        "A0-T13-L01",
+        "A0-T13-L02",
+        "A0-T13-L03"
+      ],
+      "session_format": "12-15min_task_cycle",
+      "new_lexical_target_range": [
+        0,
+        6
+      ],
+      "segmentation_status": "PROVISIONAL_AUTO_GROUPING",
+      "content_status": "NOT_AUTHORED",
+      "audio_status": "NOT_GENERATED",
+      "assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "session_id": "A0-S044",
+      "mission_id": "A0-M13",
+      "level": "A0",
+      "skill_ids": [
+        "A0-T13-L04",
+        "A0-T13-L05",
+        "A0-T13-L06"
+      ],
+      "session_format": "12-15min_task_cycle",
+      "new_lexical_target_range": [
+        0,
+        6
+      ],
+      "segmentation_status": "PROVISIONAL_AUTO_GROUPING",
+      "content_status": "NOT_AUTHORED",
+      "audio_status": "NOT_GENERATED",
+      "assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "session_id": "A0-S045",
+      "mission_id": "A0-M13",
+      "level": "A0",
+      "skill_ids": [
+        "A0-T13-L07",
+        "A0-T13-L08"
+      ],
+      "session_format": "12-15min_task_cycle",
+      "new_lexical_target_range": [
+        0,
+        6
+      ],
+      "segmentation_status": "PROVISIONAL_AUTO_GROUPING",
+      "content_status": "NOT_AUTHORED",
+      "audio_status": "NOT_GENERATED",
+      "assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "session_id": "A0-S046",
+      "mission_id": "A0-M14",
+      "level": "A0",
+      "skill_ids": [
+        "A0-T14-L01",
+        "A0-T14-L02",
+        "A0-T14-L03"
+      ],
+      "session_format": "12-15min_task_cycle",
+      "new_lexical_target_range": [
+        0,
+        6
+      ],
+      "segmentation_status": "PROVISIONAL_AUTO_GROUPING",
+      "content_status": "NOT_AUTHORED",
+      "audio_status": "NOT_GENERATED",
+      "assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "session_id": "A0-S047",
+      "mission_id": "A0-M14",
+      "level": "A0",
+      "skill_ids": [
+        "A0-T14-L04",
+        "A0-T14-L05"
+      ],
+      "session_format": "12-15min_task_cycle",
+      "new_lexical_target_range": [
+        0,
+        6
+      ],
+      "segmentation_status": "PROVISIONAL_AUTO_GROUPING",
+      "content_status": "NOT_AUTHORED",
+      "audio_status": "NOT_GENERATED",
+      "assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "session_id": "A0-S048",
+      "mission_id": "A0-M14",
+      "level": "A0",
+      "skill_ids": [
+        "A0-T14-L06",
+        "A0-T14-L07"
+      ],
+      "session_format": "12-15min_task_cycle",
+      "new_lexical_target_range": [
+        0,
+        6
+      ],
+      "segmentation_status": "PROVISIONAL_AUTO_GROUPING",
+      "content_status": "NOT_AUTHORED",
+      "audio_status": "NOT_GENERATED",
+      "assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "session_id": "A0-S049",
+      "mission_id": "A0-M15",
+      "level": "A0",
+      "skill_ids": [
+        "A0-T15-L01",
+        "A0-T15-L02",
+        "A0-T15-L03"
+      ],
+      "session_format": "12-15min_task_cycle",
+      "new_lexical_target_range": [
+        0,
+        6
+      ],
+      "segmentation_status": "PROVISIONAL_AUTO_GROUPING",
+      "content_status": "NOT_AUTHORED",
+      "audio_status": "NOT_GENERATED",
+      "assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "session_id": "A0-S050",
+      "mission_id": "A0-M15",
+      "level": "A0",
+      "skill_ids": [
+        "A0-T15-L04",
+        "A0-T15-L05"
+      ],
+      "session_format": "12-15min_task_cycle",
+      "new_lexical_target_range": [
+        0,
+        6
+      ],
+      "segmentation_status": "PROVISIONAL_AUTO_GROUPING",
+      "content_status": "NOT_AUTHORED",
+      "audio_status": "NOT_GENERATED",
+      "assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "session_id": "A0-S051",
+      "mission_id": "A0-M15",
+      "level": "A0",
+      "skill_ids": [
+        "A0-T15-L06",
+        "A0-T15-L07"
+      ],
+      "session_format": "12-15min_task_cycle",
+      "new_lexical_target_range": [
+        0,
+        6
+      ],
+      "segmentation_status": "PROVISIONAL_AUTO_GROUPING",
+      "content_status": "NOT_AUTHORED",
+      "audio_status": "NOT_GENERATED",
+      "assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "session_id": "A0-S052",
+      "mission_id": "A0-M16",
+      "level": "A0",
+      "skill_ids": [
+        "A0-T16-L01",
+        "A0-T16-L02",
+        "A0-T16-L03"
+      ],
+      "session_format": "12-15min_task_cycle",
+      "new_lexical_target_range": [
+        0,
+        6
+      ],
+      "segmentation_status": "PROVISIONAL_AUTO_GROUPING",
+      "content_status": "NOT_AUTHORED",
+      "audio_status": "NOT_GENERATED",
+      "assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    },
+    {
+      "session_id": "A0-S053",
+      "mission_id": "A0-M16",
+      "level": "A0",
+      "skill_ids": [
+        "A0-T16-L04",
+        "A0-T16-L05",
+        "A0-T16-L06"
+      ],
+      "session_format": "12-15min_task_cycle",
+      "new_lexical_target_range": [
+        0,
+        6
+      ],
+      "segmentation_status": "PROVISIONAL_AUTO_GROUPING",
+      "content_status": "NOT_AUTHORED",
+      "audio_status": "NOT_GENERATED",
+      "assessment_status": "NOT_VERIFIED",
+      "approved": false,
+      "published": false
+    }
+  ]
+}

@@ -101,8 +101,9 @@ try {
       "Stuck-word speaker helper missing");
     assert.equal(await page.locator("#ar-seek").isDisabled(), true,
       "Untimed demo TTS must not fake native seek controls");
-    assert.equal(await page.locator("#ar-back").isDisabled(), true,
-      "5-second skip must be unavailable without native media");
+    assert.equal(await page.locator("#ar-back").isDisabled(), false,
+      "Without file audio, previous-sentence navigation must remain available");
+    assert.equal(await page.locator("#ar-back").getAttribute("aria-label"), "Өмнөх өгүүлбэр");
 
     if (size.width === 320) await page.screenshot({ path: "test-artifacts/reader-small-before.png", fullPage: false });
     const player = await page.locator("#ar-player").boundingBox();
@@ -227,17 +228,298 @@ try {
     assert.equal(await micPage.evaluate(() => window.__spokenTts.at(-1)?.text), "Ema",
       "Word-help speaker must play only the stuck CURRENT word");
     await micPage.evaluate(() => window.__spokenTts.at(-1).onend?.());
-    assert.equal(await micPage.locator("#ar-guided-retry").isVisible(), true,
-      "Microphone restart must be explicit after example TTS on Safari");
-    await micPage.locator("#ar-guided-retry").click();
+    await micPage.waitForTimeout(450);
+    assert.equal(await micPage.locator("#ar-guided-message").innerText() !== "", true);
+    assert.equal(await micPage.locator("#ar-play").getAttribute("aria-label"),
+      "Микрофон сонсож байна · түр зогсоох",
+      "After one stuck-word example STT should resume automatically");
+    assert.equal(await micPage.locator("#ar-guided-skip").isVisible(),true,
+      "Manual skip in guided mode is required");
     await micPage.evaluate(() => window.__lastRecognizer.emit("wrong word"));
     assert.equal(await micPage.locator(".ar-word.is-current").innerText(), "Ema",
       "Wrong/misrecognized word must not advance");
+    await micPage.locator("#ar-guided-skip").click();
+    assert.notEqual(await micPage.locator(".ar-word.is-current").innerText(),"Ema",
+      "Explicit skip must advance without claiming correct pronunciation");
     await micPage.locator("#ar-guided-toggle").click();
     assert.equal(await micPage.locator("#ar-guided-toggle").getAttribute("aria-checked"), "false");
     await micPage.close();
     console.log("PASS mocked Czech browser TTS chapter continuity + STT guided word sequence + word-help");
   }
+
+  // Unified lab integration in a Chromium mobile viewport. Native Safari
+  // microphone and voice availability still require device-specific checking.
+  {
+    const lab = await browser.newPage({ viewport: {width:390,height:844}, deviceScaleFactor:1 });
+    const errors=[];
+    lab.on("pageerror",e=>errors.push(e.message));
+    await lab.addInitScript(()=>{
+      window.__labSpoken=[];
+      window.SpeechSynthesisUtterance=class {constructor(text){this.text=text;this.rate=1;}};
+      Object.defineProperty(window,"speechSynthesis",{
+        configurable:true,value:{
+          speaking:false,paused:false,
+          getVoices(){return [{name:"Jan Czech test",lang:"cs-CZ"}];},
+          addEventListener(){},removeEventListener(){},
+          speak(utt){this.speaking=true;window.__labSpoken.push(utt);},
+          cancel(){this.speaking=false;},pause(){this.paused=true;},resume(){this.paused=false;}
+        }
+      });
+    });
+    await lab.goto(url+"?reader_lab=1",{waitUntil:"domcontentloaded"});
+    await lab.locator('[data-tab="read"]').click();
+    await lab.locator(".books-grid .lab-in-library").first().waitFor({timeout:10000});
+    assert.equal(await lab.locator(".books-grid .book-card").count(),5,
+      "New three drafts must be INSIDE All Stories alongside the two existing books");
+    assert.equal(await lab.locator(".count-pill").innerText(),"5 ном");
+    await lab.screenshot({path:"test-artifacts/reader-five-books-390.png"});
+    const width = await lab.evaluate(() => ({
+      scroll:document.documentElement.scrollWidth,
+      visual:window.innerWidth,
+      cards:[...document.querySelectorAll(".lab-in-library")].map(x=>Math.round(x.getBoundingClientRect().width))
+    }));
+    assert.ok(width.scroll<=width.visual+2,"Reader library has horizontal overflow: "+JSON.stringify(width));
+    assert.ok(width.cards.every(v=>v>80&&v<390),"Book card width not responsive");
+    await lab.locator(".lab-in-library").first().click();
+    await lab.locator("#readerShell.aho-reader-shell").waitFor();
+    assert.ok(await lab.locator("#ar-player").isVisible(),
+      "New reader MUST reuse original full player");
+    assert.ok(await lab.locator("#ar-word-help").count()===1);
+    assert.ok(await lab.locator("#ar-guided-skip").count()===1);
+    assert.ok(await lab.locator("#ar-text [data-word]").count()>5);
+    await lab.locator("#ar-play").click();
+    const previewStart=await lab.evaluate(()=>window.__labSpoken.at(-1)?.text);
+    assert.ok(previewStart?.includes("Je večer."),"Preview should start browser TTS without mp3");
+    await lab.locator("#ar-forward").click();
+    const nextText=await lab.evaluate(()=>window.__labSpoken.at(-1)?.text);
+    assert.ok(nextText?.includes("Anna je doma."),"Forward button must move a Czech SENTENCE");
+    const glossaryWord=lab.locator('#ar-text [data-word]').filter({hasText:"světlo"}).first();
+    await glossaryWord.click();
+    await lab.locator("#lab-gloss-shade:not([hidden])").waitFor();
+    assert.ok((await lab.locator("#lab-gloss-shade .lab-meaning").innerText()).includes("гэрэл"),
+      "Contextual glossary missing light sense");
+    await lab.locator("#lab-gloss-dismiss").click();
+    assert.equal(await lab.locator("#lab-gloss-shade").isHidden(),true);
+    const q=lab.locator("#lab-comprehension [data-lab-q]").first();
+    await q.click();
+    assert.ok(await lab.locator("#lab-comprehension .lab-feedback").first().innerText()!=="");
+    await lab.locator("#ar-complete").click();
+    assert.ok(await lab.locator(".lab-finish-note").count()===1,
+      "Completion should show saved reader cards");
+    await lab.screenshot({path:"test-artifacts/reader-unified-player-390.png"});
+    await lab.locator("#lab-open-cards").click();
+    await lab.locator('[data-tab="cards"][aria-current="page"]').waitFor();
+    assert.ok(await lab.locator(".lab-flashcard").count()>0,"Reading vocabulary did not reach Cards tab");
+    await lab.locator('[data-tab="dictionary"]').click();
+    assert.ok(await lab.locator(".lab-dict-list article").count()>30,
+      "Reader context dictionary is missing word forms");
+    await lab.screenshot({path:"test-artifacts/reader-cards-dictionary-390.png"});
+    assert.deepEqual(errors,[],"Reader Lab JavaScript errors: "+errors.join("; "));
+    console.log("PASS mobile Reader Lab: 5 integrated books, shared TTS/player, tap-to-gloss, flashcards, dictionary and no horizontal overflow");
+    await lab.close();
+  }
+
+  // Exact canonical order. Actually complete each of the 27 exercise steps in
+  // the Premium PWA mobile viewport, including genuine wrong-answer retry,
+  // persisted progress, narrated listening event and microphone *attempt*.
+  // Voice and microphone are mocked here; this is not Czech pronunciation QA.
+  {
+    const {readFileSync}=await import("node:fs");
+    const course=JSON.parse(readFileSync("public/cesky-reading-uiux/lesson-a0-t01-first3.draft.json","utf8"));
+     const addition=JSON.parse(readFileSync("public/cesky-reading-uiux/lesson-a0-t01-l04.draft.json","utf8"));
+     course.lessons.push(...addition.lessons);
+     const remaining=JSON.parse(readFileSync("public/cesky-reading-uiux/lesson-a0-t01-l05-to-l08.draft.json","utf8"));
+     course.lessons.push(...remaining.lessons);
+    const cp=await browser.newPage({viewport:{width:390,height:844},deviceScaleFactor:1});
+    const errs=[];
+    cp.on("pageerror",e=>errs.push(e.message));
+    await cp.addInitScript(()=>{
+      window.__courseTts=[];
+      window.SpeechSynthesisUtterance=class {constructor(t){this.text=t;}};
+      Object.defineProperty(window,"speechSynthesis",{
+        configurable:true,value:{
+          getVoices(){return [{lang:"cs-CZ",name:"Czech test voice"}];},
+          cancel(){},speak(u){window.__courseTts.push(u);setTimeout(()=>u.onstart?.(),20);},
+          pause(){},resume(){}
+        }
+      });
+      window.webkitSpeechRecognition=class {
+        constructor(){this.lang="cs-CZ";}
+        start(){setTimeout(()=>this.onresult?.({results:[[{transcript:"pes"}]]}),30);}
+        abort(){}
+      };
+      // Recent Chromium exposes the native SpeechRecognition constructor as well;
+      // override BOTH to avoid accidental real mic prompts in CI.
+      window.SpeechRecognition=window.webkitSpeechRecognition;
+    });
+    await cp.goto(url+"?reader_lab=1",{waitUntil:"domcontentloaded"});
+    await cp.locator('[data-tab="stages"]').click();
+    await cp.locator(".chapter-cta[data-chapter-start='0']").click();
+    await cp.locator("#lessonOutlineTrack").waitFor();
+    assert.equal(await cp.locator("[data-lesson-start]").count(),8,
+      "All first eight A0 lessons must be tappable");
+    await cp.locator('[data-lesson-start="A0-T01-L01"]').click();
+    await cp.locator("#course-lab-overlay:not([hidden])").waitFor();
+    await cp.screenshot({path:"test-artifacts/a0-first-lesson-390.png"});
+    const width=await cp.evaluate(()=>({
+      doc:document.documentElement.scrollWidth,window:innerWidth,
+      modal:document.querySelector(".cl-shell")?.getBoundingClientRect().width
+    }));
+    assert.ok(width.doc<=width.window+2,"Lesson overlay overflow: "+JSON.stringify(width));
+    assert.ok(width.modal<=390,"Lesson overlay cannot exceed viewport");
+    for(let li=0;li<course.lessons.length;li++){
+      const lesson=course.lessons[li];
+      assert.equal(await cp.locator(".cl-header small").innerText(),
+        "ČEŠTINA · "+lesson.lesson_id);
+      for(let si=0;si<lesson.steps.length;si++){
+        const step=lesson.steps[si];
+        assert.equal(await cp.locator(".cl-step-no").innerText(),"АЛХАМ "+(si+1)+" / 9");
+        switch(step.type){
+          case "model":{
+             assert.ok(await cp.locator('[data-cl-action="complete-model"]').isDisabled(),
+               "Model exposure must not be skippable without opening meanings");
+             for(let i=0;i<step.examples.length;i++)
+               await cp.locator('[data-cl-model="'+i+'"]').click();
+             assert.equal(await cp.locator(".cl-model-reveal.is-revealed").count(),
+               step.examples.length,"Every word meaning must be revealed");
+             await cp.locator('[data-cl-action="complete-model"]').click();
+             break;
+           }
+          case "choice":
+          case "listen_choice":{
+            if(step.type==="listen_choice"){
+              await cp.locator('.cl-hearing [data-cl-say]').click();
+              await cp.waitForFunction(()=>document.querySelector("#cl-heard-flag")?.textContent?.includes("эхэлсэн"));
+              assert.equal((await cp.evaluate(()=>window.__courseTts.at(-1)?.text)),
+                step.utterance.text_cs,"One Czech utterance must be played for the chosen answer");
+            }
+            if(li===0&&si===1){
+              const wrong=step.options.find(x=>x.id!==step.answer_id);
+              await cp.locator('[data-cl-action="option"][data-answer="'+wrong.id+'"]').click();
+              assert.equal(await cp.locator('[data-kind="bad"]').count(),1,
+                "Wrong answer must NOT complete step");
+              assert.equal(await cp.locator(".cl-button.option.is-wrong[aria-invalid='true']").count(),1,
+                "Incorrect choice must be visibly marked before retry");
+              assert.equal(await cp.locator('[data-cl-action="next-step"]').count(),0);
+            }
+            await cp.locator('[data-cl-action="option"][data-answer="'+step.answer_id+'"]').click();
+            break;
+          }
+          case "flashcards":
+            for(let i=0;i<step.items.length;i++)await cp.locator('[data-cl-card="'+i+'"]').click();
+            await cp.locator('[data-cl-action="complete-cards"]').click();
+            break;
+          case "match":{
+             if(li===3)await cp.locator(".cl-match-board").screenshot({
+               path:"test-artifacts/a0-l04-tap-matching-390.png"
+             });
+             assert.equal(await cp.locator('select[data-cl-match]').count(),0,
+               "Outdated dropdown matching must not remain");
+             if(li===0){
+               await cp.locator('[data-cl-match-meaning="0"]').click();
+               assert.match(await cp.locator("#cl-feedback").innerText(),/Эхлээд зүүн/);
+               await cp.locator('[data-cl-match-word="0"]').click();
+               await cp.locator('[data-cl-match-meaning="1"]').click();
+               assert.equal(await cp.locator('[data-kind="bad"]').count(),1,
+                 "Incorrect pair must prompt correction, not pass");
+               assert.equal(await cp.locator('.cl-match-progress').innerText().then(v=>v.startsWith("0 /")),true);
+             }
+             for(let i=0;i<step.pairs.length;i++){
+               await cp.locator('[data-cl-match-word="'+i+'"]').click();
+               await cp.locator('[data-cl-match-meaning="'+i+'"]').click();
+             }
+             assert.equal(await cp.locator('.cl-match-tile.is-paired').count(),
+               step.pairs.length*2,"Correct pairs should stay visibly completed");
+             break;
+           }
+          case "order":{
+            const remaining=step.tiles.map((x,i)=>({text:x.text,i}));
+            for(const c of [...step.target_cs.normalize("NFC")]){
+              const idx=remaining.findIndex(x=>x.text===c);
+              assert.ok(idx>=0,"Target letter tile missing "+step.step_id);
+              const tile=remaining.splice(idx,1)[0];
+              await cp.locator('[data-cl-tile="'+tile.i+'"]').click();
+            }
+            await cp.locator('[data-cl-action="check-order"]').click();
+            break;
+          }
+          case "cloze":
+            await cp.locator("#cl-answer-input").fill(step.answer_cs);
+            await cp.locator('[data-cl-action="check-cloze"]').click();break;
+          case "speak":
+            await cp.locator('[data-cl-action="start-mic"]').click();
+            await cp.locator('[data-cl-action="next-step"]').waitFor({timeout:7000});
+            assert.match(await cp.locator("#cl-feedback").innerText(),/дуудлага зөв гэсэн оноо биш/i);
+            break;
+          default:throw Error("Unknown browser step "+step.type);
+        }
+        await cp.locator('[data-cl-action="next-step"]').click();
+      }
+      assert.match(await cp.locator(".cl-completion h2").innerText(),/Дадлага гүйцэтгэсэн/);
+      assert.match(await cp.locator(".cl-completion").innerText(),/дуудлага, сонсгол, CEFR/i);
+      await cp.screenshot({path:"test-artifacts/a0-lesson-"+(li+1)+"-complete-390.png"});
+      if(li<course.lessons.length-1)await cp.locator('[data-cl-action="next-lesson"]').click();
+    }
+    const progress=await cp.evaluate(()=>window.AhojLessonLab.getProgress());
+    assert.deepEqual(course.lessons.map(x=>progress.lessons[x.lesson_id].finished),Array(8).fill(true));
+    assert.ok(Object.keys(progress.review_queue).length>=18,"Lesson words must be added to review queue");
+    assert.ok(Object.values(progress.lessons).every(x=>x.status==="PRACTICE_COMPLETE_NOT_CERTIFIED"));
+    assert.ok(Object.values(progress.lessons).every(x=>x.audio_events.length>=1));
+    assert.ok(Object.values(progress.lessons).every(x=>x.speech_attempts.length===1));
+    await cp.locator('[data-cl-action="close"]').click();
+    await cp.locator('[data-tab="cards"]').click();
+    await cp.locator("#a0-lesson-course-cards").waitFor();
+    assert.ok(await cp.locator(".cl-course-card").count()>=16,
+      "Completed lesson words must appear as deduplicated Cards tab entries");
+    await cp.locator(".cl-course-reveal").first().click();
+    assert.equal(await cp.locator(".cl-course-meaning").count(),1,
+      "Card answer must display when revealed");
+    await cp.screenshot({path:"test-artifacts/a0-lesson-card-review-390.png"});
+    await cp.reload({waitUntil:"domcontentloaded"});
+    await cp.waitForFunction(()=>window.AhojLessonLab?.getStatus()?.initialized===true);
+    assert.deepEqual((await cp.evaluate(()=>window.AhojLessonLab.getStatus().completed)).sort(),
+      course.lessons.map(l=>l.lesson_id).sort(),"Lesson progress must survive reload");
+    assert.deepEqual(errs,[],"Browser course JS errors: "+errs.join("; "));
+    console.log("PASS mobile A0 course: L01–L08 all 72 real steps, wrong-answer correction, mocked TTS/STT, flashcards, no false mastery and persisted storage");
+    await cp.close();
+  }
+
+  // Exercise UX at narrow and large phones: no horizontal clipping, explicit
+  // interaction hints, visible primary control and stable scroll during reveal.
+  for(const width of [320,428]){
+    const x=await browser.newPage({viewport:{width,height:820},deviceScaleFactor:1});
+    const exceptions=[];
+    x.on("pageerror",e=>exceptions.push(e.message));
+    await x.goto(url+"?reader_lab=1",{waitUntil:"domcontentloaded"});
+    await x.waitForFunction(()=>window.AhojLessonLab?.getStatus()?.initialized===true);
+    assert.equal(await x.evaluate(()=>window.AhojLessonLab.openLesson("A0-T01-L01")),true);
+    await x.locator("#course-lab-overlay:not([hidden])").waitFor();
+    const metrics=await x.evaluate(()=>{
+      const sc=document.querySelector("#cl-scroll"),shell=document.querySelector(".cl-shell");
+      return {scrollWidth:sc.scrollWidth,clientWidth:sc.clientWidth,shellWidth:shell.getBoundingClientRect().width};
+    });
+    assert.ok(metrics.scrollWidth<=metrics.clientWidth+2 && metrics.shellWidth<=width+1,
+      "Exercise must not horizontally overflow "+width+"px: "+JSON.stringify(metrics));
+    assert.ok(await x.locator(".cl-task-type").count()===1);
+    assert.ok(await x.locator("details.cl-goal summary").isVisible());
+    assert.ok(await x.locator('[data-cl-action="complete-model"]').isDisabled());
+    const max=await x.locator("#cl-scroll").evaluate(el=>el.scrollHeight-el.clientHeight);
+    if(max>25){
+      const before=await x.evaluate(()=>{
+        const scroll=document.querySelector("#cl-scroll");
+        scroll.scrollTop=Math.min(75,scroll.scrollHeight-scroll.clientHeight);
+        const pos=scroll.scrollTop;
+        document.querySelector('[data-cl-model="0"]').click();
+        return pos;
+      });
+      const after=await x.locator("#cl-scroll").evaluate(el=>el.scrollTop);
+      assert.ok(Math.abs(before-after)<=3,"Reveal must preserve scroll position on "+width+"px: "+before+"/"+after);
+    }
+    await x.screenshot({path:"test-artifacts/lesson-ux-viewport-"+width+".png"});
+    assert.deepEqual(exceptions,[],"Exercise page JS errors at "+width+"px");
+    await x.close();
+  }
+  console.log("PASS A0 touch lesson UX at 320/390/428 widths, visible instructions and stable scroll");
 
   // Report unsupported SpeechRecognition separately from microphone denial.
   {

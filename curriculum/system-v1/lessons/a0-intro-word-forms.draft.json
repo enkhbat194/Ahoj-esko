@@ -1,0 +1,197 @@
+{
+  "schema_version": "0.1.0",
+  "status": "WORD_FORM_AUDIO_BACKLOG_MODEL_ASSISTED_NOT_PUBLISHED",
+  "source_lesson": "curriculum/system-v1/lessons/a0-intro-001.content.draft.json",
+  "scope_note": "Distinct Czech written forms in draft lesson utterances (not all visible app words); inflected words mapped as candidates, no unverified form/sense assignment certified.",
+  "unique_surface_form_count": 11,
+  "missing_single_word_audio_count": 11,
+  "dictionary_rule": "All visible Czech tokens must be linked to reviewed form+lexeme/sense or be a documented fixed-expression/proper-name exception with separately playable word audio before public release.",
+  "proper_name_rule": "Names are not counted in Top100 lexeme targets but still have pronounceable form/audio and contextual identity; do not count them as learned lemma.",
+  "items": [
+    {
+      "form_id": "CS-FORM-A0INTRO-001",
+      "surface_form_cs": "ahoj",
+      "lemma_candidate_cs": "ahoj",
+      "lexeme_id_candidate": "CS-LEX-0001",
+      "analysis_type": "lemma",
+      "usage_context": "greeting",
+      "source_utterance_ids": [
+        "CZ-A0-S004-U001",
+        "CZ-A0-S004-U006"
+      ],
+      "single_word_audio_asset_id": null,
+      "word_audio_status": "MISSING",
+      "dictionary_sense_id": null,
+      "editorial_status": "PENDING",
+      "production_safe": false
+    },
+    {
+      "form_id": "CS-FORM-A0INTRO-002",
+      "surface_form_cs": "dobrý",
+      "lemma_candidate_cs": "dobrý",
+      "lexeme_id_candidate": "CS-LEX-0002",
+      "analysis_type": "lemma",
+      "usage_context": "adjective_masc_nom",
+      "source_utterance_ids": [
+        "CZ-A0-S004-U002",
+        "CZ-A0-S004-U007"
+      ],
+      "single_word_audio_asset_id": null,
+      "word_audio_status": "MISSING",
+      "dictionary_sense_id": null,
+      "editorial_status": "PENDING",
+      "production_safe": false
+    },
+    {
+      "form_id": "CS-FORM-A0INTRO-003",
+      "surface_form_cs": "den",
+      "lemma_candidate_cs": "den",
+      "lexeme_id_candidate": "CS-LEX-0003",
+      "analysis_type": "lemma",
+      "usage_context": "noun_sg_nom",
+      "source_utterance_ids": [
+        "CZ-A0-S004-U002",
+        "CZ-A0-S004-U007"
+      ],
+      "single_word_audio_asset_id": null,
+      "word_audio_status": "MISSING",
+      "dictionary_sense_id": null,
+      "editorial_status": "PENDING",
+      "production_safe": false
+    },
+    {
+      "form_id": "CS-FORM-A0INTRO-004",
+      "surface_form_cs": "na",
+      "lemma_candidate_cs": "na",
+      "lexeme_id_candidate": "CS-LEX-0010",
+      "analysis_type": "lemma",
+      "usage_context": "preposition",
+      "source_utterance_ids": [
+        "CZ-A0-S004-U003"
+      ],
+      "single_word_audio_asset_id": null,
+      "word_audio_status": "MISSING",
+      "dictionary_sense_id": null,
+      "editorial_status": "PENDING",
+      "production_safe": false
+    },
+    {
+      "form_id": "CS-FORM-A0INTRO-005",
+      "surface_form_cs": "shledanou",
+      "lemma_candidate_cs": null,
+      "lexeme_id_candidate": null,
+      "analysis_type": "fixed_expression_part",
+      "usage_context": "native_morph_review_required",
+      "source_utterance_ids": [
+        "CZ-A0-S004-U003"
+      ],
+      "single_word_audio_asset_id": null,
+      "word_audio_status": "MISSING",
+      "dictionary_sense_id": null,
+      "editorial_status": "PENDING",
+      "production_safe": false
+    },
+    {
+      "form_id": "CS-FORM-A0INTRO-006",
+      "surface_form_cs": "jmenuji",
+      "lemma_candidate_cs": "jmenovat",
+      "lexeme_id_candidate": "CS-LEX-0006",
+      "analysis_type": "verb_form",
+      "usage_context": "present_1sg_reflexive_se",
+      "source_utterance_ids": [
+        "CZ-A0-S004-U004",
+        "CZ-A0-S004-U005",
+        "CZ-A0-S004-U007"
+      ],
+      "single_word_audio_asset_id": null,
+      "word_audio_status": "MISSING",
+      "dictionary_sense_id": null,
+      "editorial_status": "PENDING",
+      "production_safe": false
+    },
+    {
+      "form_id": "CS-FORM-A0INTRO-007",
+      "surface_form_cs": "se",
+      "lemma_candidate_cs": "se",
+      "lexeme_id_candidate": "CS-LEX-0005",
+      "analysis_type": "lemma",
+      "usage_context": "reflexive_clitic",
+      "source_utterance_ids": [
+        "CZ-A0-S004-U004",
+        "CZ-A0-S004-U005",
+        "CZ-A0-S004-U007"
+      ],
+      "single_word_audio_asset_id": null,
+      "word_audio_status": "MISSING",
+      "dictionary_sense_id": null,
+      "editorial_status": "PENDING",
+      "production_safe": false
+    },
+    {
+      "form_id": "CS-FORM-A0INTRO-008",
+      "surface_form_cs": "anna",
+      "lemma_candidate_cs": null,
+      "lexeme_id_candidate": null,
+      "analysis_type": "proper_name",
+      "usage_context": "name_female",
+      "source_utterance_ids": [
+        "CZ-A0-S004-U004",
+        "CZ-A0-S004-U006",
+        "CZ-A0-S004-U007"
+      ],
+      "single_word_audio_asset_id": null,
+      "word_audio_status": "MISSING",
+      "dictionary_sense_id": null,
+      "editorial_status": "PENDING",
+      "production_safe": false
+    },
+    {
+      "form_id": "CS-FORM-A0INTRO-009",
+      "surface_form_cs": "petr",
+      "lemma_candidate_cs": null,
+      "lexeme_id_candidate": null,
+      "analysis_type": "proper_name",
+      "usage_context": "name_male",
+      "source_utterance_ids": [
+        "CZ-A0-S004-U005"
+      ],
+      "single_word_audio_asset_id": null,
+      "word_audio_status": "MISSING",
+      "dictionary_sense_id": null,
+      "editorial_status": "PENDING",
+      "production_safe": false
+    },
+    {
+      "form_id": "CS-FORM-A0INTRO-010",
+      "surface_form_cs": "já",
+      "lemma_candidate_cs": "já",
+      "lexeme_id_candidate": "CS-LEX-0004",
+      "analysis_type": "lemma",
+      "usage_context": "personal_pronoun",
+      "source_utterance_ids": [
+        "CZ-A0-S004-U006"
+      ],
+      "single_word_audio_asset_id": null,
+      "word_audio_status": "MISSING",
+      "dictionary_sense_id": null,
+      "editorial_status": "PENDING",
+      "production_safe": false
+    },
+    {
+      "form_id": "CS-FORM-A0INTRO-011",
+      "surface_form_cs": "jsem",
+      "lemma_candidate_cs": "být",
+      "lexeme_id_candidate": "CS-LEX-0007",
+      "analysis_type": "verb_form",
+      "usage_context": "present_1sg",
+      "source_utterance_ids": [
+        "CZ-A0-S004-U006"
+      ],
+      "single_word_audio_asset_id": null,
+      "word_audio_status": "MISSING",
+      "dictionary_sense_id": null,
+      "editorial_status": "PENDING",
+      "production_safe": false
+    }
+  ]
+}

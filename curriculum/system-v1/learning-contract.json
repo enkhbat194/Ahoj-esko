@@ -1,0 +1,481 @@
+{
+  "schema_version": "1.0.0",
+  "status": "SYSTEM_STANDARD_REVIEWABLE_NOT_RELEASED",
+  "purpose": "A0 (Pre-A1)–B2 үйлдэлд суурилсан Монгол→Чех сургалтын суурь стандарт",
+  "architecture": {
+    "units": [
+      "CEFR_band",
+      "mission",
+      "micro_skill",
+      "learning_session",
+      "exercise_step",
+      "utterance",
+      "review_event",
+      "transfer_assessment"
+    ],
+    "rule": "mission ≠ learning session ≠ micro_skill. One session targets a small coherent group of skills; content and audio cannot be inferred from title alone.",
+    "source_of_truth": "Approved versioned repo JSON only; Drive is editorial input/export and never silently overrides published source.",
+    "levels": [
+      "A0",
+      "A1",
+      "A2",
+      "B1",
+      "B2"
+    ],
+    "mission_blueprint_count": 72,
+    "estimated_session_length_minutes": [
+      12,
+      15
+    ],
+    "user_days_per_week": "learner-selected; no automatic assumption"
+  },
+  "content_selection": {
+    "lexical_family_vs_surface_form": "Distinct lemma/sense/POS/inflection fields; Czech senses are tied to learner scenario. Do not treat plural, case and homographs as unrelated duplicated audio without reason.",
+    "new_lexemes_per_session_recommendation": [
+      4,
+      6
+    ],
+    "active_patterns_per_session": [
+      1,
+      2
+    ],
+    "independent_productions_per_session_recommendation": [
+      2,
+      6
+    ],
+    "review_items_per_session_minimum": 2,
+    "topic_reuse_rule": "Prefer previously reviewed vocabulary; track prerequisites explicitly. Do not insert unseen terms into comprehension/transfer without scaffolding.",
+    "source_license_rule": "Record attribution and license on imported material; independently AI-authored content must not be falsely attributed to dictionaries.",
+    "register_rule": "ty/vy, respectful requests, feminine/masculine/plural/case forms reviewed by scenario; never blindly generate forms.",
+    "safety_rule": "Distinguish Pozor!/Stůj!/Stůjte!/Zastavte stroj! with actual workplace context. TTS and STT cannot certify safety competence."
+  },
+  "lesson_cycle": {
+    "template_id": "task_cycle_v1_15",
+    "steps": [
+      {
+        "id": "S01",
+        "kind": "scene",
+        "description_mn": "Бодит хэрэгцээ ба дүрийг 1 зураг/сонсголын сценээр тайлбарлах",
+        "ability": "comprehension",
+        "contract": "Scene context is comprehended; no new Czech without context",
+        "required": true
+      },
+      {
+        "id": "S02",
+        "kind": "model_input",
+        "description_mn": "Зорилтот богино харилцааг нэг удаа сонсгох",
+        "ability": "listening",
+        "contract": "Each utterance separately playable; transcript optionally hidden",
+        "required": true
+      },
+      {
+        "id": "S03",
+        "kind": "meaning_check",
+        "description_mn": "Хэлсэн санааг эх хэлний тайлбаргүйгээр зураг/үйлдэлтэй холбох",
+        "ability": "comprehension",
+        "contract": "Distractors are semantically plausible, not trick errors",
+        "required": true
+      },
+      {
+        "id": "S04",
+        "kind": "chunk_listen",
+        "description_mn": "Авианы бүтэн утгатай хэсгийг сонсож дуурайх",
+        "ability": "pronunciation",
+        "contract": "Chunk audio has its own unique utterance_id; no syllable chopping",
+        "required": true
+      },
+      {
+        "id": "S05",
+        "kind": "word_focus",
+        "description_mn": "Үгийн гол цөм, утга ба хувирлын зохистой жишээг таних",
+        "ability": "vocabulary",
+        "contract": "No lexeme vs inflected form conflation",
+        "required": true
+      },
+      {
+        "id": "S06",
+        "kind": "chunk_recombine",
+        "description_mn": "Үгсийг нийлүүлж хэллэгийн хэмнэлээр давтах",
+        "ability": "pronunciation",
+        "contract": "Can repeat chunks; STT transcription is not phonetic grading",
+        "required": true
+      },
+      {
+        "id": "S07",
+        "kind": "full_sentence",
+        "description_mn": "Өгүүлбэрийг бүхэлд нь сонсож/дуурайж хэлэх",
+        "ability": "pronunciation",
+        "contract": "One sentence = one utterance_id",
+        "required": true
+      },
+      {
+        "id": "S08",
+        "kind": "pattern_discover",
+        "description_mn": "Нөхцөлд хэрэглэж буй 1–2 загварыг харьцуулан ойлгох",
+        "ability": "grammar_in_context",
+        "contract": "Explain only grammar needed for task",
+        "required": true
+      },
+      {
+        "id": "S09",
+        "kind": "substitute",
+        "description_mn": "Нэг утгатай хэсгийг сольж шинэ өгүүлбэр зохиох",
+        "ability": "controlled_production",
+        "contract": "At least two contrasting contexts",
+        "required": true
+      },
+      {
+        "id": "S10",
+        "kind": "meaning_retrieval",
+        "description_mn": "Аудио/орчуулгагүй үед тохирох Чех хэллэгийг санаад хэлэх",
+        "ability": "active_recall",
+        "contract": "Hints recorded; hints reduce independent score",
+        "required": true
+      },
+      {
+        "id": "S11",
+        "kind": "listen_without_text",
+        "description_mn": "Бичвэргүй шинэ бичлэгээс зорилтот санаа таних",
+        "ability": "listening",
+        "contract": "New voice/context; no source audio reuse as test",
+        "required": true
+      },
+      {
+        "id": "S12",
+        "kind": "guided_dialogue",
+        "description_mn": "Хоёр талт ярианд дүр хариуцан оролцох",
+        "ability": "interaction",
+        "contract": "Turn order and register checked",
+        "required": true
+      },
+      {
+        "id": "S13",
+        "kind": "independent_reply",
+        "description_mn": "Төлөвлөөгүй энгийн асуултад бие дааж хариулах",
+        "ability": "independent_production",
+        "contract": "A0 can be one phrase; scale length with proficiency",
+        "required": true
+      },
+      {
+        "id": "S14",
+        "kind": "transfer",
+        "description_mn": "Урьд үзүүлээгүй байрлал/хүн/мэдээлэлтэй нөхцөлд ижил чадвар хэрэглэх",
+        "ability": "novel_transfer",
+        "contract": "Do not leak exact test stimulus in practice",
+        "required": true
+      },
+      {
+        "id": "S15",
+        "kind": "exit_check",
+        "description_mn": "Бодит үр дүнд суурилж даалгавар гүйцэтгэл, зохистой хэллэг, ойлгомж, засварлах чадварыг үнэлэх",
+        "ability": "assessment",
+        "contract": "No hidden auto-pass; fail triggers targeted re-practice",
+        "required": true
+      }
+    ],
+    "specializations": {
+      "phonetics": {
+        "emphasis": [
+          "S04",
+          "S05",
+          "S06",
+          "S07",
+          "S11"
+        ],
+        "requirements": [
+          "Czech native audio or expert-vetted voice",
+          "no invented phoneme score",
+          "hearing contrasts and intelligibility assessed distinctly"
+        ]
+      },
+      "interaction": {
+        "emphasis": [
+          "S02",
+          "S10",
+          "S12",
+          "S13",
+          "S14",
+          "S15"
+        ],
+        "requirements": [
+          "at least one unanticipated reply",
+          "formal/informal register explicit where relevant"
+        ]
+      },
+      "reading": {
+        "emphasis": [
+          "S03",
+          "S05",
+          "S10",
+          "S14",
+          "S15"
+        ],
+        "requirements": [
+          "reading comprehension separated from reading aloud",
+          "current stuck word only speaker playback",
+          "guided next word only after acceptable pronunciation recognition or accessible assisted progression"
+        ]
+      },
+      "review": {
+        "emphasis": [
+          "S10",
+          "S11",
+          "S13",
+          "S14",
+          "S15"
+        ],
+        "requirements": [
+          "reused learned vocabulary",
+          "no falsely counted new words",
+          "retention measured by delayed novel task"
+        ]
+      }
+    },
+    "flexible_timing": "Steps may be short/merged in visible UI but all 15 pedagogical functions need evidence; tasks beyond time limit may span sessions."
+  },
+  "feedback_loop": {
+    "detect": [
+      "meaning_mismatch",
+      "pronunciation_uncertain",
+      "morphology",
+      "word_order",
+      "register",
+      "omission",
+      "comprehension",
+      "safety"
+    ],
+    "action_sequence": [
+      "identify_specific_error",
+      "provide_correct_contextual_example",
+      "offer_chunk_or_word_level_help",
+      "retry_variant_without_hints",
+      "schedule_review"
+    ],
+    "feedback_mn_tone": "Тодорхой бөгөөд шууд засах; алдааны шалтгаан ба зөв жишээг гаргах",
+    "never": "Do not fabricate confidence or label phonetic correctness from transcript match alone",
+    "assistance_limits": "3 unsuccessful repetitions trigger explanation and optional assisted transition rather than infinite block.",
+    "reader_stt_contract": {
+      "language": "cs-CZ",
+      "working_mode": "guided_word_by_word",
+      "progression": "advance only when current word is reasonably recognized within context; otherwise highlight current word",
+      "current_word_speaker": "play_audio_for_current_word_only",
+      "retry": "on repeated low confidence, show model word and offer retry; do not falsely mark mastered",
+      "assessment_prohibition": "STT transcript alone does not establish Czech phonetic quality or CEFR ability"
+    }
+  },
+  "retrieval": {
+    "schedule_id": "adaptive_review_v1",
+    "default_due_days_after_success": [
+      1,
+      3,
+      7,
+      14,
+      30
+    ],
+    "due_days_are": "Pedagogical starting heuristic, not validated individualized optimal intervals",
+    "outcomes": [
+      "independent_correct",
+      "correct_with_hint",
+      "incorrect",
+      "not_attempted"
+    ],
+    "algorithm_rules": {
+      "independent_correct": "advance to next review interval only if task transfer also succeeded",
+      "correct_with_hint": "retain or shorten interval; not mastery",
+      "incorrect": "same-day corrective micro-practice then next-day review",
+      "not_attempted": "reschedule without fabricated progress",
+      "repeatedly_incorrect": "re-teach source skill, possibly prerequisite"
+    },
+    "vocabulary_frequency": "Track lemma+sense per context; repeated surface forms may be intentional spaced review, not new acquisitions.",
+    "reporting": "Retention metrics compare first encounter vs delayed unassisted response; no promised 10× speed claims."
+  },
+  "assessment": {
+    "rubric_dimensions": [
+      "task_success",
+      "appropriacy",
+      "comprehensibility",
+      "interaction_repair"
+    ],
+    "score_per_dimension": [
+      0,
+      1,
+      2
+    ],
+    "scale_explanation": {
+      "0": "does not demonstrate",
+      "1": "partially demonstrates with difficulty",
+      "2": "independently demonstrates"
+    },
+    "mission_exit_provisional_passing_rule": "total >= 6 of 8, task_success >= 1, appropriacy >= 1, no critical safety error; threshold remains calibration hypothesis not CEFR certification",
+    "mission_gate": "Need at least two independent novel scenarios for high-stakes mission exit; delayed transfer follow-up; no auto-pass based on listening alone.",
+    "cefr_gateway": "Independent integrated calibrated tasks for listening, reading, spoken interaction, spoken production and writing as appropriate to band; CEFR band achievement never inferred from mission count.",
+    "safety_critical_failure": "Wrong dangerous stop/continue direction overrides numeric rubric; do not simulate real hazard exposure.",
+    "stt_policy": "transcription helps compare intended semantics, not direct pronunciation score"
+  },
+  "stories": {
+    "primary_goal": "Graded suspenseful storyline from known words but meaningful adult situations.",
+    "character_continuity": "Stable cast, goals, consequences; each installment reveals new information without random word inventory.",
+    "language_budget": "At least 90% of running-word tokens previously introduced or explicitly scaffolded is an initial editorial target, NOT proof of readability.",
+    "level_progression": "A0 visual mini-scenes → A1 linked short scenes → A2 connected episodes → B1 multi-scene story → B2 multiple perspectives",
+    "story_item_min_fields": [
+      "story_id",
+      "chapter_id",
+      "level",
+      "prerequisite_skill_ids",
+      "introduced_lexemes",
+      "reused_lexemes",
+      "paragraphs",
+      "comprehension_checks",
+      "transfer_prompt",
+      "review_status"
+    ],
+    "testing": "Story comprehension, guided aloud reading and open-ended response are distinct; no forced phonetic score."
+  },
+  "audio_factory": {
+    "trigger": "Only if versioned content is CZ/MN editorial approved and utterance manifest validated",
+    "asset_contract": {
+      "required": [
+        "utterance_id",
+        "canonical_text_cs",
+        "scene_id",
+        "speaker_role",
+        "register",
+        "audio_type",
+        "voice_id",
+        "file_hash",
+        "storage_key",
+        "review_status"
+      ],
+      "unit": "One utterance per audio file; words, sentences, dialogue turns, narrative paragraphs stored separately."
+    },
+    "accepted_audio_types": [
+      "word",
+      "chunk",
+      "sentence",
+      "dialogue_turn",
+      "narration_paragraph",
+      "current_reader_word"
+    ],
+    "duplication_policy": "Reuse audio only when canonical text, voice, register, tempo/context and type match; different forms/meanings remain separate IDs.",
+    "no_batch_concat": "Do not pass words+sentences+stories to TTS as one unlabeled text blob; an explicit manifest maps each ID to one asset.",
+    "storage": "Versioned immutable audio files and manifest; persistent object storage. No playback-time generation dependency for released lessons.",
+    "qa_checks": [
+      "file_exists",
+      "hash_matches",
+      "duration_nonzero",
+      "speech_content_match",
+      "no_clip",
+      "silence_bounds",
+      "speed_naturalness",
+      "voice_register_consistency",
+      "duplicate_detection"
+    ],
+    "voice_policy_ref": "curriculum/system-v1/audio-voice-policy.json",
+    "reader_voice": "male_only",
+    "lesson_dialogue_voices": "female_and_male_roles",
+    "dictionary_word_audio": "one_reusable_approved_audio_per_spoken_form",
+    "existing_private_archive": "276_LEGACY_MP3_PRESERVED_NOT_PUBLIC_OR_REGENERATED"
+  },
+  "automated_qa": {
+    "structural": [
+      "exactly_one_skill_id",
+      "mission_id_stable",
+      "lesson_steps_complete",
+      "audio_id_unique",
+      "all_references_resolve",
+      "source_status_explicit"
+    ],
+    "linguistic": [
+      "Czech grammatical agreement",
+      "MN naturalness",
+      "register",
+      "contextual meaning",
+      "no unlicensed source assertion"
+    ],
+    "educational": [
+      "can_do_covered",
+      "novel_exit_check",
+      "prerequisites_reachable",
+      "spaced_review_scheduled",
+      "no answer leakage"
+    ],
+    "modality": [
+      "listening_has_real_audio",
+      "speaking_has_recordable_learner_turn",
+      "reading_has_full_text_and_comprehension",
+      "safety_requires_review"
+    ],
+    "permitted_ci_pass": "Automated structural validations are PASS only for what they actually execute; do not set native language editor approved=true from static CI.",
+    "release_blockers": [
+      "any language signoff pending",
+      "missing approved answer key",
+      "missing persistent audio when required",
+      "broken app route",
+      "unvalidated speech grading"
+    ],
+    "current_status": "System design only; no actual content/audio certifiable."
+  },
+  "sources": [
+    "https://www.coe.int/en/web/common-european-framework-reference-languages/cefr-companion-volume-and-its-language-versions",
+    "https://www.coe.int/en/web/common-european-framework-reference-languages/cefr-descriptors-search",
+    "https://www.coe.int/en/web/common-european-framework-reference-languages/cefr-in-the-classroom",
+    "https://onlinelibrary.wiley.com/doi/epdf/10.1111/lang.12479"
+  ],
+  "lexicon_master": {
+    "status": "SCHEMA_POLICY_DEFINED_NOT_POPULATED",
+    "role": "one normalized Czech lexeme/sense/form registry shared by all lessons, graded readers, review cards and dictionary",
+    "growth_stages": {
+      "Top100": 100,
+      "Top200": 200,
+      "Top300": 300,
+      "Top500": 500,
+      "Top1000": 1000
+    },
+    "stage_relation": "All cumulative; smaller stage word sets must be subsets of all later stages; source frequencies are evidence inputs but not sole pedagogical selection criterion.",
+    "lexeme_required_fields": [
+      "lexeme_id",
+      "lemma_cs",
+      "part_of_speech",
+      "sources",
+      "frequency_evidence",
+      "learning_rank",
+      "teaching_status"
+    ],
+    "sense_required_fields": [
+      "sense_id",
+      "lexeme_id",
+      "meaning_mn_in_context",
+      "usage_register",
+      "source_evidence",
+      "review_status"
+    ],
+    "form_required_fields": [
+      "form_id",
+      "lexeme_id",
+      "orthographic_form_cs",
+      "morphology",
+      "pronunciation_variant",
+      "word_audio_asset_id",
+      "review_status"
+    ],
+    "relation_required_fields": [
+      "skill_id",
+      "lesson_id",
+      "story_id",
+      "dialogue_utterance_id",
+      "first_introduced_at",
+      "review_events"
+    ],
+    "id_policy": "Never use a translated meaning as identity. One lexeme may have several senses and many inflected forms. Every different pronounced surface form has a distinct form record; it can reuse a reviewed same-form audio asset across features.",
+    "seed_inventory_ref": "curriculum/system-v1/a0-topic-word-audio-inventory.draft.json",
+    "cover_sources": [
+      "approved_lesson_utterances",
+      "approved_reader_story_text",
+      "approved_dictionary_entries",
+      "approved_review_cards"
+    ],
+    "audit_requirement": "100 percent of Czech spoken word forms in every PUBLISHED content package must resolve to approved per-form word audio. Existing draft source coverage is explicitly NOT approved.",
+    "audio_policy_ref": "curriculum/system-v1/audio-voice-policy.json",
+    "czech_language_safety": "Contextual morphology, POS and semantic senses must be reviewed. Never assign automated lemma IDs to all Czech surface tokens based only on spelling."
+  }
+}

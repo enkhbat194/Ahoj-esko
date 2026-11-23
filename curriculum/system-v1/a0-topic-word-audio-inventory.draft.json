@@ -1,0 +1,1616 @@
+{
+  "schema_version": "0.1.0",
+  "status": "AUTOMATED_SOURCE_TOKENS_NOT_A_DICTIONARY_AND_NOT_PUBLISHED",
+  "description": "Exact Czech ORTHOGRAPHIC WORD FORMS appearing only in existing 16 A0 topic sample phrases, not books or all app UI. This does not infer lemma, meaning, POS or correct pronunciation. It is a coverage backlog for dictionary and word playback.",
+  "source": "public/cesky-reading-uiux/a0-curriculum.json",
+  "source_scope": "ONLY_TOPIC_PHRASES_16_A0",
+  "source_phrase_count": 60,
+  "count_unique_orthographic_forms": 81,
+  "language": "cs-CZ",
+  "stages": {
+    "Top100": "NOT_COMPILED",
+    "Top200": "NOT_COMPILED",
+    "Top300": "NOT_COMPILED",
+    "Top500": "NOT_COMPILED",
+    "Top1000": "NOT_COMPILED"
+  },
+  "audio_policy_ref": "curriculum/system-v1/audio-voice-policy.json",
+  "reconciliation": "No existing private ElevenLabs MP3 was copied or marked as matching word without per-asset QA. This inventory does NOT prove the app has audio.",
+  "items": [
+    {
+      "form_id": "cs-form:ahoj",
+      "orthographic_form_cs": "ahoj",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T01",
+        "A0-T02"
+      ],
+      "examples_cs": [
+        "Ahoj.",
+        "Ahoj!"
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:bolí",
+      "orthographic_form_cs": "bolí",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T10"
+      ],
+      "examples_cs": [
+        "Bolí mě hlava."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:byt",
+      "orthographic_form_cs": "byt",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T11"
+      ],
+      "examples_cs": [
+        "To je můj byt."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:červené",
+      "orthographic_form_cs": "červené",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T12"
+      ],
+      "examples_cs": [
+        "Je to červené."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:dám",
+      "orthographic_form_cs": "dám",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T07"
+      ],
+      "examples_cs": [
+        "Dám si kávu."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:děkuji",
+      "orthographic_form_cs": "děkuji",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T02"
+      ],
+      "examples_cs": [
+        "Děkuji."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:den",
+      "orthographic_form_cs": "den",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T01",
+        "A0-T02"
+      ],
+      "examples_cs": [
+        "Dobrý den."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:dobrý",
+      "orthographic_form_cs": "dobrý",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T01",
+        "A0-T02"
+      ],
+      "examples_cs": [
+        "Dobrý den."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:doleva",
+      "orthographic_form_cs": "doleva",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T08"
+      ],
+      "examples_cs": [
+        "Doleva."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:doprava",
+      "orthographic_form_cs": "doprava",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T08"
+      ],
+      "examples_cs": [
+        "Doprava."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:eba",
+      "orthographic_form_cs": "eba",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T02"
+      ],
+      "examples_cs": [
+        "Jmenuji se Eba."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:hlava",
+      "orthographic_form_cs": "hlava",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T10"
+      ],
+      "examples_cs": [
+        "Bolí mě hlava."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:hodin",
+      "orthographic_form_cs": "hodin",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T05"
+      ],
+      "examples_cs": [
+        "V kolik hodin?"
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:hotově",
+      "orthographic_form_cs": "hotově",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T04"
+      ],
+      "examples_cs": [
+        "Hotově."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:jak",
+      "orthographic_form_cs": "jak",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T02"
+      ],
+      "examples_cs": [
+        "Jak se máte?"
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:jaké",
+      "orthographic_form_cs": "jaké",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T14"
+      ],
+      "examples_cs": [
+        "Jaké je počasí?"
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:je",
+      "orthographic_form_cs": "je",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T02",
+        "A0-T06",
+        "A0-T07",
+        "A0-T08",
+        "A0-T10",
+        "A0-T11",
+        "A0-T12",
+        "A0-T14",
+        "A0-T16"
+      ],
+      "examples_cs": [
+        "To je Sára.",
+        "To je moje máma.",
+        "To je můj táta.",
+        "To je všechno."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:jednou",
+      "orthographic_form_cs": "jednou",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T03"
+      ],
+      "examples_cs": [
+        "Ještě jednou, prosím."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:jednu",
+      "orthographic_form_cs": "jednu",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T07"
+      ],
+      "examples_cs": [
+        "Jednu kávu, prosím."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:ještě",
+      "orthographic_form_cs": "ještě",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T03"
+      ],
+      "examples_cs": [
+        "Ještě jednou, prosím."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:jmenuji",
+      "orthographic_form_cs": "jmenuji",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T02"
+      ],
+      "examples_cs": [
+        "Jmenuji se Eba."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:kartou",
+      "orthographic_form_cs": "kartou",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T04"
+      ],
+      "examples_cs": [
+        "Kartou, prosím."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:kávu",
+      "orthographic_form_cs": "kávu",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T07"
+      ],
+      "examples_cs": [
+        "Dám si kávu.",
+        "Jednu kávu, prosím."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:kde",
+      "orthographic_form_cs": "kde",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T08",
+        "A0-T11"
+      ],
+      "examples_cs": [
+        "Kde je zastávka?",
+        "Kde mám vystoupit?",
+        "Kde je koupelna?"
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:knihu",
+      "orthographic_form_cs": "knihu",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T15"
+      ],
+      "examples_cs": [
+        "Otevřete knihu."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:kočka",
+      "orthographic_form_cs": "kočka",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T16"
+      ],
+      "examples_cs": [
+        "To je kočka."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:kolik",
+      "orthographic_form_cs": "kolik",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T04",
+        "A0-T05"
+      ],
+      "examples_cs": [
+        "Kolik to stojí?",
+        "V kolik hodin?"
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:korun",
+      "orthographic_form_cs": "korun",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T04"
+      ],
+      "examples_cs": [
+        "Sto korun."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:koupelna",
+      "orthographic_form_cs": "koupelna",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T11"
+      ],
+      "examples_cs": [
+        "Kde je koupelna?"
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:které",
+      "orthographic_form_cs": "které",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T12"
+      ],
+      "examples_cs": [
+        "Které?"
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:lékaře",
+      "orthographic_form_cs": "lékaře",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T10"
+      ],
+      "examples_cs": [
+        "Potřebuji lékaře."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:mám",
+      "orthographic_form_cs": "mám",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T06",
+        "A0-T08",
+        "A0-T16"
+      ],
+      "examples_cs": [
+        "Mám sestru.",
+        "Kde mám vystoupit?",
+        "Mám psa."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:máma",
+      "orthographic_form_cs": "máma",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T06"
+      ],
+      "examples_cs": [
+        "To je moje máma."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:máte",
+      "orthographic_form_cs": "máte",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T02",
+        "A0-T07",
+        "A0-T13"
+      ],
+      "examples_cs": [
+        "Jak se máte?",
+        "Máte vodu?",
+        "Máte větší?"
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:mě",
+      "orthographic_form_cs": "mě",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T10"
+      ],
+      "examples_cs": [
+        "Bolí mě hlava."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:mi",
+      "orthographic_form_cs": "mi",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T10"
+      ],
+      "examples_cs": [
+        "Je mi špatně."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:moje",
+      "orthographic_form_cs": "moje",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T06"
+      ],
+      "examples_cs": [
+        "To je moje máma."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:můj",
+      "orthographic_form_cs": "můj",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T06",
+        "A0-T11"
+      ],
+      "examples_cs": [
+        "To je můj táta.",
+        "To je můj byt."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:můžu",
+      "orthographic_form_cs": "můžu",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T13"
+      ],
+      "examples_cs": [
+        "Můžu si to zkusit?"
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:na",
+      "orthographic_form_cs": "na",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T02"
+      ],
+      "examples_cs": [
+        "Na shledanou."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:nefunguje",
+      "orthographic_form_cs": "nefunguje",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T11"
+      ],
+      "examples_cs": [
+        "Nefunguje to."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:nerozumím",
+      "orthographic_form_cs": "nerozumím",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T03",
+        "A0-T09"
+      ],
+      "examples_cs": [
+        "Nerozumím."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:osm",
+      "orthographic_form_cs": "osm",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T05"
+      ],
+      "examples_cs": [
+        "V osm.",
+        "Tak zítra v osm."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:otevřete",
+      "orthographic_form_cs": "otevřete",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T15"
+      ],
+      "examples_cs": [
+        "Otevřete knihu."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:pes",
+      "orthographic_form_cs": "pes",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T16"
+      ],
+      "examples_cs": [
+        "To je pes."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:počasí",
+      "orthographic_form_cs": "počasí",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T14"
+      ],
+      "examples_cs": [
+        "Jaké je počasí?"
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:pomalu",
+      "orthographic_form_cs": "pomalu",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T03"
+      ],
+      "examples_cs": [
+        "Pomalu, prosím."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:pomoc",
+      "orthographic_form_cs": "pomoc",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T09"
+      ],
+      "examples_cs": [
+        "Pomoc!"
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:poslouchejte",
+      "orthographic_form_cs": "poslouchejte",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T15"
+      ],
+      "examples_cs": [
+        "Poslouchejte."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:potřebuji",
+      "orthographic_form_cs": "potřebuji",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T10"
+      ],
+      "examples_cs": [
+        "Potřebuji lékaře."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:pozor",
+      "orthographic_form_cs": "pozor",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T09"
+      ],
+      "examples_cs": [
+        "Pozor!"
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:pracuji",
+      "orthographic_form_cs": "pracuji",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T09"
+      ],
+      "examples_cs": [
+        "Pracuji tady."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:promiňte",
+      "orthographic_form_cs": "promiňte",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T02"
+      ],
+      "examples_cs": [
+        "Promiňte."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:prosím",
+      "orthographic_form_cs": "prosím",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T02",
+        "A0-T03",
+        "A0-T04",
+        "A0-T07"
+      ],
+      "examples_cs": [
+        "Prosím.",
+        "Prosím?",
+        "Ještě jednou, prosím.",
+        "Pomalu, prosím."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:prší",
+      "orthographic_form_cs": "prší",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T14"
+      ],
+      "examples_cs": [
+        "Prší."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:psa",
+      "orthographic_form_cs": "psa",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T16"
+      ],
+      "examples_cs": [
+        "Mám psa."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:rozumíte",
+      "orthographic_form_cs": "rozumíte",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T15"
+      ],
+      "examples_cs": [
+        "Rozumíte?"
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:sára",
+      "orthographic_form_cs": "sára",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T02"
+      ],
+      "examples_cs": [
+        "To je Sára."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:se",
+      "orthographic_form_cs": "se",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T02"
+      ],
+      "examples_cs": [
+        "Jmenuji se Eba.",
+        "Jak se máte?"
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:sestru",
+      "orthographic_form_cs": "sestru",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T06"
+      ],
+      "examples_cs": [
+        "Mám sestru."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:shledanou",
+      "orthographic_form_cs": "shledanou",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T02"
+      ],
+      "examples_cs": [
+        "Na shledanou."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:si",
+      "orthographic_form_cs": "si",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T07",
+        "A0-T13"
+      ],
+      "examples_cs": [
+        "Dám si kávu.",
+        "Můžu si to zkusit?",
+        "Vezmu si to."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:sněží",
+      "orthographic_form_cs": "sněží",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T14"
+      ],
+      "examples_cs": [
+        "Sněží."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:sto",
+      "orthographic_form_cs": "sto",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T04"
+      ],
+      "examples_cs": [
+        "Sto korun."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:stojí",
+      "orthographic_form_cs": "stojí",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T04"
+      ],
+      "examples_cs": [
+        "Kolik to stojí?"
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:špatně",
+      "orthographic_form_cs": "špatně",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T10"
+      ],
+      "examples_cs": [
+        "Je mi špatně."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:tady",
+      "orthographic_form_cs": "tady",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T09"
+      ],
+      "examples_cs": [
+        "Pracuji tady."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:tak",
+      "orthographic_form_cs": "tak",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T05"
+      ],
+      "examples_cs": [
+        "Tak zítra v osm."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:táta",
+      "orthographic_form_cs": "táta",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T06"
+      ],
+      "examples_cs": [
+        "To je můj táta."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:to",
+      "orthographic_form_cs": "to",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T02",
+        "A0-T04",
+        "A0-T06",
+        "A0-T07",
+        "A0-T11",
+        "A0-T12",
+        "A0-T13",
+        "A0-T16"
+      ],
+      "examples_cs": [
+        "To je Sára.",
+        "Kolik to stojí?",
+        "To je moje máma.",
+        "To je můj táta."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:tohle",
+      "orthographic_form_cs": "tohle",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T12"
+      ],
+      "examples_cs": [
+        "Tohle."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:v",
+      "orthographic_form_cs": "v",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T05"
+      ],
+      "examples_cs": [
+        "V kolik hodin?",
+        "V osm.",
+        "Tak zítra v osm."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:větší",
+      "orthographic_form_cs": "větší",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T13"
+      ],
+      "examples_cs": [
+        "Máte větší?"
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:vezmu",
+      "orthographic_form_cs": "vezmu",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T13"
+      ],
+      "examples_cs": [
+        "Vezmu si to."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:vodu",
+      "orthographic_form_cs": "vodu",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T07"
+      ],
+      "examples_cs": [
+        "Máte vodu?"
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:všechno",
+      "orthographic_form_cs": "všechno",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T07"
+      ],
+      "examples_cs": [
+        "To je všechno."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:vystoupit",
+      "orthographic_form_cs": "vystoupit",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T08"
+      ],
+      "examples_cs": [
+        "Kde mám vystoupit?"
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:zastávka",
+      "orthographic_form_cs": "zastávka",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T08"
+      ],
+      "examples_cs": [
+        "Kde je zastávka?"
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:zima",
+      "orthographic_form_cs": "zima",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T14"
+      ],
+      "examples_cs": [
+        "Je zima."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:zítra",
+      "orthographic_form_cs": "zítra",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T05"
+      ],
+      "examples_cs": [
+        "Zítra.",
+        "Tak zítra v osm."
+      ],
+      "release_approved": false
+    },
+    {
+      "form_id": "cs-form:zkusit",
+      "orthographic_form_cs": "zkusit",
+      "locale": "cs-CZ",
+      "lexeme_id": null,
+      "sense_id": null,
+      "part_of_speech": null,
+      "morphology": null,
+      "audio_asset_id": null,
+      "audio_status": "UNMAPPED_WORD_AUDIO",
+      "editorial_status": "PENDING_LEMMA_SENSE_REVIEW",
+      "source_topic_ids": [
+        "A0-T13"
+      ],
+      "examples_cs": [
+        "Můžu si to zkusit?"
+      ],
+      "release_approved": false
+    }
+  ]
+}

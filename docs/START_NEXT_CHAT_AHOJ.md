@@ -1,0 +1,152 @@
+# AHOJ — Шинэ чатнаас яг үргэлжлүүлэх нэг эхлэх баримт
+
+**Хамгийн сүүлд бодитоор баталгаажуулсан төлөв:** 2026-11-23, Asia/Ulaanbaatar.  
+**Энэ файлын үүрэг:** шинээр эхлэх, давтан судалгаа/төлөвлөгөө бичих, буруу салбарт ажиллах алдаанаас сэргийлэх.  
+**Repo:** https://github.com/enkhbat194/Ahoj-esko  
+**ACTIVE WORK BRANCH:** `feat/curriculum-system-v1-2026-11-23`  
+**Active Draft PR:** https://github.com/enkhbat194/Ahoj-esko/pull/32  
+**Production `main`:** PR #32-ын эдгээр lesson/Reader Lab шинэчлэлүүд `main`-д **хараахан нэгтгэгдээгүй**.
+
+
+## 2026-11-23 — L04 implementation checkpoint (newer than first-3 baseline)
+
+- **A0-T01-L04 (Č, Š, Ž)** now authored as nine interactive draft tasks at `curriculum/system-v1/lessons/a0-t01-l04.interactive.draft.json`. Browser mirror `public/cesky-reading-uiux/lesson-a0-t01-l04.draft.json` is checked for byte identity.
+- **L01–L03 original canonical file remains untouched.** Existing `ahoj.course.a0.t01.practice.v1` progress and cards persist. The engine loads all four sequential lessons by data, rather than rejecting non-three packs. New Czech-diacritic input keys added.
+- QA scripts extended to expect **36 interactions** total, wrong-answer retry, sequential unlock, mocked TTS and STT, Cards, reload persistence. **Mocked TTS/STT never prove phonetic mastery.**
+- Lesson UI received a small high-contrast refinement (choice affordances, animated feedback, card press interactions, accessible reduced-motion styling); existing black/orange identity preserved. The design is an engineering iteration, not proven user satisfaction.
+- **Content/voice statuses still pending:** L04 is editorial draft, `approved=false`, `published=false`; browser TTS is not validated audio; Top100 remains 100 candidates / 0 approved.
+- **New commits:** `3bfca2df` (L04 source), `c5720801` (dynamic engine), `63fecd1e` (browser mirror), `808ec386` (schema assertions), `a97e9394` (browser E2E), `94060e94` (visual polish).
+- **Verification observation at checkpoint:** `a97e9394` GitHub unit CI PASS (run 45189831651); its browser workflow was IN_PROGRESS (run 45189831322). A complete current HEAD PASS must be checked again before declaring ready.
+- **Render observation at checkpoint:** Existing service `srv-dc21v9qvcj2c73a0g8k0` last reported LIVE at `b787d5a`, not L04. Do not claim the new lesson is deployed until the service reports its new SHA and live state.
+- **Next single task:** Verify L04 complete 36-step browser QA on latest commit, fix any regression, then author `A0-T01-L05 — C/Č, S/Š, Z/Ž-ийг ялгах` using the same engine. After L05 continue L06 → L07 → L08 without creating a new app or merging draft PR #32.
+
+## L01–L08 actual implementation status — 2026-11-23 (supersedes L04-only next action)
+
+**ACTIVE:** PR #32 draft, branch `feat/curriculum-system-v1-2026-11-23`. **All 8 A0-T01 lessons now authored as interactive DRAFT with exactly 9 exercises each = 72**, and all 72 exercises were actually completed by the updated mocked-browser end-to-end suite.
+
+- New canonical L04: `curriculum/system-v1/lessons/a0-t01-l04.interactive.draft.json`; L05–L08: `curriculum/system-v1/lessons/a0-t01-l05-to-l08.interactive.draft.json`. Served mirrors are byte-checked. Existing 3-lesson canonical/mirror **unaltered**.
+- Engine now merges three packs in order, and existing topic outline launch buttons query `window.AhojLessonLab.hasLesson` rather than hardcoding three lessons. `localStorage` schema key remains unchanged; prior completed L01–L03 progress is preserved.
+- **Latest code/content verified SHA:** `9be2b3ffc25edd8e9135267b4df03031386ae470`.
+- **Unit + schema CI:** PASS, `45190418418`, https://github.com/enkhbat194/Ahoj-esko/actions/runs/45190418418 .
+- **Browser E2E:** PASS, `45190418359`, https://github.com/enkhbat194/Ahoj-esko/actions/runs/45190418359 . Mocks cover browser TTS/STT, all 72 answers, sequential gating, card review, persistent state, and responsive reader tests at 320/390/428px; **not** real Czech phonetic QA.
+- **Existing Render service last verified:** `srv-dc21v9qvcj2c73a0g8k0` LIVE at old `b787d5a` commit; new code **NOT YET OBSERVED ON RENDER**. Service autoDeploy is configured `yes` but its current deploy list did not advance on connector commits. Do not claim fresh preview has L04–L08 until verified live at new SHA. Do not make a second Render service.
+- UI adjusted in existing black/orange premium lesson CSS; no guarantee of user approval or actual UX outcome. Comparable product references: Duolingo task-level feedback/progress, Memrise scenario-based listening; we did not copy their designs/assets.
+- **Editorial/audio:** All 8 pilot lessons remain `approved=false`, `published=false`; browser TTS is unverified, microphone speech recognition is attempt-only. Top100 100 candidates, 0 approved; 276 private MP3 stay untouched.
+- **NEXT CONCRETE TASK:** Confirm existing Render deploy reaches validated SHA (without creating a new service), then inspect 8-lesson visual screenshots and improve learning task quality + authentic bilingual context, and arrange Czech native editorial/audio verification. Do not promote to `main` without permission.
+
+## 2026-11-23 22:28 (Asia/Ulaanbaatar) — iPhone screenshot / Render deployment fixed
+
+- User screenshot showed A0-T01-L04 still displaying **“Одоогоор төлөвлөгөө”** on Render; root cause was **stale Render deployment** `b787d5a`, not missing GitHub lesson files.
+- Verified branch **app code** commit `b80186c002c61b31ba101e89c98f39a05bccec53`, GitHub Actions `Test Ahoj Cesko` PASS `45190743729` and `Ahoj Czech Reader Browser QA` PASS `45190743786`.
+- Existing service `srv-dc21v9qvcj2c73a0g8k0` did not automatically deploy many later connector commits, despite `autoDeploy=yes`. One explicit deployment with cleared build cache was started for the existing service (no new service), deploy `dep-dc24ql7f3r2c73eb01og`.
+- **Render result VERIFIED LIVE**: `2026-11-23T14:28:46Z`, deploy commit `b80186c002c61b31ba101e89c98f39a05bccec53`; Render logs confirm new `npx tsx server.ts` bound to port 10000 and “Your service is live”.
+- **Preview URL:** https://ahoj-reader-lab-preview-20261123.onrender.com/cesky-reading-uiux/index.html?reader_lab=1&v=b80186c0 . Mobile steps: `Үе давах → Цагаан толгой ба дуудлага → 04 → Хичээл эхлэх`. L04 unlock requires prior L01–L03 completed. Added cache-busting query to the user URL; **real iPhone Safari screenshot after release has not yet been received**. Render LIVE + CI != independent iPhone screenshot verification.
+- **Remaining release constraints unchanged:** all 8 are content/audio editorial DRAFT, STT is only a recorded attempt; Top100 unapproved; `main` not merged. Next action is verify real iPhone lesson display and improve interactive task depth/UX, then approved Czech audio/editorial.
+
+## 2026-11-23 — Lesson Exercise UX v2 (active draft)
+
+**What changed in existing PR #32 branch (no new app/service, no merge):**
+- `lesson-lab-ui.mjs` model steps now require learners to **reveal each Czech word's contextual meaning** before marking exposure complete; showing a meaning is still NOT mastery.
+- Replaced desktop-style `select` matching with two-column **tap-to-pair** Czech→Mongolian: one Czech tile, one Mongolian tile, immediate corrective feedback, paired state and a visible pair count. Keyboard buttons remain accessible.
+- Exact-choice responses display clear numbered touch options and a selected-correct state. A wrong answer first prompts inspection, then provides specific explanation on repeated failure. It still requires the correct answer.
+- `cloze` reveals only a context-specific handful of relevant Czech letter variants instead of 14 unrelated keys; writing with native keyboard still available.
+- One action per task: labels `ТАНИЛЦ / СОНГО / КАРТ НЭЭ / СОНС / ХОСЛУУЛ / ҮГ БҮТЭЭ / БИЧ / ХЭЛЖ ҮЗ`. Repeated high-level goal text is collapsed in optional disclosure; immediate task instructions stay visible.
+- `draw()` retains the exercise's scroll position when a card/letter is tapped; step navigation resets it intentionally. 44px+ targets, reduced-motion CSS, accessible focus and feedback status.
+- New browser QA asserts model exposure cannot be skipped, incorrect pair requires correction, matching has no selects, matching pairs persist visually, 72-step end-to-end route remains available. Added 320/428 viewport screenshots and no horizontal overflow / scroll retention checks.
+- **Pedagogical limitation:** This is a first UI interaction refactor, NOT proof of more efficient language acquisition; the first eight draft lessons still reuse the same nine-step skeleton. Next quality work is varying task composition by cognitive purpose, creating context-rich dialogue/sentence production, and native Czech editorial + approved word audio.
+- **Release gates unchanged:** `approved=false`, `published=false`; browser TTS/STT never certify Czech phonetics; Top100 candidate approval 0; existing `ahoj.course.a0.t01.practice.v1` storage key preserved.
+- **Last code/QA commit at documentation time:** `5472619efe0ad753b64afbe5e798f06fb33cfd9e`. CI runs `45200004570` (lint) and `45200004466` (browser). Recheck both after this docs-only commit; do not assume new Render LIVE automatically.
+- **Next action:** Confirm the latest CI and update the EXISTING Render preview service `srv-dc21v9qvcj2c73a0g8k0` to latest tested SHA, then visually inspect the screenshots and collect native Czech audio QA separately.
+
+## 2026-11-23 — Exercise UX v2 final browser checkpoint
+
+- **Validated code SHA:** `f96903937d6cae62f0277d4274ca25d0ac83e7d4`.
+- **Test Ahoj Cesko PASS:** run `45201101304`: https://github.com/enkhbat194/Ahoj-esko/actions/runs/45201101304
+- **Ahoj Czech Reader Browser QA PASS:** run `45201101309`: https://github.com/enkhbat194/Ahoj-esko/actions/runs/45201101309
+- Browser test actually completes all 8×9 exercises, tests wrong-choice visible error, wrong pair recovery, all cards/meaning reveals, persisted progress, reader regression and 320/390/428 mobile behavior (browser TTS/STT mocked).
+- Visual artifact evidence shows 320px model cards and 390px L04 matching. Recent polish includes clearly labeled **ЧЕХ / МОНГОЛ** columns, correct-pair marks, wrong-option highlights and short non-blocking error feedback.
+- **Still NOT verified:** native iPhone Safari UX, Czech-native phonetics, real audio QA, pedagogical efficacy with users. Lesson text/audio remains DRAFT/UNAPPROVED; no publication or `main` merge.
+- Existing Render preview must be checked separately for exact branch SHA. Do not confuse GitHub CI PASS with Render LIVE.
+
+## 2026-11-23 — Safari preview freshness for UX v2
+
+- The live link previously showed stale content once because Render had not deployed the latest branch. For UX v2, `index.html` now references `lesson-lab-ui.mjs?v=3` and `lesson-lab-ui.css?v=2` (commit `889f47dc`), and `scripts/check-first-a0-lessons.mjs` locks these exact revisions (commit `ee5e06ed`). This is a **cache-bust for existing assets**, not a new application.
+- The latest UX v2 functionality was validated on code `f9690393` with lint `45201101304` and browser `45201101309`, both PASS. Later docs `af917748` also passed lint `45201395332` and browser `45201395254`. **Recheck the exact latest SHA** after the cache-bust commits before declaring production-ready.
+- Existing Render service `srv-dc21v9qvcj2c73a0g8k0` was explicitly deployed once for `af917748` (`dep-dc25cvijnfac738pvhu0`); this deploy **does not include** the later Safari asset version bumps. Confirm live service deploy commit is at least `ee5e06ed` or this docs-only successor before giving the user the preview link. Keep PR #32 in draft and leave `main` unchanged.
+
+## 0. Шинэ чат шууд эхлэх горим
+
+1. GitHub connector-оор репогийн **тухайн үеийн** `main` commit, PR #32-ийн `head_sha`, CI, PR #29 ба #30-ийн төлөвийг шалга. Өмнөх SHA-г шинэ мэт битгий зарла.
+2. **ЭНЭ ФАЙЛ** болон `curriculum/system-v1/README.md`-г **PR #32 салбараас** унш. `main`-ээс л хайвал одоогийн хэрэгжүүлэлт олдохгүй. Нэмж PR #29 салбар `docs/continuity-curriculum-proposal-2026-11-23`-ын `docs/NEXT_ACTION.md`, `docs/PROJECT_STATE_MASTER.md`, `docs/DECISIONS.md`, `docs/CHAT_HANDOFF_PROTOCOL.md`-ыг уншиж болно — эдгээр нь **PR #29-ийн draft, main-д ороогүй**.
+3. Давтан архитектурын илтгэл, шинэ апп/репо/Render хийхийг ЗОГСОО. **`A0-T01-L04`-ийг бодитоор кодод хийж, хөдөлгүүрт холбон автоматаар шалгаж** ажлаа үргэлжлүүл.
+4. Тухайн чат эцэст CI үр дүн, Render deploy статус, бодит ажлын нотолгоо, дараагийн яг нэг ажлыг шинэчил; санах ой дангаараа хангалтгүй.
+
+## 1. Current verified baseline — яг юу ХИЙГДСЭН
+
+- AHOJ: Чех–Монгол хэлээр **бодит амьдралд ярьж сурах** PWA; одоогийн black/orange Premium UI-г хадгална. Доод цэс: `Үе давах / Унших / AI / Карт / Толь`.
+- A0 каноник `public/cesky-reading-uiux/a0-curriculum.json`: **16 сэдэв, 140 micro-skill outline**. 140 нь 140 бүрэн хичээл гэсэн үг биш.
+- `curriculum/system-v1/mission-map.json`: CEFR Pre-A1(A0) → A1 → A2 → B1 → B2; **72 mission (зорилго), 72 fully-authored lesson БИШ**. A0 140 skills-ийг **53 provisional session** болгон зурагласан; тэдгээр нь гүйцэтгэсэн хичээл биш.
+- `curriculum/system-v1/learning-contract.json`: CEFR can-do + ойлгомжтой оролт + утгатай яриа + retrieval + давталт + шинэ нөхцөлд шалгах 15-step contract. 15 алхам нь суралцах мөчлөгийн гэрээ; одоогийн эхний micro-lesson UI дээр **9 бодит interaction** хэрэгжсэн; хоёрыг хольж болохгүй.
+- **Эхний 3 хичээл UI дээр ажилладаг:** `A0-T01-L01` (үсгийн эхний A/M/P/T авиа), `L02` (a/e/i/o/u), `L03` (урт/богино byt/být, pas/pás). Тус бүр 9 алхамтай, **нийт 27 ажиллагаатай interaction**. Exact choice, listen-choice (browser TTS), үгийн карт, matching, үсэг эвлүүлэх, diacritic cloze, шинэ нөхцөл, микрофоны оролдлого. Буруу хариулбал дахин оролдох, L01→L02→L03 түгжээ, ахиц хадгалалттай.
+- UI зам: `Үе давах → Цагаан толгой ба дуудлага → 01-р хичээл → Хичээл эхлэх`. `A0-T01-L04...`-ийн товч одоогоор зөвхөн outline.
+- `Карт` табад эхний 3 хичээлийн үгс нэг л удаа орно, хэрэглэгч `санасан / сэжүүртэй / мартсан` гэсэн өөрийн үнэлгээ өгч 1/3/7/14/30 хоногийн туршилтын давтлага хийх боломжтой. Browser localStorage `ahoj.course.a0.t01.practice.v1`. Account хооронд sync **хийгдээгүй**.
+- `Унших` хэсэгт одоогийн хуучин 2 жишээ + 3 шинэ **редакцын draft** ном нэг `Бүх зохиолууд` дотор. Нэг shared Reader player, word tap → контекст толь → `Карт`. Browser Czech TTS sentence-by-sentence; `Дуудаж унших` mode дунд гол товч mic; гацсан **одоогийн үг**-ийн speaker, auto STT resume *оролдлого*, ил тод skip, тоглогчийн responsive CSS.
+- Үлдсэн зарчим: уншлагыг зөвхөн өмнөх үзсэн үгээр зохиохгүй; сонирхолтой cosmic/love/mystery/real-life түүх, түвшин нь аажмаар хүндэрнэ; шинэ үг картанд орж давтагдана. **Reader 3 draft Czech/MN текстийг quality approved гэж үзэхгүй.**
+- `Top 100`: `curriculum/system-v1/lexicon/top100.candidate.json` файлын **100 нэр дэвшигч, 0 approved, 0 corpus-rank verified**, lemma/ID duplication 0. Шинэ үг сонголт `A0-T02` эхлэхээс өмнө шалгах. `ano, ne, moci, potřebovat` зэрэг хэрэглээний үгсийн priority дахин үнэлэгдэнэ.
+- PR #30: Drive/GitHub `A0` outline-ын **62 зөрүү БҮРТГЭСЭН** болохоос 62-г шийдсэн гэсэн үг биш. ID-г бүү чимээгүй соль.
+
+## 2. Evidence baseline (docs creation-оос ӨМНӨ шалгасан)
+
+- **Last code/content CI-confirmed SHA:** `b787d5a55cc1886800c184193cc7b51287fc20df`.
+- GitHub Actions `Test Ahoj Cesko`: **PASS**, run `45184920444`: https://github.com/enkhbat194/Ahoj-esko/actions/runs/45184920444 .
+- GitHub Actions `Ahoj Czech Reader Browser QA`: **PASS**, run `45184920437`: https://github.com/enkhbat194/Ahoj-esko/actions/runs/45184920437 . Automated Chromium mobile checks include 27 exercise completions, incorrect-answer retry, Cards, localStorage restoration, and the 5-book Reader Lab flow. Mocked browser TTS/STT ≠ verified iPhone Safari phonetic assessment.
+- **Single existing Free Render dev server:** https://ahoj-reader-lab-preview-20261123.onrender.com/cesky-reading-uiux/index.html?reader_lab=1 .
+- Render service id `srv-dc21v9qvcj2c73a0g8k0`, workspace `tea-d9oh7btbedkc73ct13rg`, deploy id `dep-dc2410qvcj2c73a5ts7g`: **LIVE** at exact SHA above. Test branch `feat/curriculum-system-v1-2026-11-23`. **No new Render service, no additional app, no changes to production `main`!**
+- Хэрэв энэ гарын авлагын commit илүү сүүлийн SHA бол **шинэ HEAD**-ийн тестийг тусад нь шалга. Эндхийн CI/Render нь өмнөх app SHA-тай холбогдсон байгааг ил тод тэмдэглэ.
+
+## 3. Files — өөрчлөх зөв газар
+
+| Зорилго | Эх файлууд |
+|---|---|
+| А0 16 сэдэв, 140 outline | `public/cesky-reading-uiux/a0-curriculum.json` (main-д одоогийн base) |
+| Сургалтын стандарт | `curriculum/system-v1/mission-map.json`, `learning-contract.json`, `README.md` |
+| 3 canonical pilot хичээл | `curriculum/system-v1/lessons/a0-t01-l01-to-l03.interactive.draft.json` |
+| Browser mirror lesson pack | `public/cesky-reading-uiux/lesson-a0-t01-first3.draft.json` (canonical-тай байт бүр адил байх test) |
+| Lesson UI engine, progress, Cards | `public/cesky-reading-uiux/lesson-lab-ui.mjs`, `lesson-lab-ui.css` |
+| Premium course route | `public/cesky-reading-uiux/index.html`: `showTopicOutline`, `renderApp`, `data-lesson-start` |
+| Existing books/reader | `public/cesky-reading-uiux/reader-experience.js`, `reader-lab-ui.mjs`, холбогдох CSS/JSON |
+| Lexicon | `curriculum/system-v1/lexicon/top100.candidate.json` |
+| Unit/content CI | `scripts/check-first-a0-lessons.mjs`; `npm run lint`; `scripts/check-reader-lab-integration.mjs` |
+| End-to-end QA | `scripts/check-reader-browser.mjs`; `.github/workflows/reader-browser.yml` |
+| Active PR | #32; cross-chat docs PR #29; discrepancies PR #30 |
+
+## 4. NEXT ACTION — Дараагийн чат шууд ҮҮНИЙГ хийнэ
+
+**`A0-T01-L04 — Č, Š, Ž авиаг таних`-ийг 9 орчим ажиллах interaction-тайгаар зохиож `Үе давах` таб дахь 04-р хичээлийн картаас нээдэг болго.** Үүнд can-do outcome, жижиг `č/š/ž` бичиг/дуу ялгалт, баталгаажсан Чех утгатай үгийн жишээ (эх сурвалж болон редакцын статусыг зөв тэмдэглэх), хэсэг/үг/утгатай хэллэг, карт, listening attempt (audio asset байгаа эсэхийг шалгах), exact-choice, matching, cloze/spelling, шинэ үгийн сорил, STT attempt болон буруу хариултын feedback байх ёстой. Аудио заавал үүссэн гэж бүү таамагла.
+
+**Technical debt next chat must avoid:**
+- Одоогийн engine `lesson-lab-ui.mjs` дотор **3 lesson**, `d.lessons.length === 3`, 9 алхам, `A0-T01-L0${order}` гэсэн hardcoded assumptions бий; L04 нэмэхдээ өгөгдөлд суурилсан dynamic lesson pack/availability болгож **өмнөх L01-03-ийн ахицыг алдахгүй**, хадгалсан state миграцийн хэрэгцээг шалга.
+- Өмнөх 3 хичээлийн canonical ба browser mirror-ийг солих/өргөтгөх үед `scripts/check-first-a0-lessons.mjs`-ийн 3×9 lock-ийг 4×... болж зөв өөрчлөөд шинэ/хуучны integrity-г батал; хуучин tests-ийг хасахгүй.
+- Browser QA 320/390/428px-г үргэлжлүүл; 4-р lesson-ийг 1–3 дууссаны дараа нээж **бодитоор алдаа гаргаад засаж**, login-free localStorage-аа дахин нээж туулахыг батлах.
+- `L04` баталсан дараа **`L05 C/Č, S/Š, Z/Ž` → `L06 Ď, Ť, Ň` → `L07 R/Ř` → `L08 танил бус үгийг унших сорил`**, дараа нь `A0-T02` мэндчилгээ рүү ор.
+- Хэрэглэгч тестийг өөрөө гүйцэтгэхгүй гэж хэлсэн: **автомат QA-г кодод нэмж GitHub Actions PASS болгож** байж үр дүн зарла.
+
+## 5. Release / audio / pedagogical red lines
+
+- **Бүрэн хичээл** гэж нэрлэх шалгуур: суралцагч нээгээд эхнээс нь дуустал дасгалаа хийж, хариултаа шалгуулаад, ахицаа хадгалж, дараагийн хичээлд шилжиж чадна; холбоосгүй товч/хуурамч PASS байхгүй. **Туршилтын хичээл** ба **аудио/Чех редакц баталгаажсан production хичээл**-ийг тусад нь хэл.
+- Хичээлийн эцсийн хоолой **эмэгтэй + эрэгтэй**; уншлагын өгүүллэгийн TTS **эрэгтэй хоолой**. Browser-ийн `cs-CZ` default TTS-тэй бол эрэгтэй гэж батлах боломжгүй.
+- Хэрэглэгчийн Drive дахь `audio/audio` хавтсанд 270+ файл бий гэж мэдээлсэн; энэ чатаар Drive файл бүрийг шалгасан баталгаа байхгүй. Өмнө ElevenLabs 246 хэллэг үүссэн бүртгэл нь Drive-д 246 бүгд хадгалагдсан гэдгийг батлахгүй. **Хуучин аудиог устгах, чимээгүй дахин үйлдвэрлэх, GitHub/R2-д public upload хийхгүй.** Тусдаа AUDIO чиглэлээр content-approved текст → нэг utterance/word = нэг file → archive/hash → QA → manifest → app гэсэн зарчмаар.
+- Үгийн үндсэн ID, Czech text, translation sense, voice, audio asset hash/version, task, score, flashcard бүгд canonical content-оос холбогдоно. Текст солигдвол хуучин audio-г автоматаар valid гэж үзэхгүй. STT текст зөв танигдсан нь авиа зөв дуудсан гэсэн үг биш. `PRACTICE_COMPLETE_NOT_CERTIFIED` гэдэг хязгаарыг хэвээр хадгал.
+- 72 mission / 53 provisional A0 sessions / 140 A0 micro-skills / 3 pilot interactive lessons — **4 өөр тоо**. `68` A0 хичээл нь өмнөх төлөвлөлтийн *санал*, баталгаатай тоо биш. Нэг хичээлийн 4–6 үг, 12–18 минут, 1/3/7/14/30 хоног нь туршиж батлах таамаглал. Эцсийн зорилго — can-do үйлдэл, өмнө хараагүй харилцаанд хэрэглэж чадах эсэх.
+- PR #32 **Draft**; баталгаажаагүй зохиол/Толь/Аудио + engine бүгд холилдсон тул шууд `main` merge хийхгүй. Дараа production-руу гаргахын өмнө алдаагүй шалгасан UI-only өөрчлөлтийг editorial content-оос салгаж PR болгон дэвшүүлж болно. Шинэ Render үүсгэхгүй.
+
+## 6. New chat copy-paste starting command
+
+> **AHOJ сургалтын хичээлүүдийг яг өмнөх төлөвөөс үргэлжлүүл.**
+> Repo: https://github.com/enkhbat194/Ahoj-esko  
+> Active working branch / Draft PR #32: `feat/curriculum-system-v1-2026-11-23` / https://github.com/enkhbat194/Ahoj-esko/pull/32  
+> Эхлээд энэ салбарын `docs/START_NEXT_CHAT_AHOJ.md` ба `curriculum/system-v1/README.md`-г унш; PR #29/30 болон current CI/deploy/main SHA-г шалга.  
+> **L01, L02, L03 бодитоор хийсэн, 27 interaction Chrome browser QA PASS. Дахин эхнээс нь бүү хий.**  
+> **ШУУД A0-T01-L04 (Č/Š/Ž)-ийг өгөгдөл, ажилладаг UI, 9 орчим дасгал, ахиц хадгалалт, Cards холболт, browser E2E автомат шалгалттайгаар хэрэгжүүл**. Дараа L05–L08 дарааллаар хийнэ.  
+> Хуучин UI-г устгах, шинэ Render/репо үүсгэх, баталгаажаагүй аудио нийтлэх, Top100-г баталгаатай мэт үзэх, бүх PR #32-ыг `main` руу шууд merge хийхийг хориглоно.  
+> Хэрэглэгчээс manual QA шаардахгүй; зөвхөн GitHub-д хадгалсан commit, CI/deploy нотолгоотой тайлагна. Аудио байхгүйгээс болж хуурамч phonetic PASS битгий өг. 

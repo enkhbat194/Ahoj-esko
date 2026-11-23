@@ -1,0 +1,925 @@
+{
+  "schema_version": "0.2.0",
+  "created_date": "2026-11-23",
+  "course_id": "AHOJ-A0-COURSE-PILOT",
+  "level": "A0",
+  "topic_id": "A0-T01",
+  "status": "FIRST_3_LESSON_INTERACTIVE_PREVIEW_NOT_LINGUISTIC_OR_AUDIO_RELEASE",
+  "scope": "Strict canonical order: A0-T01-L01 → L02 → L03. A0-T01-L04 through L08 not yet authored. 140 micro-skills remain outlines except these first three preview lessons.",
+  "editorial_note": "Original Czech/Mongolian example material model-authored; Czech native editorial signoff pending, especially phonetic audio. Do not count browser TTS as phoneme-verified assets.",
+  "voice_policy": "COURSE_MALE_AND_FEMALE_AFTER_APPROVAL; TEMPORARY cs-CZ DEVICE TTS DOES NOT VALIDATE GENDER",
+  "license": "original project data, source links are reference only",
+  "lessons": [
+    {
+      "lesson_id": "A0-T01-L01",
+      "source_micro_skill_id": "A0-T01-L01",
+      "topic_id": "A0-T01",
+      "session_id": "A0-S001",
+      "level": "A0/Pre-A1",
+      "order": 1,
+      "title_mn": "Чех үсгийг сонсож таних",
+      "can_do_mn": "Auto, pes, máma, táta зэрэг богино үгсийн эхний A, P, M, T авиаг сонсоод бичлэгтэй нь холбох.",
+      "focus": [
+        "А",
+        "P",
+        "M",
+        "T"
+      ],
+      "estimated_minutes_trial": [
+        12,
+        18
+      ],
+      "content_status": "ORIGINAL_TEACHING_DRAFT_CZ_MN_EDITOR_PENDING",
+      "approved": false,
+      "published": false,
+      "words": [
+        {
+          "form_cs": "auto",
+          "meaning_mn_context": "машин",
+          "audio_asset_id": null,
+          "editorial_status": "PENDING"
+        },
+        {
+          "form_cs": "pes",
+          "meaning_mn_context": "нохой",
+          "audio_asset_id": null,
+          "editorial_status": "PENDING"
+        },
+        {
+          "form_cs": "máma",
+          "meaning_mn_context": "ээж",
+          "audio_asset_id": null,
+          "editorial_status": "PENDING"
+        },
+        {
+          "form_cs": "táta",
+          "meaning_mn_context": "аав",
+          "audio_asset_id": null,
+          "editorial_status": "PENDING"
+        }
+      ],
+      "steps": [
+        {
+          "step_id": "L01-S01",
+          "type": "model",
+          "title_mn": "Эхний 4 авиа",
+          "description_mn": "Энэ хичээлд үсгийн нэрийг бус, үгийн эхний А / М / P / T авиаг сонсоно. Чех хэлний үгийн бичлэгийг харж, дууг сонс.",
+          "examples": [
+            {
+              "text_cs": "auto",
+              "meaning_mn": "машин",
+              "focus": "A",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "pes",
+              "meaning_mn": "нохой",
+              "focus": "P",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "máma",
+              "meaning_mn": "ээж",
+              "focus": "M",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "táta",
+              "meaning_mn": "аав",
+              "focus": "T",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            }
+          ],
+          "completion_rule": "MODEL_EXAMPLES_OPENED"
+        },
+        {
+          "step_id": "L01-S02",
+          "type": "choice",
+          "title_mn": "Эхний үсгийг ол",
+          "prompt_mn": "«pes» буюу нохой үгийн эхний үсэг аль нь вэ?",
+          "options": [
+            {
+              "id": "p",
+              "text": "P"
+            },
+            {
+              "id": "m",
+              "text": "M"
+            },
+            {
+              "id": "t",
+              "text": "T"
+            }
+          ],
+          "answer_id": "p",
+          "feedback_mn": "pes — P үсгээр эхэлнэ."
+        },
+        {
+          "step_id": "L01-S03",
+          "type": "flashcards",
+          "title_mn": "Үгийн карт · утга, бичлэг, дуу",
+          "prompt_mn": "Карт бүрийг нээж утгыг хар. Дууг нь сонсож үз. Карт үзсэн нь үгийг эзэмшсэн гэсэн баталгаа биш.",
+          "items": [
+            {
+              "text_cs": "auto",
+              "meaning_mn": "машин",
+              "focus": "A",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "pes",
+              "meaning_mn": "нохой",
+              "focus": "P",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "máma",
+              "meaning_mn": "ээж",
+              "focus": "M",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "táta",
+              "meaning_mn": "аав",
+              "focus": "T",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            }
+          ],
+          "completion_rule": "ALL_CARDS_OPENED_NOT_MASTERY"
+        },
+        {
+          "step_id": "L01-S04",
+          "type": "listen_choice",
+          "title_mn": "Сонсож таних I",
+          "prompt_mn": "Чех үгийг сонсоод зөв хариултыг сонго. Төхөөрөмжийн дууг эхлээд сонсох шаардлагатай.",
+          "utterance": {
+            "text_cs": "pes",
+            "audio_asset_id": null,
+            "tts_fallback_locale": "cs-CZ",
+            "production_audio_status": "MISSING_UNVERIFIED"
+          },
+          "options": [
+            {
+              "id": "pes",
+              "text": "pes"
+            },
+            {
+              "id": "mam",
+              "text": "máma"
+            },
+            {
+              "id": "tat",
+              "text": "táta"
+            }
+          ],
+          "answer_id": "pes",
+          "feedback_mn": "Сонссон үг «pes» бол нохой гэсэн үг.",
+          "evidence_gate": "AUDIO_PLAY_EVENT_REQUIRED",
+          "production_verified": false
+        },
+        {
+          "step_id": "L01-S05",
+          "type": "match",
+          "title_mn": "Үг ба утгыг тааруул",
+          "prompt_mn": "Чех үг бүрийн Монгол утгыг сонго.",
+          "pairs": [
+            {
+              "text_cs": "auto",
+              "meaning_mn": "машин"
+            },
+            {
+              "text_cs": "pes",
+              "meaning_mn": "нохой"
+            },
+            {
+              "text_cs": "máma",
+              "meaning_mn": "ээж"
+            },
+            {
+              "text_cs": "táta",
+              "meaning_mn": "аав"
+            }
+          ],
+          "feedback_mn": "Үг бүрийг зөв утгатай холбож байна."
+        },
+        {
+          "step_id": "L01-S06",
+          "type": "order",
+          "title_mn": "Үгийг үсгээр эвлүүлэх",
+          "prompt_mn": "«нохой» гэдэг үгийн үсгүүдийг зөв дарааллаар эвлүүл.",
+          "target_cs": "pes",
+          "tiles": [
+            {
+              "id": "L01-S06-t0",
+              "text": "s"
+            },
+            {
+              "id": "L01-S06-t1",
+              "text": "p"
+            },
+            {
+              "id": "L01-S06-t2",
+              "text": "e"
+            }
+          ],
+          "correct_sequence": [
+            "p",
+            "e",
+            "s"
+          ],
+          "feedback_mn": "Зөв бичлэг: pes."
+        },
+        {
+          "step_id": "L01-S07",
+          "type": "cloze",
+          "title_mn": "Дутуу үсгийг нөх",
+          "prompt_mn": "_uto — машин. Хоосон хэсгийн үсгийг Чех хэлээр бич.",
+          "pattern_cs": "_uto",
+          "answer_cs": "a",
+          "feedback_mn": "Зөв үсэг: a. Үгийн тэмдэглэгээг яг хадгална."
+        },
+        {
+          "step_id": "L01-S08",
+          "type": "choice",
+          "title_mn": "Шинэ үг дээр шалгах",
+          "prompt_mn": "Өмнө картанд байгаагүй «park» (цэцэрлэгт хүрээлэн) гэдэг үг аль үсгээр эхэлж байна вэ?",
+          "options": [
+            {
+              "id": "p",
+              "text": "P"
+            },
+            {
+              "id": "m",
+              "text": "M"
+            },
+            {
+              "id": "a",
+              "text": "A"
+            }
+          ],
+          "answer_id": "p",
+          "feedback_mn": "«park» үг P үсгээр эхэлнэ. Шинэ үгийн эхний авиаг танилаа."
+        },
+        {
+          "step_id": "L01-S09",
+          "type": "speak",
+          "title_mn": "Өөрөө хэлж үз",
+          "prompt_mn": "«pes» гэдэг үгийг дагаж хэлээд бичвэр танигдаж байгаа эсэхийг хараарай. STT нь дуудлагын нарийн үнэлгээ биш.",
+          "target_cs": "pes",
+          "translation_mn": "нохой",
+          "audio_asset_id": null,
+          "locale": "cs-CZ",
+          "evaluation": "ATTEMPT_ONLY_STT_TRANSCRIPT_NOT_PHONETIC_GRADE",
+          "completion_rule": "MIC_ATTEMPT_OR_UNAVAILABLE_FLAG"
+        }
+      ],
+      "pass_rule": {
+        "automatically_graded_min_correct": 5,
+        "allowed_retries": "UNLIMITED",
+        "completion_requires_all_steps": true,
+        "audio_confidence": "BROWSER_TTS_UNVERIFIED_CANNOT_CERTIFY_PHONEMIC_LISTENING",
+        "pronunciation_certification": false
+      },
+      "source_warnings": [
+        "Unseen park is a transfer-reading example, not a Top100 target."
+      ]
+    },
+    {
+      "lesson_id": "A0-T01-L02",
+      "source_micro_skill_id": "A0-T01-L02",
+      "topic_id": "A0-T01",
+      "session_id": "A0-S001",
+      "level": "A0/Pre-A1",
+      "order": 2,
+      "title_mn": "Суурь эгшгийг ялгах",
+      "can_do_mn": "Богино a, e, i, o, u эгшгийг танил үгийн бичлэг, дуутай холбож ялгах.",
+      "focus": [
+        "a",
+        "e",
+        "i",
+        "o",
+        "u"
+      ],
+      "estimated_minutes_trial": [
+        12,
+        18
+      ],
+      "content_status": "ORIGINAL_TEACHING_DRAFT_CZ_MN_EDITOR_PENDING",
+      "approved": false,
+      "published": false,
+      "words": [
+        {
+          "form_cs": "auto",
+          "meaning_mn_context": "машин",
+          "audio_asset_id": null,
+          "editorial_status": "PENDING"
+        },
+        {
+          "form_cs": "Eva",
+          "meaning_mn_context": "Эва (эмэгтэй хүний нэр)",
+          "audio_asset_id": null,
+          "editorial_status": "PENDING"
+        },
+        {
+          "form_cs": "Iva",
+          "meaning_mn_context": "Ива (эмэгтэй хүний нэр)",
+          "audio_asset_id": null,
+          "editorial_status": "PENDING"
+        },
+        {
+          "form_cs": "okno",
+          "meaning_mn_context": "цонх",
+          "audio_asset_id": null,
+          "editorial_status": "PENDING"
+        },
+        {
+          "form_cs": "ulice",
+          "meaning_mn_context": "гудамж",
+          "audio_asset_id": null,
+          "editorial_status": "PENDING"
+        }
+      ],
+      "steps": [
+        {
+          "step_id": "L02-S01",
+          "type": "model",
+          "title_mn": "Таван суурь эгшиг",
+          "description_mn": "Чех хэлний a, e, i, o, u гэсэн таван богино эгшгийг үг дотор сонсоно. Урт эгшгийг дараагийн хичээлд үзнэ.",
+          "examples": [
+            {
+              "text_cs": "auto",
+              "meaning_mn": "машин",
+              "focus": "a",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "Eva",
+              "meaning_mn": "Эва (эмэгтэй хүний нэр)",
+              "focus": "e",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "Iva",
+              "meaning_mn": "Ива (эмэгтэй хүний нэр)",
+              "focus": "i",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "okno",
+              "meaning_mn": "цонх",
+              "focus": "o",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "ulice",
+              "meaning_mn": "гудамж",
+              "focus": "u",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            }
+          ],
+          "completion_rule": "MODEL_EXAMPLES_OPENED"
+        },
+        {
+          "step_id": "L02-S02",
+          "type": "choice",
+          "title_mn": "Эгшгийг олох",
+          "prompt_mn": "«okno» (цонх) үгийн эхний эгшиг юу вэ?",
+          "options": [
+            {
+              "id": "o",
+              "text": "o"
+            },
+            {
+              "id": "a",
+              "text": "a"
+            },
+            {
+              "id": "e",
+              "text": "e"
+            }
+          ],
+          "answer_id": "o",
+          "feedback_mn": "okno — o үсгээр эхэлнэ."
+        },
+        {
+          "step_id": "L02-S03",
+          "type": "flashcards",
+          "title_mn": "Үгийн карт · утга, бичлэг, дуу",
+          "prompt_mn": "Карт бүрийг нээж утгыг хар. Дууг нь сонсож үз. Карт үзсэн нь үгийг эзэмшсэн гэсэн баталгаа биш.",
+          "items": [
+            {
+              "text_cs": "auto",
+              "meaning_mn": "машин",
+              "focus": "a",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "Eva",
+              "meaning_mn": "Эва (эмэгтэй хүний нэр)",
+              "focus": "e",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "Iva",
+              "meaning_mn": "Ива (эмэгтэй хүний нэр)",
+              "focus": "i",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "okno",
+              "meaning_mn": "цонх",
+              "focus": "o",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "ulice",
+              "meaning_mn": "гудамж",
+              "focus": "u",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            }
+          ],
+          "completion_rule": "ALL_CARDS_OPENED_NOT_MASTERY"
+        },
+        {
+          "step_id": "L02-S04",
+          "type": "listen_choice",
+          "title_mn": "Сонсож таних II",
+          "prompt_mn": "Чех үгийг сонсоод зөв хариултыг сонго. Төхөөрөмжийн дууг эхлээд сонсох шаардлагатай.",
+          "utterance": {
+            "text_cs": "ulice",
+            "audio_asset_id": null,
+            "tts_fallback_locale": "cs-CZ",
+            "production_audio_status": "MISSING_UNVERIFIED"
+          },
+          "options": [
+            {
+              "id": "eva",
+              "text": "Eva"
+            },
+            {
+              "id": "ulice",
+              "text": "ulice"
+            },
+            {
+              "id": "okno",
+              "text": "okno"
+            }
+          ],
+          "answer_id": "ulice",
+          "feedback_mn": "ulice — гудамж, эхний үсэг нь u.",
+          "evidence_gate": "AUDIO_PLAY_EVENT_REQUIRED",
+          "production_verified": false
+        },
+        {
+          "step_id": "L02-S05",
+          "type": "match",
+          "title_mn": "Эгшигтэй үгийг утгатай нь холбох",
+          "prompt_mn": "Чех үг бүрийн Монгол утгыг сонго.",
+          "pairs": [
+            {
+              "text_cs": "auto",
+              "meaning_mn": "машин"
+            },
+            {
+              "text_cs": "Eva",
+              "meaning_mn": "Эва (эмэгтэй хүний нэр)"
+            },
+            {
+              "text_cs": "Iva",
+              "meaning_mn": "Ива (эмэгтэй хүний нэр)"
+            },
+            {
+              "text_cs": "okno",
+              "meaning_mn": "цонх"
+            },
+            {
+              "text_cs": "ulice",
+              "meaning_mn": "гудамж"
+            }
+          ],
+          "feedback_mn": "Үг бүрийг зөв утгатай холбож байна."
+        },
+        {
+          "step_id": "L02-S06",
+          "type": "order",
+          "title_mn": "Бичвэрийг эвлүүлэх",
+          "prompt_mn": "«цонх» гэдэг үгийн үсгүүдийг зөв дарааллаар эвлүүл.",
+          "target_cs": "okno",
+          "tiles": [
+            {
+              "id": "L02-S06-t0",
+              "text": "n"
+            },
+            {
+              "id": "L02-S06-t1",
+              "text": "o"
+            },
+            {
+              "id": "L02-S06-t2",
+              "text": "o"
+            },
+            {
+              "id": "L02-S06-t3",
+              "text": "k"
+            }
+          ],
+          "correct_sequence": [
+            "o",
+            "k",
+            "n",
+            "o"
+          ],
+          "feedback_mn": "Зөв бичлэг: okno."
+        },
+        {
+          "step_id": "L02-S07",
+          "type": "cloze",
+          "title_mn": "Дутуу эгшиг",
+          "prompt_mn": "_lice — гудамж. Хоосон хэсгийн үсгийг Чех хэлээр бич.",
+          "pattern_cs": "_lice",
+          "answer_cs": "u",
+          "feedback_mn": "Зөв үсэг: u. Үгийн тэмдэглэгээг яг хадгална."
+        },
+        {
+          "step_id": "L02-S08",
+          "type": "choice",
+          "title_mn": "Шинэ нөхцөлд таних",
+          "prompt_mn": "Картанд ороогүй «ucho» (чих) гэдэг үг ямар эгшгээр эхэлж байна вэ?",
+          "options": [
+            {
+              "id": "u",
+              "text": "u"
+            },
+            {
+              "id": "i",
+              "text": "i"
+            },
+            {
+              "id": "o",
+              "text": "o"
+            }
+          ],
+          "answer_id": "u",
+          "feedback_mn": "ucho үгийн эхний эгшиг u."
+        },
+        {
+          "step_id": "L02-S09",
+          "type": "speak",
+          "title_mn": "Өөрөө хэлж үз",
+          "prompt_mn": "«okno» гэдэг үгийг хэлээрэй. Текст танилтыг зөв дуу авиа гэж автоматаар тооцохгүй.",
+          "target_cs": "okno",
+          "translation_mn": "цонх",
+          "audio_asset_id": null,
+          "locale": "cs-CZ",
+          "evaluation": "ATTEMPT_ONLY_STT_TRANSCRIPT_NOT_PHONETIC_GRADE",
+          "completion_rule": "MIC_ATTEMPT_OR_UNAVAILABLE_FLAG"
+        }
+      ],
+      "pass_rule": {
+        "automatically_graded_min_correct": 5,
+        "allowed_retries": "UNLIMITED",
+        "completion_requires_all_steps": true,
+        "audio_confidence": "BROWSER_TTS_UNVERIFIED_CANNOT_CERTIFY_PHONEMIC_LISTENING",
+        "pronunciation_certification": false
+      }
+    },
+    {
+      "lesson_id": "A0-T01-L03",
+      "source_micro_skill_id": "A0-T01-L03",
+      "topic_id": "A0-T01",
+      "session_id": "A0-S001",
+      "level": "A0/Pre-A1",
+      "order": 3,
+      "title_mn": "Урт, богино эгшгийг ялгах",
+      "can_do_mn": "byt/být, pas/pás-ийн ялгааг утга, бичлэгээр таньж, урт эгшгийг сонсох дадлага хийх.",
+      "focus": [
+        "y/ý",
+        "a/á",
+        "u/ů"
+      ],
+      "estimated_minutes_trial": [
+        12,
+        18
+      ],
+      "content_status": "ORIGINAL_TEACHING_DRAFT_CZ_MN_EDITOR_PENDING",
+      "approved": false,
+      "published": false,
+      "words": [
+        {
+          "form_cs": "byt",
+          "meaning_mn_context": "байр; орон сууц",
+          "audio_asset_id": null,
+          "editorial_status": "PENDING"
+        },
+        {
+          "form_cs": "být",
+          "meaning_mn_context": "байх",
+          "audio_asset_id": null,
+          "editorial_status": "PENDING"
+        },
+        {
+          "form_cs": "pas",
+          "meaning_mn_context": "паспорт",
+          "audio_asset_id": null,
+          "editorial_status": "PENDING"
+        },
+        {
+          "form_cs": "pás",
+          "meaning_mn_context": "бүс, зурвас",
+          "audio_asset_id": null,
+          "editorial_status": "PENDING"
+        },
+        {
+          "form_cs": "dům",
+          "meaning_mn_context": "байшин",
+          "audio_asset_id": null,
+          "editorial_status": "PENDING"
+        }
+      ],
+      "steps": [
+        {
+          "step_id": "L03-S01",
+          "type": "model",
+          "title_mn": "Урт эгшиг утга ялгана",
+          "description_mn": "Чех хэлэнд ý, á, ů зэрэг тэмдэг урт эгшгийг заана. «byt» (байр), «být» (байх) нь өөр утгатай. Үгийн өргөлт, урт богино хоёр өөр ойлголт.",
+          "examples": [
+            {
+              "text_cs": "byt",
+              "meaning_mn": "байр; орон сууц",
+              "focus": "y",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "být",
+              "meaning_mn": "байх",
+              "focus": "ý",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "pas",
+              "meaning_mn": "паспорт",
+              "focus": "a",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "pás",
+              "meaning_mn": "бүс, зурвас",
+              "focus": "á",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "dům",
+              "meaning_mn": "байшин",
+              "focus": "ů",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            }
+          ],
+          "completion_rule": "MODEL_EXAMPLES_OPENED"
+        },
+        {
+          "step_id": "L03-S02",
+          "type": "choice",
+          "title_mn": "Урт эгшгийг таних",
+          "prompt_mn": "«být» (байх) гэдэг үгийн урт эгшиг аль нь вэ?",
+          "options": [
+            {
+              "id": "yy",
+              "text": "ý"
+            },
+            {
+              "id": "y",
+              "text": "y"
+            },
+            {
+              "id": "u",
+              "text": "u"
+            }
+          ],
+          "answer_id": "yy",
+          "feedback_mn": "být үгийн ý нь урт; byt гэвэл байр гэсэн өөр үг."
+        },
+        {
+          "step_id": "L03-S03",
+          "type": "flashcards",
+          "title_mn": "Үгийн карт · утга, бичлэг, дуу",
+          "prompt_mn": "Карт бүрийг нээж утгыг хар. Дууг нь сонсож үз. Карт үзсэн нь үгийг эзэмшсэн гэсэн баталгаа биш.",
+          "items": [
+            {
+              "text_cs": "byt",
+              "meaning_mn": "байр; орон сууц",
+              "focus": "y",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "být",
+              "meaning_mn": "байх",
+              "focus": "ý",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "pas",
+              "meaning_mn": "паспорт",
+              "focus": "a",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "pás",
+              "meaning_mn": "бүс, зурвас",
+              "focus": "á",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "dům",
+              "meaning_mn": "байшин",
+              "focus": "ů",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            }
+          ],
+          "completion_rule": "ALL_CARDS_OPENED_NOT_MASTERY"
+        },
+        {
+          "step_id": "L03-S04",
+          "type": "listen_choice",
+          "title_mn": "Сонсож ялгах III",
+          "prompt_mn": "Чех үгийг сонсоод зөв хариултыг сонго. Төхөөрөмжийн дууг эхлээд сонсох шаардлагатай.",
+          "utterance": {
+            "text_cs": "být",
+            "audio_asset_id": null,
+            "tts_fallback_locale": "cs-CZ",
+            "production_audio_status": "MISSING_UNVERIFIED"
+          },
+          "options": [
+            {
+              "id": "byt",
+              "text": "byt — байр"
+            },
+            {
+              "id": "bytlong",
+              "text": "být — байх"
+            },
+            {
+              "id": "dum",
+              "text": "dům — байшин"
+            }
+          ],
+          "answer_id": "bytlong",
+          "feedback_mn": "být нь «байх». Урт/богино ялгахын тулд баталгаажсан Чех бичлэг чухал; браузер TTS-ийг бэлтгэлд хэрэглэнэ.",
+          "evidence_gate": "AUDIO_PLAY_EVENT_REQUIRED",
+          "production_verified": false
+        },
+        {
+          "step_id": "L03-S05",
+          "type": "match",
+          "title_mn": "Утга өөрчлөгдөх үгс",
+          "prompt_mn": "Чех үг бүрийн Монгол утгыг сонго.",
+          "pairs": [
+            {
+              "text_cs": "byt",
+              "meaning_mn": "байр; орон сууц"
+            },
+            {
+              "text_cs": "být",
+              "meaning_mn": "байх"
+            },
+            {
+              "text_cs": "pas",
+              "meaning_mn": "паспорт"
+            },
+            {
+              "text_cs": "pás",
+              "meaning_mn": "бүс, зурвас"
+            },
+            {
+              "text_cs": "dům",
+              "meaning_mn": "байшин"
+            }
+          ],
+          "feedback_mn": "Үг бүрийг зөв утгатай холбож байна."
+        },
+        {
+          "step_id": "L03-S06",
+          "type": "order",
+          "title_mn": "Урт тэмдэгтэй үгийг бүтээх",
+          "prompt_mn": "«бүс; зурвас» гэдэг үгийн үсгүүдийг зөв дарааллаар эвлүүл.",
+          "target_cs": "pás",
+          "tiles": [
+            {
+              "id": "L03-S06-t0",
+              "text": "s"
+            },
+            {
+              "id": "L03-S06-t1",
+              "text": "p"
+            },
+            {
+              "id": "L03-S06-t2",
+              "text": "á"
+            }
+          ],
+          "correct_sequence": [
+            "p",
+            "á",
+            "s"
+          ],
+          "feedback_mn": "Зөв бичлэг: pás."
+        },
+        {
+          "step_id": "L03-S07",
+          "type": "cloze",
+          "title_mn": "Тусгай тэмдэг нөхөх",
+          "prompt_mn": "d_m — байшин. Хоосон хэсгийн үсгийг Чех хэлээр бич.",
+          "pattern_cs": "d_m",
+          "answer_cs": "ů",
+          "feedback_mn": "Зөв үсэг: ů. Үгийн тэмдэглэгээг яг хадгална."
+        },
+        {
+          "step_id": "L03-S08",
+          "type": "choice",
+          "title_mn": "Өмнө үзсэнг бодит нөхцөлд ашиглах",
+          "prompt_mn": "Танд «паспорт» хэрэгтэй бол аль үгийг сонгох вэ?",
+          "options": [
+            {
+              "id": "pas",
+              "text": "pas"
+            },
+            {
+              "id": "pasLong",
+              "text": "pás"
+            },
+            {
+              "id": "byt",
+              "text": "byt"
+            }
+          ],
+          "answer_id": "pas",
+          "feedback_mn": "pas = паспорт, pás = бүс. Зөвхөн нэг зураас утгыг өөрчилж болно."
+        },
+        {
+          "step_id": "L03-S09",
+          "type": "speak",
+          "title_mn": "Өөрөө хэлж үз",
+          "prompt_mn": "«být» гэдэг үгийг дууд. Дэлгэцэнд гарсан STT текст зөв байлаа ч урт эгшгийн чанар батлагдсан гэсэн үг биш.",
+          "target_cs": "být",
+          "translation_mn": "байх",
+          "audio_asset_id": null,
+          "locale": "cs-CZ",
+          "evaluation": "ATTEMPT_ONLY_STT_TRANSCRIPT_NOT_PHONETIC_GRADE",
+          "completion_rule": "MIC_ATTEMPT_OR_UNAVAILABLE_FLAG"
+        }
+      ],
+      "pass_rule": {
+        "automatically_graded_min_correct": 5,
+        "allowed_retries": "UNLIMITED",
+        "completion_requires_all_steps": true,
+        "audio_confidence": "BROWSER_TTS_UNVERIFIED_CANNOT_CERTIFY_PHONEMIC_LISTENING",
+        "pronunciation_certification": false
+      },
+      "sources": [
+        {
+          "url": "https://fonetika.ff.cuni.cz/en/czech-phonetics/",
+          "purpose": "phonemic Czech vowel quantity 5 short+5 long"
+        },
+        {
+          "url": "https://www.msmt.cz/uploads/soubory/mezinarodni_vztahy/cestinaA1.pdf",
+          "purpose": "official Czech A1 phonetic inventory"
+        }
+      ]
+    }
+  ],
+  "publication": {
+    "approved": false,
+    "published": false,
+    "native_czech_review": "PENDING",
+    "audio_qa": "PENDING",
+    "learner_trial": "NOT_TESTED",
+    "ui_pilot": true
+  }
+}
