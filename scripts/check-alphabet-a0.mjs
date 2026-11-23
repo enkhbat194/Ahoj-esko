@@ -24,9 +24,14 @@ const checks = [
   ['attempt and error logging', js.includes('state.attempts.push') && js.includes('state.errorCount++')],
   ['session persistence', js.includes('localStorage.setItem(KEY')],
   ['no-screen-scroll layout', css.includes('overflow:hidden') && css.includes('100dvh')],
-  ['persistent five tabs', ['Үе давах','Унших','AI','Карт','Толь'].every(label => html.includes(label))],
+  ['no duplicated five-tab navigation in lesson', !html.includes('<nav') && main.includes('class="bottom-nav"')],
+  ['main-app charcoal and orange palette', ['#141414','#1c1c1e','#d96c2e','#ee7f3b'].every(x => css.includes(x))],
+  ['compact microphone screen', !js.split('function renderMic(){')[1].split('function showMicResult')[0].includes('Хичээлийн товч дүн')],
+  ['independent completion summary', js.includes('is-result') && js.includes('result-stats')],
+  ['C pronunciation target', js.includes('recognition:1,speaking:2')],
+  ['compact phone breakpoint', css.includes('@media(max-height:710px)')],
   ['entry point linked to Chapter 0', main.includes('window.location.assign("./alphabet-a0.html")')],
-  ['recap contains approved words', js.includes('ananas · banán · citrón · dort')],
+  ['dedicated result screen with replayable vocabulary', js.includes('function renderComplete()') && js.includes('result-grid') && js.includes('data-play-word')],
 ];
 for (const [name, okay] of checks) if (!okay) throw new Error('A0 QA failed: ' + name);
 console.log('A0 Chapter 0 automated QA: ' + checks.length + '/' + checks.length + ' passed.');
