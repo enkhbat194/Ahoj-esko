@@ -479,6 +479,43 @@ try {
     await cp.close();
   }
 
+  // Exercise UX at narrow and large phones: no horizontal clipping, explicit
+  // interaction hints, visible primary control and stable scroll during reveal.
+  for(const width of [320,428]){
+    const x=await browser.newPage({viewport:{width,height:820},deviceScaleFactor:1});
+    const exceptions=[];
+    x.on("pageerror",e=>exceptions.push(e.message));
+    await x.goto(url+"?reader_lab=1",{waitUntil:"domcontentloaded"});
+    await x.waitForFunction(()=>window.AhojLessonLab?.getStatus()?.initialized===true);
+    assert.equal(await x.evaluate(()=>window.AhojLessonLab.openLesson("A0-T01-L01")),true);
+    await x.locator("#course-lab-overlay:not([hidden])").waitFor();
+    const metrics=await x.evaluate(()=>{
+      const sc=document.querySelector("#cl-scroll"),shell=document.querySelector(".cl-shell");
+      return {scrollWidth:sc.scrollWidth,clientWidth:sc.clientWidth,shellWidth:shell.getBoundingClientRect().width};
+    });
+    assert.ok(metrics.scrollWidth<=metrics.clientWidth+2 && metrics.shellWidth<=width+1,
+      "Exercise must not horizontally overflow "+width+"px: "+JSON.stringify(metrics));
+    assert.ok(await x.locator(".cl-task-type").count()===1);
+    assert.ok(await x.locator("details.cl-goal summary").isVisible());
+    assert.ok(await x.locator('[data-cl-action="complete-model"]').isDisabled());
+    const max=await x.locator("#cl-scroll").evaluate(el=>el.scrollHeight-el.clientHeight);
+    if(max>25){
+      const before=await x.evaluate(()=>{
+        const scroll=document.querySelector("#cl-scroll");
+        scroll.scrollTop=Math.min(75,scroll.scrollHeight-scroll.clientHeight);
+        const pos=scroll.scrollTop;
+        document.querySelector('[data-cl-model="0"]').click();
+        return pos;
+      });
+      const after=await x.locator("#cl-scroll").evaluate(el=>el.scrollTop);
+      assert.ok(Math.abs(before-after)<=3,"Reveal must preserve scroll position on "+width+"px: "+before+"/"+after);
+    }
+    await x.screenshot({path:"test-artifacts/lesson-ux-viewport-"+width+".png"});
+    assert.deepEqual(exceptions,[],"Exercise page JS errors at "+width+"px");
+    await x.close();
+  }
+  console.log("PASS A0 touch lesson UX at 320/390/428 widths, visible instructions and stable scroll");
+
   // Report unsupported SpeechRecognition separately from microphone denial.
   {
     const diagPage = await browser.newPage({ viewport: { width: 390, height: 844 } });
