@@ -83,3 +83,47 @@ assert.ok(html.includes("window.AhojLessonLab?.renderCardsTab?.(mainArea"),"Cour
 assert.ok(!browser.includes("elevenlabs"),"No audio generation in curriculum module");
 assert.ok(!browser.includes("audio_verified:true"),"Must never pretend browser TTS native QA passed");
 console.log("First 3 A0 lesson schema PASS: 27 real draft interactions; canonical order, storage, card review, exact-answer gates, audio and speech never falsely certified.");
+
+const fourthCanonical=read("curriculum/system-v1/lessons/a0-t01-l04.interactive.draft.json");
+assert.equal(read("public/cesky-reading-uiux/lesson-a0-t01-l04.draft.json"),fourthCanonical,
+ "Fourth browser lesson must mirror canonical source byte-for-byte");
+const fourth=JSON.parse(fourthCanonical);
+assert.equal(fourth.publication.approved,false);
+assert.equal(fourth.publication.published,false);
+assert.equal(fourth.publication.audio_qa,"PENDING");
+assert.equal(fourth.lessons.length,1);
+const l04=fourth.lessons[0];
+assert.equal(l04.lesson_id,"A0-T01-L04");
+assert.equal(l04.source_micro_skill_id,topic.lessons[3].id);
+assert.equal(l04.title_mn,topic.lessons[3].title_mn);
+assert.equal(l04.order,4);
+assert.equal(l04.steps.length,9);
+assert.equal(l04.approved,false);
+assert.equal(l04.published,false);
+assert.equal(l04.pass_rule.pronunciation_certification,false);
+assert.ok(l04.words.length>=4);
+assert.deepEqual(l04.steps.map(x=>x.type),[
+ "model","choice","flashcards","listen_choice","match","order","cloze","choice","speak"]);
+for(const step of l04.steps){
+ assert.ok(!all.has(step.step_id),"Old and new step IDs must be unique");
+ all.add(step.step_id);
+ if(["choice","listen_choice"].includes(step.type))
+  assert.ok(step.options.some(x=>x.id===step.answer_id));
+ if(step.type==="listen_choice"){
+  assert.equal(step.utterance.audio_asset_id,null);
+  assert.equal(step.production_verified,false);
+ }
+ if(step.type==="order"){
+  assert.deepEqual([...step.tiles.map(x=>x.text)].sort(),
+                   [...step.target_cs.normalize("NFC")].sort());
+ }
+ if(step.type==="match")
+  assert.equal(new Set(step.pairs.map(x=>x.meaning_mn)).size,step.pairs.length);
+ if(step.type==="speak")
+  assert.equal(step.evaluation,"ATTEMPT_ONLY_STT_TRANSCRIPT_NOT_PHONETIC_GRADE");
+}
+assert.equal(all.size,36,"Total 4 × 9 interactions");
+assert.ok(browser.includes("lesson-a0-t01-l04.draft.json"));
+assert.ok(browser.includes("pack={...d,lessons}"));
+assert.ok(browser.includes('["č","š","ž"'));
+console.log("A0 L04 content checks PASS: four ordered draft lessons, 36 interactions; L01-L03 unchanged and audio unverified.");
