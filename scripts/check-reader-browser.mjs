@@ -344,6 +344,9 @@ try {
         start(){setTimeout(()=>this.onresult?.({results:[[{transcript:"pes"}]]}),30);}
         abort(){}
       };
+      // Recent Chromium exposes the native SpeechRecognition constructor as well;
+      // override BOTH to avoid accidental real mic prompts in CI.
+      window.SpeechRecognition=window.webkitSpeechRecognition;
     });
     await cp.goto(url+"?reader_lab=1",{waitUntil:"domcontentloaded"});
     await cp.locator('[data-tab="stages"]').click();
