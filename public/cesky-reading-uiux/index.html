@@ -2569,6 +2569,17 @@
       document.addEventListener(name, event => event.preventDefault(), {passive:false});
     }
   </script>
+  <link rel="stylesheet" href="./lesson-lab-ui.css?v=1" />
+  <style id="ahoj-lesson-live-cards">
+    .lesson-outline-launch{display:block;min-height:43px;width:100%;margin:9px 0 9px;padding:10px;border-radius:12px;background:linear-gradient(95deg,#edaa59,#ec713b);color:#1b1312;font-size:13px;font-weight:800}
+    .lesson-outline-launch:focus-visible{outline:2px solid white;outline-offset:2px}
+    .lesson-outline-slide .lesson-outline-card:has(.lesson-outline-launch){border-color:#805635}
+    .lesson-outline-body:has(.lesson-outline-launch){min-height:178px;padding-top:14px;padding-bottom:12px}
+    .lesson-outline-body:has(.lesson-outline-launch) h3{font-size:18px;margin:5px 0}
+    .lesson-outline-body:has(.lesson-outline-launch) p{font-size:11px}
+    .lesson-outline-body:has(.lesson-outline-launch) .lesson-outline-status{font-size:9px;margin-top:2px;line-height:1.35}
+    @media(max-height:710px){.lesson-outline-card:has(.lesson-outline-launch){min-height:360px!important}}
+  </style>
 </head>
 <body>
   <!-- Шилэн (Glass) вектор дүрсүүдийн дундын градиент ба сүүдэр -->
@@ -3259,8 +3270,14 @@
                 '</div>' +
                 '<div class="lesson-outline-body"><span class="lesson-outline-id">' + escapeHtml(lesson.id) + '</span>' +
                 '<h3>' + escapeHtml(lesson.title_mn) + '</h3>' +
-                '<p>Аудио, дасгал, үнэлгээ батлагдсаны дараа нээгдэнэ.</p>' +
-                '<span class="lesson-outline-status">Одоогоор төлөвлөгөө</span></div>' +
+                (ch.id === "A0-T01" && lesson.order <= 3
+                  ? '<p>9 алхам · Сонсох, үгийн карт, дасгал, сорил, ахиц хадгалах</p>' +
+                    '<button type="button" class="lesson-outline-launch" data-lesson-start="' +
+                    escapeHtml(lesson.id) + '">Хичээл эхлэх →</button>' +
+                    '<span class="lesson-outline-status">АЖИЛЛАХ ТУРШИЛТ · АУДИО QA ХҮЛЭЭГДЭЖ БАЙНА</span>'
+                  : '<p>Аудио, дасгал, үнэлгээ батлагдсаны дараа нээгдэнэ.</p>' +
+                    '<span class="lesson-outline-status">Одоогоор төлөвлөгөө</span>') +
+                '</div>' +
               '</div></article>'
           ).join("");
           mainArea.innerHTML =
@@ -3280,6 +3297,16 @@
               '<p class="lesson-outline-footer">Зорилго: ' + escapeHtml(ch.finalTask) + '</p>' +
             '</section>';
           mainArea.querySelector("#a0OutlineBack").addEventListener("click", renderStagesView);
+          mainArea.querySelectorAll("[data-lesson-start]").forEach((btn) => {
+            btn.addEventListener("click", () => {
+              const open = window.AhojLessonLab?.openLesson;
+              if (typeof open !== "function" || open(btn.dataset.lessonStart) !== true) {
+                if (!window.AhojLessonLab?.getStatus?.().initialized) {
+                  toast("Хичээлийн хөдөлгүүр ачаалж байна. Дахин нээнэ үү.");
+                }
+              }
+            });
+          });
           const track = mainArea.querySelector("#lessonOutlineTrack");
           const slides = Array.from(track.children);
           let currentSlide = 0;
@@ -4697,5 +4724,7 @@
   </script>
   <!-- Explicit opt-in: ?reader_lab=1. Draft CZ/MN texts and cards stay out of normal app. -->
   <script type="module" src="./reader-lab-ui.mjs?v=2"></script>
+  <!-- First three canonical A0-T01 lessons on the same Premium PWA. -->
+  <script type="module" src="./lesson-lab-ui.mjs?v=1"></script>
 </body>
 </html>
