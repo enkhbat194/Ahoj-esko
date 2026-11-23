@@ -17,7 +17,7 @@ const norm=s=>String(s??"").normalize("NFC").trim().replace(/\s+/gu," ").toLocal
 const ID=id=>document.getElementById(id);
 const dateStamp=ms=>new Date(ms).toLocaleDateString("mn-MN",{month:"short",day:"numeric"});
 let pack=null,profile=null,active=null,started=false,opening=false,blocked=false,spokenText="";
-let speechRecognition=null,cardReveal=new Set(),matchSelections={},orderPicked=[],fieldValue="";
+let speechRecognition=null,cardReveal=new Set(),matchSelections={},matchActive=null,orderPicked=[],fieldValue="";
 let feedbackMessage="",feedbackKind="",voiceState="UNTESTED",microphoneState="UNTESTED";
 const supportedTypes=new Set(["model","choice","flashcards","listen_choice","match","order","cloze","speak"]);
 
@@ -75,7 +75,7 @@ function start(id){
  }
  if(opening)close();
  active=id;profile.last_opened_id=id;opening=true;
- cardReveal=new Set();matchSelections={};orderPicked=[];fieldValue="";
+ cardReveal=new Set();matchSelections={};matchActive=null;orderPicked=[];fieldValue="";
  feedbackMessage="";feedbackKind="";
  store();draw();return true;
 }
@@ -189,16 +189,27 @@ function renderStep(step){
     button("Картын дадлагыг дуусгах","complete-cards","primary",cardReveal.size<step.items.length?"disabled":"");
  }
  case "match":{
-  const all=step.pairs.map(p=>p.meaning_mn).reverse();
-  return '<p class="cl-subtitle">'+esc(step.prompt_mn)+'</p>'+
-  '<div class="cl-pairs">'+step.pairs.map((p,i)=>
-   '<label class="cl-pair"><strong lang="cs">'+esc(p.text_cs)+'</strong>'+
-   '<select data-cl-match="'+i+'" aria-label="'+esc(p.text_cs)+' үгийн утга">'+
-   '<option value="">Утгыг сонго</option>'+all.map((v,j)=>
-   '<option value="'+esc(v)+'" '+(matchSelections[i]===v?"selected":"")+'>'+esc(v)+'</option>').join("")+
-   '</select></label>').join("")+'</div>'+
-   button("Утгуудыг шалгах","check-match","primary");
+   const matched=Object.keys(matchSelections).length,finished=stepDone(step);
+   return '<p class="cl-subtitle">'+esc(step.prompt_mn)+'</p>'+
+    '<p class="cl-match-instruction">① Чех үгийг дар · ② Монгол утгыг дар</p>'+
+    '<div class="cl-match-board"><div class="cl-match-column" aria-label="Чех үгс">'+
+    step.pairs.map((p,i)=>{
+      const done=matchSelections[i]!==undefined;
+      return '<button type="button" data-cl-match-word="'+i+
+       '" class="cl-match-tile'+(done?" is-paired":matchActive===i?" is-active":"")+
+       '" aria-pressed="'+(matchActive===i)+'" '+(done||finished?"disabled":"")+
+       ' lang="cs">'+esc(p.text_cs)+'</button>';
+    }).join("")+'</div><div class="cl-match-column" aria-label="Монгол утгууд">'+
+    step.pairs.map((p,i)=>({p,i})).reverse().map(({p,i})=>{
+      const done=Object.values(matchSelections).includes(i);
+      return '<button type="button" data-cl-match-meaning="'+i+
+       '" class="cl-match-tile'+(done?" is-paired":"")+'" '+(done||finished?"disabled":"")+
+       '>'+esc(p.meaning_mn)+'</button>';
+    }).join("")+'</div></div>'+
+    '<p class="cl-match-progress" aria-live="polite">'+matched+' / '+step.pairs.length+
+    ' зөв хос · Алдаа гарвал дахин сонгоорой.</p>';
  }
+
  case "order":{
   const chosen=orderPicked.map(i=>step.tiles[i]);
   return '<p class="cl-subtitle">'+esc(step.prompt_mn)+'</p>'+
@@ -287,7 +298,7 @@ function goNext(){
  const lesson=getLesson(active),s=stateFor(lesson),step=currentStep();
  if(!stepDone(step))return;
  feedbackMessage="";feedbackKind="";
- cardReveal=new Set();matchSelections={};orderPicked=[];fieldValue="";
+ cardReveal=new Set();matchSelections={};matchActive=null;orderPicked=[];fieldValue="";
  if(s.index===lesson.steps.length-1){
   s.finished=true;s.status="PRACTICE_COMPLETE_NOT_CERTIFIED";
   s.completed_at_ms=Date.now();addFlashcards(lesson);
@@ -311,15 +322,29 @@ function answerOption(answerId){
   updateFeedback("good",step.feedback_mn+" · Дараагийн алхам руу шилж.");
  } else recordError(step,"Хариулт тохирсонгүй. Дахин сонсож/уншаад оролдоорой.");
 }
-function matchCheck(){
- const step=currentStep();if(step?.type!=="match")return;
- const values=step.pairs.map((p,i)=>matchSelections[i]);
- if(values.some(x=>!x)){updateFeedback("bad","Бүх үгийн утгыг сонго.");return;}
- const wrong=step.pairs.filter((p,i)=>norm(p.meaning_mn)!==norm(values[i]));
- if(wrong.length){recordError(step,wrong.length+" үгийн утга зөрсөн. Өөрөөр хариул.");return;}
- finishStep({correct:true,kind:"EXACT_MEANING_MATCH",pairs:values.length});
- updateFeedback("good","Бүх утгыг зөв харгалзууллаа.");
+function matchWord(index){
+ const step=currentStep();
+ if(step?.type!=="match"||stepDone(step)||matchSelections[index]!==undefined)return;
+ matchActive=index;draw();
+ updateFeedback("info","«"+step.pairs[index].text_cs+"» — баруун талын Монгол утгыг дар.");
 }
+function matchMeaning(index){
+ const step=currentStep();if(step?.type!=="match"||stepDone(step))return;
+ if(matchActive===null){updateFeedback("info","Эхлээд зүүн талын Чех үгийг сонго.");return;}
+ const picked=matchActive;matchActive=null;
+ if(picked!==index){
+  draw();
+  recordError(step,"«"+step.pairs[picked].text_cs+"» болон «"+
+   step.pairs[index].meaning_mn+"» тохирохгүй. Өөр утгатай холбож үз.");
+  return;
+ }
+ matchSelections[picked]=index;
+ if(Object.keys(matchSelections).length===step.pairs.length){
+  finishStep({correct:true,kind:"EXACT_MEANING_MATCH",pairs:step.pairs.length});
+  updateFeedback("good","Бүх үгийг зөв утгатай холболоо.");
+ }else{draw();updateFeedback("good","Зөв хос! Дараагийн Чех үгийг сонго.");}
+}
+
 function orderCheck(){
  const step=currentStep();if(step?.type!=="order")return;
  const actual=orderPicked.map(i=>step.tiles[i]?.text).join("");
@@ -369,8 +394,7 @@ function action(type,event){
   finishStep({kind:"CARD_EXPOSURE_NOT_MASTERY",cards_seen:cardReveal.size});updateFeedback("good","Картын утгуудыг харсан; дараа нь давтлагад дахин гарна.");return;
  }
  if(type==="option"){answerOption(event.target.closest("[data-cl-action]").dataset.answer);return;}
- if(type==="check-match"){matchCheck();return;}
- if(type==="order-undo"){orderPicked.pop();draw();return;}
+  if(type==="order-undo"){orderPicked.pop();draw();return;}
  if(type==="check-order"){orderCheck();return;}
  if(type==="check-cloze"){clozeCheck();return;}
  if(type==="special-letter"){const input=ID("cl-answer-input");if(input){input.value+=event.target.textContent;fieldValue=input.value;input.focus();}return;}
@@ -408,7 +432,11 @@ function bindRoot(){
    }});
    return;
   }
-  const flip=ev.target.closest("#course-lab-overlay [data-cl-card]");
+  const word=ev.target.closest("#course-lab-overlay [data-cl-match-word]");
+   if(word){matchWord(Number(word.dataset.clMatchWord));return;}
+   const meaning=ev.target.closest("#course-lab-overlay [data-cl-match-meaning]");
+   if(meaning){matchMeaning(Number(meaning.dataset.clMatchMeaning));return;}
+   const flip=ev.target.closest("#course-lab-overlay [data-cl-card]");
   if(flip){
    cardReveal.add(currentStep().step_id+":"+flip.dataset.clCard);
    draw();return;
@@ -419,10 +447,7 @@ function bindRoot(){
    draw();return;
   }
  });
- document.addEventListener("change",ev=>{
-  const field=ev.target.closest("#course-lab-overlay [data-cl-match]");
-  if(field)matchSelections[field.dataset.clMatch]=field.value;
- });
+
  document.addEventListener("input",ev=>{
   if(ev.target.id==="cl-answer-input")fieldValue=ev.target.value;
  });
