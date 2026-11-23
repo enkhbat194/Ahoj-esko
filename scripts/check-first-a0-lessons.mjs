@@ -165,3 +165,13 @@ for(const lesson of rest.lessons){
 assert.equal(all.size,72);
 assert.ok(browser.includes("lesson-a0-t01-l05-to-l08.draft.json"));
 console.log("A0 L01–L08 draft structural QA PASS: 72 genuine interactions, no false audio certification.");
+
+for(const needle of [
+ "cl-match-board","matchWord(","matchMeaning(","cl-model-reveal",
+ "relevantLetters(","cl-task-type","previousScroll","aria-live=\"polite\""
+])assert.ok(browser.includes(needle),"Modern lesson interaction missing "+needle);
+assert.ok(!browser.includes("select data-cl-match"),
+ "Old dropdown matching UI must not return");
+assert.ok(css.includes(".cl-match-tile")&&css.includes("prefers-reduced-motion"),
+ "Tap-to-match visual and reduced-motion accessibility required");
+console.log("Lesson UX v2 contracts PASS: tap-to-pair, corrective feedback, scaffolded disclosure, scroll continuity.");
