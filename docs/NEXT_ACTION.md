@@ -79,3 +79,12 @@ PR #30: `feat/a0-outline-source-reconciliation-v1`. New draft files on that bran
 - `curriculum/system-v1/reader-adaptive-engine.mjs`: pure offline reader event reducer, per-context word glossary, cards, de-duplicated cross-chapter profile, review due dates, errors/help/retries and cautious pause signals. `scripts/test-reader-adaptive.mjs` included in `npm run lint`.
 - This is **NOT** an in-app working reader yet: UI bindings, learner progress persistence, AI conversational tutor and native language QA are still missing.
 - **NEXT REAL ACTION:** connect an approved reader content package and reading events to existing Premium PWA's reader/card tabs (with feature flag), persist per-user progress, then test actual mobile flow. Avoid any ElevenLabs generation/Drive/R2 changes in this chat. Audio belongs to the separate active audio chat.
+
+
+## 2026-11-23 PWA READER LAB UI CONNECTED ON PR32
+- **Implemented** separate opt-in `?reader_lab=1` code on PR #32's `feat/curriculum-system-v1-2026-11-23`, NOT `main`.
+- Existing premium PWA `Унших` tab now receives a preview shelf for three independently authored editorial drafts (romance, cosmic mystery, astronomy science), clickable word-level contextual gloss, optional comprehension questions and `chapter_finished` events. Existing reader outside opt-in is unchanged.
+- `Карт` tab now uses reader global cards and spaced review schedule within opt-in mode. `Толь` tab searches 64 Czech surface-form contextual draft entries. Local browser persistence keys: `ahoj.reader.lab.profile.v1` and `ahoj.reader.lab.sessions.v1`. Cards deduped by contextual sense/phrase across chapters; unknown backlog retained and paced.
+- New files `public/cesky-reading-uiux/reader-lab-ui.mjs`, `reader-lab-ui.css`, mirrored `reader-lab-engine.mjs`, `reader-lab-content.draft.json`; new test `scripts/check-reader-lab-integration.mjs` compares browser assets byte-for-byte to canonical sources and checks PWA integration. Wired into lint and GitHub Actions.
+- **Release constraints:** content and speech not approved; no audio generated or published; no native Czech editorial signoff; no tested iPhone Safari end-to-end; no account sync; no LLM coach. A feature flag is NOT private access control to copied public JSON. Keep Draft PR unmerged.
+- **NEXT ACTION:** E2E browser smoke on branch preview and address defects; CZ/MN editorial review of 25 sentence drafts, check contextual senses; only then plan production reader release. Do NOT touch ElevenLabs/Drive/R2 here.
