@@ -260,3 +260,123 @@ export function readerWordTooltip(state,{sentence_id,start}){
     editorial_status:token.editorial_status,
     audio_status:"NOT_REQUESTED", pronunciation_score_available:false};
 }
+
+/**
+ * Cross-feature data contract: the caller persists this JSON as learner data.
+ * Reader text and global cards are separate. It does not collect personally
+ * identifying data and does not send events to AI or third parties.
+ */
+export function createLearnerReadingProfile() {
+  return {
+    schema_version:"0.1.0",status:"LOCAL_PROFILE_SCHEMA_NOT_CONNECTED_TO_APP",
+    reading_attempt_ids:[],reading_history:[],lexical_evidence:{},
+    flashcards:[],card_backlog:[],known_reading_sense_keys:[],
+    topic_preferences:[],native_speech_proficiency:"NOT_ASSESSED"
+  };
+}
+function accumulateEvidence(target,addition){
+  for(const field of ["lookups","wrong_answers","independent_correct","retries",
+    "active_pauses","pronunciation_uncertain"]){
+    target[field]=(target[field]||0)+(addition[field]||0);
+  }
+}
+export function commitReaderAttempt(oldProfile,readerState,{
+  attempt_id,story_id,genre,at_ms
+}) {
+  if (!attempt_id || !story_id || !genre || !Number.isFinite(at_ms)||at_ms<0)
+    throw new Error("Reader profile commit needs stable attempt/story/genre and timestamp");
+  if (!readerState?.chapter_read)
+    throw new Error("Only explicit completed reading can be archived; partial session remains separate");
+  if (oldProfile.reading_attempt_ids.includes(attempt_id))
+    return oldProfile;
+  const profile=structuredClone(oldProfile);
+  profile.reading_attempt_ids.push(attempt_id);
+  profile.reading_history.push({
+    attempt_id,story_id,genre,chapter_id:readerState.chapter_id,
+    at_ms,lookups:readerState.metrics.glossary_opens,
+    optional_quiz_correct:readerState.metrics.optional_quiz_correct,
+    optional_quiz_wrong:readerState.metrics.optional_quiz_wrong,
+    note:"Reading completed is NOT mastery or CEFR grade"
+  });
+  for(const [key,e] of Object.entries(readerState.evidence)){
+    const target=profile.lexical_evidence[key] ??
+      (profile.lexical_evidence[key]={});
+    accumulateEvidence(target,e);
+  }
+  const mergeCard=card=>{
+    if(profile.flashcards.some(c=>c.card_key===card.card_key)||
+       profile.card_backlog.some(c=>c.card_key===card.card_key))return;
+    // Keep global cap management to app preferences; no card is dropped.
+    profile.card_backlog.push(structuredClone(card));
+  };
+  for(const card of [...readerState.flashcards,...readerState.card_backlog])mergeCard(card);
+  return profile;
+}
+export function activateGlobalReadingCards(oldProfile,{max_active=4}={}) {
+  if(!Number.isInteger(max_active)||max_active<1||max_active>100)
+    throw new Error("Invalid global card cap");
+  const profile=structuredClone(oldProfile);
+  while(profile.flashcards.length<max_active&&profile.card_backlog.length){
+    const c=profile.card_backlog.shift();
+    if(!profile.flashcards.some(x=>x.card_key===c.card_key))profile.flashcards.push(c);
+  }
+  return profile;
+}
+export function reviewGlobalReadingCard(oldProfile,{card_key,result,at_ms}) {
+  if(!Number.isFinite(at_ms)||at_ms<0)throw new Error("Review timestamp required");
+  if(!["independent_correct","correct_with_hint","incorrect"].includes(result))
+    throw new Error("Unknown review result");
+  const profile=structuredClone(oldProfile);
+  const card=profile.flashcards.find(x=>x.card_key===card_key);
+  if(!card)throw new Error("Global card not active");
+  card.review_history??=[];
+  card.review_history.push({result,at_ms});
+  if(result==="independent_correct"){
+    card.successful_independent_reviews++;
+    card.review_interval_index=Math.min(card.review_interval_index+1,REVIEW_DAYS.length-1);
+  } else if(result==="incorrect")card.review_interval_index=0;
+  else card.review_interval_index=Math.max(0,card.review_interval_index-1);
+  card.due_at_ms=at_ms+REVIEW_DAYS[card.review_interval_index]*DAY;
+  card.last_result=result;
+  card.last_reviewed_at_ms=at_ms;
+  const evidence=profile.lexical_evidence[card.card_key] ??
+    (profile.lexical_evidence[card.card_key]={});
+  if(result==="incorrect")evidence.wrong_answers=(evidence.wrong_answers||0)+1;
+  if(result==="independent_correct")evidence.independent_correct=(evidence.independent_correct||0)+1;
+  const correctDays=unique(card.review_history.filter(x=>x.result==="independent_correct")
+     .map(x=>Math.floor(x.at_ms/DAY)));
+  if(correctDays.length>=2 && !card.review_history.slice(-1).some(x=>x.result==="incorrect")){
+    if(!card.card_key.startsWith("phrase:") &&
+       !profile.known_reading_sense_keys.includes(card.card_key))
+      profile.known_reading_sense_keys.push(card.card_key);
+  } else if(result==="incorrect"){
+    profile.known_reading_sense_keys=
+      profile.known_reading_sense_keys.filter(k=>k!==card.card_key);
+  }
+  return profile;
+}
+export function suggestLearningFocus(profile,{now_ms,desired_genre=null}){
+  if(!Number.isFinite(now_ms)||now_ms<0)throw new Error("Current time required");
+  const dueCards=profile.flashcards.filter(c=>c.due_at_ms<=now_ms)
+    .sort((a,b)=>a.due_at_ms-b.due_at_ms).map(c=>c.card_key);
+  const weak=Object.entries(profile.lexical_evidence).map(([key,e])=>{
+    const errors=e.wrong_answers||0,looks=e.lookups||0,retries=e.retries||0;
+    return {card_key:key,priority:errors*3+looks+retries,errors,looks};
+  }).filter(x=>x.errors>0||x.looks>=2||x.priority>=2)
+    .sort((a,b)=>b.priority-a.priority);
+  const history=profile.reading_history;
+  const last=history.at(-1);
+  const nextGuidance=weak.length
+    ?"EXPLAIN_WEAK_WORDS_IN_NEW_CONTEXT_THEN_OFFER_STORY"
+    :dueCards.length?"REVIEW_DUE_WORDS_THEN_OFFER_STORY"
+    :"OFFER_INTERESTING_READING";
+  return {
+    status:"EVIDENCE_BASED_RULES_NOT_LIVE_AI",
+    next_guidance:nextGuidance,
+    due_flashcards:dueCards,
+    weak_contextual_sense_keys:weak.map(x=>x.card_key),
+    learner_preference_genre:desired_genre??last?.genre??null,
+    suggested_support:weak.length>0?"MORE_CONTEXT_AND_OPTIONAL_SLOWER_TEXT":"NORMAL_READING",
+    notes:"Reading duration alone never determines ability. Repeated independent recall marks READING familiarity only, not Czech phonetics or CEFR level."
+  };
+}
