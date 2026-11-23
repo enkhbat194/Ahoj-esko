@@ -1,3 +1,6 @@
+<!-- LATEST AHOJ NEXT-CHAT HANDOFF: PR32 -->
+> **Шинэ чатны хамгийн эхний, илүү шинэ хөтөч:** PR #32 салбар `feat/curriculum-system-v1-2026-11-23` дахь [`docs/START_NEXT_CHAT_AHOJ.md`](https://github.com/enkhbat194/Ahoj-esko/blob/feat/curriculum-system-v1-2026-11-23/docs/START_NEXT_CHAT_AHOJ.md). **3 хичээл × 9 алхам = 27 interaction** ажиллаж эхэлсэн; Render LIVE, CI PASS on last verified code SHA `b787d5a55cc1886800c184193cc7b51287fc20df`. Дараагийн яг хийх ажил — `A0-T01-L04`-ийг ажиллах хичээл болгон кодлох, дараа нь L05–L08. PR #29 бол cross-chat docs-only DRAFT; PR #32 бол actual active code DRAFT. **Доорх хуучин NEXT мөрүүдийг дээрх хамгийн сүүлийн төлөвөөс ялгаж ойлго!**
+
 # AHOJ — NEXT ACTION
 Last updated: 2026-11-23. Status: IN PROGRESS, no production writes.
 
