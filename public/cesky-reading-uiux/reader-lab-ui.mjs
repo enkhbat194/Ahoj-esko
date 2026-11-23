@@ -64,50 +64,57 @@ function setupStyle() {
   link.href="./reader-lab-ui.css?v=1";document.head.appendChild(link);
 }
 function storyCards() {
- return content.books.map((book,i)=>{
-  const first=book.chapters[0];
-  const gradient=[
-   "linear-gradient(135deg,#102c47,#244563 50%,#10192d)",
-   "linear-gradient(135deg,#422336,#702d49 58%,#221828)",
-   "linear-gradient(135deg,#1d364a,#0b6b83 60%,#17223e)"
-  ][i%3];
-  const tag=book.genre==="science_curiosity"?"Танин мэдэхүй":
-    book.genre==="romance_mystery"?"Хайр · Нууц":"Нууц · Адал явдал";
-  const finished=profile.reading_history.some(x=>x.chapter_id===first.chapter_id);
-  return '<button class="lab-story" type="button" data-lab-open="'+escapeHtml(book.story_id)+
-    '" style="--lab-cover:'+gradient+'" aria-label="'+escapeHtml(book.title_mn)+' унших">'+
-    '<span class="lab-cover">'+
-      '<span class="lab-cover-kicker">АНХНЫ ЭХ · ЗАГВАР</span>'+
-      '<span class="lab-cover-title">'+escapeHtml(book.title_mn)+'</span>'+
-      '<span class="lab-cover-czech" lang="cs">'+escapeHtml(book.title_cs)+'</span>'+
-      '<span class="lab-cover-orb" aria-hidden="true">✧</span></span>'+
-    '<span class="lab-story-meta"><strong>'+escapeHtml(book.title_mn)+'</strong>'+
-    '<small>'+escapeHtml(tag)+' · '+first.sentences.length+' өгүүлбэр</small>'+
-    '<small>'+(finished?"Уншсан · Давтлага нээлттэй":"Тусламжтай уншлага")+'</small></span></button>';
- }).join("");
+  const query=byId("bookSearchInput")?.value?.trim()?.toLocaleLowerCase("cs-CZ")||"";
+  const visible=content.books.filter(book =>
+   !query || (book.title_mn+" "+book.title_cs+" "+book.genre).toLocaleLowerCase("cs-CZ").includes(query));
+  return visible.map((book,i)=>{
+   const gradient=[
+     "linear-gradient(145deg,#17334b,#215c6c 48%,#161d31)",
+     "linear-gradient(145deg,#362139,#7b3754 55%,#20172b)",
+     "linear-gradient(145deg,#0e3b52,#167d8a 55%,#182a42)"
+   ][i%3];
+   const tag=book.genre==="science_curiosity"?"Танин мэдэхүй":
+     book.genre==="romance_mystery"?"Хайр · Нууц":"Нууц · Адал явдал";
+   const chapter=book.chapters[0];
+   const finished=profile.reading_history.some(x=>x.chapter_id===chapter.chapter_id);
+   return '<article class="book-card lab-in-library" role="button" tabindex="0" data-lab-open="'+
+     escapeHtml(book.story_id)+'" aria-label="'+escapeHtml(book.title_mn)+' унших">'+
+     '<div class="book-cover" style="background:'+gradient+'">'+
+       '<div class="book-cover-deco" aria-hidden="true"><span class="lab-cover-glow">✧</span></div>'+
+       '<div class="book-cover-top"><div class="book-badges">'+
+         '<span class="badge-cefr">'+escapeHtml(book.reading_tier.includes("A1")?"A1":"A0+")+'</span>'+
+         '<span class="badge-lps">ЭХ · DRAFT</span></div></div>'+
+       '<div class="cover-center-title"><div class="cover-main-text">'+escapeHtml(book.title_mn)+
+       '</div><span class="cover-cat-tag">'+escapeHtml(tag)+'</span></div>'+
+       '<div class="book-cover-bottom"><span class="age-pill">'+chapter.sentences.length+
+       ' өгүүлбэр</span></div></div>'+
+       '<div class="book-info"><h3 class="book-title">'+escapeHtml(book.title_mn)+
+       '</h3><p class="book-mn-sub" lang="cs">'+escapeHtml(book.title_cs)+'</p>'+
+       '<div class="book-meta"><span>'+escapeHtml(tag)+' · 1 бүлэг'+
+         (finished?" · Уншсан":"")+'</span></div></div></article>';
+  }).join("");
 }
 function decorateReadingView() {
  if(!ENABLED || !initialized || !content)return;
  const nav=byId("navGrid")?.querySelector('[data-tab="read"]');
- const current=nav?.getAttribute("aria-current")==="page";
+ if(nav?.getAttribute("aria-current")!=="page")return;
  const container=byId("readingScroll");
- if(!current||!container||byId("reader-lab-shelf"))return;
- const shelf=document.createElement("section");
- shelf.id="reader-lab-shelf";shelf.className="reader-lab-shelf";
- const guide=suggestLearningFocus(profile,{now_ms:now()});
- shelf.innerHTML='<header class="lab-shelf-head">'+
-  '<span class="lab-eyebrow">УНШЛАГЫН ТУРШИЛТ · ЗӨВХӨН ЭНЭ САЛБАРТ</span>'+
-  '<h2>Сонирхолтой ертөнцүүд</h2>'+
-  '<p>Нууц, хайр, сансар — хичээлээс тусдаа. Мэдэхгүй үгээ дарж тайлбар аваад картандаа хадгал.</p>'+
-  '</header><div class="lab-story-grid">'+storyCards()+'</div>'+
-  '<p class="lab-shelf-foot">'+escapeHtml(profileSourceInfo())+'</p>'+
-  (guide.weak_contextual_sense_keys.length?
-   '<p class="lab-shelf-support">Өмнөх уншлагаас '+guide.weak_contextual_sense_keys.length+
-   ' хэцүү үгийн утга дахин давтах шаардлагатай байж магадгүй.</p>':"");
- container.insertBefore(shelf,container.firstChild);
- shelf.addEventListener("click",e=>{
-  const button=e.target.closest("[data-lab-open]");
-  if(button)openReader(button.dataset.labOpen);
+ const grid=container?.querySelector(".books-grid");
+ if(!grid||grid.querySelector(".lab-in-library"))return;
+ const markup=storyCards();
+ if(!markup)return;
+ grid.insertAdjacentHTML("beforeend",markup);
+ const count=container.querySelector(".count-pill");
+ if(count){
+   const originals=grid.querySelectorAll(".book-card:not(.lab-in-library)").length;
+   const drafts=grid.querySelectorAll(".lab-in-library").length;
+   count.textContent=(originals+drafts)+" ном";
+ }
+ grid.querySelectorAll(".lab-in-library").forEach(card=>{
+  card.addEventListener("click",()=>openReader(card.dataset.labOpen));
+  card.addEventListener("keydown",event=>{
+    if(event.key==="Enter"||event.key===" "){event.preventDefault();openReader(card.dataset.labOpen);}
+  });
  });
 }
 function chapterMarkup(chapter) {
