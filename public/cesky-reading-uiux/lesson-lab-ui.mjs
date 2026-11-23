@@ -1,5 +1,5 @@
 /**
- * AHOJ A0 teaching engine — interactive pilot for the FIRST THREE canonical
+ * AHOJ A0 teaching engine — interactive preview for eight canonical
  * micro-skills (A0-T01-L01 onward).
  *
  * Persisted progress is only a practice record. Browser speech synthesis
@@ -176,14 +176,19 @@ function renderStep(step){
  case "choice":
  case "listen_choice":{
   const hasSound=step.type==="listen_choice";
-  return '<p class="cl-subtitle">'+esc(step.prompt_mn)+'</p>'+
-   (hasSound?'<div class="cl-hearing">'+speechButton(step.utterance.text_cs,"Сонсох")+
-    '<p>Сонссоны дараа хариул. Хэрэв дуу ажиллахгүй бол энэ шалгалт үнэлэгдэхгүй.</p>'+
-    '<small id="cl-heard-flag">Аудиог сонсоогүй</small>'+
-    '</div>':'')+
-   '<div class="cl-options">'+step.options.map(o=>button(o.text,"option","option",'data-answer="'+esc(o.id)+'"')).join("")+'</div>'+
-   (hasSound?button("Аудио ажиллахгүй — текстээр дадлага хийх","audio-unavailable","muted"):"");
+  const saved=stateFor(getLesson(active)).answers[step.step_id]?.value??null;
+  return '<p class="cl-subtitle cl-task-prompt">'+esc(step.prompt_mn)+'</p>'+
+   (hasSound?'<div class="cl-hearing">'+speechButton(step.utterance.text_cs,"Чех үгийг сонсох")+
+     '<p>Эхлээд сонс, дараа нь тохирох үгийг сонго.</p>'+
+     '<small id="cl-heard-flag">Дууг сонсоогүй</small></div>':'')+
+   '<div class="cl-options">'+step.options.map((o,i)=>
+     '<button type="button" class="cl-button option'+(saved===o.id?" is-correct":"")+
+     '" data-cl-action="option" data-answer="'+esc(o.id)+'" '+(saved!==null?"disabled":"")+
+     '><span class="cl-choice-marker">'+String.fromCharCode(65+i)+
+     '</span><span>'+esc(o.text)+'</span></button>').join("")+'</div>'+
+   (hasSound?button("Дуу гарахгүй — үнэлгээгүй үргэлжлүүлэх","audio-unavailable","muted"):"");
  }
+
  case "flashcards":{
    return '<p class="cl-subtitle">'+esc(step.prompt_mn)+'</p>'+
     '<div class="cl-flashcards">'+step.items.map((x,i)=>{
@@ -326,9 +331,14 @@ function answerOption(answerId){
  }
  if(answerId===step.answer_id){
   finishStep({kind:step.type==="listen_choice"?"BROWSER_TTS_QUIZ_NOT_PHONEMIC_CERTIFICATION":"EXACT_CHOICE",
-   correct:true,audio_verified:false});
+   correct:true,audio_verified:false,value:answerId});
   updateFeedback("good",step.feedback_mn+" · Дараагийн алхам руу шилж.");
- } else recordError(step,"Хариулт тохирсонгүй. Дахин сонсож/уншаад оролдоорой.");
+ } else {
+  const selected=step.options.find(o=>o.id===answerId)?.text??"";
+  const mistakes=s.mistakes[step.step_id]??0;
+  recordError(step,"«"+selected+"» тохирсонгүй. "+
+   (mistakes>=1?step.feedback_mn:"Үгийн утга болон тэмдэглэгээг дахин ажигла."));
+ }
 }
 function matchWord(index){
  const step=currentStep();
