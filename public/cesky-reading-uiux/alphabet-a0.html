@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#0a0e12">
+  <meta name="theme-color" content="#141414">
   <title>AHOJ • A0 Chapter 0 — Цагаан толгой</title>
-  <link rel="stylesheet" href="./alphabet-a0.css">
-  <script src="./alphabet-a0.js" defer></script>
+  <link rel="stylesheet" href="./alphabet-a0.css?v=2">
+  <script src="./alphabet-a0.js?v=2" defer></script>
 </head>
 <body>
   <div class="app" id="app">
@@ -14,17 +14,11 @@
       <button class="back icon-btn" type="button" id="goBack" aria-label="Хичээлээс гарах">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m7-7-7 7 7 7"/></svg>
       </button>
-      <div class="brand"><strong>AHOJ</strong><span>A0 · Chapter 0</span><h1>Цагаан толгой</h1></div>
+      <div class="brand"><strong>Цагаан толгой</strong><span>A0 · Chapter 0</span></div>
     </header>
     <div class="progress-row" aria-label="Хичээлийн ахиц"><div class="progress-track"><div id="progressFill"></div></div><span id="progressCount">1/8</span></div>
     <main id="exercise" class="exercise" aria-live="polite"></main>
-    <nav class="bottom-nav" aria-label="Үндсэн навигац">
-      <a class="active" href="./index.html?tab=stages" id="stageTab"><svg viewBox="0 0 24 24"><path d="m3 8 9-5 9 5-9 5-9-5Zm0 5 9 5 9-5M3 18l9 5 9-5"/></svg><span>Үе давах</span></a>
-      <a href="./index.html?tab=read"><svg viewBox="0 0 24 24"><path d="M12 6c-3-3-6-3-9-2v16c4-1 7-1 9 2 2-3 5-3 9-2V4c-3-1-6-1-9 2v16"/></svg><span>Унших</span></a>
-      <a href="./index.html?tab=ai"><svg viewBox="0 0 24 24"><path d="m12 2 2.6 7.4L22 12l-7.4 2.6L12 22l-2.6-7.4L2 12l7.4-2.6L12 2Z"/></svg><span>AI</span></a>
-      <a href="./index.html?tab=cards"><svg viewBox="0 0 24 24"><path d="M6 3h15v16H6zM3 7v14h15"/></svg><span>Карт</span></a>
-      <a href="./index.html?tab=dictionary"><svg viewBox="0 0 24 24"><circle cx="10" cy="10" r="7"/><path d="m15 15 7 7"/></svg><span>Толь</span></a>
-    </nav>
+    <!-- No duplicate navigation: the five tabs belong exclusively to the main app. -->
   </div>
 </body>
 </html>
