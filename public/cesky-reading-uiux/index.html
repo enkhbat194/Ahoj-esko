@@ -2,7 +2,7 @@
 <html lang="mn">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <meta name="theme-color" content="#141414" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -2532,6 +2532,35 @@
     }
 
   </style>
+
+  <style id="ahoj-mobile-outline-v2">
+    html,body{overflow-x:hidden;max-width:100%;touch-action:pan-x pan-y}
+    body{width:100vw;max-width:100vw}
+    .app-shell{width:100%;max-width:430px;min-width:0}
+    .main-area,.reading-scroll,.books-grid{min-width:0;max-width:100%}
+    .search-input,#lab-dict-search{font-size:16px!important}
+    .lesson-outline-view{height:100%;min-height:0;min-width:0;overflow-y:auto;padding:16px 15px 90px;display:flex;flex-direction:column;gap:15px;color:#f6f6f6}
+    .lesson-outline-back{align-self:flex-start;background:#28292e;border:1px solid #4a4a52;border-radius:12px;padding:10px 15px;font-size:14px}
+    .lesson-outline-head p{font-size:11px;letter-spacing:.08em;color:#d7b56c}
+    .lesson-outline-head h2{font-size:23px;line-height:1.3;margin:8px 0}
+    .lesson-outline-head>span{font-size:13px;color:#b2b2bc}
+    .lesson-outline-track{display:flex;gap:14px;width:100%;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;min-height:0;flex:0 0 auto;padding:3px 2px 12px;touch-action:pan-x}
+    .lesson-outline-track::-webkit-scrollbar{display:none}
+    .lesson-outline-slide{flex:0 0 calc(100% - 20px);min-width:0;scroll-snap-align:start}
+    .lesson-outline-card{height:min(48dvh,405px);min-height:315px;display:flex;flex-direction:column;overflow:hidden;border-radius:23px;background:#212125;border:1px solid #49464a;box-shadow:0 15px 36px #0005}
+    .lesson-outline-hero{flex:1;min-height:130px;position:relative;display:flex;flex-direction:column;justify-content:space-between;padding:18px;background:radial-gradient(circle at 72% 40%,color-mix(in srgb,var(--outline-accent,#d97c38) 39%,transparent),transparent 69%),linear-gradient(140deg,#272831,#17191c)}
+    .lesson-outline-label,.lesson-outline-tag{font-size:10px;color:#e5d4b5;letter-spacing:.09em;font-weight:700}
+    .lesson-outline-number{font-size:72px;font-weight:900;line-height:1;color:#f6f6f6;opacity:.88}
+    .lesson-outline-body{padding:19px;min-height:140px}
+    .lesson-outline-id{font-size:11px;color:#cba778}
+    .lesson-outline-body h3{font-size:19px;line-height:1.3;margin:7px 0;color:#fff}
+    .lesson-outline-body p{font-size:12px;line-height:1.55;color:#aeb1ba}
+    .lesson-outline-status{display:inline-block;margin-top:10px;font-size:11px;color:#efbc81;border-radius:999px;border:1px solid #6d5135;padding:5px 10px}
+    .lesson-outline-controls{display:flex;align-items:center;justify-content:center;gap:32px;color:#e8e4df}
+    .lesson-outline-controls button{width:45px;height:45px;border-radius:50%;background:#303035;border:1px solid #56565f;font-size:27px}
+    .lesson-outline-footer{padding:13px 15px;font-size:12px;line-height:1.7;color:#c2c2c8;background:#252529;border-radius:14px}
+    @media(max-height:690px){.lesson-outline-card{height:300px;min-height:270px}.lesson-outline-number{font-size:54px}}
+  </style>
 </head>
 <body>
   <!-- Шилэн (Glass) вектор дүрсүүдийн дундын градиент ба сүүдэр -->
@@ -3212,25 +3241,53 @@
         function showTopicOutline(ch) {
           window.__goToStage = null;
           window.__syncTrackResize = null;
-          const lessonRows = ch.lessons.map((lesson) =>
-            '<li style="padding:12px 14px;margin:0 0 8px;border:1px solid rgba(255,255,255,.1);border-radius:13px;background:rgba(255,255,255,.035);list-style:none">' +
-              '<div style="font-size:11px;color:#b8a592;margin-bottom:5px">' + escapeHtml(lesson.id) + ' · ЗУРАГЛАЛ</div>' +
-              '<div style="font-size:14px;font-weight:650;color:#fff">' + escapeHtml(lesson.title_mn) + '</div>' +
-            '</li>'
+          const lessonCards = ch.lessons.map((lesson, idx) =>
+            '<article class="lesson-outline-slide" aria-label="Хичээл ' + (idx + 1) + '">' +
+              '<div class="lesson-outline-card">' +
+                '<div class="lesson-outline-hero" style="--outline-accent:' + escapeHtml(ch.accent) + '">' +
+                  '<span class="lesson-outline-label">ČEŠTINA · A0</span>' +
+                  '<span class="lesson-outline-number">' + String(idx + 1).padStart(2, "0") + '</span>' +
+                  '<span class="lesson-outline-tag">ХИЧЭЭЛИЙН ЗУРАГЛАЛ</span>' +
+                '</div>' +
+                '<div class="lesson-outline-body"><span class="lesson-outline-id">' + escapeHtml(lesson.id) + '</span>' +
+                '<h3>' + escapeHtml(lesson.title_mn) + '</h3>' +
+                '<p>Аудио, дасгал, үнэлгээ батлагдсаны дараа нээгдэнэ.</p>' +
+                '<span class="lesson-outline-status">Одоогоор төлөвлөгөө</span></div>' +
+              '</div></article>'
           ).join("");
           mainArea.innerHTML =
-            '<section style="height:100%;overflow-y:auto;padding:18px 16px 100px;overscroll-behavior:contain">' +
-              '<button type="button" id="a0OutlineBack" style="padding:9px 13px;border-radius:12px;background:#2a2a2e;color:#fff;border:1px solid rgba(255,255,255,.16);font:inherit">‹ Бүх сэдэв</button>' +
-              '<div style="margin:22px 2px 14px">' +
-                '<p style="color:#d8b56a;font-size:11px;letter-spacing:1.2px">A0 • ' + escapeHtml(ch.id) + ' • ХӨТӨЛБӨРИЙН ЗУРАГЛАЛ</p>' +
-                '<h2 style="margin:10px 0 5px;font-size:24px;line-height:1.2">' + escapeHtml(ch.title) + '</h2>' +
-                '<p style="font-size:14px;color:#aaa">' + escapeHtml(ch.subtitle) + '</p>' +
-                '<p style="font-size:13px;margin:15px 0;color:#ccc">' + ch.lessons.length + ' жижиг хичээл төлөвлөсөн. Аудио, дасгал, ярианы шалгалт хараахан нийтлэгдээгүй.</p>' +
+            '<section class="lesson-outline-view">' +
+              '<button type="button" id="a0OutlineBack" class="lesson-outline-back">‹ Бүх сэдэв</button>' +
+              '<div class="lesson-outline-head">' +
+                '<p>A0 · ' + escapeHtml(ch.id) + ' · ХӨТӨЛБӨРИЙН ЗУРАГЛАЛ</p>' +
+                '<h2>' + escapeHtml(ch.title) + '</h2>' +
+                '<span>' + escapeHtml(ch.subtitle) + '</span>' +
               '</div>' +
-              '<ol style="padding:0;margin:0">' + lessonRows + '</ol>' +
-              '<p style="padding:16px;border-radius:12px;background:#242428;font-size:13px;line-height:1.55;color:#ddd;margin-top:16px"><b>Эцсийн зорилго:</b> ' + escapeHtml(ch.finalTask) + '</p>' +
+              '<div class="lesson-outline-track" id="lessonOutlineTrack">' + lessonCards + '</div>' +
+              '<div class="lesson-outline-controls">' +
+                '<button id="lessonOutlinePrev" type="button" aria-label="Өмнөх хичээл">‹</button>' +
+                '<span id="lessonOutlineCounter">1 / ' + ch.lessons.length + '</span>' +
+                '<button id="lessonOutlineNext" type="button" aria-label="Дараагийн хичээл">›</button>' +
+              '</div>' +
+              '<p class="lesson-outline-footer">Зорилго: ' + escapeHtml(ch.finalTask) + '</p>' +
             '</section>';
           mainArea.querySelector("#a0OutlineBack").addEventListener("click", renderStagesView);
+          const track = mainArea.querySelector("#lessonOutlineTrack");
+          const slides = Array.from(track.children);
+          let currentSlide = 0;
+          const goTo = (n) => {
+            currentSlide = Math.max(0, Math.min(slides.length - 1, n));
+            track.scrollTo({left:slides[currentSlide].offsetLeft-track.offsetLeft,behavior:"smooth"});
+            mainArea.querySelector("#lessonOutlineCounter").textContent = (currentSlide+1) + " / " + slides.length;
+          };
+          mainArea.querySelector("#lessonOutlinePrev").addEventListener("click", () => goTo(currentSlide-1));
+          mainArea.querySelector("#lessonOutlineNext").addEventListener("click", () => goTo(currentSlide+1));
+          track.addEventListener("scroll", () => {
+            const size = slides[0]?.getBoundingClientRect().width || 1;
+            const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+            currentSlide = Math.max(0,Math.min(slides.length-1,Math.round(track.scrollLeft/(size+gap))));
+            mainArea.querySelector("#lessonOutlineCounter").textContent = (currentSlide+1) + " / " + slides.length;
+          },{passive:true});
         }
 
         const slidesHtml = STAGE_CHAPTERS.map((ch, idx) => {
