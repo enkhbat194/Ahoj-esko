@@ -216,3 +216,11 @@
 @media(prefers-reduced-motion:reduce){
  #course-lab-overlay .cl-match-tile{transition:none}
 }
+
+#course-lab-overlay .cl-match-col-label{
+ min-height:30px;display:flex;align-items:center;justify-content:center;
+ font-size:11px;font-weight:800;letter-spacing:.11em;color:#c8b6a7;
+}
+#course-lab-overlay .cl-match-tile.is-paired{position:relative;padding-right:16px}
+#course-lab-overlay .cl-match-tile.is-paired::after{
+ content:"✓";position:absolute;top:4px;right:5px;color:#90d8ab;font-size:12px}
