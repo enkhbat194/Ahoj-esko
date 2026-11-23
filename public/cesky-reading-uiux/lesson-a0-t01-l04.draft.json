@@ -1,0 +1,331 @@
+{
+  "schema_version": "0.2.0",
+  "course_id": "AHOJ-A0-COURSE-PILOT",
+  "level": "A0",
+  "topic_id": "A0-T01",
+  "status": "ADDITIONAL_DRAFT_LESSON_NOT_LINGUISTIC_OR_AUDIO_RELEASE",
+  "editorial_note": "Original Czech/Mongolian example material model-authored; Czech native editorial signoff pending, especially phonetic audio. Do not count browser TTS as phoneme-verified assets.",
+  "lessons": [
+    {
+      "lesson_id": "A0-T01-L04",
+      "source_micro_skill_id": "A0-T01-L04",
+      "topic_id": "A0-T01",
+      "session_id": "A0-S002",
+      "level": "A0/Pre-A1",
+      "order": 4,
+      "title_mn": "Č, Š, Ž авиаг таних",
+      "can_do_mn": "Č, Š, Ž тэмдэгтэй Чех үгийг харж ялгах, утгаар нь таних, бичих болон хэлэх оролдлого хийх.",
+      "focus": [
+        "č",
+        "š",
+        "ž"
+      ],
+      "estimated_minutes_trial": [
+        12,
+        18
+      ],
+      "content_status": "ORIGINAL_TEACHING_DRAFT_CZ_MN_EDITOR_PENDING",
+      "approved": false,
+      "published": false,
+      "words": [
+        {
+          "form_cs": "čaj",
+          "meaning_mn_context": "цай",
+          "audio_asset_id": null,
+          "editorial_status": "PENDING"
+        },
+        {
+          "form_cs": "škola",
+          "meaning_mn_context": "сургууль",
+          "audio_asset_id": null,
+          "editorial_status": "PENDING"
+        },
+        {
+          "form_cs": "žena",
+          "meaning_mn_context": "эмэгтэй хүн",
+          "audio_asset_id": null,
+          "editorial_status": "PENDING"
+        },
+        {
+          "form_cs": "čokoláda",
+          "meaning_mn_context": "шоколад",
+          "audio_asset_id": null,
+          "editorial_status": "PENDING"
+        },
+        {
+          "form_cs": "šála",
+          "meaning_mn_context": "ороолт",
+          "audio_asset_id": null,
+          "editorial_status": "PENDING"
+        }
+      ],
+      "steps": [
+        {
+          "step_id": "L04-S01",
+          "type": "model",
+          "title_mn": "Гурван шинэ тэмдэг",
+          "description_mn": "Чех хэлний č, š, ž нь тусдаа авиаг тэмдэглэнэ. Č — «ч», Š — «ш», Ž — «ж»-тэй ойролцоо. Монгол авиа яг адил гэж үзэхгүй. Үг бүрийн эхний үсгийг анзаар.",
+          "examples": [
+            {
+              "text_cs": "čaj",
+              "meaning_mn": "цай",
+              "focus": "č",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "škola",
+              "meaning_mn": "сургууль",
+              "focus": "š",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "žena",
+              "meaning_mn": "эмэгтэй хүн",
+              "focus": "ž",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "čokoláda",
+              "meaning_mn": "шоколад",
+              "focus": "č",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "šála",
+              "meaning_mn": "ороолт",
+              "focus": "š",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            }
+          ],
+          "completion_rule": "MODEL_EXAMPLES_OPENED"
+        },
+        {
+          "step_id": "L04-S02",
+          "type": "choice",
+          "title_mn": "Үгнээс Č-г ол",
+          "prompt_mn": "«цай» гэсэн утгатай čaj үг ямар тэмдэгтэй эхэлж байна вэ?",
+          "options": [
+            {
+              "id": "č",
+              "text": "Č"
+            },
+            {
+              "id": "š",
+              "text": "Š"
+            },
+            {
+              "id": "ž",
+              "text": "Ž"
+            }
+          ],
+          "answer_id": "č",
+          "feedback_mn": "čaj — č үсгээр эхэлнэ. Дээрх жижиг тэмдэг нь утга ялгахад чухал."
+        },
+        {
+          "step_id": "L04-S03",
+          "type": "flashcards",
+          "title_mn": "Үгийн нууцыг нээ",
+          "prompt_mn": "Чех үгийг хараад Монгол утгыг таамагла. Карт бүрийг нээж өөрийгөө шалга; энэ нь утгыг бүрэн эзэмшсэн дүн биш.",
+          "items": [
+            {
+              "text_cs": "čaj",
+              "meaning_mn": "цай",
+              "focus": "č",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "škola",
+              "meaning_mn": "сургууль",
+              "focus": "š",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "žena",
+              "meaning_mn": "эмэгтэй хүн",
+              "focus": "ž",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "čokoláda",
+              "meaning_mn": "шоколад",
+              "focus": "č",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "šála",
+              "meaning_mn": "ороолт",
+              "focus": "š",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            }
+          ],
+          "completion_rule": "ALL_CARDS_OPENED_NOT_MASTERY"
+        },
+        {
+          "step_id": "L04-S04",
+          "type": "listen_choice",
+          "title_mn": "Сонсож ялгах оролдлого",
+          "prompt_mn": "Чех хэлний дуугаар «škola»-г сонсож, тохирох бичвэрийг сонго. Энэ бол зөвхөн төхөөрөмжийн TTS-ээр хийх дадлага.",
+          "utterance": {
+            "text_cs": "škola",
+            "audio_asset_id": null,
+            "tts_fallback_locale": "cs-CZ",
+            "production_audio_status": "MISSING_UNVERIFIED"
+          },
+          "options": [
+            {
+              "id": "žena",
+              "text": "žena"
+            },
+            {
+              "id": "škola",
+              "text": "škola"
+            },
+            {
+              "id": "čaj",
+              "text": "čaj"
+            }
+          ],
+          "answer_id": "škola",
+          "feedback_mn": "škola — сургууль. Эхний үсэг нь š.",
+          "evidence_gate": "AUDIO_PLAY_EVENT_REQUIRED",
+          "production_verified": false
+        },
+        {
+          "step_id": "L04-S05",
+          "type": "match",
+          "title_mn": "Утгыг зөв холбох",
+          "prompt_mn": "Үг бүрийг утгатай нь холбо. Амьдралд харагддаг үгсийг таних нь зорилго.",
+          "pairs": [
+            {
+              "text_cs": "čaj",
+              "meaning_mn": "цай"
+            },
+            {
+              "text_cs": "škola",
+              "meaning_mn": "сургууль"
+            },
+            {
+              "text_cs": "žena",
+              "meaning_mn": "эмэгтэй хүн"
+            },
+            {
+              "text_cs": "čokoláda",
+              "meaning_mn": "шоколад"
+            },
+            {
+              "text_cs": "šála",
+              "meaning_mn": "ороолт"
+            }
+          ],
+          "feedback_mn": "Таван үгийг зөв утгатай нь таарууллаа."
+        },
+        {
+          "step_id": "L04-S06",
+          "type": "order",
+          "title_mn": "Үсгээс үг бүтээ",
+          "prompt_mn": "«сургууль» гэдэг үгийг зөв Чех үсгээр эвлүүл. š тэмдгийг s-тэй андуурч болохгүй.",
+          "target_cs": "škola",
+          "tiles": [
+            {
+              "id": "L04-S06-t0",
+              "text": "o"
+            },
+            {
+              "id": "L04-S06-t1",
+              "text": "a"
+            },
+            {
+              "id": "L04-S06-t2",
+              "text": "š"
+            },
+            {
+              "id": "L04-S06-t3",
+              "text": "l"
+            },
+            {
+              "id": "L04-S06-t4",
+              "text": "k"
+            }
+          ],
+          "correct_sequence": [
+            "š",
+            "k",
+            "o",
+            "l",
+            "a"
+          ],
+          "feedback_mn": "škola — эхэндээ š гэсэн тусгай үсэгтэй."
+        },
+        {
+          "step_id": "L04-S07",
+          "type": "cloze",
+          "title_mn": "Тэмдэгтэй үсгийг бич",
+          "prompt_mn": "_ena — эмэгтэй хүн. Эхний үсгийг зөв тэмдэгтэйгээр бич.",
+          "pattern_cs": "_ena",
+          "answer_cs": "ž",
+          "feedback_mn": "žena — эхний үсэг нь ž. Энгийн z биш."
+        },
+        {
+          "step_id": "L04-S08",
+          "type": "choice",
+          "title_mn": "Өмнө хараагүй үг",
+          "prompt_mn": "Та Чех дэлгүүрийн «židle» (сандал) гэсэн шошгыг харлаа. Эхний үсэг аль нь вэ?",
+          "options": [
+            {
+              "id": "z",
+              "text": "Z"
+            },
+            {
+              "id": "ž",
+              "text": "Ž"
+            },
+            {
+              "id": "š",
+              "text": "Š"
+            }
+          ],
+          "answer_id": "ž",
+          "feedback_mn": "židle — Ž үсгээр эхэлнэ. Шинэ үгт шилжүүлж танилаа."
+        },
+        {
+          "step_id": "L04-S09",
+          "type": "speak",
+          "title_mn": "Өөрийн хоолойгоор хэл",
+          "prompt_mn": "«čaj» гэдгийг сонсоод нэг удаа хэлж үз. Танигдсан бичвэр нь зөв авиа гаргасны баталгаа биш.",
+          "target_cs": "čaj",
+          "translation_mn": "цай",
+          "audio_asset_id": null,
+          "locale": "cs-CZ",
+          "evaluation": "ATTEMPT_ONLY_STT_TRANSCRIPT_NOT_PHONETIC_GRADE",
+          "completion_rule": "MIC_ATTEMPT_OR_UNAVAILABLE_FLAG"
+        }
+      ],
+      "pass_rule": {
+        "automatically_graded_min_correct": 5,
+        "allowed_retries": "UNLIMITED",
+        "completion_requires_all_steps": true,
+        "audio_confidence": "BROWSER_TTS_UNVERIFIED_CANNOT_CERTIFY_PHONEMIC_LISTENING",
+        "pronunciation_certification": false
+      },
+      "source_warnings": [
+        "židle is a transfer-reading example, not a Top100 target.",
+        "Czech native-speaker pronunciation and phonetic QA pending."
+      ]
+    }
+  ],
+  "publication": {
+    "approved": false,
+    "published": false,
+    "audio_qa": "PENDING"
+  }
+}
