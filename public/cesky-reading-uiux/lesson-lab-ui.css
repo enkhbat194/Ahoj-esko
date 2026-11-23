@@ -1,0 +1,74 @@
+
+/* AHOJ A0 full interaction pilot: no alteration to the production reader. */
+:root.course-lab-active, :root.course-lab-active body { overflow:hidden!important;touch-action:pan-y }
+#course-lab-overlay[hidden]{display:none!important}
+#course-lab-overlay{position:fixed;inset:0;z-index:3000;background:#000c;display:flex;justify-content:center;align-items:center;color:#fff;font-family:ui-rounded,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overscroll-behavior:none}
+#course-lab-overlay *{box-sizing:border-box}
+#course-lab-overlay .cl-shell{width:min(100%,430px);height:100%;height:100dvh;background:linear-gradient(160deg,#1c1c1f,#111115);display:flex;flex-direction:column;min-width:0;overflow:hidden;box-shadow:0 0 40px #0008}
+#course-lab-overlay .cl-header{flex-shrink:0;display:flex;align-items:center;gap:12px;min-height:82px;padding:calc(12px + env(safe-area-inset-top,0px)) 17px 12px;background:#1b1b1e;border-bottom:1px solid #38383c;z-index:2}
+#course-lab-overlay .cl-header>button{width:44px;height:44px;flex:0 0 44px;border-radius:50%;font-size:31px;font-weight:300;color:#f3ede7;border:1px solid #4e4a49;background:#2b2b2f}
+#course-lab-overlay .cl-header>div{flex:1;min-width:0}
+#course-lab-overlay .cl-header small{font-size:10px;letter-spacing:.07em;color:#d7a672}
+#course-lab-overlay .cl-header h1{font-size:16px;line-height:1.25;margin:5px 0;white-space:normal;font-weight:750;max-width:100%}
+#course-lab-overlay .cl-header>span{font-size:12px;color:#ffc38c;white-space:nowrap}
+#course-lab-overlay .cl-progress{height:4px;background:#383537;flex-shrink:0}
+#course-lab-overlay .cl-progress>div{height:100%;background:linear-gradient(90deg,#e5a54b,#ff7540);transition:width .25s ease}
+#course-lab-overlay .cl-scroller{flex:1;overflow-y:auto;min-width:0;padding:22px 17px calc(80px + env(safe-area-inset-bottom,0px));-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+#course-lab-overlay .cl-step-no{font-size:11px;color:#ffa357;letter-spacing:.12em;font-weight:800}
+#course-lab-overlay .cl-scroller>h2{font-size:26px;line-height:1.27;margin:12px 0 10px;font-weight:820;letter-spacing:-.02em}
+#course-lab-overlay .cl-goal{font-size:13px;line-height:1.6;color:#b8bac4;padding:12px 14px;border:1px solid #39393f;border-radius:14px;background:#242429}
+#course-lab-overlay .cl-exercise{min-width:0;margin-top:19px}
+#course-lab-overlay .cl-subtitle{font-size:14px;line-height:1.75;color:#e5d9cb;margin-bottom:17px}
+#course-lab-overlay .cl-note,#course-lab-overlay .cl-editorial{display:block;color:#a9a5aa;font-size:11px;line-height:1.6;margin:12px 0}
+#course-lab-overlay .cl-editorial{margin-top:28px;border-top:1px solid #333;padding-top:12px}
+#course-lab-overlay .cl-button{display:block;min-height:46px;border:1px solid #55535b;border-radius:13px;color:#f1eef4;background:#292a31;font-size:14px;padding:11px 14px;text-align:center;cursor:pointer;line-height:1.4;max-width:100%}
+#course-lab-overlay .cl-button:focus-visible,#course-lab-overlay .cl-audio:focus-visible,#course-lab-overlay .cl-flash:focus-visible{outline:2px solid #ffb16d;outline-offset:2px}
+#course-lab-overlay .cl-button.primary{margin-top:14px;width:100%;background:linear-gradient(105deg,#f0a03e,#fa6c37);border:0;color:#181113;font-weight:800}
+#course-lab-overlay .cl-button.muted{margin:10px 0 0;width:100%;background:#232427;color:#bab6bd;border-color:#434247;font-size:12px}
+#course-lab-overlay .cl-button.option{text-align:left;width:100%;background:linear-gradient(145deg,#2c2c31,#232429);border:1px solid #535056;font-weight:680;min-height:55px}
+#course-lab-overlay .cl-button.option:active{background:#65432d}
+#course-lab-overlay .cl-options{display:grid;gap:10px}
+#course-lab-overlay .cl-words{display:grid;gap:9px}
+#course-lab-overlay .cl-model-row{display:flex;justify-content:space-between;gap:15px;padding:12px 14px;align-items:center;border:1px solid #46434a;border-radius:15px;background:#24252a;min-width:0}
+#course-lab-overlay .cl-model-row strong{display:block;font-size:24px;letter-spacing:.01em;font-weight:700}
+#course-lab-overlay .cl-model-row small{display:block;font-size:12px;line-height:1.45;color:#b6b8bf;margin-top:4px}
+#course-lab-overlay .cl-audio{width:49px;height:49px;flex:0 0 49px;border-radius:50%;background:#e9822e;color:#221510;box-shadow:0 5px 12px #0003;border:none;font-size:20px;font-weight:800}
+#course-lab-overlay .cl-hearing{padding:18px 14px;margin:10px 0 17px;text-align:center;border:1px solid #614733;border-radius:19px;background:#2d2726}
+#course-lab-overlay .cl-hearing .cl-audio{width:68px;height:68px;margin:2px auto 10px;font-size:29px}
+#course-lab-overlay .cl-hearing p{font-size:12px;line-height:1.5;color:#d4c2b3;margin:5px}
+#course-lab-overlay .cl-hearing small{display:block;color:#fdb273;font-size:11px;margin-top:9px}
+#course-lab-overlay .cl-flashcards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+#course-lab-overlay .cl-flash{display:flex;align-items:center;justify-content:center;min-height:148px;flex-direction:column;border-radius:16px;border:1px solid #575056;background:radial-gradient(circle at 75% 12%,#57372e,#252529 65%);padding:14px;gap:16px;color:#fff;min-width:0}
+#course-lab-overlay .cl-flash.flipped{background:linear-gradient(145deg,#213d36,#24282b);border-color:#59947f}
+#course-lab-overlay .cl-flash b{font-size:23px;line-height:1.15;overflow-wrap:anywhere}
+#course-lab-overlay .cl-flash span{font-size:12px;color:#c6c2c5;line-height:1.45}
+#course-lab-overlay .cl-pairs{display:grid;gap:11px}
+#course-lab-overlay .cl-pair{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:center;background:#292a2e;border:1px solid #444;border-radius:13px;padding:13px;min-width:0}
+#course-lab-overlay .cl-pair strong{font-size:20px;overflow-wrap:anywhere}
+#course-lab-overlay .cl-pair select{font-size:14px;background:#34363e;color:#fff;max-width:100%;width:100%;padding:12px 9px;border-radius:10px;border:1px solid #53535b}
+#course-lab-overlay .cl-order-target{min-height:70px;text-align:center;font-size:32px;font-weight:780;border:1px dashed #886443;color:#ffe0bc;background:#262428;padding:15px 10px;border-radius:15px;overflow-wrap:anywhere}
+#course-lab-overlay .cl-tiles{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:15px}
+#course-lab-overlay .cl-tile{width:53px;height:55px;background:#434047;border:1px solid #686169;border-radius:13px;font-size:24px;color:#fff}
+#course-lab-overlay .cl-tile:disabled{visibility:hidden}
+#course-lab-overlay .cl-cloze-preview{text-align:center;padding:19px;font-size:39px;font-weight:820;letter-spacing:.09em;color:#fff}
+#course-lab-overlay .cl-input-label{display:block;font-size:12px;color:#d1c8be;margin:10px 0}
+#course-lab-overlay #cl-answer-input{width:100%;padding:14px 16px;font-size:20px;min-height:51px;border:1px solid #69616b;border-radius:13px;background:#292b2f;color:#fff}
+#course-lab-overlay .cl-special{display:flex;gap:6px;flex-wrap:wrap;margin:13px 0}
+#course-lab-overlay .cl-button.special{padding:9px 11px;min-height:43px;font-size:17px;background:#414046}
+#course-lab-overlay .cl-speaking{padding:24px 16px;border:1px solid #6c4a30;border-radius:18px;background:#2c2524;text-align:center}
+#course-lab-overlay .cl-speaking strong{display:block;font-size:37px;line-height:1.4}
+#course-lab-overlay .cl-speaking p{color:#d8c9c0;font-size:14px;margin:9px}
+#course-lab-overlay .cl-speaking .cl-audio{margin:10px auto}
+#course-lab-overlay .cl-feedback{margin-top:14px;padding:14px;border-radius:12px;color:#ddd;border:1px solid #68636c;font-size:13px;line-height:1.6}
+#course-lab-overlay .cl-feedback[data-kind="good"]{background:#1b342c;border-color:#417f69;color:#c9efd9}
+#course-lab-overlay .cl-feedback[data-kind="bad"]{background:#422729;border-color:#b75c54;color:#ffd3d0}
+#course-lab-overlay .cl-feedback[data-kind="info"]{background:#333342;border-color:#595a88}
+#course-lab-overlay .cl-completion{text-align:center;padding:20px 6px}
+#course-lab-overlay .cl-completion .cl-medal{margin:auto;display:flex;justify-content:center;align-items:center;font-size:32px;width:82px;height:82px;border-radius:50%;background:#214b34;border:1px solid #7db58e;color:#e3ffe2}
+#course-lab-overlay .cl-completion h2{margin:16px 0;font-size:25px}
+#course-lab-overlay .cl-completion p{font-size:14px;line-height:1.7;color:#c9c7cb;margin:16px 0}
+#course-lab-overlay .cl-completion .cl-button{width:100%;margin-top:10px}
+#course-lab-overlay .cl-next{position:sticky;bottom:0;background:#18191d;padding:12px 0 6px;margin-top:14px;box-shadow:0 -12px 18px #171719}
+#course-lab-overlay .cl-next>.cl-button{margin:0}
+@media(min-width:460px){#course-lab-overlay .cl-shell{border-left:1px solid #494149;border-right:1px solid #494149}}
+@media(max-width:340px){#course-lab-overlay .cl-flashcards{grid-template-columns:1fr}#course-lab-overlay .cl-scroller{padding-inline:12px}#course-lab-overlay .cl-step-no{font-size:10px}}
