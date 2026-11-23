@@ -20,6 +20,20 @@
 - **Render observation at checkpoint:** Existing service `srv-dc21v9qvcj2c73a0g8k0` last reported LIVE at `b787d5a`, not L04. Do not claim the new lesson is deployed until the service reports its new SHA and live state.
 - **Next single task:** Verify L04 complete 36-step browser QA on latest commit, fix any regression, then author `A0-T01-L05 — C/Č, S/Š, Z/Ž-ийг ялгах` using the same engine. After L05 continue L06 → L07 → L08 without creating a new app or merging draft PR #32.
 
+## L01–L08 actual implementation status — 2026-11-23 (supersedes L04-only next action)
+
+**ACTIVE:** PR #32 draft, branch `feat/curriculum-system-v1-2026-11-23`. **All 8 A0-T01 lessons now authored as interactive DRAFT with exactly 9 exercises each = 72**, and all 72 exercises were actually completed by the updated mocked-browser end-to-end suite.
+
+- New canonical L04: `curriculum/system-v1/lessons/a0-t01-l04.interactive.draft.json`; L05–L08: `curriculum/system-v1/lessons/a0-t01-l05-to-l08.interactive.draft.json`. Served mirrors are byte-checked. Existing 3-lesson canonical/mirror **unaltered**.
+- Engine now merges three packs in order, and existing topic outline launch buttons query `window.AhojLessonLab.hasLesson` rather than hardcoding three lessons. `localStorage` schema key remains unchanged; prior completed L01–L03 progress is preserved.
+- **Latest code/content verified SHA:** `9be2b3ffc25edd8e9135267b4df03031386ae470`.
+- **Unit + schema CI:** PASS, `45190418418`, https://github.com/enkhbat194/Ahoj-esko/actions/runs/45190418418 .
+- **Browser E2E:** PASS, `45190418359`, https://github.com/enkhbat194/Ahoj-esko/actions/runs/45190418359 . Mocks cover browser TTS/STT, all 72 answers, sequential gating, card review, persistent state, and responsive reader tests at 320/390/428px; **not** real Czech phonetic QA.
+- **Existing Render service last verified:** `srv-dc21v9qvcj2c73a0g8k0` LIVE at old `b787d5a` commit; new code **NOT YET OBSERVED ON RENDER**. Service autoDeploy is configured `yes` but its current deploy list did not advance on connector commits. Do not claim fresh preview has L04–L08 until verified live at new SHA. Do not make a second Render service.
+- UI adjusted in existing black/orange premium lesson CSS; no guarantee of user approval or actual UX outcome. Comparable product references: Duolingo task-level feedback/progress, Memrise scenario-based listening; we did not copy their designs/assets.
+- **Editorial/audio:** All 8 pilot lessons remain `approved=false`, `published=false`; browser TTS is unverified, microphone speech recognition is attempt-only. Top100 100 candidates, 0 approved; 276 private MP3 stay untouched.
+- **NEXT CONCRETE TASK:** Confirm existing Render deploy reaches validated SHA (without creating a new service), then inspect 8-lesson visual screenshots and improve learning task quality + authentic bilingual context, and arrange Czech native editorial/audio verification. Do not promote to `main` without permission.
+
 ## 0. Шинэ чат шууд эхлэх горим
 
 1. GitHub connector-оор репогийн **тухайн үеийн** `main` commit, PR #32-ийн `head_sha`, CI, PR #29 ба #30-ийн төлөвийг шалга. Өмнөх SHA-г шинэ мэт битгий зарла.
