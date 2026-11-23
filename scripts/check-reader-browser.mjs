@@ -101,8 +101,9 @@ try {
       "Stuck-word speaker helper missing");
     assert.equal(await page.locator("#ar-seek").isDisabled(), true,
       "Untimed demo TTS must not fake native seek controls");
-    assert.equal(await page.locator("#ar-back").isDisabled(), true,
-      "5-second skip must be unavailable without native media");
+    assert.equal(await page.locator("#ar-back").isDisabled(), false,
+      "Without file audio, previous-sentence navigation must remain available");
+    assert.equal(await page.locator("#ar-back").getAttribute("aria-label"), "Өмнөх өгүүлбэр");
 
     if (size.width === 320) await page.screenshot({ path: "test-artifacts/reader-small-before.png", fullPage: false });
     const player = await page.locator("#ar-player").boundingBox();
@@ -227,16 +228,95 @@ try {
     assert.equal(await micPage.evaluate(() => window.__spokenTts.at(-1)?.text), "Ema",
       "Word-help speaker must play only the stuck CURRENT word");
     await micPage.evaluate(() => window.__spokenTts.at(-1).onend?.());
-    assert.equal(await micPage.locator("#ar-guided-retry").isVisible(), true,
-      "Microphone restart must be explicit after example TTS on Safari");
-    await micPage.locator("#ar-guided-retry").click();
+    await micPage.waitForTimeout(450);
+    assert.equal(await micPage.locator("#ar-guided-message").innerText() !== "", true);
+    assert.equal(await micPage.locator("#ar-play").getAttribute("aria-label"),
+      "Микрофон сонсож байна · түр зогсоох",
+      "After one stuck-word example STT should resume automatically");
+    assert.equal(await micPage.locator("#ar-guided-skip").isVisible(),true,
+      "Manual skip in guided mode is required");
     await micPage.evaluate(() => window.__lastRecognizer.emit("wrong word"));
     assert.equal(await micPage.locator(".ar-word.is-current").innerText(), "Ema",
       "Wrong/misrecognized word must not advance");
+    await micPage.locator("#ar-guided-skip").click();
+    assert.notEqual(await micPage.locator(".ar-word.is-current").innerText(),"Ema",
+      "Explicit skip must advance without claiming correct pronunciation");
     await micPage.locator("#ar-guided-toggle").click();
     assert.equal(await micPage.locator("#ar-guided-toggle").getAttribute("aria-checked"), "false");
     await micPage.close();
     console.log("PASS mocked Czech browser TTS chapter continuity + STT guided word sequence + word-help");
+  }
+
+  // Unified lab integration in a Chromium mobile viewport. Native Safari
+  // microphone and voice availability still require device-specific checking.
+  {
+    const lab = await browser.newPage({ viewport: {width:390,height:844}, deviceScaleFactor:1 });
+    const errors=[];
+    lab.on("pageerror",e=>errors.push(e.message));
+    await lab.addInitScript(()=>{
+      window.__labSpoken=[];
+      window.SpeechSynthesisUtterance=class {constructor(text){this.text=text;this.rate=1;}};
+      Object.defineProperty(window,"speechSynthesis",{
+        configurable:true,value:{
+          speaking:false,paused:false,
+          getVoices(){return [{name:"Jan Czech test",lang:"cs-CZ"}];},
+          addEventListener(){},removeEventListener(){},
+          speak(utt){this.speaking=true;window.__labSpoken.push(utt);},
+          cancel(){this.speaking=false;},pause(){this.paused=true;},resume(){this.paused=false;}
+        }
+      });
+    });
+    await lab.goto(url+"?reader_lab=1",{waitUntil:"domcontentloaded"});
+    await lab.locator('[data-tab="read"]').click();
+    await lab.locator(".books-grid .lab-in-library").first().waitFor({timeout:10000});
+    assert.equal(await lab.locator(".books-grid .book-card").count(),5,
+      "New three drafts must be INSIDE All Stories alongside the two existing books");
+    assert.equal(await lab.locator(".count-pill").innerText(),"5 ном");
+    await lab.screenshot({path:"test-artifacts/reader-five-books-390.png"});
+    const width = await lab.evaluate(() => ({
+      scroll:document.documentElement.scrollWidth,
+      visual:window.innerWidth,
+      cards:[...document.querySelectorAll(".lab-in-library")].map(x=>Math.round(x.getBoundingClientRect().width))
+    }));
+    assert.ok(width.scroll<=width.visual+2,"Reader library has horizontal overflow: "+JSON.stringify(width));
+    assert.ok(width.cards.every(v=>v>80&&v<390),"Book card width not responsive");
+    await lab.locator(".lab-in-library").first().click();
+    await lab.locator("#readerShell.aho-reader-shell").waitFor();
+    assert.ok(await lab.locator("#ar-player").isVisible(),
+      "New reader MUST reuse original full player");
+    assert.ok(await lab.locator("#ar-word-help").count()===1);
+    assert.ok(await lab.locator("#ar-guided-skip").count()===1);
+    assert.ok(await lab.locator("#ar-text [data-word]").count()>5);
+    await lab.locator("#ar-play").click();
+    const previewStart=await lab.evaluate(()=>window.__labSpoken.at(-1)?.text);
+    assert.ok(previewStart?.includes("Je večer."),"Preview should start browser TTS without mp3");
+    await lab.locator("#ar-forward").click();
+    const nextText=await lab.evaluate(()=>window.__labSpoken.at(-1)?.text);
+    assert.ok(nextText?.includes("Anna je doma."),"Forward button must move a Czech SENTENCE");
+    const glossaryWord=lab.locator('#ar-text [data-word]').filter({hasText:"světlo"}).first();
+    await glossaryWord.click();
+    await lab.locator("#lab-gloss-shade:not([hidden])").waitFor();
+    assert.ok((await lab.locator("#lab-gloss-shade .lab-meaning").innerText()).includes("гэрэл"),
+      "Contextual glossary missing light sense");
+    await lab.locator("#lab-gloss-dismiss").click();
+    assert.equal(await lab.locator("#lab-gloss-shade").isHidden(),true);
+    const q=lab.locator("#lab-comprehension [data-lab-q]").first();
+    await q.click();
+    assert.ok(await lab.locator("#lab-comprehension .lab-feedback").first().innerText()!=="");
+    await lab.locator("#ar-complete").click();
+    assert.ok(await lab.locator(".lab-finish-note").count()===1,
+      "Completion should show saved reader cards");
+    await lab.screenshot({path:"test-artifacts/reader-unified-player-390.png"});
+    await lab.locator("#lab-open-cards").click();
+    await lab.locator('[data-tab="cards"][aria-current="page"]').waitFor();
+    assert.ok(await lab.locator(".lab-flashcard").count()>0,"Reading vocabulary did not reach Cards tab");
+    await lab.locator('[data-tab="dictionary"]').click();
+    assert.ok(await lab.locator(".lab-dict-list article").count()>30,
+      "Reader context dictionary is missing word forms");
+    await lab.screenshot({path:"test-artifacts/reader-cards-dictionary-390.png"});
+    assert.deepEqual(errors,[],"Reader Lab JavaScript errors: "+errors.join("; "));
+    console.log("PASS mobile Reader Lab: 5 integrated books, shared TTS/player, tap-to-gloss, flashcards, dictionary and no horizontal overflow");
+    await lab.close();
   }
 
   // Report unsupported SpeechRecognition separately from microphone denial.
