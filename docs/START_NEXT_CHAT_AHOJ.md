@@ -34,6 +34,15 @@
 - **Editorial/audio:** All 8 pilot lessons remain `approved=false`, `published=false`; browser TTS is unverified, microphone speech recognition is attempt-only. Top100 100 candidates, 0 approved; 276 private MP3 stay untouched.
 - **NEXT CONCRETE TASK:** Confirm existing Render deploy reaches validated SHA (without creating a new service), then inspect 8-lesson visual screenshots and improve learning task quality + authentic bilingual context, and arrange Czech native editorial/audio verification. Do not promote to `main` without permission.
 
+## 2026-11-23 22:28 (Asia/Ulaanbaatar) — iPhone screenshot / Render deployment fixed
+
+- User screenshot showed A0-T01-L04 still displaying **“Одоогоор төлөвлөгөө”** on Render; root cause was **stale Render deployment** `b787d5a`, not missing GitHub lesson files.
+- Verified branch **app code** commit `b80186c002c61b31ba101e89c98f39a05bccec53`, GitHub Actions `Test Ahoj Cesko` PASS `45190743729` and `Ahoj Czech Reader Browser QA` PASS `45190743786`.
+- Existing service `srv-dc21v9qvcj2c73a0g8k0` did not automatically deploy many later connector commits, despite `autoDeploy=yes`. One explicit deployment with cleared build cache was started for the existing service (no new service), deploy `dep-dc24ql7f3r2c73eb01og`.
+- **Render result VERIFIED LIVE**: `2026-11-23T14:28:46Z`, deploy commit `b80186c002c61b31ba101e89c98f39a05bccec53`; Render logs confirm new `npx tsx server.ts` bound to port 10000 and “Your service is live”.
+- **Preview URL:** https://ahoj-reader-lab-preview-20261123.onrender.com/cesky-reading-uiux/index.html?reader_lab=1&v=b80186c0 . Mobile steps: `Үе давах → Цагаан толгой ба дуудлага → 04 → Хичээл эхлэх`. L04 unlock requires prior L01–L03 completed. Added cache-busting query to the user URL; **real iPhone Safari screenshot after release has not yet been received**. Render LIVE + CI != independent iPhone screenshot verification.
+- **Remaining release constraints unchanged:** all 8 are content/audio editorial DRAFT, STT is only a recorded attempt; Top100 unapproved; `main` not merged. Next action is verify real iPhone lesson display and improve interactive task depth/UX, then approved Czech audio/editorial.
+
 ## 0. Шинэ чат шууд эхлэх горим
 
 1. GitHub connector-оор репогийн **тухайн үеийн** `main` commit, PR #32-ийн `head_sha`, CI, PR #29 ба #30-ийн төлөвийг шалга. Өмнөх SHA-г шинэ мэт битгий зарла.
