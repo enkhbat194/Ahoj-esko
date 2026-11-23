@@ -55,7 +55,7 @@ for(const marker of [
 'window.AhojReaderLab?.decorateReadingView?.();',
 'readerLab.renderCardsTab(mainArea)',
 'readerLab.renderDictionaryTab(mainArea)',
-'if (!previewCards && !previewDictionary) renderPlaceholderView(tab)',
+'if (!previewCards && !lessonCards && !previewDictionary) renderPlaceholderView(tab)',
 ]){
  assert.ok(html.includes(marker),"Reader Lab missing from existing app "+marker);
 }
