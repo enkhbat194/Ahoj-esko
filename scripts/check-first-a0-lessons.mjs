@@ -127,3 +127,41 @@ assert.ok(browser.includes("lesson-a0-t01-l04.draft.json"));
 assert.ok(browser.includes("pack={...d,lessons}"));
 assert.ok(browser.includes('["č","š","ž"'));
 console.log("A0 L04 content checks PASS: four ordered draft lessons, 36 interactions; L01-L03 unchanged and audio unverified.");
+
+const restSource=read("curriculum/system-v1/lessons/a0-t01-l05-to-l08.interactive.draft.json");
+assert.equal(restSource,read("public/cesky-reading-uiux/lesson-a0-t01-l05-to-l08.draft.json"));
+const rest=JSON.parse(restSource);
+assert.equal(rest.publication.approved,false);
+assert.equal(rest.publication.published,false);
+assert.equal(rest.publication.audio_qa,"PENDING");
+assert.deepEqual(rest.lessons.map(x=>x.order),[5,6,7,8]);
+for(const lesson of rest.lessons){
+ assert.equal(lesson.source_micro_skill_id,topic.lessons[lesson.order-1].id);
+ assert.equal(lesson.title_mn,topic.lessons[lesson.order-1].title_mn);
+ assert.equal(lesson.steps.length,9);
+ assert.equal(lesson.approved,false);
+ assert.equal(lesson.published,false);
+ assert.equal(lesson.pass_rule.pronunciation_certification,false);
+ assert.ok(lesson.words.length>=4);
+ for(const step of lesson.steps){
+  assert.ok(!all.has(step.step_id),"Duplicate step ID: "+step.step_id);
+  all.add(step.step_id);
+  if(["choice","listen_choice"].includes(step.type)){
+   assert.ok(step.options.some(o=>o.id===step.answer_id),step.step_id);
+   assert.equal(new Set(step.options.map(o=>o.id)).size,step.options.length);
+  }
+  if(step.type==="listen_choice"){
+   assert.equal(step.production_verified,false);
+   assert.equal(step.utterance.audio_asset_id,null);
+  }
+  if(step.type==="order")assert.deepEqual(
+   step.tiles.map(x=>x.text).sort(),[...step.target_cs.normalize("NFC")].sort());
+  if(step.type==="match")assert.equal(
+   new Set(step.pairs.map(p=>p.meaning_mn)).size,step.pairs.length);
+  if(step.type==="speak")assert.equal(
+   step.evaluation,"ATTEMPT_ONLY_STT_TRANSCRIPT_NOT_PHONETIC_GRADE");
+ }
+}
+assert.equal(all.size,72);
+assert.ok(browser.includes("lesson-a0-t01-l05-to-l08.draft.json"));
+console.log("A0 L01–L08 draft structural QA PASS: 72 genuine interactions, no false audio certification.");
