@@ -299,7 +299,7 @@
             {
               "sentence_id": "R-LOVE-01-CH01-S08",
               "text_cs": "Eva se ptá: „To je od tebe?“",
-              "translation_mn_draft": "Эва «Үүнийг чи өгсөн үү?» гэж асууна.",
+              "translation_mn_draft": "Эва «Энэ чамаас ирсэн үү?» гэж асууна.",
               "word_surfaces": [
                 "eva",
                 "se",
@@ -513,7 +513,7 @@
               "choices_mn": [
                 "Нарнаас",
                 "Дэлхийгээс",
-                "Оддын нэрнээс"
+                "Оддоос"
               ],
               "correct_index": 0,
               "focus": [
