@@ -7,6 +7,19 @@
 **Active Draft PR:** https://github.com/enkhbat194/Ahoj-esko/pull/32  
 **Production `main`:** PR #32-ын эдгээр lesson/Reader Lab шинэчлэлүүд `main`-д **хараахан нэгтгэгдээгүй**.
 
+
+## 2026-11-23 — L04 implementation checkpoint (newer than first-3 baseline)
+
+- **A0-T01-L04 (Č, Š, Ž)** now authored as nine interactive draft tasks at `curriculum/system-v1/lessons/a0-t01-l04.interactive.draft.json`. Browser mirror `public/cesky-reading-uiux/lesson-a0-t01-l04.draft.json` is checked for byte identity.
+- **L01–L03 original canonical file remains untouched.** Existing `ahoj.course.a0.t01.practice.v1` progress and cards persist. The engine loads all four sequential lessons by data, rather than rejecting non-three packs. New Czech-diacritic input keys added.
+- QA scripts extended to expect **36 interactions** total, wrong-answer retry, sequential unlock, mocked TTS and STT, Cards, reload persistence. **Mocked TTS/STT never prove phonetic mastery.**
+- Lesson UI received a small high-contrast refinement (choice affordances, animated feedback, card press interactions, accessible reduced-motion styling); existing black/orange identity preserved. The design is an engineering iteration, not proven user satisfaction.
+- **Content/voice statuses still pending:** L04 is editorial draft, `approved=false`, `published=false`; browser TTS is not validated audio; Top100 remains 100 candidates / 0 approved.
+- **New commits:** `3bfca2df` (L04 source), `c5720801` (dynamic engine), `63fecd1e` (browser mirror), `808ec386` (schema assertions), `a97e9394` (browser E2E), `94060e94` (visual polish).
+- **Verification observation at checkpoint:** `a97e9394` GitHub unit CI PASS (run 45189831651); its browser workflow was IN_PROGRESS (run 45189831322). A complete current HEAD PASS must be checked again before declaring ready.
+- **Render observation at checkpoint:** Existing service `srv-dc21v9qvcj2c73a0g8k0` last reported LIVE at `b787d5a`, not L04. Do not claim the new lesson is deployed until the service reports its new SHA and live state.
+- **Next single task:** Verify L04 complete 36-step browser QA on latest commit, fix any regression, then author `A0-T01-L05 — C/Č, S/Š, Z/Ž-ийг ялгах` using the same engine. After L05 continue L06 → L07 → L08 without creating a new app or merging draft PR #32.
+
 ## 0. Шинэ чат шууд эхлэх горим
 
 1. GitHub connector-оор репогийн **тухайн үеийн** `main` commit, PR #32-ийн `head_sha`, CI, PR #29 ба #30-ийн төлөвийг шалга. Өмнөх SHA-г шинэ мэт битгий зарла.
