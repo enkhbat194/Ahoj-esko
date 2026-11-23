@@ -96,3 +96,45 @@
 .cl-course-empty{font-size:13px;color:#aeb5bf;border:1px dashed #5d565c;border-radius:13px;padding:15px}
 .cl-course-warning{font-size:11px;color:#c7a78e;line-height:1.6;margin:13px 0 20px}
 @media(min-width:550px){.cl-course-card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* Exercise experience v1: accessible, tactile, high-contrast premium polish.
+   Inspired by clear feedback and task variety, not third-party visual assets. */
+#course-lab-overlay .cl-shell{
+ background:radial-gradient(ellipse 95% 40% at 85% -5%,#52302355,transparent 74%),
+ linear-gradient(165deg,#1b1d23 0%,#111217 66%);
+}
+#course-lab-overlay .cl-scroller>h2{max-width:24ch;letter-spacing:-.035em}
+#course-lab-overlay .cl-step-no{display:inline-flex;align-items:center;gap:7px;
+ border-radius:100px;border:1px solid #835537;padding:7px 11px;background:#3d2c23;
+ color:#ffd1a6;letter-spacing:.08em}
+#course-lab-overlay .cl-progress{height:7px;background:#303037}
+#course-lab-overlay .cl-progress>div{border-radius:0 100px 100px 0;
+ box-shadow:0 0 12px #f59b5180}
+#course-lab-overlay .cl-goal{background:linear-gradient(125deg,#292932,#202128);
+ border-color:#42404a;border-left:3px solid #e99456;color:#e0d8d0}
+#course-lab-overlay .cl-button.option{position:relative;padding:16px 18px;
+ background:linear-gradient(140deg,#30313a,#25262f);
+ border:1px solid #585760;border-bottom:3px solid #16171c;
+ transition:transform .13s ease,border-color .13s ease,background .13s ease}
+#course-lab-overlay .cl-button.option:active{transform:translateY(2px);
+ border-bottom-width:1px;background:#44342e}
+#course-lab-overlay .cl-button.option:hover{border-color:#edab76}
+#course-lab-overlay .cl-flash{box-shadow:inset 0 1px #ffffff15,0 10px 25px #0002;
+ transition:transform .16s ease,background .16s ease}
+#course-lab-overlay .cl-flash:active{transform:scale(.975)}
+#course-lab-overlay .cl-flash b{font-size:clamp(23px,7vw,31px)}
+#course-lab-overlay .cl-tiles{gap:9px}
+#course-lab-overlay .cl-tile{box-shadow:0 4px 0 #17171a;
+ font-weight:750;border-color:#8b7770}
+#course-lab-overlay .cl-tile:active{transform:translateY(3px);box-shadow:none}
+#course-lab-overlay .cl-completion .cl-medal{
+ background:radial-gradient(circle at 30% 25%,#f7cf84,#d8893e);
+ color:#231611;border:3px solid #ffddb1;box-shadow:0 0 36px #d68c4560}
+#course-lab-overlay .cl-feedback{animation:cl-feedback-reveal .18s ease-out}
+@keyframes cl-feedback-reveal{from{opacity:.5;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){
+ #course-lab-overlay .cl-feedback{animation:none}
+ #course-lab-overlay .cl-button.option,
+ #course-lab-overlay .cl-flash,
+ #course-lab-overlay .cl-progress>div{transition:none}
+}
