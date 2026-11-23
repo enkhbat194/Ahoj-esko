@@ -42,9 +42,10 @@ export function validateReaderChapter(chapter, formAnnotations) {
   return {bySurface,byId};
 }
 
-function keyFor(item, phrases=[]) {
+function keyFor(item, phrases=[], sentenceId=null) {
   const phrase = phrases.find(p => p.card_unit==="fixed_phrase" &&
-    p.text_cs.startsWith("Mám tě rád.") && item.surface_form_cs==="rád");
+    p.source_sentence_id===sentenceId &&
+    LOWER(p.trigger_surface_form_cs)===LOWER(item.surface_form_cs));
   return phrase ? "phrase:"+phrase.phrase_id : item.sense_key;
 }
 function asCard(item, cardKey, reason, atMs, phrase) {
@@ -108,7 +109,7 @@ export function startReaderChapter({
         role:a.teaching_role, editorial_status:a.editorial_status,
         form_known:knownFormIds.includes(a.form_id),
         sense_known:knownSenseKeys.includes(a.sense_key),
-        card_key:keyFor(a,phraseAnnotations)
+        card_key:keyFor(a,phraseAnnotations,s.sentence_id)
       });
     }
   }
@@ -191,7 +192,9 @@ export function recordReaderEvent(oldState,event,{chapter}={}) {
     case "chapter_finished": {
       state.chapter_read=true;
       // The user read the story. It is *not* a certificate of listening/speaking/CEFR.
-      for(const t of cardCandidates(state).slice(0,state.card_activation_cap))
+      // Keep every unknown as a deduplicated candidate, but activate only the
+      // first few cards. Other cards remain in a backlog for later sessions.
+      for(const t of cardCandidates(state))
         addCard(state,t.card_key,"unknown_in_chapter",event.at_ms);
       break;
     }
