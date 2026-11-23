@@ -319,6 +319,128 @@ try {
     await lab.close();
   }
 
+  // Exact canonical order. Actually complete each of the 27 exercise steps in
+  // the Premium PWA mobile viewport, including genuine wrong-answer retry,
+  // persisted progress, narrated listening event and microphone *attempt*.
+  // Voice and microphone are mocked here; this is not Czech pronunciation QA.
+  {
+    const {readFileSync}=await import("node:fs");
+    const course=JSON.parse(readFileSync("public/cesky-reading-uiux/lesson-a0-t01-first3.draft.json","utf8"));
+    const cp=await browser.newPage({viewport:{width:390,height:844},deviceScaleFactor:1});
+    const errs=[];
+    cp.on("pageerror",e=>errs.push(e.message));
+    await cp.addInitScript(()=>{
+      window.__courseTts=[];
+      window.SpeechSynthesisUtterance=class {constructor(t){this.text=t;}};
+      Object.defineProperty(window,"speechSynthesis",{
+        configurable:true,value:{
+          getVoices(){return [{lang:"cs-CZ",name:"Czech test voice"}];},
+          cancel(){},speak(u){window.__courseTts.push(u);setTimeout(()=>u.onstart?.(),20);},
+          pause(){},resume(){}
+        }
+      });
+      window.webkitSpeechRecognition=class {
+        constructor(){this.lang="cs-CZ";}
+        start(){setTimeout(()=>this.onresult?.({results:[[{transcript:"pes"}]]}),30);}
+        abort(){}
+      };
+    });
+    await cp.goto(url+"?reader_lab=1",{waitUntil:"domcontentloaded"});
+    await cp.locator('[data-tab="stages"]').click();
+    await cp.locator(".chapter-cta[data-chapter-start='0']").click();
+    await cp.locator("#lessonOutlineTrack").waitFor();
+    assert.equal(await cp.locator("[data-lesson-start]").count(),3,
+      "Exactly first three canonical A0 lessons must be tappable; later outlines remain non-functional");
+    await cp.locator('[data-lesson-start="A0-T01-L01"]').click();
+    await cp.locator("#course-lab-overlay:not([hidden])").waitFor();
+    await cp.screenshot({path:"test-artifacts/a0-first-lesson-390.png"});
+    const width=await cp.evaluate(()=>({
+      doc:document.documentElement.scrollWidth,window:innerWidth,
+      modal:document.querySelector(".cl-shell")?.getBoundingClientRect().width
+    }));
+    assert.ok(width.doc<=width.window+2,"Lesson overlay overflow: "+JSON.stringify(width));
+    assert.ok(width.modal<=390,"Lesson overlay cannot exceed viewport");
+    for(let li=0;li<course.lessons.length;li++){
+      const lesson=course.lessons[li];
+      assert.equal(await cp.locator(".cl-header small").innerText(),
+        "ČEŠTINA · "+lesson.lesson_id);
+      for(let si=0;si<lesson.steps.length;si++){
+        const step=lesson.steps[si];
+        assert.equal(await cp.locator(".cl-step-no").innerText(),"АЛХАМ "+(si+1)+" / 9");
+        switch(step.type){
+          case "model":
+            await cp.locator('[data-cl-action="complete-model"]').click();break;
+          case "choice":
+          case "listen_choice":{
+            if(step.type==="listen_choice"){
+              await cp.locator('.cl-hearing [data-cl-say]').click();
+              await cp.waitForFunction(()=>document.querySelector("#cl-heard-flag")?.textContent?.includes("эхэлсэн"));
+              assert.equal((await cp.evaluate(()=>window.__courseTts.at(-1)?.text)),
+                step.utterance.text_cs,"One Czech utterance must be played for the chosen answer");
+            }
+            if(li===0&&si===1){
+              const wrong=step.options.find(x=>x.id!==step.answer_id);
+              await cp.locator('[data-cl-action="option"][data-answer="'+wrong.id+'"]').click();
+              assert.equal(await cp.locator('[data-kind="bad"]').count(),1,
+                "Wrong answer must NOT complete step");
+              assert.equal(await cp.locator('[data-cl-action="next-step"]').count(),0);
+            }
+            await cp.locator('[data-cl-action="option"][data-answer="'+step.answer_id+'"]').click();
+            break;
+          }
+          case "flashcards":
+            for(let i=0;i<step.items.length;i++)await cp.locator('[data-cl-card="'+i+'"]').click();
+            await cp.locator('[data-cl-action="complete-cards"]').click();
+            break;
+          case "match":
+            for(let i=0;i<step.pairs.length;i++)
+              await cp.locator('[data-cl-match="'+i+'"]').selectOption(step.pairs[i].meaning_mn);
+            await cp.locator('[data-cl-action="check-match"]').click();
+            break;
+          case "order":{
+            const remaining=step.tiles.map((x,i)=>({text:x.text,i}));
+            for(const c of [...step.target_cs.normalize("NFC")]){
+              const idx=remaining.findIndex(x=>x.text===c);
+              assert.ok(idx>=0,"Target letter tile missing "+step.step_id);
+              const tile=remaining.splice(idx,1)[0];
+              await cp.locator('[data-cl-tile="'+tile.i+'"]').click();
+            }
+            await cp.locator('[data-cl-action="check-order"]').click();
+            break;
+          }
+          case "cloze":
+            await cp.locator("#cl-answer-input").fill(step.answer_cs);
+            await cp.locator('[data-cl-action="check-cloze"]').click();break;
+          case "speak":
+            await cp.locator('[data-cl-action="start-mic"]').click();
+            await cp.locator('[data-cl-action="next-step"]').waitFor({timeout:7000});
+            assert.match(await cp.locator("#cl-feedback").innerText(),/дуудлага зөв гэсэн оноо биш/i);
+            break;
+          default:throw Error("Unknown browser step "+step.type);
+        }
+        await cp.locator('[data-cl-action="next-step"]').click();
+      }
+      assert.match(await cp.locator(".cl-completion h2").innerText(),/Дадлага гүйцэтгэсэн/);
+      assert.match(await cp.locator(".cl-completion").innerText(),/дуудлага, сонсгол, CEFR/i);
+      await cp.screenshot({path:"test-artifacts/a0-lesson-"+(li+1)+"-complete-390.png"});
+      if(li<course.lessons.length-1)await cp.locator('[data-cl-action="next-lesson"]').click();
+    }
+    const progress=await cp.evaluate(()=>window.AhojLessonLab.getProgress());
+    assert.deepEqual(course.lessons.map(x=>progress.lessons[x.lesson_id].finished),[true,true,true]);
+    assert.ok(Object.keys(progress.review_queue).length>=12,"Lesson words must be added to review queue");
+    assert.ok(Object.values(progress.lessons).every(x=>x.status==="PRACTICE_COMPLETE_NOT_CERTIFIED"));
+    assert.ok(Object.values(progress.lessons).every(x=>x.audio_events.length>=1));
+    assert.ok(Object.values(progress.lessons).every(x=>x.speech_attempts.length===1));
+    await cp.locator('[data-cl-action="close"]').click();
+    await cp.reload({waitUntil:"domcontentloaded"});
+    await cp.waitForFunction(()=>window.AhojLessonLab?.getStatus()?.initialized===true);
+    assert.deepEqual((await cp.evaluate(()=>window.AhojLessonLab.getStatus().completed)).sort(),
+      course.lessons.map(l=>l.lesson_id).sort(),"Lesson progress must survive reload");
+    assert.deepEqual(errs,[],"Browser course JS errors: "+errs.join("; "));
+    console.log("PASS mobile A0 course: L01 L02 L03 all 27 real steps, wrong-answer correction, mocked TTS/STT, flashcards, no false mastery and persisted storage");
+    await cp.close();
+  }
+
   // Report unsupported SpeechRecognition separately from microphone denial.
   {
     const diagPage = await browser.newPage({ viewport: { width: 390, height: 844 } });
