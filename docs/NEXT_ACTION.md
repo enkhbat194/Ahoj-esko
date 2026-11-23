@@ -71,3 +71,11 @@ PR #30: `feat/a0-outline-source-reconciliation-v1`. New draft files on that bran
 - PR #32 now also has `curriculum/system-v1/lesson-engine.mjs` and `scripts/test-lesson-engine.mjs` wired to `npm run lint`. Text exercise evaluator grades choice/match/token-order/cloze; DOES NOT invent STT pronunciation scores, open-ended semantic grading, learner mastery or audio success.
 - First pack `A0-PACK-INTRO-001` has 6 draft lexemes, 9 exercise blocks (8 viewable text and 1 audio blocked), but is **not integrated in PWA** and source S004 has still 1 missing skill L03. Top100 and reading series are draft/editorial pending.
 - Next code task (curriculum/engine only): versioned schema validation of approved lexeme/form/sentence boundaries and minimal Premium PWA mounting of the text-only pack in a feature branch, no fake production audio. Cross-chat audio owns ElevenLabs.
+
+
+## 2026-11-23 READER/ADAPTIVE CONTENT CHECKPOINT
+- On PR #32 branch `feat/curriculum-system-v1-2026-11-23`, independent reading **is not forced to use Top100-only vocabulary**. Unknown words have contextual glosses and are staged into flashcards after reading, not falsely assumed learned.
+- `curriculum/system-v1/reader-stories.content.draft.json`: 3 unrelated reader directions and 3 draft opening chapters / 25 CZ+MN sentences / 64 Czech word-form annotations: cosmic mystery `Světlo v okně`, romantic mystery `Dopis bez jména`, astronomy science `Odkud má Měsíc světlo?`. All PENDING Czech/Mongolian editorial; no approved audio or publication.
+- `curriculum/system-v1/reader-adaptive-engine.mjs`: pure offline reader event reducer, per-context word glossary, cards, de-duplicated cross-chapter profile, review due dates, errors/help/retries and cautious pause signals. `scripts/test-reader-adaptive.mjs` included in `npm run lint`.
+- This is **NOT** an in-app working reader yet: UI bindings, learner progress persistence, AI conversational tutor and native language QA are still missing.
+- **NEXT REAL ACTION:** connect an approved reader content package and reading events to existing Premium PWA's reader/card tabs (with feature flag), persist per-user progress, then test actual mobile flow. Avoid any ElevenLabs generation/Drive/R2 changes in this chat. Audio belongs to the separate active audio chat.
