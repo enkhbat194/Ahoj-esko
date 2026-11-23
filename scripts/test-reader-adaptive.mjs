@@ -10,12 +10,12 @@ const data=read("curriculum/system-v1/reader-stories.content.draft.json");
 const top100=read("curriculum/system-v1/lexicon/top100.candidate.json");
 const all=data.books.flatMap(b=>b.chapters);
 assert.equal(data.status,"DRAFT_STORIES_AND_GLOSSES_NOT_NATIVE_REVIEWED_NOT_PUBLISHED");
-assert.equal(data.books.length,2);
-assert.deepEqual(data.books.map(b=>b.genre),["cosmos_mystery","romance_mystery"]);
-assert.equal(all.length,2);
-assert.equal(all.flatMap(c=>c.sentences).length,18);
-assert.equal(data.form_annotations.length,44);
-assert.equal(new Set(data.form_annotations.map(f=>f.surface_form_cs)).size,44);
+assert.equal(data.books.length,3);
+assert.deepEqual(data.books.map(b=>b.genre),["cosmos_mystery","romance_mystery","science_curiosity"]);
+assert.equal(all.length,3);
+assert.equal(all.flatMap(c=>c.sentences).length,25);
+assert.equal(data.form_annotations.length,64);
+assert.equal(new Set(data.form_annotations.map(f=>f.surface_form_cs)).size,64);
 assert.equal(data.phrase_annotations.length,1);
 assert.ok(data.form_annotations.every(f=>f.audio_asset_id===null&&f.editorial_status==="PENDING"));
 
@@ -41,9 +41,22 @@ const stance=data.form_annotations.find(x=>x.surface_form_cs==="stojí");
 assert.equal(stance.sense_key,"stát::stand_position");
 assert.equal(stance.contextual_sense_review,"PENDING_CRITICAL_PRICE_VS_STAND");
 
+const moon=data.form_annotations.find(x=>x.surface_form_cs==="měsíc");
+assert.equal(moon.sense_key,"měsíc::celestial_body","Month vs Moon must not be silently conflated");
+assert.equal(science.reading_mode,"A1_ASSISTED");
+const scienceS=startReaderChapter({chapter:science,formAnnotations:data.form_annotations,
+ phraseAnnotations:data.phrase_annotations,cardActivationCap:4,
+ knownSenseKeys:["být::intro_reader_context"]});
+assert.equal(scienceS.tokens.some(x=>x.sense_key==="měsíc::celestial_body"&&!x.sense_known),true);
+const qScience=science.comprehension_checks[0];
+let sci=recordReaderEvent(scienceS,{type:"optional_comprehension_answer",question_id:qScience.id,
+ choice_index:0,at_ms:33000},{chapter:science});
+assert.equal(sci.metrics.optional_quiz_correct,1);
+
+
 assert.equal(tokenizeCzech("Být není byt.").length,3);
 assert.notEqual(tokenizeCzech("byt")[0].normalized,tokenizeCzech("být")[0].normalized);
-const star=all[0],love=all[1];
+const star=all[0],love=all[1],science=all[2];
 assert.throws(()=>validateReaderChapter({
  chapter_id:"BAD",sentences:[{sentence_id:"bad-1",text_cs:"Nové slovo.",translation_mn_draft:""}]
 },data.form_annotations),/Incomplete reader sentence/);
@@ -135,4 +148,4 @@ assert.equal(l.pronunciation_mastered,false);
 assert.equal(l.chapter_read,true);
 assert.equal(l.status,"EDITORIAL_PREVIEW_NO_CEFR_MASTERY");
 
-console.log("Reader adaptive QA PASS: 2 draft stories / 18 sentences / 44 annotated Czech forms; contextual sense, genre, phrase card, no duplicates, 3/4-card cap, backlog, learning signals and no fake AI/audio/CEFR mastery.");
+console.log("Reader adaptive QA PASS: 3 draft reader topics / 25 sentences / 64 annotated Czech forms; contextual sense, genre, phrase card, no duplicates, 3/4-card cap, backlog, learning signals and no fake AI/audio/CEFR mastery.");
