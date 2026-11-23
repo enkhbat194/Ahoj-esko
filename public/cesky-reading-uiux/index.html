@@ -4590,9 +4590,11 @@
           const readerLab = window.AhojReaderLab;
           const previewCards = state.activeTab === "cards" &&
             readerLab?.enabled && readerLab.renderCardsTab(mainArea);
+          const lessonCards = state.activeTab === "cards" &&
+            window.AhojLessonLab?.renderCardsTab?.(mainArea, { append: Boolean(previewCards) });
           const previewDictionary = state.activeTab === "dictionary" &&
             readerLab?.enabled && readerLab.renderDictionaryTab(mainArea);
-          if (!previewCards && !previewDictionary) renderPlaceholderView(tab);
+          if (!previewCards && !lessonCards && !previewDictionary) renderPlaceholderView(tab);
         }
       }
 
@@ -4699,6 +4701,9 @@
         });
 
         renderApp();
+        window.addEventListener("ahoj:course-ready", () => {
+          if (state.activeTab === "cards") renderApp();
+        });
       }
 
       if (document.readyState === "loading") {
@@ -4725,6 +4730,6 @@
   <!-- Explicit opt-in: ?reader_lab=1. Draft CZ/MN texts and cards stay out of normal app. -->
   <script type="module" src="./reader-lab-ui.mjs?v=2"></script>
   <!-- First three canonical A0-T01 lessons on the same Premium PWA. -->
-  <script type="module" src="./lesson-lab-ui.mjs?v=1"></script>
+  <script type="module" src="./lesson-lab-ui.mjs?v=2"></script>
 </body>
 </html>
