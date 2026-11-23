@@ -3355,7 +3355,7 @@
         }
 
         document.getElementById("alphabetBtn").addEventListener("click", () => {
-          showTopicOutline(STAGE_CHAPTERS[0]);
+          window.location.assign("./alphabet-a0.html");
         });
         prevBtn.addEventListener("click", () => goToStage(state.activeStageIdx - 1));
         nextBtn.addEventListener("click", () => goToStage(state.activeStageIdx + 1));
@@ -3373,6 +3373,7 @@
           const btn = e.target.closest("[data-chapter-start]");
           if (!btn) return;
           const ch = STAGE_CHAPTERS[Number(btn.dataset.chapterStart)];
+          if (ch && ch.chapter === 0) { window.location.assign("./alphabet-a0.html"); return; }
           if (ch) showTopicOutline(ch);
         });
 
