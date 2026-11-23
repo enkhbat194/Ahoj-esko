@@ -218,14 +218,14 @@ function renderStep(step){
    const matched=Object.keys(matchSelections).length,finished=stepDone(step);
    return '<p class="cl-subtitle">'+esc(step.prompt_mn)+'</p>'+
     '<p class="cl-match-instruction">① Чех үгийг дар · ② Монгол утгыг дар</p>'+
-    '<div class="cl-match-board"><div class="cl-match-column" aria-label="Чех үгс">'+
+    '<div class="cl-match-board"><div class="cl-match-column" aria-label="Чех үгс"><div class="cl-match-col-label">ЧЕХ</div>'+
     step.pairs.map((p,i)=>{
       const done=matchSelections[i]!==undefined;
       return '<button type="button" data-cl-match-word="'+i+
        '" class="cl-match-tile'+(done?" is-paired":matchActive===i?" is-active":"")+
        '" aria-pressed="'+(matchActive===i)+'" '+(done||finished?"disabled":"")+
        ' lang="cs">'+esc(p.text_cs)+'</button>';
-    }).join("")+'</div><div class="cl-match-column" aria-label="Монгол утгууд">'+
+    }).join("")+'</div><div class="cl-match-column" aria-label="Монгол утгууд"><div class="cl-match-col-label">МОНГОЛ</div>'+
     step.pairs.map((p,i)=>({p,i})).reverse().map(({p,i})=>{
       const done=Object.values(matchSelections).includes(i);
       return '<button type="button" data-cl-match-meaning="'+i+
