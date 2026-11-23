@@ -157,14 +157,22 @@ function speechButton(text,label="▶ Сонсох"){
 function renderStep(step){
  switch(step.type){
  case "model":{
-   return '<p class="cl-subtitle">'+esc(step.description_mn)+'</p>'+
-    '<div class="cl-words">'+step.examples.map(x=>
-    '<div class="cl-model-row"><div><strong lang="cs">'+esc(x.text_cs)+
-    '</strong><small>'+esc(x.meaning_mn)+'</small></div><div>'+
-    speechButton(x.text_cs)+'</div></div>').join("")+'</div>'+
-    '<p class="cl-note">Дуу нь түр зуурын browser TTS. Үндсэн аудио баталгаажаагүй.</p>'+
-    button("Бичлэг, утгатай танилцсан","complete-model","primary");
+  const seen=step.examples.filter((x,i)=>cardReveal.has(step.step_id+":model:"+i)).length;
+  return '<p class="cl-subtitle">'+esc(step.description_mn)+'</p>'+
+   '<div class="cl-words">'+step.examples.map((x,i)=>{
+     const open=cardReveal.has(step.step_id+":model:"+i);
+     return '<div class="cl-model-row"><div class="cl-model-content">'+
+      '<strong lang="cs">'+esc(x.text_cs)+'</strong>'+
+      '<button type="button" class="cl-model-reveal'+(open?" is-revealed":"")+
+      '" data-cl-model="'+i+'" aria-expanded="'+open+'">'+
+      (open?esc(x.meaning_mn):"Утгыг харах")+'</button></div>'+
+      speechButton(x.text_cs,"Чех үгийг сонсох")+'</div>';
+   }).join("")+'</div>'+
+   '<p class="cl-note">'+seen+' / '+step.examples.length+
+   ' үгийн утгыг нээсэн · Дуудлагын аудио баталгаажаагүй.</p>'+
+   button("Бүх үгтэй танилцлаа","complete-model","primary",seen<step.examples.length?"disabled":"");
  }
+
  case "choice":
  case "listen_choice":{
   const hasSound=step.type==="listen_choice";
@@ -388,7 +396,9 @@ function action(type,event){
  const step=currentStep(),lesson=getLesson(active);
  if(type==="next-step"){goNext();return;}
  if(type==="close"){close();return;}
- if(type==="complete-model"){finishStep({kind:"MODEL_VIEWED_AUDIO_NOT_REQUIRED"});updateFeedback("good","Эхийг судалсан. Сонсох боломжтой байвал буцаж дууг сонсоорой.");return;}
+ if(type==="complete-model"){
+  if(step.examples.some((x,i)=>!cardReveal.has(step.step_id+":model:"+i)))return;
+  finishStep({kind:"MODEL_ALL_MEANINGS_REVEALED_AUDIO_NOT_REQUIRED"});updateFeedback("good","Эхийг судалсан. Сонсох боломжтой байвал буцаж дууг сонсоорой.");return;}
  if(type==="complete-cards"){
   if(cardReveal.size!==step.items.length)return;
   finishStep({kind:"CARD_EXPOSURE_NOT_MASTERY",cards_seen:cardReveal.size});updateFeedback("good","Картын утгуудыг харсан; дараа нь давтлагад дахин гарна.");return;
@@ -432,7 +442,9 @@ function bindRoot(){
    }});
    return;
   }
-  const word=ev.target.closest("#course-lab-overlay [data-cl-match-word]");
+  const model=ev.target.closest("#course-lab-overlay [data-cl-model]");
+   if(model){cardReveal.add(currentStep().step_id+":model:"+model.dataset.clModel);draw();return;}
+   const word=ev.target.closest("#course-lab-overlay [data-cl-match-word]");
    if(word){matchWord(Number(word.dataset.clMatchWord));return;}
    const meaning=ev.target.closest("#course-lab-overlay [data-cl-match-meaning]");
    if(meaning){matchMeaning(Number(meaning.dataset.clMatchMeaning));return;}
