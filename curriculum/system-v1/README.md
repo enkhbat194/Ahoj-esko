@@ -156,3 +156,22 @@ CEFR-ийн өөрөө гүйцэтгэх зорилт, нөхцөлд ажил�
 - **Мэдээллийн хязгаар:** Дүрэмд суурилсан адаптер юм, жинхэнэ LLM AI tutor, бүрэн PWA-ийн `Унших` дэлгэцтэй event binding (үйл явдлын холболт), local/cloud progress persistence, audio, Чех хэлний баталгаатай редакц **болоогүй**. Аппын `main` болон Drive-гийн 276 хувийн MP3 өөрчлөгдөөгүй.
 
 **Аудио бус дараагийн кодын алхам:** аппын `Унших` интерфейсээс `gloss_opened`, `chapter_finished`, `optional_comprehension_answer` зэрэг event-ийг түвшний нэг reader profile руу холбох; батлагдсан текстгүйгээр public content release хийхгүй.
+
+
+## Reader Lab PWA UI integration — 2026-11-23
+
+**Идэвхжүүлэх:** `/cesky-reading-uiux/index.html?reader_lab=1` — зөвхөн PR #32-ийн кодыг ажиллуулсан *тусдаа preview deployment* дээр. Энэ URL-г одоо production-д ажиллаж байгаа гэж батлаагүй. `reader_lab` байхгүй бол хуучин Premium PWA-ийн унших/карт/толь ажиллагаа өөрчлөгдөхгүй.
+
+**Бодит код:** `public/cesky-reading-uiux/index.html` одоогийн `Үе давах / Унших / AI / Карт / Толь` навигацид туршилтын горимын hook нэмсэн. `reader-lab-ui.mjs` нь `Унших` хэсэгт гурван тусдаа draft уншлага харуулж, `readerOverlay`-д текст, тайлбар, ойлголтын хоёр асуулт, дуусгах товчоор ажиллана. Үг дээр дарахад `readerWordTooltip → gloss_opened → active/backlog card` холбоос үүснэ. `Карт` таб одоо уншлагын картаас хугацаатай давтлага, 3 төрлийн self-report хариу авч `reviewGlobalReadingCard`-д дамжуулна. `Толь` таб тухайн 3 эхийн хэлбэр, утгыг хайна.
+
+**Өгөгдлийн бодит хадгалалт:** `localStorage` дотор `ahoj.reader.lab.profile.v1` (уншлагын түүх, үгний хүндрэл, карт, давтлага) болон `ahoj.reader.lab.sessions.v1` (өөрийн бүлгийн уншсан/асуултын явц) төхөөрөмжид хадгална. Сэргээх боломжгүй/Private Mode үед UI мэдээлнэ; сервер эсвэл дансны хооронд sync одоогоор үгүй. Суралцагчийн шалтгаангүй гацсан хугацаанд үнэлгээ өгөхгүй, хүний дуудлагын үнэлгээ худал гаргахгүй.
+
+**Нэг эх сурвалжийн хуулбар:** GitHub canonical `curriculum/system-v1/reader-adaptive-engine.mjs` болон `reader-stories.content.draft.json`-ийг browser-т ашиглахын тулд `public/cesky-reading-uiux/reader-lab-engine.mjs`, `reader-lab-content.draft.json` гэж хуулбарласан. `scripts/check-reader-lab-integration.mjs` нь тэдгээрийг **байт бүрээр яг ижил** эсэхийг шалгаж, төлөв зөрөхөөс сэргийлнэ. Дараагийн production архитектурт build pipeline-аар нэг эх сурвалжаас автоматаар serve хийх нь илүү тохиромжтой.
+
+**Техникийн хэрэгжүүлсэн ч QA-ийн хязгаар:** Статик HTML hook, JS syntax, unit/core regression, source mirror, npm build-ийг CI шалгана. Энэ нь **гар утас Safari-ийн end-to-end туршилт** эсвэл native Czech редакцын баталгаа **биш**. Draft текстүүдийг зөвхөн UI туршилтад ашиглах; аудио/нийтлэлт хориглогдсон, `main` салбарт нийлүүлээгүй.
+
+**Үйлдвэрлэлийн хамгаалалтын анхааруулга:** `?reader_lab=1` нь UI feature flag болохоос access-control биш. Хэрэв branch-ийг preview hosting-д нийтэлбэл public-assets дахь draft JSON-д шууд URL-аар хандаж болно. Тиймээс контентыг эцэслэн батлахаас өмнө production/main-д нэгтгэж болохгүй. Нийтлэлийн өмнө browser served source ба ил биш private drafts-ыг тусгаарлах ёстой.
+
+**Аудио чаттай интерфейс:** `utterance_id/form_id` болон `audio_asset_id=null` хэвээр; энэ өөрчлөлт ElevenLabs, Drive, R2, speechSynthesis, TTS service-ийг дуудаагүй. Уншлагын ирээдүйн аудио зөвхөн эрэгтэй хоолойтой байна.
+
+**Дараагийн нэг кодын ажил:** энэ branch-д хийсэн Reader Lab-ийг бодит браузерт E2E тестлэх; дараа нь Чех/Монгол редакцын review, эх сурвалжийг баталгаажуулах. Үүний дараа production уншлагад агуулгыг нэмэх эрхийг салгаж шийднэ.
