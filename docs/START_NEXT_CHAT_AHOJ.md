@@ -43,6 +43,21 @@
 - **Preview URL:** https://ahoj-reader-lab-preview-20261123.onrender.com/cesky-reading-uiux/index.html?reader_lab=1&v=b80186c0 . Mobile steps: `Үе давах → Цагаан толгой ба дуудлага → 04 → Хичээл эхлэх`. L04 unlock requires prior L01–L03 completed. Added cache-busting query to the user URL; **real iPhone Safari screenshot after release has not yet been received**. Render LIVE + CI != independent iPhone screenshot verification.
 - **Remaining release constraints unchanged:** all 8 are content/audio editorial DRAFT, STT is only a recorded attempt; Top100 unapproved; `main` not merged. Next action is verify real iPhone lesson display and improve interactive task depth/UX, then approved Czech audio/editorial.
 
+## 2026-11-23 — Lesson Exercise UX v2 (active draft)
+
+**What changed in existing PR #32 branch (no new app/service, no merge):**
+- `lesson-lab-ui.mjs` model steps now require learners to **reveal each Czech word's contextual meaning** before marking exposure complete; showing a meaning is still NOT mastery.
+- Replaced desktop-style `select` matching with two-column **tap-to-pair** Czech→Mongolian: one Czech tile, one Mongolian tile, immediate corrective feedback, paired state and a visible pair count. Keyboard buttons remain accessible.
+- Exact-choice responses display clear numbered touch options and a selected-correct state. A wrong answer first prompts inspection, then provides specific explanation on repeated failure. It still requires the correct answer.
+- `cloze` reveals only a context-specific handful of relevant Czech letter variants instead of 14 unrelated keys; writing with native keyboard still available.
+- One action per task: labels `ТАНИЛЦ / СОНГО / КАРТ НЭЭ / СОНС / ХОСЛУУЛ / ҮГ БҮТЭЭ / БИЧ / ХЭЛЖ ҮЗ`. Repeated high-level goal text is collapsed in optional disclosure; immediate task instructions stay visible.
+- `draw()` retains the exercise's scroll position when a card/letter is tapped; step navigation resets it intentionally. 44px+ targets, reduced-motion CSS, accessible focus and feedback status.
+- New browser QA asserts model exposure cannot be skipped, incorrect pair requires correction, matching has no selects, matching pairs persist visually, 72-step end-to-end route remains available. Added 320/428 viewport screenshots and no horizontal overflow / scroll retention checks.
+- **Pedagogical limitation:** This is a first UI interaction refactor, NOT proof of more efficient language acquisition; the first eight draft lessons still reuse the same nine-step skeleton. Next quality work is varying task composition by cognitive purpose, creating context-rich dialogue/sentence production, and native Czech editorial + approved word audio.
+- **Release gates unchanged:** `approved=false`, `published=false`; browser TTS/STT never certify Czech phonetics; Top100 candidate approval 0; existing `ahoj.course.a0.t01.practice.v1` storage key preserved.
+- **Last code/QA commit at documentation time:** `5472619efe0ad753b64afbe5e798f06fb33cfd9e`. CI runs `45200004570` (lint) and `45200004466` (browser). Recheck both after this docs-only commit; do not assume new Render LIVE automatically.
+- **Next action:** Confirm the latest CI and update the EXISTING Render preview service `srv-dc21v9qvcj2c73a0g8k0` to latest tested SHA, then visually inspect the screenshots and collect native Czech audio QA separately.
+
 ## 0. Шинэ чат шууд эхлэх горим
 
 1. GitHub connector-оор репогийн **тухайн үеийн** `main` commit, PR #32-ийн `head_sha`, CI, PR #29 ба #30-ийн төлөвийг шалга. Өмнөх SHA-г шинэ мэт битгий зарла.
