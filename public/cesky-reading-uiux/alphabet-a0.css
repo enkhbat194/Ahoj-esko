@@ -15,3 +15,97 @@
 @media(max-height:760px){.mic-word{flex-basis:86px}.mic-panel{flex-basis:80px;padding:4px}.mic-button{width:54px;height:54px}.mic-button svg{width:26px;height:26px}.mic-panel p{font-size:12px}.mic-status{font-size:11px}.result-row{font-size:11px}.summary-title{font-size:11px}.chips span{font-size:10px;padding:3px 6px}.note{font-size:11px}.section-title h2{font-size:15px}}
 .exercise:has(.mic-panel){gap:9px}
 @media(max-height:760px){.exercise:has(.mic-panel){gap:5px}}
+
+
+/* AHOJ Ch0 v2 — use the actual main-app design tokens, not an invented cyan shell. */
+:root{
+  --bg:#141414;--card:#1c1c1e;--elevated:#232326;
+  --cyan:#ee7f3b;--cyan2:#d96c2e;--text:#fff;--muted:#b8b8be;
+  --border:rgba(255,255,255,.17);--green:#34d399;--red:#ef918e;--gold:#d8b56a;
+}
+html,body{background:#000;color:#fff}
+.app{background:#141414;box-shadow:0 0 50px #0009;padding-bottom:env(safe-area-inset-bottom,0px)}
+.top{height:72px;flex-basis:72px}
+.brand strong{font-size:21px;letter-spacing:-.025em;color:#fff}
+.brand span{display:block;margin-top:4px;font-size:12px;color:#b8b8be}
+.back{left:15px;top:14px}
+.icon-btn{background:#232326;border-color:rgba(255,255,255,.17)}
+.progress-row{padding:0 17px;flex-basis:28px;min-height:28px}
+.progress-track{background:#323235;height:7px;border-radius:30px}
+.progress-track>div{background:linear-gradient(100deg,#f7a04d,#d96c2e);box-shadow:none}
+.progress-row span{color:#b8b8be;font-size:13px}
+.exercise{padding:12px 16px 16px;gap:12px}
+.section-title{min-height:36px}
+.section-title h2{font-size:20px;letter-spacing:-.02em}
+.badge-icon{background:#3c281d;color:#eda56e;border-radius:12px}
+.autoplay{border:1px solid rgba(232,143,73,.35);background:#3a271ca6;color:#e8bc99;font-size:11px;padding:7px 10px}
+.glass{background:linear-gradient(155deg,rgba(255,255,255,.082),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.17);box-shadow:inset 0 1px 0 rgba(255,255,255,.09);border-radius:20px}
+.letter-card{gap:12px;max-height:185px}
+.letter-block{background:radial-gradient(circle at 25% 10%,#72503b,#34261f 74%);border:1px solid #cd8858;box-shadow:inset 0 1px 0 #ffd3a96b;color:#fff}
+.letter-copy{border-left-color:#ffffff30;color:#f5f3f0}
+.letter-copy b{color:#ed9f68}
+.vocab-card{max-height:277px}
+.vocab-copy{border-left-color:#ffffff30}
+.vocab-head strong{color:#fff}
+.vocab-copy .ipa{color:#b8b8be}
+.meaning{color:#eeeef0}
+.translit{color:#b8b8be}
+.round-btn{border:1px solid #a26b48;background:radial-gradient(circle at 30% 20%,#67432d,#33251e);color:#fff}
+.tip{background:#2e231d;border:1px solid #815b43;color:#e6d9cf;padding:10px 12px}
+.tip b{color:#f5a766}
+.cta,.mic-actions button.cta{background:linear-gradient(110deg,#ee8738,#d96c2e);color:#fff;border-radius:19px;box-shadow:inset 0 1px 0 #ffcc9d6b;border:0;font-weight:800}
+.cta{min-height:52px;font-size:18px}
+.audio-card{min-height:76px;max-height:95px;background:#202023}
+.audio-card .round-btn{border-radius:15px}
+.wave i{background:#e99560}
+.picture-choice{background:linear-gradient(155deg,#292728,#1d1d20);border:1px solid #ffffff27}
+.picture-choice.selected,.text-choice.selected,.letter-choice.selected{background:linear-gradient(140deg,#4e3526,#29221e);border:2px solid #ee9657;box-shadow:0 0 15px #d96c2e33}
+.check-mark{background:#ec904f;color:#fff}
+.feedback{border-color:#44684c;background:#1f3526;color:#b2e9bf}
+.feedback.bad{border-color:#a65359;background:#3d2227;color:#f9c2be}
+.fill-card{background:#242325}
+.letter-choice{background:#29272a;border-color:#ffffff29}
+.text-choice{background:linear-gradient(140deg,#29272a,#202023);border-color:#ffffff27}
+.text-choice.selected .circle-choice{background:#ee9657;border-color:#ee9657}
+.question-help{color:#b8b8be}
+.mic-word{flex:0 0 auto;min-height:138px;max-height:185px;height:27%;gap:10px}
+.mic-word .fruit-photo{max-height:154px}
+.is-speaking .section-title{margin-bottom:1px}
+.mic-instruction{font-size:13px;line-height:1.45;color:#c6b9ae;margin:0;padding:0 2px}
+.is-speaking .mic-panel{flex:1 1 auto;min-height:130px;max-height:228px;gap:10px}
+.mic-button{border:2px solid #ed995f;background:radial-gradient(circle at 35% 20%,#734629,#39251c);box-shadow:0 0 18px #d96c2e2b}
+.is-speaking .mic-panel p{color:#f2e5dc;font-size:16px}
+.is-speaking>.cta{margin-top:auto;flex:0 0 auto}
+.mic-feedback{background:#243027;border:1px solid #4e7758;border-radius:14px;padding:10px 12px;display:flex;flex-direction:column;gap:3px;color:#d9eee0}
+.mic-feedback[hidden]{display:none}
+.mic-feedback strong{color:#bdebc8;font-size:15px}
+.mic-feedback span{font-size:14px}
+.mic-feedback small{font-size:12px;line-height:1.35;color:#cbdbc9}
+.mic-feedback .retry-mini{align-self:flex-start;font-size:13px;color:#ffc08f;background:transparent;border:0;padding:5px 0 0;text-decoration:underline}
+.is-result{gap:11px}
+.summary-complete{display:flex;flex:1;min-height:0;flex-direction:column;gap:12px;align-content:initial;justify-content:space-evenly}
+.result-hero{text-align:center;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:5px}
+.result-check{width:57px;height:57px;border:2px solid #e18b4d;color:#e99a64;display:grid;place-items:center;border-radius:50%;font-size:30px;line-height:1}
+.result-hero h2{font-size:23px;margin:2px 0 0}
+.result-hero p{font-size:13px;color:#b8b8be;line-height:1.35}
+.result-words.glass,.result-stats.glass{padding:12px;flex:0 0 auto}
+.result-words h3{font-size:15px;font-weight:750;margin:0 0 10px;color:#f3f1ee}
+.result-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}
+.result-word{min-width:0;display:flex;align-items:center;flex-direction:column;gap:6px;padding:6px 4px 8px;background:#252429;border:1px solid #ffffff19;border-radius:12px}
+.result-word .fruit-photo{width:min(100%,65px);aspect-ratio:1;border-radius:8px}
+.result-word span{font-size:12px;font-weight:700;white-space:nowrap}
+.result-word button{border:0;background:transparent;color:#ecaf7f;padding:0 3px;font-size:12px;display:grid;place-items:center;width:32px;height:28px}
+.result-word button svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.result-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;text-align:center}
+.result-stats .stat{border-right:1px solid #ffffff22}
+.result-stats .stat:last-child{border:0}
+.result-stats strong{display:block;font-size:23px;color:#ef9b61}
+.result-stats span{display:block;margin-top:3px;color:#bab4b1;font-size:11px}
+.result-tip{background:#2b2823;border:1px solid #6e5944;border-radius:14px;padding:12px;font-size:13px;color:#eedac9;line-height:1.35}
+.result-tip b{color:#f1ad77}
+.result-actions{display:flex;flex-direction:column;gap:8px;margin-top:auto}
+.result-actions .cta{width:100%}
+.result-actions .subtle{background:transparent;color:#baa99b;border:0;font-size:13px;padding:5px}
+@media(max-width:390px){.exercise{padding:8px 12px 12px;gap:9px}.section-title h2{font-size:18px}.autoplay{display:none}.letter-copy{font-size:15px}.letter-card{gap:7px}.vocab-card{gap:8px}.vocab-copy{padding-left:8px}.vocab-head strong{font-size:clamp(23px,3.5dvh,31px)}.mic-word .vocab-head strong{font-size:27px}.result-word span{font-size:11px}}
+@media(max-height:710px){.top{height:62px;flex-basis:62px}.back{top:9px}.brand strong{font-size:18px}.brand span{font-size:11px;margin-top:2px}.progress-row{flex-basis:24px;min-height:24px}.exercise{padding-top:7px;gap:7px}.section-title{min-height:28px}.section-title h2{font-size:17px}.intro{gap:7px}.letter-card{max-height:150px;padding:9px}.vocab-card{max-height:205px;padding:9px}.tip{padding:7px 9px;font-size:12px}.cta{min-height:44px;font-size:16px}.audio-card{min-height:58px;max-height:66px;flex-basis:13%}.picture-choice .fruit-photo{max-height:110px}.mic-word{min-height:105px;max-height:142px}.is-speaking .mic-panel{min-height:110px;max-height:168px}.mic-button{width:67px;height:67px}.mic-instruction{font-size:12px}.result-hero{gap:2px}.result-check{width:43px;height:43px;font-size:22px}.result-hero h2{font-size:19px}.result-hero p{font-size:12px}.result-words.glass,.result-stats.glass{padding:8px}.result-words h3{font-size:13px;margin-bottom:6px}.result-word .fruit-photo{width:44px}.result-word{gap:3px;padding:5px 2px}.result-tip{padding:8px;font-size:12px}.summary-complete{gap:7px}}
+@media(max-height:600px){.is-speaking .mic-word{min-height:92px;height:21%}.is-speaking .mic-panel{min-height:95px;max-height:137px}.mic-instruction{font-size:11px}.result-hero p{display:none}.result-word .fruit-photo{width:37px}.result-words h3{margin-bottom:3px}}
