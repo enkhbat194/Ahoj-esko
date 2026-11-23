@@ -49,7 +49,7 @@ for(const term of [
 'UNREVIEWED_DRAFT_PREVIEW'
 ])assert.ok(browser.includes(term),"Missing browser reader bridge "+term);
 for(const marker of [
-'<script type="module" src="./reader-lab-ui.mjs?v=1"></script>',
+'<script type="module" src="./reader-lab-ui.mjs?v=2"></script>',
 'window.AhojReaderLab?.isOpen?.()',
 'window.AhojReaderLab.closeReader();',
 'window.AhojReaderLab?.decorateReadingView?.();',
@@ -59,13 +59,16 @@ for(const marker of [
 ]){
  assert.ok(html.includes(marker),"Reader Lab missing from existing app "+marker);
 }
-assert.ok(css.includes(".reader-lab-shelf"));
+assert.ok(css.includes(".lab-in-library"));
 assert.ok(css.includes(".lab-prose"));
 assert.ok(css.includes(".lab-gloss"));
 assert.ok(css.includes(".lab-flashcard"));
 assert.ok(browser.includes('content.status!=="DRAFT_STORIES_AND_GLOSSES_NOT_NATIVE_REVIEWED_NOT_PUBLISHED"'));
 assert.equal(browser.includes("speechSynthesis"),false,"Do not bypass dedicated male audio voice policy");
 assert.equal(browser.includes("elevenlabs"),false,"Curriculum branch must not call ElevenLabs");
+assert.ok(browser.includes('window.AhojReaderExperience.mount({'));
+assert.ok(browser.includes('grid.insertAdjacentHTML("beforeend",markup)'));
+assert.ok(browser.includes('updateReader();'));
 assert.ok(browser.includes('name:"')===false,"Do not hard-code learner name");
 const flags=html.match(/reader_lab/g)??[];
 assert.ok(flags.length<=3,"Feature flag must not appear in regular production behavior");
