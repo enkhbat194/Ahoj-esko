@@ -57,8 +57,8 @@ const readerCss = readFileSync(resolve('public/cesky-reading-uiux/reader-experie
 new Script(readerCode, { filename: 'reader-experience.js' });
 for (const marker of [
   'AhojReaderExperience.mount',
-  'reader-experience.css?v=4',
-  'reader-experience.js?v=5',
+  'reader-experience.css?v=6',
+  'reader-experience.js?v=6',
 ]) {
   if (!html.includes(marker)) throw new Error('Reader integration missing: ' + marker);
 }
@@ -78,4 +78,8 @@ if (!readerCss.includes('safe-area-inset-bottom') || !readerCss.includes('ar-pla
   throw new Error('Reader responsive/safe-area styles missing');
 }
 
+for (const marker of ['skipGuidedWord()', 'onWordTap', 'this.guidedActive ? "🎙"', 'ONE complete original sentence']) {
+  if (!readerCode.includes(marker)) throw new Error('Shared reader repair missing: '+marker);
+}
+if (!html.includes('lesson-outline-track')) throw new Error('Lesson cards carousel missing');
 process.stdout.write('Czech reading UI/UX checks passed: HTML, JS syntax and server navigation.\n');
