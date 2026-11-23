@@ -2561,6 +2561,14 @@
     .lesson-outline-footer{padding:13px 15px;font-size:12px;line-height:1.7;color:#c2c2c8;background:#252529;border-radius:14px}
     @media(max-height:690px){.lesson-outline-card{height:300px;min-height:270px}.lesson-outline-number{font-size:54px}}
   </style>
+
+  <script id="ahoj-mobile-scale-guard">
+    // The app provides its own Tt font-size control. Prevent accidental Safari
+    // pinch zoom on this kiosk-like viewport; do not block normal scrolling.
+    for (const name of ["gesturestart","gesturechange"]) {
+      document.addEventListener(name, event => event.preventDefault(), {passive:false});
+    }
+  </script>
 </head>
 <body>
   <!-- Шилэн (Glass) вектор дүрсүүдийн дундын градиент ба сүүдэр -->
@@ -3469,7 +3477,7 @@
           ? `<div class="active-filters-strip no-scrollbar">${chips.map((c) => `<span class="active-chip">${escapeHtml(c)}</span>`).join("")}</div>`
           : "";
 
-        const booksHtml = books.length
+        const booksHtml = (books.length || window.AhojReaderLab?.enabled)
           ? `<div class="books-grid">
               ${books.map((book) => {
                 const pct = getBookProgress(book);
