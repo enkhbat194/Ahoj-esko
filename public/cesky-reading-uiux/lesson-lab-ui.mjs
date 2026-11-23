@@ -96,7 +96,7 @@ function showToast(text){
  let item=ID("course-lab-toast");
  if(!item){item=document.createElement("div");item.id="course-lab-toast";
    item.setAttribute("role","status");item.setAttribute("aria-live","polite");
-   item.style.cssText="position:fixed;z-index:9999;bottom:80px;left:10%;width:80%;background:#292b32;color:#fff;padding:12px;border:1px solid #ef9639;border-radius:12px;text-align:center;font-size:13px";
+   item.style.cssText="position:fixed;z-index:9999;pointer-events:none;bottom:80px;left:10%;width:80%;background:#292b32;color:#fff;padding:12px;border:1px solid #ef9639;border-radius:12px;text-align:center;font-size:13px";
    document.body.append(item);}
  item.textContent=text;item.hidden=false;
  clearTimeout(showToast.timer);showToast.timer=setTimeout(()=>{item.hidden=true;},2400);
