@@ -46,7 +46,8 @@
     "known_running_token_target_is_not_guaranteed_comprehensibility": true,
     "distinct_unknown_lemmas_must_be_explicitly_marked": true,
     "never_mark_unmapped_inflections_as_known": true,
-    "characters_places_names_need_context_and_not_counted_as_standard_new_lexeme_by_default": true
+    "characters_places_names_need_context_and_not_counted_as_standard_new_lexeme_by_default": true,
+    "personalization_override": "Reader is for curiosity and pleasure, not forced to be made entirely of Top100. Permit unknown words with contextual support; learner-specific unfamiliar forms become a paced flashcard backlog. A0 tag means supported sample only until tested."
   },
   "literary_quality_gate": {
     "mandatory": [
@@ -221,5 +222,28 @@
       "audio_requested": false,
       "narration_voice": "male_only"
     }
-  ]
+  ],
+  "reader_content_drafts": {
+    "path": "curriculum/system-v1/reader-stories.content.draft.json",
+    "separate_from_original_main_books": true,
+    "draft_series_count": 3,
+    "draft_chapter_count": 3,
+    "draft_sentence_count": 25,
+    "genre_types": [
+      "cosmos_mystery",
+      "romance_mystery",
+      "science_curiosity"
+    ],
+    "word_form_annotations_count": 64,
+    "review_status": "CZECH_AND_MONGOLIAN_EDITORIAL_PENDING",
+    "publication_status": "NOT_PUBLISHED",
+    "upcoming_required_work": [
+      "native_czech_register_and_naturalness_review",
+      "per_sentence_morphology_and_sense_review",
+      "pretest_beginner_comprehension",
+      "multi_chapter_plot_quality_review",
+      "publisher_approval"
+    ],
+    "note": "These first 3 story/curiosity chapters are real draft texts, NOT the earlier 4 series concept proposals and NOT released titles."
+  }
 }
