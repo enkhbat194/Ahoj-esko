@@ -3850,6 +3850,11 @@
       }
 
       function closeChapterReader() {
+        // The preview has a separate shell; do not destroy/overwrite the real reader.
+        if (window.AhojReaderLab?.isOpen?.()) {
+          window.AhojReaderLab.closeReader();
+          return;
+        }
         window.AhojReaderExperience?.destroy();
         readerOverlay.hidden = true;
         if (state.detailBookId) renderBookDetail();
@@ -4483,11 +4488,19 @@
       function renderApp() {
         renderNav();
         if (state.activeTab === "stages") renderStagesView();
-        else if (state.activeTab === "read") renderReadingView();
+        else if (state.activeTab === "read") {
+          renderReadingView();
+          window.AhojReaderLab?.decorateReadingView?.();
+        }
         else if (state.activeTab === "ai") renderAiView();
         else {
           const tab = NAV_ITEMS.find((t) => t.id === state.activeTab) || NAV_ITEMS[0];
-          renderPlaceholderView(tab);
+          const readerLab = window.AhojReaderLab;
+          const previewCards = state.activeTab === "cards" &&
+            readerLab?.enabled && readerLab.renderCardsTab(mainArea);
+          const previewDictionary = state.activeTab === "dictionary" &&
+            readerLab?.enabled && readerLab.renderDictionaryTab(mainArea);
+          if (!previewCards && !previewDictionary) renderPlaceholderView(tab);
         }
       }
 
@@ -4617,5 +4630,7 @@
       });
     }
   </script>
+  <!-- Explicit opt-in: ?reader_lab=1. Draft CZ/MN texts and cards stay out of normal app. -->
+  <script type="module" src="./reader-lab-ui.mjs?v=1"></script>
 </body>
 </html>
