@@ -74,10 +74,12 @@ for(const needle of [
  if(needle==="pronunciation_certification") continue;
  assert.ok(browser.includes(needle),"Lesson engine missing "+needle);
 }
-for(const phrase of ["data-lesson-start","lesson-lab-ui.mjs?v=1","lesson-lab-ui.css?v=1",
+for(const phrase of ["data-lesson-start","lesson-lab-ui.mjs?v=2","lesson-lab-ui.css?v=1",
                      "window.AhojLessonLab?.openLesson"])
  assert.ok(html.includes(phrase),"Missing native Premium course route "+phrase);
 assert.ok(css.includes("#course-lab-overlay"));
+assert.ok(browser.includes("renderCardsTab,decorateCardsTab,markReview"),"Course flashcards not exported");
+assert.ok(html.includes("window.AhojLessonLab?.renderCardsTab?.(mainArea"),"Course cards not plugged into Premium tab");
 assert.ok(!browser.includes("elevenlabs"),"No audio generation in curriculum module");
 assert.ok(!browser.includes("audio_verified:true"),"Must never pretend browser TTS native QA passed");
 console.log("First 3 A0 lesson schema PASS: 27 real draft interactions; canonical order, storage, card review, exact-answer gates, audio and speech never falsely certified.");
