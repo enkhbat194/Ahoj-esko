@@ -1106,7 +1106,9 @@
       "card_unit": "fixed_phrase",
       "source_sentence_id": "R-LOVE-01-CH01-S05",
       "lexical_status": "PENDING_EDITORIAL",
-      "published": false
+      "published": false,
+      "trigger_surface_form_cs": "rád",
+      "contextual_expression_card": true
     }
   ],
   "known_word_rule": "Never equate familiarity with lexeme spelling to mastery of its inflected form or contextual sense. For example stát (cost) ≠ stojí (stands); both have distinct sense_key and learner evidence."
