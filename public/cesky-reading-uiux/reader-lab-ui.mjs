@@ -1,0 +1,422 @@
+/**
+ * AHOJ Reader Lab — opt-in browser vertical slice, ?reader_lab=1.
+ * Original published reader and lesson pages stay unchanged by default.
+ * This module never requests or generates TTS and never sends learner data out.
+ */
+import {
+  startReaderChapter, tokenizeCzech, recordReaderEvent,
+  readerWordTooltip, createLearnerReadingProfile, commitReaderAttempt,
+  activateGlobalReadingCards, reviewGlobalReadingCard,
+  suggestLearningFocus
+} from "./reader-lab-engine.mjs";
+
+const ENABLED = new URLSearchParams(location.search).get("reader_lab") === "1";
+const PROFILE_KEY="ahoj.reader.lab.profile.v1";
+const SESSIONS_KEY="ahoj.reader.lab.sessions.v1";
+const escapeHtml = x => String(x ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;")
+  .replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+const safeRead = (key, fallback) => {
+  try {const value=JSON.parse(localStorage.getItem(key));return value&&typeof value==="object"?value:fallback;}
+  catch {return fallback;}
+};
+const safeSave = (key,value) => {
+  try {localStorage.setItem(key,JSON.stringify(value));return true;}
+  catch {return false;}
+};
+const dayLabel = millis => Number.isFinite(millis)
+  ? new Date(millis).toLocaleDateString("mn-MN",{year:"numeric",month:"short",day:"numeric"})
+  : "—";
+let content=null;
+let profile=createLearnerReadingProfile();
+let sessions={};
+let active=null,activeBook=null,activeChapter=null;
+let selectedToken=null;
+let lastError="";
+let savedOk=true;
+let currentCardRevealed=false;
+let dictionaryQuery="";
+let initialized=false;
+const byId = id => document.getElementById(id);
+const findBook=id=>content?.books.find(b=>b.story_id===id);
+const now=()=>Date.now();
+const chapterTokens = chapter => chapter.sentences.flatMap(s=>tokenizeCzech(s.text_cs).map(t=>({
+  sentence_id:s.sentence_id, start:t.start, text:t.text
+})));
+
+function persist() {
+  const a=safeSave(PROFILE_KEY,profile);
+  const b=safeSave(SESSIONS_KEY,sessions);
+  savedOk=a&&b;
+  return savedOk;
+}
+function persistChapter() {
+  if(!active)return;
+  sessions[active.chapter_id]=active;
+  persist();
+}
+function profileSourceInfo(){
+  return "Туршилтын контент · Чех найруулга, орчуулга, уншлагын түвшин батлагдаагүй · Аудио хараахан байхгүй.";
+}
+function setupStyle() {
+  if(byId("reader-lab-style"))return;
+  const link=document.createElement("link");
+  link.id="reader-lab-style";link.rel="stylesheet";
+  link.href="./reader-lab-ui.css?v=1";document.head.appendChild(link);
+}
+function storyCards() {
+ return content.books.map((book,i)=>{
+  const first=book.chapters[0];
+  const gradient=[
+   "linear-gradient(135deg,#102c47,#244563 50%,#10192d)",
+   "linear-gradient(135deg,#422336,#702d49 58%,#221828)",
+   "linear-gradient(135deg,#1d364a,#0b6b83 60%,#17223e)"
+  ][i%3];
+  const tag=book.genre==="science_curiosity"?"Танин мэдэхүй":
+    book.genre==="romance_mystery"?"Хайр · Нууц":"Нууц · Адал явдал";
+  const finished=profile.reading_history.some(x=>x.chapter_id===first.chapter_id);
+  return '<button class="lab-story" type="button" data-lab-open="'+escapeHtml(book.story_id)+
+    '" style="--lab-cover:'+gradient+'" aria-label="'+escapeHtml(book.title_mn)+' унших">'+
+    '<span class="lab-cover">'+
+      '<span class="lab-cover-kicker">АНХНЫ ЭХ · ЗАГВАР</span>'+
+      '<span class="lab-cover-title">'+escapeHtml(book.title_mn)+'</span>'+
+      '<span class="lab-cover-czech" lang="cs">'+escapeHtml(book.title_cs)+'</span>'+
+      '<span class="lab-cover-orb" aria-hidden="true">✧</span></span>'+
+    '<span class="lab-story-meta"><strong>'+escapeHtml(book.title_mn)+'</strong>'+
+    '<small>'+escapeHtml(tag)+' · '+first.sentences.length+' өгүүлбэр</small>'+
+    '<small>'+(finished?"Уншсан · Давтлага нээлттэй":"Тусламжтай уншлага")+'</small></span></button>';
+ }).join("");
+}
+function decorateReadingView() {
+ if(!ENABLED || !initialized || !content)return;
+ const nav=byId("navGrid")?.querySelector('[data-tab="read"]');
+ const current=nav?.getAttribute("aria-current")==="page";
+ const container=byId("readingScroll");
+ if(!current||!container||byId("reader-lab-shelf"))return;
+ const shelf=document.createElement("section");
+ shelf.id="reader-lab-shelf";shelf.className="reader-lab-shelf";
+ const guide=suggestLearningFocus(profile,{now_ms:now()});
+ shelf.innerHTML='<header class="lab-shelf-head">'+
+  '<span class="lab-eyebrow">УНШЛАГЫН ТУРШИЛТ · ЗӨВХӨН ЭНЭ САЛБАРТ</span>'+
+  '<h2>Сонирхолтой ертөнцүүд</h2>'+
+  '<p>Нууц, хайр, сансар — хичээлээс тусдаа. Мэдэхгүй үгээ дарж тайлбар аваад картандаа хадгал.</p>'+
+  '</header><div class="lab-story-grid">'+storyCards()+'</div>'+
+  '<p class="lab-shelf-foot">'+escapeHtml(profileSourceInfo())+'</p>'+
+  (guide.weak_contextual_sense_keys.length?
+   '<p class="lab-shelf-support">Өмнөх уншлагаас '+guide.weak_contextual_sense_keys.length+
+   ' хэцүү үгийн утга дахин давтах шаардлагатай байж магадгүй.</p>':"");
+ container.insertBefore(shelf,container.firstChild);
+ shelf.addEventListener("click",e=>{
+  const button=e.target.closest("[data-lab-open]");
+  if(button)openReader(button.dataset.labOpen);
+ });
+}
+function chapterMarkup(chapter) {
+ return chapter.sentences.map(sentence=>{
+  let at=0;const parts=[];
+  const tokens=tokenizeCzech(sentence.text_cs);
+  const normalized=active.tokens.filter(t=>t.sentence_id===sentence.sentence_id);
+  for(const t of tokens){
+    parts.push(escapeHtml(sentence.text_cs.slice(at,t.start)));
+    const target=normalized.find(x=>x.start===t.start);
+    if(!target)throw new Error("Reader word offset mismatch");
+    parts.push('<button type="button" class="lab-word'+
+      (target.sense_known?" is-known":"")+'" data-lab-token="'+target.token_order+
+      '" lang="cs" aria-label="'+escapeHtml(t.text)+' үгийн тайлбар">'+
+      escapeHtml(t.text)+'</button>');
+    at=t.end;
+  }
+  parts.push(escapeHtml(sentence.text_cs.slice(at)));
+  return '<p class="lab-sentence" lang="cs">'+parts.join("")+'</p>';
+ }).join("");
+}
+function quizMarkup(chapter) {
+ return chapter.comprehension_checks.map(q=>{
+  const old=active.answer_log.find(x=>x.question_id===q.id);
+  const pick=old?.choice_index;
+  const verdict=old?(old.correct?"Зөв. Утгыг таньжээ.":"Алдаатай. Утгыг дахин шалгаарай."):"";
+  return '<div class="lab-question"><div class="lab-qtext">'+escapeHtml(q.question_mn)+'</div>'+
+  '<div class="lab-choices">'+q.choices_mn.map((choice,i)=>
+   '<button type="button" data-lab-q="'+escapeHtml(q.id)+'" data-lab-choice="'+i+'" '+
+   (old?"disabled ":"")+
+   'class="lab-choice '+(old&&pick===i?(old.correct?"is-correct":"is-incorrect"):"")+
+   '">'+escapeHtml(choice)+'</button>').join("")+'</div>'+
+   '<p class="lab-feedback" aria-live="polite">'+escapeHtml(verdict)+'</p></div>';
+ }).join("");
+}
+function readerHeader(){
+ return '<header class="lab-reader-head"><button type="button" id="lab-reader-close" '+
+ 'aria-label="Уншлага хаах">‹</button><div><small>ТУРШИЛТЫН УНШЛАГА · '+
+ escapeHtml(activeBook.reading_tier.replaceAll("_"," "))+'</small><h1>'+
+ escapeHtml(activeBook.title_mn)+'</h1></div><span class="lab-reader-lock">Чех редакц хүлээгдэж байна</span></header>';
+}
+function readerFooter(){
+ const queue=active.flashcards.length+active.card_backlog.length;
+ return '<section class="lab-end">'+
+ '<p>Унших нь таалагдсан уу? Шинэ үгээ картад хуваарилж, дараа нь тухтай давтана.</p>'+
+ '<div class="lab-inline-status">'+queue+' үг/хэллэг картын жагсаалтад байна. '+
+ (savedOk?"Энэ төхөөрөмж дээр хадгалж байна.":"Хадгалалт хаалттай: энэ сессийн ахиц түр зуурынх.")+
+ '</div>'+
+ '<button type="button" class="lab-primary" id="lab-finish">Бүлгийг уншсанаар тэмдэглэх</button>'+
+ '<button type="button" class="lab-secondary" id="lab-open-cards">Карт руу шилжих</button>'+
+ '<p class="lab-disclaimer">'+escapeHtml(profileSourceInfo())+'</p></section>';
+}
+function readerBody() {
+ return readerHeader()+
+  '<main class="lab-reader-scroll" id="lab-reader-scroll"><div class="lab-reading-info">'+
+   '<span>'+activeChapter.sentences.length+' өгүүлбэр</span> · '+
+   '<span>Утга дарахад карт үүснэ</span> · <span>Дуу: хүлээгдэж байна</span>'+
+  '</div><article class="lab-prose">'+chapterMarkup(activeChapter)+'</article>'+
+  '<details class="lab-translation"><summary>Монгол утгыг харах</summary>'+
+  activeChapter.sentences.map(x=>'<p>'+escapeHtml(x.translation_mn_draft)+'</p>').join("")+
+  '</details><section class="lab-comprehension"><h2>Ойлгосноо шалгах · заавал биш</h2>'+
+  quizMarkup(activeChapter)+'</section>'+readerFooter()+'</main>'+
+  '<div class="lab-gloss-shade" id="lab-gloss-shade" hidden></div>';
+}
+function updateReader() {
+ const shell=byId("readerShell"),scroll=byId("lab-reader-scroll");
+ const top=scroll?.scrollTop??0;
+ shell.innerHTML=readerBody();
+ shell.classList.add("reader-lab-shell");
+ const next=byId("lab-reader-scroll");if(next)next.scrollTop=top;
+ setupReaderEvents();
+}
+function openReader(bookId) {
+ const book=findBook(bookId);
+ if(!book)return;
+ activeBook=book;activeChapter=book.chapters[0];
+ try{
+  const saved=sessions[activeChapter.chapter_id];
+  active=saved?.chapter_id===activeChapter.chapter_id&&Array.isArray(saved.tokens)
+    ? saved : startReaderChapter({
+      chapter:activeChapter,formAnnotations:content.form_annotations,
+      phraseAnnotations:content.phrase_annotations,
+      knownSenseKeys:profile.known_reading_sense_keys,
+      knownFormIds:[],cardActivationCap:4
+    });
+  if(!active.reader_attempt_id) active.reader_attempt_id=activeChapter.chapter_id+":"+now();
+  selectedToken=null;lastError="";persistChapter();
+  const overlay=byId("readerOverlay");
+  const shell=byId("readerShell");
+  if(!overlay||!shell)throw new Error("Existing reader overlay not found");
+  overlay.hidden=false;updateReader();
+ }catch(err){
+  console.error("Reader lab chapter cannot open:",err);
+  alert("Уншлагын өгөгдөл алдаатай тул нээсэнгүй.");
+ }
+}
+function closeReader() {
+ const overlay=byId("readerOverlay"),shell=byId("readerShell");
+ byId("lab-gloss-shade")?.remove();
+ if(overlay)overlay.hidden=true;
+ if(shell){shell.innerHTML="";shell.classList.remove("reader-lab-shell");}
+ active=null;activeBook=null;activeChapter=null;selectedToken=null;
+ decorateReadingView();
+}
+function isOpen(){return Boolean(active)&&byId("readerOverlay")?.hidden===false;}
+function openGloss(order) {
+ const token=active?.tokens.find(x=>x.token_order===order);
+ if(!token)return;
+ selectedToken=token;
+ const tooltip=readerWordTooltip(active,{sentence_id:token.sentence_id,start:token.start});
+ active=recordReaderEvent(active,{
+  type:"gloss_opened",token_order:order,at_ms:now(),
+  event_id:"gloss-"+active.chapter_id+"-"+order+"-"+now()
+ });
+ persistChapter();
+ const card=[...active.flashcards,...active.card_backlog].find(x=>x.card_key===token.card_key);
+ const shade=byId("lab-gloss-shade");
+ if(!shade)return;
+ const note=token.sense_known?"Өмнө танилцсан утга":"Шинэ эсвэл баталгаагүй утга";
+ shade.hidden=false;
+ shade.innerHTML='<section class="lab-gloss" role="dialog" aria-modal="true" '+
+ 'aria-label="Контекст толь"><button type="button" id="lab-gloss-close" class="lab-x">✕</button>'+
+ '<span class="lab-eyebrow">'+escapeHtml(note)+'</span>'+
+ '<h3 lang="cs">'+escapeHtml(tooltip.surface_cs)+'</h3>'+
+ '<p class="lab-lemma">Үндсэн хэлбэр: <b lang="cs">'+escapeHtml(tooltip.lemma_cs)+'</b></p>'+
+ '<p class="lab-meaning">'+escapeHtml(tooltip.mn_meaning_draft)+'</p>'+
+ '<div class="lab-note">'+(card?"Картын жагсаалтад нэмэгдсэн.":"Энэ нэр/контекст тусад нь цээжлэх карт биш.")+
+ '</div><p class="lab-disclaimer">Энэ нь редакц хүлээж буй утгын тайлбар. '+
+ 'Нэг үг олон утгатай байж болно.</p>'+
+ '<button type="button" id="lab-gloss-dismiss" class="lab-primary">Үргэлжлүүлэн унших</button></section>';
+ const close=()=>{shade.hidden=true;shade.innerHTML="";};
+ shade.addEventListener("click",e=>{
+  if(e.target===shade||e.target.closest("#lab-gloss-close, #lab-gloss-dismiss"))close();
+ },{once:true});
+}
+function answerQuiz(questionId,choiceIndex) {
+ if(!active||!activeChapter)return;
+ const q=activeChapter.comprehension_checks.find(x=>x.id===questionId);
+ if(!q||active.answer_log.some(x=>x.question_id===questionId))return;
+ active=recordReaderEvent(active,{
+  type:"optional_comprehension_answer",question_id:questionId,
+  choice_index:choiceIndex,at_ms:now(),event_id:active.chapter_id+":q:"+questionId
+ },{chapter:activeChapter});
+ persistChapter();updateReader();
+}
+function finishChapter() {
+ if(!active)return;
+ active=recordReaderEvent(active,{
+  type:"chapter_finished",at_ms:now(),event_id:active.chapter_id+":finished"
+ },{chapter:activeChapter});
+ profile=commitReaderAttempt(profile,active,{
+  attempt_id:active.reader_attempt_id,story_id:activeBook.story_id,
+  genre:activeBook.genre,at_ms:now()
+ });
+ profile=activateGlobalReadingCards(profile,{max_active:4});
+ persistChapter();
+ const guide=suggestLearningFocus(profile,{now_ms:now(),desired_genre:activeBook.genre});
+ const shelf=byId("lab-reader-scroll");
+ if(shelf){
+  const note=document.createElement("p");
+  note.className="lab-finish-note";note.textContent="Бүлгийг уншсан гэж тэмдэглэлээ. "+
+    "Карт: "+profile.flashcards.length+" идэвхтэй, "+profile.card_backlog.length+
+    " дараалалд. "+(guide.weak_contextual_sense_keys.length?
+     "Хэцүү утгуудыг дараагийн давтлагад оруулна.":"Дараагийн уншлагаа сонгож болно.");
+  byId("lab-finish")?.insertAdjacentElement("afterend",note);
+ }
+}
+function setupReaderEvents() {
+ byId("lab-reader-close")?.addEventListener("click",closeReader);
+ byId("lab-reader-scroll")?.addEventListener("click",e=>{
+  const word=e.target.closest("[data-lab-token]");
+  if(word){openGloss(Number(word.dataset.labToken));return;}
+  const q=e.target.closest("[data-lab-q]");
+  if(q)answerQuiz(q.dataset.labQ,Number(q.dataset.labChoice));
+ });
+ byId("lab-finish")?.addEventListener("click",finishChapter);
+ byId("lab-open-cards")?.addEventListener("click",()=>{
+  finishChapter();closeReader();
+  byId("navGrid")?.querySelector('[data-tab="cards"]')?.click();
+ });
+}
+function cardList(showAll=false) {
+ const arr=showAll?[...profile.flashcards,...profile.card_backlog]:profile.flashcards;
+ return arr.length?arr.map(c=>{
+  const due=c.due_at_ms<=now();
+  const revealed=currentCardRevealed===c.card_key;
+  const enabled=due&&profile.flashcards.some(x=>x.card_key===c.card_key);
+  return '<article class="lab-flashcard"><span class="lab-eyebrow">'+
+   escapeHtml(c.card_unit==="fixed_phrase"?"ТОГТМОЛ ХЭЛЛЭГ":"ҮГ · КОНТЕКСТ")+'</span>'+
+   '<h3 lang="cs">'+escapeHtml(c.display_cs)+'</h3>'+
+   '<p class="lab-card-due">'+(enabled?"Давтах хугацаа болсон":"Дараагийн давтлага: "+dayLabel(c.due_at_ms))+'</p>'+
+   '<button class="lab-flip" type="button" data-lab-reveal="'+escapeHtml(c.card_key)+
+   '">'+(revealed?"Утгыг нуух":"Утгыг харах")+'</button>'+
+   (revealed?'<div class="lab-card-answer">'+escapeHtml(c.meaning_mn)+'</div>':"")+
+   (enabled?'<div class="lab-card-actions">'+
+    '<button data-lab-result="independent_correct" data-lab-key="'+escapeHtml(c.card_key)+
+    '">Санаж хэлсэн</button><button data-lab-result="correct_with_hint" data-lab-key="'+escapeHtml(c.card_key)+
+    '">Сэжүүртэй</button><button data-lab-result="incorrect" data-lab-key="'+escapeHtml(c.card_key)+
+    '">Алдсан</button></div>':
+    '<small>Өнөөдөр танилцах боломжтой. Давтлагын үнэлгээг хугацаанд нь хийнэ.</small>')+
+   '</article>';
+ }).join(""):'<p class="lab-empty">Одоогоор карт байхгүй. Уншлагын хэсэгт үг дээр дарж эхлээрэй.</p>';
+}
+function navigationFrame(title,subtitle,body){
+ return '<section class="lab-tab"><span class="lab-eyebrow">УНШЛАГАТАЙ ХОЛБОСОН ТУРШИЛТ</span>'+
+ '<h1>'+escapeHtml(title)+'</h1><p>'+escapeHtml(subtitle)+'</p>'+body+
+ '<p class="lab-disclaimer">'+escapeHtml(profileSourceInfo())+
+ ' Энэ төхөөрөмж дээрх түр өгөгдөл; аккаунт хооронд синк хийгдээгүй.</p></section>';
+}
+function renderCardsTab(root){
+ if(!ENABLED||!initialized||!root)return false;
+ const guide=suggestLearningFocus(profile,{now_ms:now()});
+ root.innerHTML=navigationFrame("Миний давталтын картууд",
+ "Номоос сонгосон шинэ үгс нэг сан руу орно. Алдаа ихтэй үгс давтлагад түрүүлнэ.",
+ '<div class="lab-metrics"><span>Идэвхтэй '+profile.flashcards.length+'</span>'+
+ '<span>Дараалалд '+profile.card_backlog.length+'</span>'+
+ '<span>Хугацаа болсон '+guide.due_flashcards.length+'</span></div>'+
+ '<p class="lab-support">Дараагийн зөвлөмж: '+
+ escapeHtml(guide.next_guidance==="EXPLAIN_WEAK_WORDS_IN_NEW_CONTEXT_THEN_OFFER_STORY"?
+ "Хэцүү үгсийг өөр өгүүлбэрт давт.":guide.next_guidance==="REVIEW_DUE_WORDS_THEN_OFFER_STORY"?
+ "Хугацаа нь болсон картаа давт.":"Сонирхсон зохиолоо үргэлжлүүлэн унш.")+
+ '</p><div class="lab-card-stack">'+cardList()+'</div>');
+ root.querySelectorAll("[data-lab-reveal]").forEach(btn=>btn.addEventListener("click",()=>{
+  currentCardRevealed=currentCardRevealed===btn.dataset.labReveal?"":btn.dataset.labReveal;
+  renderCardsTab(root);
+ }));
+ root.querySelectorAll("[data-lab-result]").forEach(btn=>btn.addEventListener("click",()=>{
+  try{
+   const key=btn.dataset.labKey;
+   if(!profile.flashcards.some(c=>c.card_key===key&&c.due_at_ms<=now()))return;
+   profile=reviewGlobalReadingCard(profile,{
+    card_key:key,result:btn.dataset.labResult,at_ms:now()
+   });
+   currentCardRevealed="";
+   profile=activateGlobalReadingCards(profile,{max_active:4});
+   persist();renderCardsTab(root);
+  }catch(e){console.error("Cannot review card",e);}
+ }));
+ return true;
+}
+function renderDictionaryTab(root){
+ if(!ENABLED||!initialized||!root)return false;
+ const q=dictionaryQuery.toLocaleLowerCase("cs-CZ").trim();
+ const rows=content.form_annotations.filter(x=>
+  !q||x.surface_form_cs.toLocaleLowerCase("cs-CZ").includes(q)||
+    x.lemma_cs.toLocaleLowerCase("cs-CZ").includes(q)||
+    x.meaning_mn_in_this_context_draft.toLocaleLowerCase("mn-MN").includes(q)
+ );
+ root.innerHTML=navigationFrame("Контекстийн толь",
+ "Энэ нь 3 туршилтын эхийн үгийн тайлбар — батлагдсан бүрэн Чех–Монгол толь биш.",
+ '<label class="lab-search-label" for="lab-dict-search">Үг эсвэл утга хайх</label>'+
+ '<input id="lab-dict-search" type="search" placeholder="měsíc, dopis, гэрэл..." '+
+ 'value="'+escapeHtml(dictionaryQuery)+'" autocomplete="off">'+
+ '<p class="lab-result-count">'+rows.length+' бичгийн хэлбэр</p>'+
+ '<div class="lab-dict-list">'+rows.slice(0,150).map(x=>
+ '<article><strong lang="cs">'+escapeHtml(x.surface_form_cs)+'</strong>'+
+ '<small lang="cs">'+escapeHtml(x.lemma_cs)+'</small>'+
+ '<span>'+escapeHtml(x.meaning_mn_in_this_context_draft)+'</span>'+
+ '</article>').join("")+'</div>');
+ const input=byId("lab-dict-search");
+ input?.addEventListener("input",()=>{
+  const pos=input.selectionStart;dictionaryQuery=input.value;renderDictionaryTab(root);
+  const newInput=byId("lab-dict-search");newInput?.focus();
+  try{newInput.setSelectionRange(pos,pos);}catch{}
+ });
+ return true;
+}
+function showPendingNavigation() {
+ const nav=byId("navGrid")?.querySelector('[aria-current="page"]');
+ const tab=nav?.dataset.tab;
+ const main=byId("mainArea");
+ if(tab==="cards")renderCardsTab(main);
+ else if(tab==="dictionary")renderDictionaryTab(main);
+ else if(tab==="read")decorateReadingView();
+}
+async function boot(){
+ if(!ENABLED)return;
+ setupStyle();
+ try{
+  const r=await fetch("./reader-lab-content.draft.json",{cache:"no-store"});
+  if(!r.ok)throw new Error("Draft story data unavailable: "+r.status);
+  content=await r.json();
+  if(content.status!=="DRAFT_STORIES_AND_GLOSSES_NOT_NATIVE_REVIEWED_NOT_PUBLISHED")
+    throw new Error("Unexpected reader content status");
+  profile=safeRead(PROFILE_KEY,createLearnerReadingProfile());
+  if(!Array.isArray(profile.flashcards)||!Array.isArray(profile.card_backlog))
+    profile=createLearnerReadingProfile();
+  sessions=safeRead(SESSIONS_KEY,{});
+  initialized=true;
+  const main=byId("mainArea");
+  const observer=new MutationObserver(()=>{
+    if(byId("reader-lab-shelf")||!byId("readingScroll"))return;
+    decorateReadingView();
+  });
+  if(main)observer.observe(main,{childList:true,subtree:false});
+  showPendingNavigation();
+  window.dispatchEvent(new CustomEvent("ahoj:reader-lab-ready"));
+ }catch(err){
+  lastError=String(err?.message??err);
+  console.error("Reader lab unavailable",lastError);
+ }
+}
+window.AhojReaderLab={
+ enabled:ENABLED,isOpen,closeReader,renderCardsTab,renderDictionaryTab,decorateReadingView,
+ getStatus:()=>({
+   enabled:ENABLED,initialized,storyCount:content?.books.length??0,
+   active:active?.chapter_id??null,cardCount:profile.flashcards.length,
+   backlogCount:profile.card_backlog.length,storageOk:savedOk,error:lastError,
+   status:"UNREVIEWED_DRAFT_PREVIEW"
+ })
+};
+boot();
