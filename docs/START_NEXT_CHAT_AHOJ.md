@@ -58,6 +58,16 @@
 - **Last code/QA commit at documentation time:** `5472619efe0ad753b64afbe5e798f06fb33cfd9e`. CI runs `45200004570` (lint) and `45200004466` (browser). Recheck both after this docs-only commit; do not assume new Render LIVE automatically.
 - **Next action:** Confirm the latest CI and update the EXISTING Render preview service `srv-dc21v9qvcj2c73a0g8k0` to latest tested SHA, then visually inspect the screenshots and collect native Czech audio QA separately.
 
+## 2026-11-23 — Exercise UX v2 final browser checkpoint
+
+- **Validated code SHA:** `f96903937d6cae62f0277d4274ca25d0ac83e7d4`.
+- **Test Ahoj Cesko PASS:** run `45201101304`: https://github.com/enkhbat194/Ahoj-esko/actions/runs/45201101304
+- **Ahoj Czech Reader Browser QA PASS:** run `45201101309`: https://github.com/enkhbat194/Ahoj-esko/actions/runs/45201101309
+- Browser test actually completes all 8×9 exercises, tests wrong-choice visible error, wrong pair recovery, all cards/meaning reveals, persisted progress, reader regression and 320/390/428 mobile behavior (browser TTS/STT mocked).
+- Visual artifact evidence shows 320px model cards and 390px L04 matching. Recent polish includes clearly labeled **ЧЕХ / МОНГОЛ** columns, correct-pair marks, wrong-option highlights and short non-blocking error feedback.
+- **Still NOT verified:** native iPhone Safari UX, Czech-native phonetics, real audio QA, pedagogical efficacy with users. Lesson text/audio remains DRAFT/UNAPPROVED; no publication or `main` merge.
+- Existing Render preview must be checked separately for exact branch SHA. Do not confuse GitHub CI PASS with Render LIVE.
+
 ## 0. Шинэ чат шууд эхлэх горим
 
 1. GitHub connector-оор репогийн **тухайн үеийн** `main` commit, PR #32-ийн `head_sha`, CI, PR #29 ба #30-ийн төлөвийг шалга. Өмнөх SHA-г шинэ мэт битгий зарла.
