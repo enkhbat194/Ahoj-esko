@@ -3302,7 +3302,7 @@
               const open = window.AhojLessonLab?.openLesson;
               if (typeof open !== "function" || open(btn.dataset.lessonStart) !== true) {
                 if (!window.AhojLessonLab?.getStatus?.().initialized) {
-                  toast("Хичээлийн хөдөлгүүр ачаалж байна. Дахин нээнэ үү.");
+                  showToast("Хичээлийн хөдөлгүүр ачаалж байна. Дахин нээнэ үү.");
                 }
               }
             });
