@@ -224,3 +224,10 @@
 #course-lab-overlay .cl-match-tile.is-paired{position:relative;padding-right:16px}
 #course-lab-overlay .cl-match-tile.is-paired::after{
  content:"✓";position:absolute;top:4px;right:5px;color:#90d8ab;font-size:12px}
+
+#course-lab-overlay .cl-button.option.is-wrong{
+ border:1px solid #e58a7f;background:#462b32;color:#ffe1dc;
+}
+#course-lab-overlay .cl-button.option.is-wrong .cl-choice-marker{
+ color:#fff;background:#8c4240;border-color:#e58a7f;
+}
