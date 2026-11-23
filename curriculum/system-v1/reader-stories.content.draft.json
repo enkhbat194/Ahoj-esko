@@ -1,0 +1,964 @@
+{
+  "schema_version": "0.1.0",
+  "status": "DRAFT_STORIES_AND_GLOSSES_NOT_NATIVE_REVIEWED_NOT_PUBLISHED",
+  "content_type": "INDEPENDENT_GRADED_READING_NOT_LESSON_STORY",
+  "description_mn": "Хичээлээс тусдаа сонирхолтой уншлага; эхний хоёр өгүүллэгийн богино эх. Тус бүр дараагийн бүлэгт татах учир зангилаатай.",
+  "design_priority": [
+    "narrative_curiosity",
+    "natural_czech",
+    "contextual_support_for_unknown",
+    "many_genres_not_one_novel",
+    "individual_learner_profile",
+    "no_forced_top100_only"
+  ],
+  "reading_rule": "Known lexical items are computed per learner, not inferred from A0 label or word list. Unknown words allowed; help in context, optional/auto card queue after a lookup, with learner cap.",
+  "voice_policy": "male_only_for_reader; no audio generation here",
+  "source_evidence": "Editor-created original draft, native Czech and learner trials pending.",
+  "books": [
+    {
+      "story_id": "R-COS-01",
+      "title_cs": "Světlo v okně",
+      "title_mn": "Цонхны гэрэл",
+      "genre": "cosmos_mystery",
+      "narrative_hook_mn": "Анна «Маргааш» гэсэн ганц үгтэй захиа олно. Хэн гэрэл асааж, хэн захиа үлдээсэн бэ? Дараагийн бүлэгт сар, од, гэрлийн нууц руу орно.",
+      "reading_tier": "A0_ASSISTED_AFTER_INTRODUCTIONS",
+      "chapter_order": [
+        "R-COS-01-CH01"
+      ],
+      "chapters": [
+        {
+          "chapter_id": "R-COS-01-CH01",
+          "chapter_num": 1,
+          "reading_mode": "A0_ASSISTED",
+          "sentences": [
+            {
+              "sentence_id": "R-COS-01-CH01-S01",
+              "text_cs": "Je večer.",
+              "translation_mn_draft": "Орой болжээ.",
+              "word_surfaces": [
+                "je",
+                "večer"
+              ],
+              "editorial_status": "UNREVIEWED_CZ_MN",
+              "audio_asset_id": null,
+              "publish_status": "DRAFT"
+            },
+            {
+              "sentence_id": "R-COS-01-CH01-S02",
+              "text_cs": "Anna je doma.",
+              "translation_mn_draft": "Анна гэртээ байна.",
+              "word_surfaces": [
+                "anna",
+                "je",
+                "doma"
+              ],
+              "editorial_status": "UNREVIEWED_CZ_MN",
+              "audio_asset_id": null,
+              "publish_status": "DRAFT"
+            },
+            {
+              "sentence_id": "R-COS-01-CH01-S03",
+              "text_cs": "V okně je světlo.",
+              "translation_mn_draft": "Цонхонд гэрэл харагдана.",
+              "word_surfaces": [
+                "v",
+                "okně",
+                "je",
+                "světlo"
+              ],
+              "editorial_status": "UNREVIEWED_CZ_MN",
+              "audio_asset_id": null,
+              "publish_status": "DRAFT"
+            },
+            {
+              "sentence_id": "R-COS-01-CH01-S04",
+              "text_cs": "Anna jde k oknu.",
+              "translation_mn_draft": "Анна цонх руу очно.",
+              "word_surfaces": [
+                "anna",
+                "jde",
+                "k",
+                "oknu"
+              ],
+              "editorial_status": "UNREVIEWED_CZ_MN",
+              "audio_asset_id": null,
+              "publish_status": "DRAFT"
+            },
+            {
+              "sentence_id": "R-COS-01-CH01-S05",
+              "text_cs": "Na stole leží dopis.",
+              "translation_mn_draft": "Ширээн дээр захиа байна.",
+              "word_surfaces": [
+                "na",
+                "stole",
+                "leží",
+                "dopis"
+              ],
+              "editorial_status": "UNREVIEWED_CZ_MN",
+              "audio_asset_id": null,
+              "publish_status": "DRAFT"
+            },
+            {
+              "sentence_id": "R-COS-01-CH01-S06",
+              "text_cs": "Anna čte: „Zítra.“",
+              "translation_mn_draft": "Анна «Маргааш» гэж уншина.",
+              "word_surfaces": [
+                "anna",
+                "čte",
+                "zítra"
+              ],
+              "editorial_status": "UNREVIEWED_CZ_MN",
+              "audio_asset_id": null,
+              "publish_status": "DRAFT"
+            },
+            {
+              "sentence_id": "R-COS-01-CH01-S07",
+              "text_cs": "Anna se dívá ven.",
+              "translation_mn_draft": "Анна гадагш харна.",
+              "word_surfaces": [
+                "anna",
+                "se",
+                "dívá",
+                "ven"
+              ],
+              "editorial_status": "UNREVIEWED_CZ_MN",
+              "audio_asset_id": null,
+              "publish_status": "DRAFT"
+            },
+            {
+              "sentence_id": "R-COS-01-CH01-S08",
+              "text_cs": "Světlo už tam není.",
+              "translation_mn_draft": "Гэрэл тэнд байхгүй болжээ.",
+              "word_surfaces": [
+                "světlo",
+                "už",
+                "tam",
+                "není"
+              ],
+              "editorial_status": "UNREVIEWED_CZ_MN",
+              "audio_asset_id": null,
+              "publish_status": "DRAFT"
+            }
+          ],
+          "comprehension_checks": [
+            {
+              "id": "R-COS-01-Q1",
+              "question_mn": "Анна ширээн дээр юу олсон бэ?",
+              "choices_mn": [
+                "Захиа",
+                "Тасалбар",
+                "Ном"
+              ],
+              "correct_index": 0,
+              "focus": [
+                "dopis"
+              ],
+              "explanation_mn": "«Na stole leží dopis.» — Ширээн дээр захиа байна."
+            },
+            {
+              "id": "R-COS-01-Q2",
+              "question_mn": "Захиан дээр ямар үг байсан бэ?",
+              "choices_mn": [
+                "Өнөөдөр",
+                "Маргааш",
+                "Баяртай"
+              ],
+              "correct_index": 1,
+              "focus": [
+                "zítra"
+              ],
+              "explanation_mn": "«Anna čte: Zítra.» — Маргааш."
+            }
+          ],
+          "target_new_lexeme_limit": "EDITORIAL_TRIAL_3_TO_4",
+          "published": false,
+          "audio_status": "NOT_REQUESTED",
+          "czech_review": "PENDING"
+        }
+      ],
+      "next_chapter_hook": "Маргааш ирэх хүн хэн бэ?",
+      "voice_gender": "male",
+      "cover_image": null,
+      "editorial_status": "DRAFT",
+      "published": false
+    },
+    {
+      "story_id": "R-LOVE-01",
+      "title_cs": "Dopis bez jména",
+      "title_mn": "Нэргүй захиа",
+      "genre": "romance_mystery",
+      "narrative_hook_mn": "Эва хайртай гэж бичсэн нэргүй захиа олно. Павел өөрөө бичээгүй гэдэг. Захианы эзэн хэн бэ?",
+      "reading_tier": "A0_PLUS_ASSISTED_AFTER_GREETING_AND_FAMILY",
+      "chapter_order": [
+        "R-LOVE-01-CH01"
+      ],
+      "chapters": [
+        {
+          "chapter_id": "R-LOVE-01-CH01",
+          "chapter_num": 1,
+          "reading_mode": "A0_ASSISTED",
+          "sentences": [
+            {
+              "sentence_id": "R-LOVE-01-CH01-S01",
+              "text_cs": "Eva je v kavárně.",
+              "translation_mn_draft": "Эва кафед байна.",
+              "word_surfaces": [
+                "eva",
+                "je",
+                "v",
+                "kavárně"
+              ],
+              "editorial_status": "UNREVIEWED_CZ_MN",
+              "audio_asset_id": null,
+              "publish_status": "DRAFT"
+            },
+            {
+              "sentence_id": "R-LOVE-01-CH01-S02",
+              "text_cs": "Na stole je čaj.",
+              "translation_mn_draft": "Ширээн дээр цай байна.",
+              "word_surfaces": [
+                "na",
+                "stole",
+                "je",
+                "čaj"
+              ],
+              "editorial_status": "UNREVIEWED_CZ_MN",
+              "audio_asset_id": null,
+              "publish_status": "DRAFT"
+            },
+            {
+              "sentence_id": "R-LOVE-01-CH01-S03",
+              "text_cs": "Vedle čaje leží dopis.",
+              "translation_mn_draft": "Цайны дэргэд захиа байна.",
+              "word_surfaces": [
+                "vedle",
+                "čaje",
+                "leží",
+                "dopis"
+              ],
+              "editorial_status": "UNREVIEWED_CZ_MN",
+              "audio_asset_id": null,
+              "publish_status": "DRAFT"
+            },
+            {
+              "sentence_id": "R-LOVE-01-CH01-S04",
+              "text_cs": "Na dopise není jméno.",
+              "translation_mn_draft": "Захиан дээр нэр алга.",
+              "word_surfaces": [
+                "na",
+                "dopise",
+                "není",
+                "jméno"
+              ],
+              "editorial_status": "UNREVIEWED_CZ_MN",
+              "audio_asset_id": null,
+              "publish_status": "DRAFT"
+            },
+            {
+              "sentence_id": "R-LOVE-01-CH01-S05",
+              "text_cs": "Eva čte: „Mám tě rád.“",
+              "translation_mn_draft": "Эва «Би чамд хайртай» гэж уншина. (эрэгтэй хүний бичсэн хэлбэр)",
+              "word_surfaces": [
+                "eva",
+                "čte",
+                "mám",
+                "tě",
+                "rád"
+              ],
+              "editorial_status": "UNREVIEWED_CZ_MN",
+              "audio_asset_id": null,
+              "publish_status": "DRAFT"
+            },
+            {
+              "sentence_id": "R-LOVE-01-CH01-S06",
+              "text_cs": "Eva se usmívá.",
+              "translation_mn_draft": "Эва инээмсэглэнэ.",
+              "word_surfaces": [
+                "eva",
+                "se",
+                "usmívá"
+              ],
+              "editorial_status": "UNREVIEWED_CZ_MN",
+              "audio_asset_id": null,
+              "publish_status": "DRAFT"
+            },
+            {
+              "sentence_id": "R-LOVE-01-CH01-S07",
+              "text_cs": "U dveří stojí Pavel.",
+              "translation_mn_draft": "Хаалганы дэргэд Павел зогсож байна.",
+              "word_surfaces": [
+                "u",
+                "dveří",
+                "stojí",
+                "pavel"
+              ],
+              "editorial_status": "UNREVIEWED_CZ_MN",
+              "audio_asset_id": null,
+              "publish_status": "DRAFT"
+            },
+            {
+              "sentence_id": "R-LOVE-01-CH01-S08",
+              "text_cs": "Eva se ptá: „To je od tebe?“",
+              "translation_mn_draft": "Эва «Үүнийг чи өгсөн үү?» гэж асууна.",
+              "word_surfaces": [
+                "eva",
+                "se",
+                "ptá",
+                "to",
+                "je",
+                "od",
+                "tebe"
+              ],
+              "editorial_status": "UNREVIEWED_CZ_MN",
+              "audio_asset_id": null,
+              "publish_status": "DRAFT"
+            },
+            {
+              "sentence_id": "R-LOVE-01-CH01-S09",
+              "text_cs": "Pavel říká: „Ne.“",
+              "translation_mn_draft": "Павел «Үгүй» гэж хэлнэ.",
+              "word_surfaces": [
+                "pavel",
+                "říká",
+                "ne"
+              ],
+              "editorial_status": "UNREVIEWED_CZ_MN",
+              "audio_asset_id": null,
+              "publish_status": "DRAFT"
+            },
+            {
+              "sentence_id": "R-LOVE-01-CH01-S10",
+              "text_cs": "Eva se znovu dívá na dopis.",
+              "translation_mn_draft": "Эва захиаг дахин харна.",
+              "word_surfaces": [
+                "eva",
+                "se",
+                "znovu",
+                "dívá",
+                "na",
+                "dopis"
+              ],
+              "editorial_status": "UNREVIEWED_CZ_MN",
+              "audio_asset_id": null,
+              "publish_status": "DRAFT"
+            }
+          ],
+          "comprehension_checks": [
+            {
+              "id": "R-LOVE-01-Q1",
+              "question_mn": "Захиан дээр илгээгчийн нэр байсан уу?",
+              "choices_mn": [
+                "Байсан",
+                "Байгаагүй"
+              ],
+              "correct_index": 1,
+              "focus": [
+                "jméno",
+                "dopis"
+              ],
+              "explanation_mn": "«Na dopise není jméno.» — Захиан дээр нэр алга."
+            },
+            {
+              "id": "R-LOVE-01-Q2",
+              "question_mn": "Павел захиаг өөрийнх гэж баталсан уу?",
+              "choices_mn": [
+                "Тийм",
+                "Үгүй"
+              ],
+              "correct_index": 1,
+              "focus": [
+                "ne"
+              ],
+              "explanation_mn": "Павел «Ne» гэж хариулсан. Хэн бичсэн нь одоогоор тодорхойгүй."
+            }
+          ],
+          "target_new_lexeme_limit": "EDITORIAL_TRIAL_3_TO_4",
+          "published": false,
+          "audio_status": "NOT_REQUESTED",
+          "czech_review": "PENDING"
+        }
+      ],
+      "next_chapter_hook": "Эва жинхэнэ илгээгчийг яаж олох вэ?",
+      "voice_gender": "male",
+      "cover_image": null,
+      "editorial_status": "DRAFT",
+      "published": false
+    }
+  ],
+  "form_annotations": [
+    {
+      "form_id": "CS-READ-FORM-anna",
+      "surface_form_cs": "anna",
+      "lemma_cs": "@person:Anna",
+      "lexeme_id": "CS-PROPER-ANNA",
+      "meaning_mn_in_this_context_draft": "Анна (хүний нэр)",
+      "teaching_role": "context_only",
+      "lexeme_source": "proper_name",
+      "verified_czech_morphology": false,
+      "contextual_sense_review": "PENDING",
+      "audio_asset_id": null,
+      "editorial_status": "PENDING"
+    },
+    {
+      "form_id": "CS-READ-FORM-čaj",
+      "surface_form_cs": "čaj",
+      "lemma_cs": "čaj",
+      "lexeme_id": "CS-LEX-0068",
+      "meaning_mn_in_this_context_draft": "цай",
+      "teaching_role": "known_or_recycle",
+      "lexeme_source": "existing_candidate",
+      "verified_czech_morphology": false,
+      "contextual_sense_review": "PENDING",
+      "audio_asset_id": null,
+      "editorial_status": "PENDING"
+    },
+    {
+      "form_id": "CS-READ-FORM-čaje",
+      "surface_form_cs": "čaje",
+      "lemma_cs": "čaj",
+      "lexeme_id": "CS-LEX-0068",
+      "meaning_mn_in_this_context_draft": "цайны (čaj-ийн хувирал)",
+      "teaching_role": "known_or_recycle",
+      "lexeme_source": "existing_candidate",
+      "verified_czech_morphology": false,
+      "contextual_sense_review": "PENDING",
+      "audio_asset_id": null,
+      "editorial_status": "PENDING"
+    },
+    {
+      "form_id": "CS-READ-FORM-čte",
+      "surface_form_cs": "čte",
+      "lemma_cs": "číst",
+      "lexeme_id": "CS-READ-CAND-001",
+      "meaning_mn_in_this_context_draft": "уншиж байна (číst-ийн хувирал)",
+      "teaching_role": "gloss_scaffold",
+      "lexeme_source": "new_candidate",
+      "verified_czech_morphology": false,
+      "contextual_sense_review": "PENDING",
+      "audio_asset_id": null,
+      "editorial_status": "PENDING"
+    },
+    {
+      "form_id": "CS-READ-FORM-dívá",
+      "surface_form_cs": "dívá",
+      "lemma_cs": "dívat se",
+      "lexeme_id": "CS-READ-CAND-002",
+      "meaning_mn_in_this_context_draft": "харж байна (dívat se)",
+      "teaching_role": "gloss_scaffold",
+      "lexeme_source": "new_candidate",
+      "verified_czech_morphology": false,
+      "contextual_sense_review": "PENDING",
+      "audio_asset_id": null,
+      "editorial_status": "PENDING"
+    },
+    {
+      "form_id": "CS-READ-FORM-doma",
+      "surface_form_cs": "doma",
+      "lemma_cs": "doma",
+      "lexeme_id": "CS-READ-CAND-003",
+      "meaning_mn_in_this_context_draft": "гэртээ",
+      "teaching_role": "gloss_scaffold",
+      "lexeme_source": "new_candidate",
+      "verified_czech_morphology": false,
+      "contextual_sense_review": "PENDING",
+      "audio_asset_id": null,
+      "editorial_status": "PENDING"
+    },
+    {
+      "form_id": "CS-READ-FORM-dopis",
+      "surface_form_cs": "dopis",
+      "lemma_cs": "dopis",
+      "lexeme_id": "CS-READ-CAND-004",
+      "meaning_mn_in_this_context_draft": "захиа",
+      "teaching_role": "target",
+      "lexeme_source": "new_candidate",
+      "verified_czech_morphology": false,
+      "contextual_sense_review": "PENDING",
+      "audio_asset_id": null,
+      "editorial_status": "PENDING"
+    },
+    {
+      "form_id": "CS-READ-FORM-dopise",
+      "surface_form_cs": "dopise",
+      "lemma_cs": "dopis",
+      "lexeme_id": "CS-READ-CAND-004",
+      "meaning_mn_in_this_context_draft": "захиан дээр (dopis-ийн хувирал)",
+      "teaching_role": "target",
+      "lexeme_source": "new_candidate",
+      "verified_czech_morphology": false,
+      "contextual_sense_review": "PENDING",
+      "audio_asset_id": null,
+      "editorial_status": "PENDING"
+    },
+    {
+      "form_id": "CS-READ-FORM-dveří",
+      "surface_form_cs": "dveří",
+      "lemma_cs": "dveře",
+      "lexeme_id": "CS-READ-CAND-005",
+      "meaning_mn_in_this_context_draft": "хаалганы (олон тооны хэлбэр)",
+      "teaching_role": "gloss_scaffold",
+      "lexeme_source": "new_candidate",
+      "verified_czech_morphology": false,
+      "contextual_sense_review": "PENDING",
+      "audio_asset_id": null,
+      "editorial_status": "PENDING"
+    },
+    {
+      "form_id": "CS-READ-FORM-eva",
+      "surface_form_cs": "eva",
+      "lemma_cs": "@person:Eva",
+      "lexeme_id": "CS-PROPER-EVA",
+      "meaning_mn_in_this_context_draft": "Эва (хүний нэр)",
+      "teaching_role": "context_only",
+      "lexeme_source": "proper_name",
+      "verified_czech_morphology": false,
+      "contextual_sense_review": "PENDING",
+      "audio_asset_id": null,
+      "editorial_status": "PENDING"
+    },
+    {
+      "form_id": "CS-READ-FORM-jde",
+      "surface_form_cs": "jde",
+      "lemma_cs": "jít",
+      "lexeme_id": "CS-LEX-0091",
+      "meaning_mn_in_this_context_draft": "явна, очно (jít-ийн хувирал)",
+      "teaching_role": "known_or_recycle",
+      "lexeme_source": "existing_candidate",
+      "verified_czech_morphology": false,
+      "contextual_sense_review": "PENDING",
+      "audio_asset_id": null,
+      "editorial_status": "PENDING"
+    },
+    {
+      "form_id": "CS-READ-FORM-je",
+      "surface_form_cs": "je",
+      "lemma_cs": "být",
+      "lexeme_id": "CS-LEX-0007",
+      "meaning_mn_in_this_context_draft": "байна",
+      "teaching_role": "known_or_recycle",
+      "lexeme_source": "existing_candidate",
+      "verified_czech_morphology": false,
+      "contextual_sense_review": "PENDING",
+      "audio_asset_id": null,
+      "editorial_status": "PENDING"
+    },
+    {
+      "form_id": "CS-READ-FORM-jméno",
+      "surface_form_cs": "jméno",
+      "lemma_cs": "jméno",
+      "lexeme_id": "CS-LEX-0016",
+      "meaning_mn_in_this_context_draft": "нэр",
+      "teaching_role": "known_or_recycle",
+      "lexeme_source": "existing_candidate",
+      "verified_czech_morphology": false,
+      "contextual_sense_review": "PENDING",
+      "audio_asset_id": null,
+      "editorial_status": "PENDING"
+    },
+    {
+      "form_id": "CS-READ-FORM-k",
+      "surface_form_cs": "k",
+      "lemma_cs": "k",
+      "lexeme_id": "CS-READ-CAND-006",
+      "meaning_mn_in_this_context_draft": "-руу, -д (угтвар үг)",
+      "teaching_role": "gloss_scaffold",
+      "lexeme_source": "new_candidate",
+      "verified_czech_morphology": false,
+      "contextual_sense_review": "PENDING",
+      "audio_asset_id": null,
+      "editorial_status": "PENDING"
+    },
+    {
+      "form_id": "CS-READ-FORM-kavárně",
+      "surface_form_cs": "kavárně",
+      "lemma_cs": "kavárna",
+      "lexeme_id": "CS-READ-CAND-007",
+      "meaning_mn_in_this_context_draft": "кафед (kavárna-ийн хувирал)",
+      "teaching_role": "gloss_scaffold",
+      "lexeme_source": "new_candidate",
+      "verified_czech_morphology": false,
+      "contextual_sense_review": "PENDING",
+      "audio_asset_id": null,
+      "editorial_status": "PENDING"
+    },
+    {
+      "form_id": "CS-READ-FORM-leží",
+      "surface_form_cs": "leží",
+      "lemma_cs": "ležet",
+      "lexeme_id": "CS-READ-CAND-008",
+      "meaning_mn_in_this_context_draft": "хэвтэж/байрлаж байна (лежет үйл үгийн хувирал)",
+      "teaching_role": "gloss_scaffold",
+      "lexeme_source": "new_candidate",
+      "verified_czech_morphology": false,
+      "contextual_sense_review": "PENDING",
+      "audio_asset_id": null,
+      "editorial_status": "PENDING"
+    },
+    {
+      "form_id": "CS-READ-FORM-mám",
+      "surface_form_cs": "mám",
+      "lemma_cs": "mít",
+      "lexeme_id": "CS-LEX-0064",
+      "meaning_mn_in_this_context_draft": "надад байна (mít-ийн хувирал)",
+      "teaching_role": "known_or_recycle",
+      "lexeme_source": "existing_candidate",
+      "verified_czech_morphology": false,
+      "contextual_sense_review": "PENDING",
+      "audio_asset_id": null,
+      "editorial_status": "PENDING"
+    },
+    {
+      "form_id": "CS-READ-FORM-na",
+      "surface_form_cs": "na",
+      "lemma_cs": "na",
+      "lexeme_id": "CS-LEX-0010",
+      "meaning_mn_in_this_context_draft": "-д / дээр (угтвар үг)",
+      "teaching_role": "known_or_recycle",
+      "lexeme_source": "existing_candidate",
+      "verified_czech_morphology": false,
+      "contextual_sense_review": "PENDING",
+      "audio_asset_id": null,
+      "editorial_status": "PENDING"
+    },
+    {
+      "form_id": "CS-READ-FORM-ne",
+      "surface_form_cs": "ne",
+      "lemma_cs": "ne",
+      "lexeme_id": "CS-READ-CAND-009",
+      "meaning_mn_in_this_context_draft": "үгүй",
+      "teaching_role": "gloss_scaffold",
+      "lexeme_source": "new_candidate",
+      "verified_czech_morphology": false,
+      "contextual_sense_review": "PENDING",
+      "audio_asset_id": null,
+      "editorial_status": "PENDING"
+    },
+    {
+      "form_id": "CS-READ-FORM-není",
+      "surface_form_cs": "není",
+      "lemma_cs": "být",
+      "lexeme_id": "CS-LEX-0007",
+      "meaning_mn_in_this_context_draft": "байхгүй (být-ийн үгүйсгэл)",
+      "teaching_role": "known_or_recycle",
+      "lexeme_source": "existing_candidate",
+      "verified_czech_morphology": false,
+      "contextual_sense_review": "PENDING",
+      "audio_asset_id": null,
+      "editorial_status": "PENDING"
+    },
+    {
+      "form_id": "CS-READ-FORM-od",
+      "surface_form_cs": "od",
+      "lemma_cs": "od",
+      "lexeme_id": "CS-READ-CAND-010",
+      "meaning_mn_in_this_context_draft": "-аас, зүгээс",
+      "teaching_role": "gloss_scaffold",
+      "lexeme_source": "new_candidate",
+      "verified_czech_morphology": false,
+      "contextual_sense_review": "PENDING",
+      "audio_asset_id": null,
+      "editorial_status": "PENDING"
+    },
+    {
+      "form_id": "CS-READ-FORM-okně",
+      "surface_form_cs": "okně",
+      "lemma_cs": "okno",
+      "lexeme_id": "CS-READ-CAND-011",
+      "meaning_mn_in_this_context_draft": "цонхонд (okno-ийн хувирал)",
+      "teaching_role": "target",
+      "lexeme_source": "new_candidate",
+      "verified_czech_morphology": false,
+      "contextual_sense_review": "PENDING",
+      "audio_asset_id": null,
+      "editorial_status": "PENDING"
+    },
+    {
+      "form_id": "CS-READ-FORM-oknu",
+      "surface_form_cs": "oknu",
+      "lemma_cs": "okno",
+      "lexeme_id": "CS-READ-CAND-011",
+      "meaning_mn_in_this_context_draft": "цонх руу (okno-ийн өөр хувирал)",
+      "teaching_role": "target",
+      "lexeme_source": "new_candidate",
+      "verified_czech_morphology": false,
+      "contextual_sense_review": "PENDING",
+      "audio_asset_id": null,
+      "editorial_status": "PENDING"
+    },
+    {
+      "form_id": "CS-READ-FORM-pavel",
+      "surface_form_cs": "pavel",
+      "lemma_cs": "@person:Pavel",
+      "lexeme_id": "CS-PROPER-PAVEL",
+      "meaning_mn_in_this_context_draft": "Павел (хүний нэр)",
+      "teaching_role": "context_only",
+      "lexeme_source": "proper_name",
+      "verified_czech_morphology": false,
+      "contextual_sense_review": "PENDING",
+      "audio_asset_id": null,
+      "editorial_status": "PENDING"
+    },
+    {
+      "form_id": "CS-READ-FORM-ptá",
+      "surface_form_cs": "ptá",
+      "lemma_cs": "ptát se",
+      "lexeme_id": "CS-READ-CAND-012",
+      "meaning_mn_in_this_context_draft": "асууж байна",
+      "teaching_role": "gloss_scaffold",
+      "lexeme_source": "new_candidate",
+      "verified_czech_morphology": false,
+      "contextual_sense_review": "PENDING",
+      "audio_asset_id": null,
+      "editorial_status": "PENDING"
+    },
+    {
+      "form_id": "CS-READ-FORM-rád",
+      "surface_form_cs": "rád",
+      "lemma_cs": "rád",
+      "lexeme_id": "CS-READ-CAND-013",
+      "meaning_mn_in_this_context_draft": "дуртай/хайртай (эрэгтэй хүн хэлж байна)",
+      "teaching_role": "target",
+      "lexeme_source": "new_candidate",
+      "verified_czech_morphology": false,
+      "contextual_sense_review": "PENDING",
+      "audio_asset_id": null,
+      "editorial_status": "PENDING"
+    },
+    {
+      "form_id": "CS-READ-FORM-říká",
+      "surface_form_cs": "říká",
+      "lemma_cs": "říkat",
+      "lexeme_id": "CS-LEX-0028",
+      "meaning_mn_in_this_context_draft": "хэлж байна",
+      "teaching_role": "known_or_recycle",
+      "lexeme_source": "existing_candidate",
+      "verified_czech_morphology": false,
+      "contextual_sense_review": "PENDING",
+      "audio_asset_id": null,
+      "editorial_status": "PENDING"
+    },
+    {
+      "form_id": "CS-READ-FORM-se",
+      "surface_form_cs": "se",
+      "lemma_cs": "se",
+      "lexeme_id": "CS-LEX-0005",
+      "meaning_mn_in_this_context_draft": "өөрийгөө / буцах үйл үгийн хэсэг",
+      "teaching_role": "known_or_recycle",
+      "lexeme_source": "existing_candidate",
+      "verified_czech_morphology": false,
+      "contextual_sense_review": "PENDING",
+      "audio_asset_id": null,
+      "editorial_status": "PENDING"
+    },
+    {
+      "form_id": "CS-READ-FORM-stojí",
+      "surface_form_cs": "stojí",
+      "lemma_cs": "stát",
+      "lexeme_id": "CS-LEX-0078",
+      "meaning_mn_in_this_context_draft": "зогсож байна",
+      "teaching_role": "known_or_recycle",
+      "lexeme_source": "existing_candidate",
+      "verified_czech_morphology": false,
+      "contextual_sense_review": "PENDING",
+      "audio_asset_id": null,
+      "editorial_status": "PENDING"
+    },
+    {
+      "form_id": "CS-READ-FORM-stole",
+      "surface_form_cs": "stole",
+      "lemma_cs": "stůl",
+      "lexeme_id": "CS-READ-CAND-014",
+      "meaning_mn_in_this_context_draft": "ширээн дээр (stůl-ийн хувирал)",
+      "teaching_role": "gloss_scaffold",
+      "lexeme_source": "new_candidate",
+      "verified_czech_morphology": false,
+      "contextual_sense_review": "PENDING",
+      "audio_asset_id": null,
+      "editorial_status": "PENDING"
+    },
+    {
+      "form_id": "CS-READ-FORM-světlo",
+      "surface_form_cs": "světlo",
+      "lemma_cs": "světlo",
+      "lexeme_id": "CS-READ-CAND-015",
+      "meaning_mn_in_this_context_draft": "гэрэл",
+      "teaching_role": "target",
+      "lexeme_source": "new_candidate",
+      "verified_czech_morphology": false,
+      "contextual_sense_review": "PENDING",
+      "audio_asset_id": null,
+      "editorial_status": "PENDING"
+    },
+    {
+      "form_id": "CS-READ-FORM-tam",
+      "surface_form_cs": "tam",
+      "lemma_cs": "tam",
+      "lexeme_id": "CS-LEX-0085",
+      "meaning_mn_in_this_context_draft": "тэнд",
+      "teaching_role": "known_or_recycle",
+      "lexeme_source": "existing_candidate",
+      "verified_czech_morphology": false,
+      "contextual_sense_review": "PENDING",
+      "audio_asset_id": null,
+      "editorial_status": "PENDING"
+    },
+    {
+      "form_id": "CS-READ-FORM-tě",
+      "surface_form_cs": "tě",
+      "lemma_cs": "ty",
+      "lexeme_id": "CS-LEX-0011",
+      "meaning_mn_in_this_context_draft": "чамайг (ty-ийн хувирал)",
+      "teaching_role": "known_or_recycle",
+      "lexeme_source": "existing_candidate",
+      "verified_czech_morphology": false,
+      "contextual_sense_review": "PENDING",
+      "audio_asset_id": null,
+      "editorial_status": "PENDING"
+    },
+    {
+      "form_id": "CS-READ-FORM-tebe",
+      "surface_form_cs": "tebe",
+      "lemma_cs": "ty",
+      "lexeme_id": "CS-LEX-0011",
+      "meaning_mn_in_this_context_draft": "чамаас (ty-ийн хувирал)",
+      "teaching_role": "known_or_recycle",
+      "lexeme_source": "existing_candidate",
+      "verified_czech_morphology": false,
+      "contextual_sense_review": "PENDING",
+      "audio_asset_id": null,
+      "editorial_status": "PENDING"
+    },
+    {
+      "form_id": "CS-READ-FORM-to",
+      "surface_form_cs": "to",
+      "lemma_cs": "to",
+      "lexeme_id": "CS-LEX-0008",
+      "meaning_mn_in_this_context_draft": "энэ/тэр",
+      "teaching_role": "known_or_recycle",
+      "lexeme_source": "existing_candidate",
+      "verified_czech_morphology": false,
+      "contextual_sense_review": "PENDING",
+      "audio_asset_id": null,
+      "editorial_status": "PENDING"
+    },
+    {
+      "form_id": "CS-READ-FORM-u",
+      "surface_form_cs": "u",
+      "lemma_cs": "u",
+      "lexeme_id": "CS-READ-CAND-016",
+      "meaning_mn_in_this_context_draft": "дэргэд",
+      "teaching_role": "gloss_scaffold",
+      "lexeme_source": "new_candidate",
+      "verified_czech_morphology": false,
+      "contextual_sense_review": "PENDING",
+      "audio_asset_id": null,
+      "editorial_status": "PENDING"
+    },
+    {
+      "form_id": "CS-READ-FORM-usmívá",
+      "surface_form_cs": "usmívá",
+      "lemma_cs": "usmívat se",
+      "lexeme_id": "CS-READ-CAND-017",
+      "meaning_mn_in_this_context_draft": "инээмсэглэж байна",
+      "teaching_role": "gloss_scaffold",
+      "lexeme_source": "new_candidate",
+      "verified_czech_morphology": false,
+      "contextual_sense_review": "PENDING",
+      "audio_asset_id": null,
+      "editorial_status": "PENDING"
+    },
+    {
+      "form_id": "CS-READ-FORM-už",
+      "surface_form_cs": "už",
+      "lemma_cs": "už",
+      "lexeme_id": "CS-READ-CAND-018",
+      "meaning_mn_in_this_context_draft": "аль хэдийн; одоо бол",
+      "teaching_role": "gloss_scaffold",
+      "lexeme_source": "new_candidate",
+      "verified_czech_morphology": false,
+      "contextual_sense_review": "PENDING",
+      "audio_asset_id": null,
+      "editorial_status": "PENDING"
+    },
+    {
+      "form_id": "CS-READ-FORM-v",
+      "surface_form_cs": "v",
+      "lemma_cs": "v",
+      "lexeme_id": "CS-LEX-0096",
+      "meaning_mn_in_this_context_draft": "-д / дотор (угтвар үг)",
+      "teaching_role": "known_or_recycle",
+      "lexeme_source": "existing_candidate",
+      "verified_czech_morphology": false,
+      "contextual_sense_review": "PENDING",
+      "audio_asset_id": null,
+      "editorial_status": "PENDING"
+    },
+    {
+      "form_id": "CS-READ-FORM-večer",
+      "surface_form_cs": "večer",
+      "lemma_cs": "večer",
+      "lexeme_id": "CS-LEX-0053",
+      "meaning_mn_in_this_context_draft": "орой",
+      "teaching_role": "known_or_recycle",
+      "lexeme_source": "existing_candidate",
+      "verified_czech_morphology": false,
+      "contextual_sense_review": "PENDING",
+      "audio_asset_id": null,
+      "editorial_status": "PENDING"
+    },
+    {
+      "form_id": "CS-READ-FORM-vedle",
+      "surface_form_cs": "vedle",
+      "lemma_cs": "vedle",
+      "lexeme_id": "CS-READ-CAND-019",
+      "meaning_mn_in_this_context_draft": "хажууд, дэргэд",
+      "teaching_role": "gloss_scaffold",
+      "lexeme_source": "new_candidate",
+      "verified_czech_morphology": false,
+      "contextual_sense_review": "PENDING",
+      "audio_asset_id": null,
+      "editorial_status": "PENDING"
+    },
+    {
+      "form_id": "CS-READ-FORM-ven",
+      "surface_form_cs": "ven",
+      "lemma_cs": "ven",
+      "lexeme_id": "CS-READ-CAND-020",
+      "meaning_mn_in_this_context_draft": "гадагш",
+      "teaching_role": "gloss_scaffold",
+      "lexeme_source": "new_candidate",
+      "verified_czech_morphology": false,
+      "contextual_sense_review": "PENDING",
+      "audio_asset_id": null,
+      "editorial_status": "PENDING"
+    },
+    {
+      "form_id": "CS-READ-FORM-zítra",
+      "surface_form_cs": "zítra",
+      "lemma_cs": "zítra",
+      "lexeme_id": "CS-LEX-0047",
+      "meaning_mn_in_this_context_draft": "маргааш",
+      "teaching_role": "known_or_recycle",
+      "lexeme_source": "existing_candidate",
+      "verified_czech_morphology": false,
+      "contextual_sense_review": "PENDING",
+      "audio_asset_id": null,
+      "editorial_status": "PENDING"
+    },
+    {
+      "form_id": "CS-READ-FORM-znovu",
+      "surface_form_cs": "znovu",
+      "lemma_cs": "znovu",
+      "lexeme_id": "CS-READ-CAND-021",
+      "meaning_mn_in_this_context_draft": "дахин",
+      "teaching_role": "gloss_scaffold",
+      "lexeme_source": "new_candidate",
+      "verified_czech_morphology": false,
+      "contextual_sense_review": "PENDING",
+      "audio_asset_id": null,
+      "editorial_status": "PENDING"
+    }
+  ],
+  "approved": false,
+  "published": false
+}
