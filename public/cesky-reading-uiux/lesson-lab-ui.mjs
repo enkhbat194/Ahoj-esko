@@ -154,6 +154,19 @@ function button(label,action,klass="",extras=""){
 function speechButton(text,label="▶ Сонсох"){
  return '<button type="button" class="cl-audio" data-cl-say="'+esc(text)+'" aria-label="'+esc(label)+'">▶</button>';
 }
+function relevantLetters(answer){
+ const groups={
+  a:["a","á","e","o"],e:["e","é","a","i"],i:["i","í","y","ý"],o:["o","ó","a","u"],
+  u:["u","ú","ů","o"],y:["y","ý","i","í"],
+  "č":["c","č","š","ž"],"š":["s","š","č","ž"],"ž":["z","ž","š","č"],
+  "ď":["d","ď","ť","ň"],"ť":["t","ť","ď","ň"],"ň":["n","ň","ď","ť"],
+  "ř":["r","ř","ž","š"],r:["r","ř","z","ž"],
+  "á":["a","á","e","é"],"é":["e","é","a","á"],"í":["i","í","y","ý"],
+  "ó":["o","ó","u","ú"],"ú":["u","ú","ů","o"],"ů":["u","ů","ú","o"],
+  "ý":["y","ý","i","í"]
+ };
+ return groups[answer]||["č","š","ž","ř"];
+}
 function renderStep(step){
  switch(step.type){
  case "model":{
@@ -240,7 +253,7 @@ function renderStep(step){
    '<input type="text" id="cl-answer-input" lang="cs" autocapitalize="none" autocomplete="off" '+
    'spellcheck="false" placeholder="Чех үсгээр бич" value="'+esc(fieldValue)+'"/>'+
    button("Хариултаа шалгах","check-cloze","primary")+'</form>'+
-   '<div class="cl-special">'+["č","š","ž","ď","ť","ň","ř","á","é","í","ó","ú","ů","ý"].map(x=>button(x,"special-letter","special")).join("")+'</div>';
+   '<div class="cl-special">'+relevantLetters(step.answer_cs).map(x=>button(x,"special-letter","special")).join("")+'</div>';
  case "speak":
   return '<p class="cl-subtitle">'+esc(step.prompt_mn)+'</p>'+
     '<div class="cl-speaking"><strong lang="cs">'+esc(step.target_cs)+'</strong>'+
@@ -279,6 +292,12 @@ function draw(){
  }
  wrap.hidden=false;document.documentElement.classList.add("course-lab-active");
  const progress=Math.round((s.completed.length/lesson.steps.length)*100);
+ const previousKey=wrap.dataset.stepKey;
+ const previousScroll=wrap.querySelector("#cl-scroll")?.scrollTop??0;
+ const nextKey=lesson.lesson_id+":"+(s.finished?"completed":step?.step_id);
+ const labels={model:"ТАНИЛЦ",choice:"СОНГО",flashcards:"КАРТ НЭЭ",
+  listen_choice:"СОНС",match:"ХОСЛУУЛ",order:"ҮГ БҮТЭЭ",
+  cloze:"БИЧ",speak:"ХЭЛЖ ҮЗ"};
  wrap.innerHTML='<div class="cl-shell"><header class="cl-header">'+
  '<button type="button" id="cl-close" aria-label="Хичээлээс гарах">‹</button>'+
  '<div><small>ČEŠTINA · '+esc(lesson.lesson_id)+'</small>'+
@@ -288,10 +307,12 @@ function draw(){
  '<div class="cl-scroller" id="cl-scroll">'+
  (s.finished?renderCompletion(lesson):'<div class="cl-step-no">АЛХАМ '+
  (s.index+1)+' / '+lesson.steps.length+'</div>'+
+ '<span class="cl-task-type">'+esc(labels[step.type]||"ДАСГАЛ")+'</span>'+
  '<h2>'+esc(step.title_mn)+'</h2>'+
- '<div class="cl-goal">'+esc(lesson.can_do_mn)+'</div>'+
+ '<details class="cl-goal" '+(s.index===0?"open":"")+'><summary>Энэ хичээлээр юу сурах вэ?</summary>'+
+ '<p>'+esc(lesson.can_do_mn)+'</p></details>'+
  '<section class="cl-exercise">'+renderStep(step)+'</section>'+
- '<p class="cl-feedback" id="cl-feedback" data-kind="'+esc(feedbackKind)+'" '+
+ '<p class="cl-feedback" id="cl-feedback" role="status" aria-live="polite" data-kind="'+esc(feedbackKind)+'" '+
  (!feedbackMessage?"hidden":"")+'>'+esc(feedbackMessage)+'</p>'+
  (stepDone(step)?'<div class="cl-next">'+
   button(s.index===lesson.steps.length-1?"Хичээлийг дуусгах":"Дараагийн алхам →","next-step","primary")+
@@ -300,7 +321,8 @@ function draw(){
  '</div></div>';
  ID("cl-close")?.addEventListener("click",close);
  const view=ID("cl-scroll");
- if(view)view.scrollTop=0;
+ if(view)view.scrollTop=previousKey===nextKey?previousScroll:0;
+ wrap.dataset.stepKey=nextKey;
  if(step?.type==="listen_choice"){
   const flag=ID("cl-heard-flag");
   if(flag)flag.textContent=s.audio_events.some(x=>x.step_id===step.step_id)?
