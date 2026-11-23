@@ -239,9 +239,9 @@ function openGloss(order) {
  'Нэг үг олон утгатай байж болно.</p>'+
  '<button type="button" id="lab-gloss-dismiss" class="lab-primary">Үргэлжлүүлэн унших</button></section>';
  const close=()=>{shade.hidden=true;shade.innerHTML="";};
- shade.addEventListener("click",e=>{
+ shade.onclick=e=>{
   if(e.target===shade||e.target.closest("#lab-gloss-close, #lab-gloss-dismiss"))close();
- },{once:true});
+ };
 }
 function answerQuiz(questionId,choiceIndex) {
  if(!active||!activeChapter)return;
@@ -266,7 +266,7 @@ function finishChapter() {
  persistChapter();
  const guide=suggestLearningFocus(profile,{now_ms:now(),desired_genre:activeBook.genre});
  const shelf=byId("lab-reader-scroll");
- if(shelf){
+ if(shelf && !shelf.querySelector(".lab-finish-note")){
   const note=document.createElement("p");
   note.className="lab-finish-note";note.textContent="Бүлгийг уншсан гэж тэмдэглэлээ. "+
     "Карт: "+profile.flashcards.length+" идэвхтэй, "+profile.card_backlog.length+
