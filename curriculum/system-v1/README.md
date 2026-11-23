@@ -1,3 +1,6 @@
+<!-- LATEST NEXT-CHAT START POINTER -->
+> **NEW CHAT START:** [`docs/START_NEXT_CHAT_AHOJ.md`](https://github.com/enkhbat194/Ahoj-esko/blob/feat/curriculum-system-v1-2026-11-23/docs/START_NEXT_CHAT_AHOJ.md). Эхний 3 A0 хичээл (27 interaction) хийсэн. Хичээлүүдээ дахин эхлэхгүй; **`A0-T01-L04`-ийг аппын code + CI-тайгаар дарааллаар үргэлжлүүл.** Энэ нь `main` бус PR #32 DRAFT салбар.
+
 # AHOJ — Чех–Монгол ярианы сургалтын СИСТЕМ v1.0
 
 **2026-11-23 · Архитектурын гэрээ + шат дарааллын зураглал бэлэн. Нийтлэхэд бэлэн сургалтын агуулга / аудио биш.**
