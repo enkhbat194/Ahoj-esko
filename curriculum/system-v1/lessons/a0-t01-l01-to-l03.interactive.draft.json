@@ -250,7 +250,7 @@
           "step_id": "L01-S08",
           "type": "choice",
           "title_mn": "Шинэ үг дээр шалгах",
-          "prompt_mn": "Өмнө картанд байгаагүй «pivo» гэдэг үг аль үсгээр эхэлж байна вэ?",
+          "prompt_mn": "Өмнө картанд байгаагүй «park» (цэцэрлэгт хүрээлэн) гэдэг үг аль үсгээр эхэлж байна вэ?",
           "options": [
             {
               "id": "p",
@@ -266,7 +266,7 @@
             }
           ],
           "answer_id": "p",
-          "feedback_mn": "P эхний үсэг гэдгийг таньжээ. pivo = шар айраг; цээжлэх шинэ зорилтот үг биш."
+          "feedback_mn": "«park» үг P үсгээр эхэлнэ. Шинэ үгийн эхний авиаг танилаа."
         },
         {
           "step_id": "L01-S09",
@@ -289,7 +289,7 @@
         "pronunciation_certification": false
       },
       "source_warnings": [
-        "Example pivo is an unseen-transfer spelling only; no beer promotion or new vocabulary count."
+        "Unseen park is a transfer-reading example, not a Top100 target."
       ]
     },
     {
