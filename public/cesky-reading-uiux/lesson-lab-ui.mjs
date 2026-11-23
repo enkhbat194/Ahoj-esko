@@ -446,12 +446,83 @@ async function boot(){
   window.dispatchEvent(new CustomEvent("ahoj:course-ready"));
  }catch(err){blocked=true;console.error("Course preview not loaded",err);}
 }
+
+/**
+ * Vocabulary bridge into the existing Premium Cards tab.
+ * "Remembered" is a learner self-report, not objective Czech comprehension,
+ * pronunciation or speech quality certification.
+ */
+function markReview(cardKey,result){
+ const card=profile?.review_queue?.[cardKey];
+ if(!card||card.due_at_ms>Date.now())return false;
+ if(!["remembered","with_hint","forgotten"].includes(result))return false;
+ card.attempts??=[];
+ card.attempts.push({at_ms:Date.now(),result,graded_by:"LEARNER_SELF_REPORT_ONLY"});
+ if(result==="remembered"){
+  card.stage=Math.min(card.stage+1,DAYS.length-1);
+  card.independent_correct+=1;
+ } else if(result==="forgotten"){
+  card.stage=0;card.incorrect+=1;
+ } else card.stage=Math.max(0,card.stage-1);
+ card.due_at_ms=Date.now()+DAYS[card.stage]*86_400_000;
+ card.last_result=result;
+ store();return true;
+}
+function decorateCardsTab(root){
+ if(!started||!root)return false;
+ let box=root.querySelector("#a0-lesson-course-cards");
+ if(!box){box=document.createElement("section");box.id="a0-lesson-course-cards";box.className="cl-course-card-section";root.appendChild(box);}
+ const cards=Object.values(profile.review_queue).sort((a,b)=>a.due_at_ms-b.due_at_ms);
+ const due=cards.filter(c=>c.due_at_ms<=Date.now()).length;
+ box.innerHTML='<header class="cl-course-card-head"><small>ҮЕ ДАВАХ · А0</small>'+
+ '<h2>Хичээлээс сурсан үгс</h2><p>Үг сонсох, хараад санах дасгал. Суралцагчийн өөрийн үнэлгээ тул бодит ярианы баталгаа биш.</p>'+
+ '<div>'+cards.length+' үг · '+due+' давтах хугацаа болсон</div></header>'+
+ (cards.length?'<div class="cl-course-card-grid">'+cards.map(card=>{
+  const revealed=cardReveal.has("review:"+card.card_key);
+  const ready=card.due_at_ms<=Date.now();
+  return '<article class="cl-course-card"><div class="cl-card-meta">'+
+   esc(card.first_seen_in[0])+'</div><h3 lang="cs">'+esc(card.word_cs)+'</h3>'+
+   '<small>'+esc(ready?"Давтах өдөр болсон":"Дараагийн давтлага: "+dateStamp(card.due_at_ms))+'</small>'+
+   '<button type="button" class="cl-course-reveal" data-course-reveal="'+esc(card.card_key)+'">'+
+   (revealed?"Утгыг нуух":"Утгыг харах")+'</button>'+
+   (revealed?'<div class="cl-course-meaning">'+esc(card.meaning_mn)+'</div>':"")+
+   (ready&&revealed?'<div class="cl-course-review">'+
+    '<button data-course-key="'+esc(card.card_key)+'" data-course-result="remembered">Санасан</button>'+
+    '<button data-course-key="'+esc(card.card_key)+'" data-course-result="with_hint">Сэжүүртэй</button>'+
+    '<button data-course-key="'+esc(card.card_key)+'" data-course-result="forgotten">Мартсан</button></div>':
+    '<p class="cl-card-due-note">Энэ картыг хугацаа нь болоход санаж гаргах дасгалаар шалгана.</p>')+
+  '</article>';
+ }).join("")+'</div>': '<p class="cl-course-empty">Эхний хичээлээ гүйцээвэл үгс автоматаар энд нэмэгдэнэ.</p>')+
+ '<p class="cl-course-warning">Чех үгийн утга болон дуудлагын редакцын шалгалт хүлээгдэж байна.</p>';
+ box.onclick=e=>{
+  const reveal=e.target.closest("[data-course-reveal]");
+  if(reveal){
+   const key="review:"+reveal.dataset.courseReveal;
+   if(cardReveal.has(key))cardReveal.delete(key);else cardReveal.add(key);
+   decorateCardsTab(root);return;
+  }
+  const review=e.target.closest("[data-course-result]");
+  if(review&&markReview(review.dataset.courseKey,review.dataset.courseResult)){
+   cardReveal.delete("review:"+review.dataset.courseKey);
+   decorateCardsTab(root);
+  }
+ };
+ return true;
+}
+function renderCardsTab(root,{append=false}={}){
+ if(!started||!root)return false;
+ if(!append)root.innerHTML='<section class="cl-course-cards-root"><h1>Миний картууд</h1>'+
+   '<p>Хичээл болон уншлагаас цугларсан үгсийг давтана.</p></section>';
+ return decorateCardsTab(root);
+}
+
 window.AhojLessonLab={
  openLesson:start,close,isOpen:()=>opening,hasLesson:id=>Boolean(getLesson(id)),
  getStatus:()=>({initialized:started,blocked,story:false,ids:pack?.lessons.map(l=>l.lesson_id)||[],
    completed:pack?.lessons.filter(l=>profile?.lessons?.[l.lesson_id]?.finished).map(l=>l.lesson_id)||[],
    phoneticAudioApproved:false,editorialApproved:false,storageKey:STORAGE_KEY}),
  getProgress:()=>structuredClone(profile??{}),
- getReviewDue:()=>Object.values(profile?.review_queue??{}).filter(c=>c.due_at_ms<=Date.now())
+ getReviewDue:()=>Object.values(profile?.review_queue??{}).filter(c=>c.due_at_ms<=Date.now()),
+ renderCardsTab,decorateCardsTab,markReview
 };
 boot();
