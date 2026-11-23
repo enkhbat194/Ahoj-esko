@@ -53,6 +53,7 @@ function recordError(step,reason){
 function updateFeedback(kind,text){
  feedbackKind=kind;feedbackMessage=text;const slot=ID("cl-feedback");
  if(slot){slot.textContent=text;slot.dataset.kind=kind;slot.hidden=!text;}
+ if(kind==="bad"&&opening)showToast(text);
 }
 function finishStep(meta={}){
  const step=currentStep();if(!step)return;
@@ -94,6 +95,7 @@ function close(){
 function showToast(text){
  let item=ID("course-lab-toast");
  if(!item){item=document.createElement("div");item.id="course-lab-toast";
+   item.setAttribute("role","status");item.setAttribute("aria-live","polite");
    item.style.cssText="position:fixed;z-index:9999;bottom:80px;left:10%;width:80%;background:#292b32;color:#fff;padding:12px;border:1px solid #ef9639;border-radius:12px;text-align:center;font-size:13px";
    document.body.append(item);}
  item.textContent=text;item.hidden=false;
@@ -360,6 +362,9 @@ function answerOption(answerId){
   const mistakes=s.mistakes[step.step_id]??0;
   recordError(step,"«"+selected+"» тохирсонгүй. "+
    (mistakes>=1?step.feedback_mn:"Үгийн утга болон тэмдэглэгээг дахин ажигла."));
+  const tile=[...(ID("course-lab-overlay")?.querySelectorAll(".cl-button.option")??[])]
+   .find(el=>el.dataset.answer===answerId);
+  if(tile){tile.classList.add("is-wrong");tile.setAttribute("aria-invalid","true");}
  }
 }
 function matchWord(index){
