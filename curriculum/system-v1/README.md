@@ -192,3 +192,19 @@ CEFR-ийн өөрөө гүйцэтгэх зорилт, нөхцөлд ажил�
 **Render:** өмнөх `ahoj-reader-lab-preview-20261123` Render free service-ийг л ашиглана. Автомат branch webhook шинэ commit-үүдийг өөрөө build хийгээгүй тул Render cache-clear redeploy `dep-dc2326cs728c73drolmg` trigger хийсэн, latest commit-д бэхэлсэн. LIVE status тусад нь баталгаажуулах ёстой. Үндсэн main болон production сервер хөндөгдөөгүй; PR #32 DRAFT; ElevenLabs/Drive/R2-аас аудио татсан/нийтэлсэн зүйлгүй.
 
 **Нийтлэхээс өмнө:** Czech/Mongolian editorial, техник Safari аппаратын TTS дуудлагын шалгалт, male narration WAV mapping, pronunciation scoring calibration, login-synced persistence хангалтгүй хэвээр.
+
+
+## 2026-11-23 — First THREE sequential A0 lessons in Premium PWA
+
+**ЭХНИЙ БОДИТ КОД, ХИЧЭЭЛҮҮДИЙН ДАРААЛАЛ:** `A0-T01-L01` → `A0-T01-L02` → `A0-T01-L03`; дараагийн `A0-T01-L04`–`L08` болон бүх 16 сэдвийн бусад микро чадвар одоогоор outline хэвээр байна.
+
+- `curriculum/system-v1/lessons/a0-t01-l01-to-l03.interactive.draft.json`: каноник агуулга, **3 дараалсан интерактив хичээл × 9 алхам = 27 ажилладаг дасгалын тодорхойлолт**. L01 — үсгийн эхний авиа (A/M/P/T, auto/pes/máma/táta), L02 — суурь a/e/i/o/u, L03 — урт/богино (byt/být, pas/pás, dům). Анхны цээжлэх 100 үгтэй хутгахгүй, үгийн жишээг `lesson.words`-т тусад нь бүртгэсэн. Чех/Монгол редакц, сонсголын авианы чанарын баталгаа **PENDING**.
+- `public/cesky-reading-uiux/lesson-a0-t01-first3.draft.json` — каноник JSON-ийн яг хуулбар; `scripts/check-first-a0-lessons.mjs` хуулбар, 27 ID/өгөгдөл/үнэлгээний статусыг тогтмол нягтална.
+- `public/cesky-reading-uiux/lesson-lab-ui.mjs`, `lesson-lab-ui.css` — Premium аппын `Үе давах` → `Цагаан толгой` сэдвийн эхний **3 хичээлийн swipe card** дээр `Хичээл эхлэх` товчоор нээдэг.
+- Дасгал бүр real browser UI-тэй: `model`, `choice`, `listen_choice`, `flashcards`, `match`, `order`, `cloze`, `speak`. Буруу хариулт, засах, ахиц 1–9, дараагийн хичээлд шилжих түгжээ, localStorage дахь `ahoj.course.a0.t01.practice.v1`, дуусахад давхардалгүй `Карт` табын картын сан, 1/3/7/14/30 хоногийн давтлагын өөрийн үнэлгээ. Утсаар нэг нэг үсэг дарах/оруулах, Чех тэмдэгтэй товчтой.
+- **Сонсох:** `SpeechSynthesisUtterance(lang=cs-CZ)`–ийн `onstart` болсон үед л audio event бүртгэдэг. Нийтлэлийн баталгаатай Чех WAV биш. Төхөөрөмж дуугүй бол «аудио боломжгүй» текстэн fallback-аар дасгал үргэлжлэх ч **сонсголын сорил тэнцсэн гэж үнэлэгдэхгүй**.
+- **Өөрөө хэлэх:** Web SpeechRecognition-ийн чех transcript-г үзүүлж, **дуудлага зөв гэсэн оноо өгөхгүй**. STT байхгүй бол `SPEAKING_NOT_ASSESSED_MIC_UNAVAILABLE` гэж тэмдэглээд хэрэглэгч дараагийн дасгал руу шилжиж болно.
+- **Чадварын үнэлгээний бодит статус:** `PRACTICE_COMPLETE_NOT_CERTIFIED`. Аудио, редакц, phonetic scoring, бодит суралцагчийн туршилт дутуу. Нийтлэх эрх аваагүй; 140 complete lesson гэж зарлахгүй.
+- Browser QA: `scripts/check-reader-browser.mjs` нь 390 px Chrome утасны дэлгэц дээр 3×9 дасгалын хариулт, эхний буруу хариулт, аудио үйл явдал, микрофоны test stub, 12+ картад хадгалалт, `localStorage` reload сэргэлт, `Карт`-ын утгын ил гаргалтыг автомат тестээр шалгана. Chromium mocked TTS/ASR нь бодит Safari native Czech pronouncing proof биш.
+
+**NEXT:** L04 “Č, Š, Ž” → L05 “C/Č, S/Š, Z/Ž” → L06 “Ď, Ť, Ň” → L07 “R/Ř” → L08 унших сорилыг **дарааллаар бүтээж, шалгах**. Хуурамч phonetic PASS өгөхгүй. Хичээлийн эрэгтэй/эмэгтэй баталгаатай аудиог тусдаа Audio Factory-тай нийцсэн `utterance_id/audio_asset_id`-аар холбох. Эхний 3 хичээлийн дууг зөвхөн суралцах *түр нөөц* болгож ашиглаж байна. Top100 нь unapproved нэр дэвшигч; T02 ярианы хичээл эхлэхээс өмнө үгийн эрэмбийг баталгаажуулах ёстой.
