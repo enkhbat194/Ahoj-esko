@@ -309,7 +309,7 @@ function draw(){
  (s.index+1)+' / '+lesson.steps.length+'</div>'+
  '<span class="cl-task-type">'+esc(labels[step.type]||"ДАСГАЛ")+'</span>'+
  '<h2>'+esc(step.title_mn)+'</h2>'+
- '<details class="cl-goal" '+(s.index===0?"open":"")+'><summary>Энэ хичээлээр юу сурах вэ?</summary>'+
+ '<details class="cl-goal"><summary>Энэ хичээлээр юу сурах вэ?</summary>'+
  '<p>'+esc(lesson.can_do_mn)+'</p></details>'+
  '<section class="cl-exercise">'+renderStep(step)+'</section>'+
  '<p class="cl-feedback" id="cl-feedback" role="status" aria-live="polite" data-kind="'+esc(feedbackKind)+'" '+
