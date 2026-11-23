@@ -2,7 +2,9 @@ import assert from "node:assert/strict";
 import {readFileSync} from "node:fs";
 import {
  tokenizeCzech,validateReaderChapter,startReaderChapter,recordReaderEvent,
- reviewReaderCard,getReaderAdaptation,readerWordTooltip
+ reviewReaderCard,getReaderAdaptation,readerWordTooltip,
+ createLearnerReadingProfile,commitReaderAttempt,activateGlobalReadingCards,
+ reviewGlobalReadingCard,suggestLearningFocus
 } from "../curriculum/system-v1/reader-adaptive-engine.mjs";
 
 const read=path=>JSON.parse(readFileSync(new URL("../"+path,import.meta.url),"utf8"));
@@ -148,5 +150,59 @@ assert.ok(l.card_backlog.length>0);
 assert.equal(l.pronunciation_mastered,false);
 assert.equal(l.chapter_read,true);
 assert.equal(l.status,"EDITORIAL_PREVIEW_NO_CEFR_MASTERY");
+
+
+// Reading → global flashcards → optional learning coach. No service calls.
+let learner=createLearnerReadingProfile();
+assert.equal(learner.reading_history.length,0);
+assert.equal(learner.native_speech_proficiency,"NOT_ASSESSED");
+assert.throws(()=>commitReaderAttempt(learner,startReaderChapter({
+  chapter:star,formAnnotations:data.form_annotations
+}),{attempt_id:"bad",story_id:"R-COS-01",genre:"cosmos_mystery",at_ms:30000}),
+/Only explicit completed reading/);
+learner=commitReaderAttempt(learner,s,{
+ attempt_id:"reader-attempt-001",story_id:"R-COS-01",genre:"cosmos_mystery",at_ms:40000
+});
+learner=commitReaderAttempt(learner,l,{
+ attempt_id:"reader-attempt-002",story_id:"R-LOVE-01",genre:"romance_mystery",at_ms:50000
+});
+assert.equal(learner.reading_history.length,2);
+const oldCount=learner.card_backlog.length;
+assert.ok(oldCount>=6);
+assert.equal(new Set(learner.card_backlog.map(x=>x.card_key)).size,oldCount);
+const repeated=commitReaderAttempt(learner,l,{
+ attempt_id:"reader-attempt-002",story_id:"R-LOVE-01",genre:"romance_mystery",at_ms:50000
+});
+assert.equal(repeated.reading_history.length,2,"Repeat commit must be idempotent");
+learner=activateGlobalReadingCards(learner,{max_active:4});
+assert.equal(learner.flashcards.length,4);
+assert.equal(learner.card_backlog.length,oldCount-4);
+const firstKey=learner.flashcards[0].card_key;
+let guide=suggestLearningFocus(learner,{now_ms:86_400_000,desired_genre:"science_curiosity"});
+assert.equal(guide.status,"EVIDENCE_BASED_RULES_NOT_LIVE_AI");
+assert.equal(guide.learner_preference_genre,"science_curiosity");
+assert.ok(guide.weak_contextual_sense_keys.length>=1);
+learner=reviewGlobalReadingCard(learner,{
+ card_key:firstKey,result:"independent_correct",at_ms:86_400_000
+});
+assert.equal(learner.known_reading_sense_keys.includes(firstKey),false);
+learner=reviewGlobalReadingCard(learner,{
+ card_key:firstKey,result:"independent_correct",at_ms:259_200_000
+});
+if (!firstKey.startsWith("phrase:"))
+  assert.equal(learner.known_reading_sense_keys.includes(firstKey),true,
+    "Two independent reviews on distinct days = reading familiarity only");
+assert.equal(learner.native_speech_proficiency,"NOT_ASSESSED");
+learner=reviewGlobalReadingCard(learner,{
+ card_key:firstKey,result:"incorrect",at_ms:345_600_000
+});
+assert.equal(learner.known_reading_sense_keys.includes(firstKey),false,
+  "Forgetting must remove provisional reading familiarity");
+assert.throws(()=>reviewGlobalReadingCard(learner,{
+ card_key:"UNKNOWN",result:"correct_with_hint",at_ms:400_000_000
+}),/Global card not active/);
+guide=suggestLearningFocus(learner,{now_ms:432_000_000});
+assert.ok(guide.due_flashcards.length>0,"Real due cards must be scheduled");
+assert.equal(learner.reading_history[0].note.includes("NOT mastery"),true);
 
 console.log("Reader adaptive QA PASS: 3 draft reader topics / 25 sentences / 64 annotated Czech forms; contextual sense, genre, phrase card, no duplicates, 3/4-card cap, backlog, learning signals and no fake AI/audio/CEFR mastery.");
