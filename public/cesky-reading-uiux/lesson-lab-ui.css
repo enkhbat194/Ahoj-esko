@@ -72,3 +72,27 @@
 #course-lab-overlay .cl-next>.cl-button{margin:0}
 @media(min-width:460px){#course-lab-overlay .cl-shell{border-left:1px solid #494149;border-right:1px solid #494149}}
 @media(max-width:340px){#course-lab-overlay .cl-flashcards{grid-template-columns:1fr}#course-lab-overlay .cl-scroller{padding-inline:12px}#course-lab-overlay .cl-step-no{font-size:10px}}
+
+/* Lesson-created lexicon cards share the existing Premium Карт tab. */
+.cl-course-cards-root{height:100%;overflow:auto;color:#faf8fa;padding:18px 15px 120px;overscroll-behavior:contain}
+.cl-course-cards-root>h1{font-size:24px;margin:4px 0 10px}
+.cl-course-cards-root>p{font-size:13px;line-height:1.6;color:#aaaab2}
+.cl-course-card-section{margin:18px 0 10px;min-width:0;max-width:100%;color:#f7f7f7}
+.cl-course-card-head{border:1px solid #574b43;border-radius:17px;padding:16px;background:linear-gradient(130deg,#2f2725,#202126);margin-bottom:12px}
+.cl-course-card-head small{font-size:11px;color:#e9a463;font-weight:800;letter-spacing:.06em}
+.cl-course-card-head h2{font-size:20px;margin:6px 0 8px}
+.cl-course-card-head p{font-size:13px;line-height:1.5;color:#c0bfc5}
+.cl-course-card-head>div{font-size:12px;margin-top:8px;color:#f6bf86}
+.cl-course-card-grid{display:grid;grid-template-columns:1fr;gap:10px}
+.cl-course-card{background:#23262b;border:1px solid #49494f;border-radius:16px;padding:16px;min-width:0;overflow-wrap:anywhere}
+.cl-course-card .cl-card-meta{font-size:10px;color:#d99c69}
+.cl-course-card h3{font-size:25px;margin:8px 0}
+.cl-course-card>small{font-size:11px;color:#a9afb8}
+.cl-course-reveal{display:block;background:#38343b;border:1px solid #63525b;border-radius:11px;padding:10px 12px;color:#ffbe84;font-size:13px;margin-top:14px}
+.cl-course-meaning{padding:11px 12px;margin:10px 0;border-radius:10px;background:#1b3a2d;color:#c8f1df;font-size:13px;line-height:1.5}
+.cl-course-review{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}
+.cl-course-review button{padding:9px 10px;border:1px solid #6d6266;border-radius:10px;background:#35373d;color:#fff;min-height:42px;font-size:12px}
+.cl-card-due-note{font-size:11px;color:#aab1bb;margin:12px 0 0;line-height:1.5}
+.cl-course-empty{font-size:13px;color:#aeb5bf;border:1px dashed #5d565c;border-radius:13px;padding:15px}
+.cl-course-warning{font-size:11px;color:#c7a78e;line-height:1.6;margin:13px 0 20px}
+@media(min-width:550px){.cl-course-card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
