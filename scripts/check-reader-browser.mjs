@@ -375,8 +375,16 @@ try {
         const step=lesson.steps[si];
         assert.equal(await cp.locator(".cl-step-no").innerText(),"АЛХАМ "+(si+1)+" / 9");
         switch(step.type){
-          case "model":
-            await cp.locator('[data-cl-action="complete-model"]').click();break;
+          case "model":{
+             assert.ok(await cp.locator('[data-cl-action="complete-model"]').isDisabled(),
+               "Model exposure must not be skippable without opening meanings");
+             for(let i=0;i<step.examples.length;i++)
+               await cp.locator('[data-cl-model="'+i+'"]').click();
+             assert.equal(await cp.locator(".cl-model-reveal.is-revealed").count(),
+               step.examples.length,"Every word meaning must be revealed");
+             await cp.locator('[data-cl-action="complete-model"]').click();
+             break;
+           }
           case "choice":
           case "listen_choice":{
             if(step.type==="listen_choice"){
@@ -399,11 +407,26 @@ try {
             for(let i=0;i<step.items.length;i++)await cp.locator('[data-cl-card="'+i+'"]').click();
             await cp.locator('[data-cl-action="complete-cards"]').click();
             break;
-          case "match":
-            for(let i=0;i<step.pairs.length;i++)
-              await cp.locator('[data-cl-match="'+i+'"]').selectOption(step.pairs[i].meaning_mn);
-            await cp.locator('[data-cl-action="check-match"]').click();
-            break;
+          case "match":{
+             assert.equal(await cp.locator('select[data-cl-match]').count(),0,
+               "Outdated dropdown matching must not remain");
+             if(li===0){
+               await cp.locator('[data-cl-match-meaning="0"]').click();
+               assert.match(await cp.locator("#cl-feedback").innerText(),/Эхлээд зүүн/);
+               await cp.locator('[data-cl-match-word="0"]').click();
+               await cp.locator('[data-cl-match-meaning="1"]').click();
+               assert.equal(await cp.locator('[data-kind="bad"]').count(),1,
+                 "Incorrect pair must prompt correction, not pass");
+               assert.equal(await cp.locator('.cl-match-progress').innerText().then(v=>v.startsWith("0 /")),true);
+             }
+             for(let i=0;i<step.pairs.length;i++){
+               await cp.locator('[data-cl-match-word="'+i+'"]').click();
+               await cp.locator('[data-cl-match-meaning="'+i+'"]').click();
+             }
+             assert.equal(await cp.locator('.cl-match-tile.is-paired').count(),
+               step.pairs.length*2,"Correct pairs should stay visibly completed");
+             break;
+           }
           case "order":{
             const remaining=step.tiles.map((x,i)=>({text:x.text,i}));
             for(const c of [...step.target_cs.normalize("NFC")]){
