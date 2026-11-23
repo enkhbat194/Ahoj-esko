@@ -41,6 +41,10 @@ const stance=data.form_annotations.find(x=>x.surface_form_cs==="stojí");
 assert.equal(stance.sense_key,"stát::stand_position");
 assert.equal(stance.contextual_sense_review,"PENDING_CRITICAL_PRICE_VS_STAND");
 
+
+assert.equal(tokenizeCzech("Být není byt.").length,3);
+assert.notEqual(tokenizeCzech("byt")[0].normalized,tokenizeCzech("být")[0].normalized);
+const star=all[0],love=all[1],science=all[2];
 const moon=data.form_annotations.find(x=>x.surface_form_cs==="měsíc");
 assert.equal(moon.sense_key,"měsíc::celestial_body","Month vs Moon must not be silently conflated");
 assert.equal(science.reading_mode,"A1_ASSISTED");
@@ -54,9 +58,6 @@ let sci=recordReaderEvent(scienceS,{type:"optional_comprehension_answer",questio
 assert.equal(sci.metrics.optional_quiz_correct,1);
 
 
-assert.equal(tokenizeCzech("Být není byt.").length,3);
-assert.notEqual(tokenizeCzech("byt")[0].normalized,tokenizeCzech("být")[0].normalized);
-const star=all[0],love=all[1],science=all[2];
 assert.throws(()=>validateReaderChapter({
  chapter_id:"BAD",sentences:[{sentence_id:"bad-1",text_cs:"Nové slovo.",translation_mn_draft:""}]
 },data.form_annotations),/Incomplete reader sentence/);
