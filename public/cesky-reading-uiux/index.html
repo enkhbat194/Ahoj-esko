@@ -3270,7 +3270,7 @@
                 '</div>' +
                 '<div class="lesson-outline-body"><span class="lesson-outline-id">' + escapeHtml(lesson.id) + '</span>' +
                 '<h3>' + escapeHtml(lesson.title_mn) + '</h3>' +
-                (ch.id === "A0-T01" && lesson.order <= 3
+                (ch.id === "A0-T01" && window.AhojLessonLab?.hasLesson?.(lesson.id)
                   ? '<p>9 алхам · Сонсох, үгийн карт, дасгал, сорил, ахиц хадгалах</p>' +
                     '<button type="button" class="lesson-outline-launch" data-lesson-start="' +
                     escapeHtml(lesson.id) + '">Хичээл эхлэх →</button>' +
