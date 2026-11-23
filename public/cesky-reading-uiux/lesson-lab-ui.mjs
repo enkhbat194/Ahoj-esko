@@ -48,7 +48,7 @@ function countDone(){return stateFor(getLesson(active)).completed.length;}
 function recordError(step,reason){
   const state=stateFor(getLesson(active));
   state.mistakes[step.step_id]=(state.mistakes[step.step_id]||0)+1;
-  feedbackMessage=reason||"Дахин оролдоорой.";feedbackKind="bad";store();
+  updateFeedback("bad",reason||"Дахин оролдоорой.");store();
 }
 function updateFeedback(kind,text){
  feedbackKind=kind;feedbackMessage=text;const slot=ID("cl-feedback");
