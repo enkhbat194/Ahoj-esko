@@ -1,6 +1,6 @@
 /**
  * AHOJ A0 teaching engine — interactive pilot for the FIRST THREE canonical
- * micro-skills (A0-T01-L01..L03).
+ * micro-skills (A0-T01-L01 onward).
  *
  * Persisted progress is only a practice record. Browser speech synthesis
  * is not an approved native recording, and SpeechRecognition is NEVER a
@@ -216,7 +216,7 @@ function renderStep(step){
    '<input type="text" id="cl-answer-input" lang="cs" autocapitalize="none" autocomplete="off" '+
    'spellcheck="false" placeholder="Чех үсгээр бич" value="'+esc(fieldValue)+'"/>'+
    button("Хариултаа шалгах","check-cloze","primary")+'</form>'+
-   '<div class="cl-special">'+["á","é","í","ó","ú","ů","ý"].map(x=>button(x,"special-letter","special")).join("")+'</div>';
+   '<div class="cl-special">'+["č","š","ž","ď","ť","ň","ř","á","é","í","ó","ú","ů","ý"].map(x=>button(x,"special-letter","special")).join("")+'</div>';
  case "speak":
   return '<p class="cl-subtitle">'+esc(step.prompt_mn)+'</p>'+
     '<div class="cl-speaking"><strong lang="cs">'+esc(step.target_cs)+'</strong>'+
@@ -235,12 +235,12 @@ function renderCompletion(lesson){
  "Одоогоор баталгаажсан Чех аудионы бичлэг алга. ";
  return '<div class="cl-completion"><div class="cl-medal">✓</div>'+
   '<h2>Дадлага гүйцэтгэсэн</h2><p><b>'+esc(lesson.title_mn)+
-  '</b> — 9/9 алхмыг гүйцэтгэв.</p>'+
+  '</b> — '+lesson.steps.length+'/'+lesson.steps.length+' алхмыг гүйцэтгэв.</p>'+
   '<p>Энэ нь дуудлага, сонсгол, CEFR-ийн түвшин батлагдсан гэсэн дүн биш. '+
   esc(misses)+'Суралцах ахиц энэ төхөөрөмж дээр хадгалагдсан.</p>'+
   '<p>Алдсан хариултууд: '+Object.values(s.mistakes).reduce((a,b)=>a+b,0)+
   ' · Картын сан: '+Object.keys(profile.review_queue).length+'</p>'+
-  (getLesson("A0-T01-L0"+(lesson.order+1))?
+  (pack.lessons.some(l=>l.order===lesson.order+1)?
     button("Дараагийн хичээл →","next-lesson","primary"):"")+
   button("Энэ хичээлийг дахин үзэх","repeat-lesson","muted")+
   button("Хичээлийн жагсаалт руу","close","muted")+
@@ -438,10 +438,18 @@ async function boot(){
   const resp=await fetch("./lesson-a0-t01-first3.draft.json",{cache:"no-store"});
   if(!resp.ok)throw Error("Lesson pack HTTP "+resp.status);
   const d=await resp.json();
+  // Additional draft pack: preserve v0.2.0 localStorage, IDs and prior lessons.
+  const additional=await fetch("./lesson-a0-t01-l04.draft.json",{cache:"no-store"});
+  if(!additional.ok)throw Error("Additional lesson HTTP "+additional.status);
+  const ext=await additional.json();
+  const lessons=[...d.lessons,...ext.lessons].sort((a,b)=>a.order-b.order);
   if(d.status!=="FIRST_3_LESSON_INTERACTIVE_PREVIEW_NOT_LINGUISTIC_OR_AUDIO_RELEASE" ||
-      d.lessons.length!==3 || d.lessons.some(l=>l.steps.length!==9||
-        l.steps.some(s=>!supportedTypes.has(s.type))))throw Error("Unexpected lesson data schema");
-  pack=d;profile=load();started=true;
+     ext.publication?.approved!==false || ext.publication?.published!==false ||
+     lessons.some((l,i)=>l.order!==i+1 || l.steps.length!==9 ||
+       l.steps.some(s=>!supportedTypes.has(s.type))) ||
+     new Set(lessons.map(l=>l.lesson_id)).size!==lessons.length)
+     throw Error("Unexpected lesson data schema");
+  pack={...d,lessons};profile=load();started=true;
   bindRoot();
   window.dispatchEvent(new CustomEvent("ahoj:course-ready"));
  }catch(err){blocked=true;console.error("Course preview not loaded",err);}
