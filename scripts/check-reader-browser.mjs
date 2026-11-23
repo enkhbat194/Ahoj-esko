@@ -326,6 +326,8 @@ try {
   {
     const {readFileSync}=await import("node:fs");
     const course=JSON.parse(readFileSync("public/cesky-reading-uiux/lesson-a0-t01-first3.draft.json","utf8"));
+     const addition=JSON.parse(readFileSync("public/cesky-reading-uiux/lesson-a0-t01-l04.draft.json","utf8"));
+     course.lessons.push(...addition.lessons);
     const cp=await browser.newPage({viewport:{width:390,height:844},deviceScaleFactor:1});
     const errs=[];
     cp.on("pageerror",e=>errs.push(e.message));
@@ -352,8 +354,8 @@ try {
     await cp.locator('[data-tab="stages"]').click();
     await cp.locator(".chapter-cta[data-chapter-start='0']").click();
     await cp.locator("#lessonOutlineTrack").waitFor();
-    assert.equal(await cp.locator("[data-lesson-start]").count(),3,
-      "Exactly first three canonical A0 lessons must be tappable; later outlines remain non-functional");
+    assert.equal(await cp.locator("[data-lesson-start]").count(),4,
+      "Exactly first four canonical A0 lessons must be tappable; later outlines remain non-functional");
     await cp.locator('[data-lesson-start="A0-T01-L01"]').click();
     await cp.locator("#course-lab-overlay:not([hidden])").waitFor();
     await cp.screenshot({path:"test-artifacts/a0-first-lesson-390.png"});
@@ -429,15 +431,15 @@ try {
       if(li<course.lessons.length-1)await cp.locator('[data-cl-action="next-lesson"]').click();
     }
     const progress=await cp.evaluate(()=>window.AhojLessonLab.getProgress());
-    assert.deepEqual(course.lessons.map(x=>progress.lessons[x.lesson_id].finished),[true,true,true]);
-    assert.ok(Object.keys(progress.review_queue).length>=12,"Lesson words must be added to review queue");
+    assert.deepEqual(course.lessons.map(x=>progress.lessons[x.lesson_id].finished),[true,true,true,true]);
+    assert.ok(Object.keys(progress.review_queue).length>=16,"Lesson words must be added to review queue");
     assert.ok(Object.values(progress.lessons).every(x=>x.status==="PRACTICE_COMPLETE_NOT_CERTIFIED"));
     assert.ok(Object.values(progress.lessons).every(x=>x.audio_events.length>=1));
     assert.ok(Object.values(progress.lessons).every(x=>x.speech_attempts.length===1));
     await cp.locator('[data-cl-action="close"]').click();
     await cp.locator('[data-tab="cards"]').click();
     await cp.locator("#a0-lesson-course-cards").waitFor();
-    assert.ok(await cp.locator(".cl-course-card").count()>=12,
+    assert.ok(await cp.locator(".cl-course-card").count()>=16,
       "Completed lesson words must appear as deduplicated Cards tab entries");
     await cp.locator(".cl-course-reveal").first().click();
     assert.equal(await cp.locator(".cl-course-meaning").count(),1,
@@ -448,7 +450,7 @@ try {
     assert.deepEqual((await cp.evaluate(()=>window.AhojLessonLab.getStatus().completed)).sort(),
       course.lessons.map(l=>l.lesson_id).sort(),"Lesson progress must survive reload");
     assert.deepEqual(errs,[],"Browser course JS errors: "+errs.join("; "));
-    console.log("PASS mobile A0 course: L01 L02 L03 all 27 real steps, wrong-answer correction, mocked TTS/STT, flashcards, no false mastery and persisted storage");
+    console.log("PASS mobile A0 course: L01 L02 L03 L04 all 36 real steps, wrong-answer correction, mocked TTS/STT, flashcards, no false mastery and persisted storage");
     await cp.close();
   }
 
