@@ -175,3 +175,20 @@ CEFR-ийн өөрөө гүйцэтгэх зорилт, нөхцөлд ажил�
 **Аудио чаттай интерфейс:** `utterance_id/form_id` болон `audio_asset_id=null` хэвээр; энэ өөрчлөлт ElevenLabs, Drive, R2, speechSynthesis, TTS service-ийг дуудаагүй. Уншлагын ирээдүйн аудио зөвхөн эрэгтэй хоолойтой байна.
 
 **Дараагийн нэг кодын ажил:** энэ branch-д хийсэн Reader Lab-ийг бодит браузерт E2E тестлэх; дараа нь Чех/Монгол редакцын review, эх сурвалжийг баталгаажуулах. Үүний дараа production уншлагад агуулгыг нэмэх эрхийг салгаж шийднэ.
+
+
+## 2026-11-23 — Mobile Safari screenshot defects: Reader Lab v2
+
+Хэрэглэгчийн iPhone дэлгэцийн зургаар 6 асуудал тодорхой болсон:
+1. Дэлгэц zoom/өргөнөөрөө хальж, жижгэрч/томордог: `viewport maximum-scale=1`, `user-scalable=no`, WebKit `gesturestart/gesturechange`-ийн санамсаргүй pinch-ийг блоклож, CSS overflow-x guard/16px input нэмж өөрчилсөн. **Бодит Safari accessibility/browser override-г 100% хорьсон гэж батлахгүй.** Аппын өөрийн Tt үсгийн хэмжээг тохируулж болно.
+2. Шинэ 3 уншлага тусдаа том shelf болж харагдаж байсан: `decorateReadingView` шинэ гурвыг `.books-grid` дотор **хуучин 2 номтой яг адилхан `.book-card`** layout-д нэмж оруулсан. Count pill = 5, preview search-д шинэ номыг олох тусгай нөхцөл нэмж өгсөн.
+3. Шинэ 3 ном тоглуулагчгүй байсан: `reader-lab-ui.mjs` нь одоо `window.AhojReaderExperience.mount` — **нэг shared player** ашиглана; browser орчуулга, Чех үг дарах контекст толь, optional comprehension quiz, chapter finished, глобал flashcard бүгд хадгалагдсан.
+4. Хуучин 2 номын TTS урт chunk-д үг алгасаж магадгүй байсан: `reader-experience.js` нь одоо **бүтэн өгүүлбэр бүрийг тусдаа SpeechSynthesisUtterance** болгон уншина, cs-CZ language tag, хэрэглэх боломжтой Чех device voice-г хайна; `getVoices()` хоосон байх iOS нөхцөлд дууг шууд хаахгүй, language-tagged fallback туршина. Бодит `wordTimings` байхгүй бол үгийн хугацааг таамгаар зохиохгүй; TTS үед алгасах товч нь секунд биш **өмнөх/дараагийн өгүүлбэр** рүү шилжинэ. **Дууны бодит Чех зөв дуудлага, эрэгтэй хүйсийг Safari browser-оор батлах боломжгүй**; үндсэн урт хугацааны male-only audio factory нь тусдаа.
+5. Lesson topic дарахад 140 skill-ийн нэр асар урт list харагддаг: `showTopicOutline` одоо том карттай, хэвтээ swipe/counter arrows-тай `lesson-outline-track` ба status = `ХИЧЭЭЛИЙН ЗУРАГЛАЛ`, unpublished courseware-г бэлэн мэт дүрслэхгүй.
+6. Guided reading: toggle асаалттай үед төвийн товч **🎙 микрофон**, сонсож байх үед pulse-style; `#ar-word-help` гацсан одоогийн үгийг TTS-ээр тусад нь уншина, дуусаад `startGuidedRecognition` автоматаар дахин дуудна; iOS WebKit авто STT хоригловол Retry remain available. `#ar-guided-skip` одоогийн үгийг алгасаад дараагийн үг рүү орно, **зөв дуудсан гэж оноо өгөхгүй**. Гол товч дарснаар guide mode цуцлагдахгүй, recording pause/resume хийдэг.
+
+**Шалгалтын бодит нотолгоо:** `.github/workflows/reader-browser.yml` PR дээр ажиллаж, `scripts/check-reader-browser.mjs` Chromium 320/390/428 px, native file audio seek, mocked Czech SpeechSynthesis+STT, Reader Lab 5 book integration, text-to-context glossary, cards and dictionary, viewport width overflow assertion-ыг шалгасан. Run #45174002347 **PASS** (screenshot artifacts: `reader-five-books-390.png`, `reader-unified-player-390.png`, `reader-cards-dictionary-390.png`). Standard CI run #45174002323 PASS at commit `1f9fe9f82b1b8b78effc0f23c0794df3d2266de6`. **Chromium mocked voice ≠ hardware Safari real Czech pronunciation.**
+
+**Render:** өмнөх `ahoj-reader-lab-preview-20261123` Render free service-ийг л ашиглана. Автомат branch webhook шинэ commit-үүдийг өөрөө build хийгээгүй тул Render cache-clear redeploy `dep-dc2326cs728c73drolmg` trigger хийсэн, latest commit-д бэхэлсэн. LIVE status тусад нь баталгаажуулах ёстой. Үндсэн main болон production сервер хөндөгдөөгүй; PR #32 DRAFT; ElevenLabs/Drive/R2-аас аудио татсан/нийтэлсэн зүйлгүй.
+
+**Нийтлэхээс өмнө:** Czech/Mongolian editorial, техник Safari аппаратын TTS дуудлагын шалгалт, male narration WAV mapping, pronunciation scoring calibration, login-synced persistence хангалтгүй хэвээр.
