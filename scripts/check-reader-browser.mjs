@@ -435,6 +435,14 @@ try {
     assert.ok(Object.values(progress.lessons).every(x=>x.audio_events.length>=1));
     assert.ok(Object.values(progress.lessons).every(x=>x.speech_attempts.length===1));
     await cp.locator('[data-cl-action="close"]').click();
+    await cp.locator('[data-tab="cards"]').click();
+    await cp.locator("#a0-lesson-course-cards").waitFor();
+    assert.ok(await cp.locator(".cl-course-card").count()>=12,
+      "Completed lesson words must appear as deduplicated Cards tab entries");
+    await cp.locator(".cl-course-reveal").first().click();
+    assert.equal(await cp.locator(".cl-course-meaning").count(),1,
+      "Card answer must display when revealed");
+    await cp.screenshot({path:"test-artifacts/a0-lesson-card-review-390.png"});
     await cp.reload({waitUntil:"domcontentloaded"});
     await cp.waitForFunction(()=>window.AhojLessonLab?.getStatus()?.initialized===true);
     assert.deepEqual((await cp.evaluate(()=>window.AhojLessonLab.getStatus().completed)).sort(),
