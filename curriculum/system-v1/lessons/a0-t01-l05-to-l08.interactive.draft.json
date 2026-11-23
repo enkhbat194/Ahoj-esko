@@ -1,0 +1,1300 @@
+{
+  "schema_version": "0.2.0",
+  "course_id": "AHOJ-A0-COURSE-PILOT",
+  "topic_id": "A0-T01",
+  "level": "A0",
+  "status": "L05_L08_INTERACTIVE_DRAFT_NOT_AUDIO_OR_EDITORIAL_RELEASE",
+  "publication": {
+    "approved": false,
+    "published": false,
+    "audio_qa": "PENDING"
+  },
+  "lessons": [
+    {
+      "lesson_id": "A0-T01-L05",
+      "source_micro_skill_id": "A0-T01-L05",
+      "topic_id": "A0-T01",
+      "session_id": "A0-S002",
+      "level": "A0/Pre-A1",
+      "order": 5,
+      "title_mn": "C/Č, S/Š, Z/Ž-ийг ялгах",
+      "can_do_mn": "Энгийн ба тэмдэгтэй c/č, s/š, z/ž үсгийг үг дотор ялгаж, бичихдээ тэмдэглэгээг алдахгүй байх.",
+      "focus": [
+        "c/č",
+        "s/š",
+        "z/ž"
+      ],
+      "estimated_minutes_trial": [
+        12,
+        18
+      ],
+      "content_status": "ORIGINAL_TEACHING_DRAFT_CZ_MN_EDITOR_PENDING",
+      "approved": false,
+      "published": false,
+      "words": [
+        {
+          "form_cs": "cena",
+          "meaning_mn_context": "үнэ",
+          "audio_asset_id": null,
+          "editorial_status": "PENDING"
+        },
+        {
+          "form_cs": "čaj",
+          "meaning_mn_context": "цай",
+          "audio_asset_id": null,
+          "editorial_status": "PENDING"
+        },
+        {
+          "form_cs": "sýr",
+          "meaning_mn_context": "бяслаг",
+          "audio_asset_id": null,
+          "editorial_status": "PENDING"
+        },
+        {
+          "form_cs": "šála",
+          "meaning_mn_context": "ороолт",
+          "audio_asset_id": null,
+          "editorial_status": "PENDING"
+        },
+        {
+          "form_cs": "zima",
+          "meaning_mn_context": "өвөл",
+          "audio_asset_id": null,
+          "editorial_status": "PENDING"
+        },
+        {
+          "form_cs": "žena",
+          "meaning_mn_context": "эмэгтэй хүн",
+          "audio_asset_id": null,
+          "editorial_status": "PENDING"
+        }
+      ],
+      "steps": [
+        {
+          "step_id": "L05-S01",
+          "type": "model",
+          "title_mn": "Үгийг бодит хэрэглээнд таних",
+          "description_mn": "Үг бүрийн бичлэг, Монгол утгыг холбож, онцгой үсэг дээр анхаар. Төхөөрөмжийн хоолой зөв дуудлагын баталгаа биш.",
+          "examples": [
+            {
+              "text_cs": "cena",
+              "meaning_mn": "үнэ",
+              "focus": "c",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "čaj",
+              "meaning_mn": "цай",
+              "focus": "č",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "sýr",
+              "meaning_mn": "бяслаг",
+              "focus": "s",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "šála",
+              "meaning_mn": "ороолт",
+              "focus": "š",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "zima",
+              "meaning_mn": "өвөл",
+              "focus": "z",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "žena",
+              "meaning_mn": "эмэгтэй хүн",
+              "focus": "ž",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            }
+          ],
+          "completion_rule": "MODEL_EXAMPLES_OPENED"
+        },
+        {
+          "step_id": "L05-S02",
+          "type": "choice",
+          "title_mn": "Зөв бичлэгийг сонго",
+          "prompt_mn": "«цай» гэсэн үг аль бичлэгтэй вэ?",
+          "options": [
+            {
+              "id": "caj",
+              "text": "caj"
+            },
+            {
+              "id": "čaj",
+              "text": "čaj"
+            },
+            {
+              "id": "zaj",
+              "text": "zaj"
+            }
+          ],
+          "answer_id": "čaj",
+          "feedback_mn": "č тэмдэглэгээ утгыг зөв бичихэд зайлшгүй."
+        },
+        {
+          "step_id": "L05-S03",
+          "type": "flashcards",
+          "title_mn": "Таамаглаад карт нээ",
+          "prompt_mn": "Утгыг харахаас өмнө өөрөө бод. Карт бүрийг эргүүлээд өөрийгөө шалга.",
+          "items": [
+            {
+              "text_cs": "cena",
+              "meaning_mn": "үнэ",
+              "focus": "c",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "čaj",
+              "meaning_mn": "цай",
+              "focus": "č",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "sýr",
+              "meaning_mn": "бяслаг",
+              "focus": "s",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "šála",
+              "meaning_mn": "ороолт",
+              "focus": "š",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "zima",
+              "meaning_mn": "өвөл",
+              "focus": "z",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "žena",
+              "meaning_mn": "эмэгтэй хүн",
+              "focus": "ž",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            }
+          ],
+          "completion_rule": "ALL_CARDS_OPENED_NOT_MASTERY"
+        },
+        {
+          "step_id": "L05-S04",
+          "type": "listen_choice",
+          "title_mn": "Чихээр сонсох оролдлого",
+          "prompt_mn": "Сонсох товчийг дараад тохирох Чех бичвэрийг сонго. Төхөөрөмжийн хоолой түр орлуулга.",
+          "utterance": {
+            "text_cs": "šála",
+            "audio_asset_id": null,
+            "tts_fallback_locale": "cs-CZ",
+            "production_audio_status": "MISSING_UNVERIFIED"
+          },
+          "options": [
+            {
+              "id": "cena",
+              "text": "cena"
+            },
+            {
+              "id": "šála",
+              "text": "šála"
+            },
+            {
+              "id": "žena",
+              "text": "žena"
+            }
+          ],
+          "answer_id": "šála",
+          "feedback_mn": "šála — сонсголын туршилтын сонголт. Дуудлагын баталгаажуулалт хүлээгдэж байна.",
+          "evidence_gate": "AUDIO_PLAY_EVENT_REQUIRED",
+          "production_verified": false
+        },
+        {
+          "step_id": "L05-S05",
+          "type": "match",
+          "title_mn": "Үг ба утгыг тааруул",
+          "prompt_mn": "Чех хэллэгийг Монгол утгатай нь зөв холбож шалга.",
+          "pairs": [
+            {
+              "text_cs": "cena",
+              "meaning_mn": "үнэ"
+            },
+            {
+              "text_cs": "čaj",
+              "meaning_mn": "цай"
+            },
+            {
+              "text_cs": "sýr",
+              "meaning_mn": "бяслаг"
+            },
+            {
+              "text_cs": "šála",
+              "meaning_mn": "ороолт"
+            },
+            {
+              "text_cs": "zima",
+              "meaning_mn": "өвөл"
+            },
+            {
+              "text_cs": "žena",
+              "meaning_mn": "эмэгтэй хүн"
+            }
+          ],
+          "feedback_mn": "Бүх үгийг зөв утгатай холбосон."
+        },
+        {
+          "step_id": "L05-S06",
+          "type": "order",
+          "title_mn": "Үгийн бүтэц",
+          "prompt_mn": "«үнэ» үгийг үсэг бүрээр эвлүүл. Тэмдэгтэй үсгийг яг хэвээр нь ашигла.",
+          "target_cs": "cena",
+          "tiles": [
+            {
+              "id": "L05-S06-t0",
+              "text": "a"
+            },
+            {
+              "id": "L05-S06-t1",
+              "text": "n"
+            },
+            {
+              "id": "L05-S06-t2",
+              "text": "e"
+            },
+            {
+              "id": "L05-S06-t3",
+              "text": "c"
+            }
+          ],
+          "correct_sequence": [
+            "c",
+            "e",
+            "n",
+            "a"
+          ],
+          "feedback_mn": "Зөв Чех бичлэг: cena"
+        },
+        {
+          "step_id": "L05-S07",
+          "type": "cloze",
+          "title_mn": "Дутуу тэмдэглэгээг нөх",
+          "prompt_mn": "_ima — өвөл. Хоосон үсгийг тэмдэгтэй нь нөх.",
+          "pattern_cs": "_ima",
+          "answer_cs": "z",
+          "feedback_mn": "Зөв хариулт: z. Тэмдэгтэй үсгийг тусдаа бичдэг."
+        },
+        {
+          "step_id": "L05-S08",
+          "type": "choice",
+          "title_mn": "Шинэ нөхцөлд шилжүүлэх",
+          "prompt_mn": "«žába» (мэлхий) үгийн эхний үсэг аль нь вэ?",
+          "options": [
+            {
+              "id": "z",
+              "text": "z"
+            },
+            {
+              "id": "ž",
+              "text": "ž"
+            },
+            {
+              "id": "š",
+              "text": "š"
+            }
+          ],
+          "answer_id": "ž",
+          "feedback_mn": "Өмнө үзээгүй жишээний үсгийг зөв танилаа."
+        },
+        {
+          "step_id": "L05-S09",
+          "type": "speak",
+          "title_mn": "Өөрөө дуудах оролдлого",
+          "prompt_mn": "«žena» гэдгийг хэлж үз. Бичвэр зөв танигдсан ч авиа бүрийг зөв дуудсан гэсэн дүн биш.",
+          "target_cs": "žena",
+          "translation_mn": "эмэгтэй хүн",
+          "audio_asset_id": null,
+          "locale": "cs-CZ",
+          "evaluation": "ATTEMPT_ONLY_STT_TRANSCRIPT_NOT_PHONETIC_GRADE",
+          "completion_rule": "MIC_ATTEMPT_OR_UNAVAILABLE_FLAG"
+        }
+      ],
+      "pass_rule": {
+        "automatically_graded_min_correct": 5,
+        "allowed_retries": "UNLIMITED",
+        "completion_requires_all_steps": true,
+        "audio_confidence": "BROWSER_TTS_UNVERIFIED_CANNOT_CERTIFY_PHONEMIC_LISTENING",
+        "pronunciation_certification": false
+      },
+      "source_warnings": [
+        "Original editorial draft; native Czech and phonetic QA pending."
+      ]
+    },
+    {
+      "lesson_id": "A0-T01-L06",
+      "source_micro_skill_id": "A0-T01-L06",
+      "topic_id": "A0-T01",
+      "session_id": "A0-S002",
+      "level": "A0/Pre-A1",
+      "order": 6,
+      "title_mn": "Ď, Ť, Ň авиаг хэлэх",
+      "can_do_mn": "ď, ť, ň тэмдэг болон dě/tě/ně бичлэгийн ялгааг таньж, Чех үгийг хэлэх оролдлого хийх.",
+      "focus": [
+        "ď",
+        "ť",
+        "ň",
+        "dě/tě/ně"
+      ],
+      "estimated_minutes_trial": [
+        12,
+        18
+      ],
+      "content_status": "ORIGINAL_TEACHING_DRAFT_CZ_MN_EDITOR_PENDING",
+      "approved": false,
+      "published": false,
+      "words": [
+        {
+          "form_cs": "loď",
+          "meaning_mn_context": "усан онгоц",
+          "audio_asset_id": null,
+          "editorial_status": "PENDING"
+        },
+        {
+          "form_cs": "chuť",
+          "meaning_mn_context": "амт",
+          "audio_asset_id": null,
+          "editorial_status": "PENDING"
+        },
+        {
+          "form_cs": "kůň",
+          "meaning_mn_context": "морь",
+          "audio_asset_id": null,
+          "editorial_status": "PENDING"
+        },
+        {
+          "form_cs": "děti",
+          "meaning_mn_context": "хүүхдүүд",
+          "audio_asset_id": null,
+          "editorial_status": "PENDING"
+        },
+        {
+          "form_cs": "tělo",
+          "meaning_mn_context": "бие",
+          "audio_asset_id": null,
+          "editorial_status": "PENDING"
+        },
+        {
+          "form_cs": "něco",
+          "meaning_mn_context": "ямар нэг зүйл",
+          "audio_asset_id": null,
+          "editorial_status": "PENDING"
+        }
+      ],
+      "steps": [
+        {
+          "step_id": "L06-S01",
+          "type": "model",
+          "title_mn": "Үгийг бодит хэрэглээнд таних",
+          "description_mn": "Дээрээ тэмдэгтэй ď, ť, ň-ийг анзаар. dě, tě, ně бичлэгийн үед дуудах арга нь өөр; browser TTS баталгаатай багш биш.",
+          "examples": [
+            {
+              "text_cs": "loď",
+              "meaning_mn": "усан онгоц",
+              "focus": "ď",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "chuť",
+              "meaning_mn": "амт",
+              "focus": "ť",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "kůň",
+              "meaning_mn": "морь",
+              "focus": "ň",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "děti",
+              "meaning_mn": "хүүхдүүд",
+              "focus": "dě",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "tělo",
+              "meaning_mn": "бие",
+              "focus": "tě",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "něco",
+              "meaning_mn": "ямар нэг зүйл",
+              "focus": "ně",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            }
+          ],
+          "completion_rule": "MODEL_EXAMPLES_OPENED"
+        },
+        {
+          "step_id": "L06-S02",
+          "type": "choice",
+          "title_mn": "Зөв бичлэгийг сонго",
+          "prompt_mn": "«морь» гэсэн үг төгсгөлдөө ямар үсэгтэй вэ?",
+          "options": [
+            {
+              "id": "n",
+              "text": "n"
+            },
+            {
+              "id": "ň",
+              "text": "ň"
+            },
+            {
+              "id": "ť",
+              "text": "ť"
+            }
+          ],
+          "answer_id": "ň",
+          "feedback_mn": "kůň — сүүлдээ ň үсэгтэй."
+        },
+        {
+          "step_id": "L06-S03",
+          "type": "flashcards",
+          "title_mn": "Таамаглаад карт нээ",
+          "prompt_mn": "Утгыг харахаас өмнө өөрөө бод. Карт бүрийг эргүүлээд өөрийгөө шалга.",
+          "items": [
+            {
+              "text_cs": "loď",
+              "meaning_mn": "усан онгоц",
+              "focus": "ď",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "chuť",
+              "meaning_mn": "амт",
+              "focus": "ť",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "kůň",
+              "meaning_mn": "морь",
+              "focus": "ň",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "děti",
+              "meaning_mn": "хүүхдүүд",
+              "focus": "dě",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "tělo",
+              "meaning_mn": "бие",
+              "focus": "tě",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "něco",
+              "meaning_mn": "ямар нэг зүйл",
+              "focus": "ně",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            }
+          ],
+          "completion_rule": "ALL_CARDS_OPENED_NOT_MASTERY"
+        },
+        {
+          "step_id": "L06-S04",
+          "type": "listen_choice",
+          "title_mn": "Чихээр сонсох оролдлого",
+          "prompt_mn": "Сонсох товчийг дараад тохирох Чех бичвэрийг сонго. Төхөөрөмжийн хоолой түр орлуулга.",
+          "utterance": {
+            "text_cs": "loď",
+            "audio_asset_id": null,
+            "tts_fallback_locale": "cs-CZ",
+            "production_audio_status": "MISSING_UNVERIFIED"
+          },
+          "options": [
+            {
+              "id": "loď",
+              "text": "loď"
+            },
+            {
+              "id": "něco",
+              "text": "něco"
+            }
+          ],
+          "answer_id": "loď",
+          "feedback_mn": "loď — сонсголын туршилтын сонголт. Дуудлагын баталгаажуулалт хүлээгдэж байна.",
+          "evidence_gate": "AUDIO_PLAY_EVENT_REQUIRED",
+          "production_verified": false
+        },
+        {
+          "step_id": "L06-S05",
+          "type": "match",
+          "title_mn": "Үг ба утгыг тааруул",
+          "prompt_mn": "Чех хэллэгийг Монгол утгатай нь зөв холбож шалга.",
+          "pairs": [
+            {
+              "text_cs": "loď",
+              "meaning_mn": "усан онгоц"
+            },
+            {
+              "text_cs": "chuť",
+              "meaning_mn": "амт"
+            },
+            {
+              "text_cs": "kůň",
+              "meaning_mn": "морь"
+            },
+            {
+              "text_cs": "děti",
+              "meaning_mn": "хүүхдүүд"
+            },
+            {
+              "text_cs": "tělo",
+              "meaning_mn": "бие"
+            },
+            {
+              "text_cs": "něco",
+              "meaning_mn": "ямар нэг зүйл"
+            }
+          ],
+          "feedback_mn": "Бүх үгийг зөв утгатай холбосон."
+        },
+        {
+          "step_id": "L06-S06",
+          "type": "order",
+          "title_mn": "Үгийн бүтэц",
+          "prompt_mn": "«морь» үгийг үсэг бүрээр эвлүүл. Тэмдэгтэй үсгийг яг хэвээр нь ашигла.",
+          "target_cs": "kůň",
+          "tiles": [
+            {
+              "id": "L06-S06-t0",
+              "text": "ň"
+            },
+            {
+              "id": "L06-S06-t1",
+              "text": "ů"
+            },
+            {
+              "id": "L06-S06-t2",
+              "text": "k"
+            }
+          ],
+          "correct_sequence": [
+            "k",
+            "ů",
+            "ň"
+          ],
+          "feedback_mn": "Зөв Чех бичлэг: kůň"
+        },
+        {
+          "step_id": "L06-S07",
+          "type": "cloze",
+          "title_mn": "Дутуу тэмдэглэгээг нөх",
+          "prompt_mn": "lo_ — усан онгоц. Хоосон үсгийг тэмдэгтэй нь нөх.",
+          "pattern_cs": "lo_",
+          "answer_cs": "ď",
+          "feedback_mn": "Зөв хариулт: ď. Тэмдэгтэй үсгийг тусдаа бичдэг."
+        },
+        {
+          "step_id": "L06-S08",
+          "type": "choice",
+          "title_mn": "Шинэ нөхцөлд шилжүүлэх",
+          "prompt_mn": "«ťuk» (тогших чимээ) ямар үсгээр эхэлж байна вэ?",
+          "options": [
+            {
+              "id": "t",
+              "text": "t"
+            },
+            {
+              "id": "ť",
+              "text": "ť"
+            },
+            {
+              "id": "ď",
+              "text": "ď"
+            }
+          ],
+          "answer_id": "ť",
+          "feedback_mn": "Өмнө үзээгүй жишээний үсгийг зөв танилаа."
+        },
+        {
+          "step_id": "L06-S09",
+          "type": "speak",
+          "title_mn": "Өөрөө дуудах оролдлого",
+          "prompt_mn": "«děti» гэдгийг хэлж үз. Бичвэр зөв танигдсан ч авиа бүрийг зөв дуудсан гэсэн дүн биш.",
+          "target_cs": "děti",
+          "translation_mn": "хүүхдүүд",
+          "audio_asset_id": null,
+          "locale": "cs-CZ",
+          "evaluation": "ATTEMPT_ONLY_STT_TRANSCRIPT_NOT_PHONETIC_GRADE",
+          "completion_rule": "MIC_ATTEMPT_OR_UNAVAILABLE_FLAG"
+        }
+      ],
+      "pass_rule": {
+        "automatically_graded_min_correct": 5,
+        "allowed_retries": "UNLIMITED",
+        "completion_requires_all_steps": true,
+        "audio_confidence": "BROWSER_TTS_UNVERIFIED_CANNOT_CERTIFY_PHONEMIC_LISTENING",
+        "pronunciation_certification": false
+      },
+      "source_warnings": [
+        "Original editorial draft; native Czech and phonetic QA pending."
+      ]
+    },
+    {
+      "lesson_id": "A0-T01-L07",
+      "source_micro_skill_id": "A0-T01-L07",
+      "topic_id": "A0-T01",
+      "session_id": "A0-S003",
+      "level": "A0/Pre-A1",
+      "order": 7,
+      "title_mn": "R ба Ř авиаг таньж дуудах",
+      "can_do_mn": "r ба ř үсгийг үгийн бичлэгээс ялгах, утгатай үг дотор хэлэх оролдлого хийх.",
+      "focus": [
+        "r",
+        "ř"
+      ],
+      "estimated_minutes_trial": [
+        12,
+        18
+      ],
+      "content_status": "ORIGINAL_TEACHING_DRAFT_CZ_MN_EDITOR_PENDING",
+      "approved": false,
+      "published": false,
+      "words": [
+        {
+          "form_cs": "ruka",
+          "meaning_mn_context": "гар",
+          "audio_asset_id": null,
+          "editorial_status": "PENDING"
+        },
+        {
+          "form_cs": "řeka",
+          "meaning_mn_context": "гол мөрөн",
+          "audio_asset_id": null,
+          "editorial_status": "PENDING"
+        },
+        {
+          "form_cs": "ráno",
+          "meaning_mn_context": "өглөө",
+          "audio_asset_id": null,
+          "editorial_status": "PENDING"
+        },
+        {
+          "form_cs": "řidič",
+          "meaning_mn_context": "жолооч",
+          "audio_asset_id": null,
+          "editorial_status": "PENDING"
+        },
+        {
+          "form_cs": "ryba",
+          "meaning_mn_context": "загас",
+          "audio_asset_id": null,
+          "editorial_status": "PENDING"
+        }
+      ],
+      "steps": [
+        {
+          "step_id": "L07-S01",
+          "type": "model",
+          "title_mn": "Үгийг бодит хэрэглээнд таних",
+          "description_mn": "Үг бүрийн бичлэг, Монгол утгыг холбож, онцгой үсэг дээр анхаар. Төхөөрөмжийн хоолой зөв дуудлагын баталгаа биш.",
+          "examples": [
+            {
+              "text_cs": "ruka",
+              "meaning_mn": "гар",
+              "focus": "r",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "řeka",
+              "meaning_mn": "гол мөрөн",
+              "focus": "ř",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "ráno",
+              "meaning_mn": "өглөө",
+              "focus": "r",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "řidič",
+              "meaning_mn": "жолооч",
+              "focus": "ř",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "ryba",
+              "meaning_mn": "загас",
+              "focus": "r",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            }
+          ],
+          "completion_rule": "MODEL_EXAMPLES_OPENED"
+        },
+        {
+          "step_id": "L07-S02",
+          "type": "choice",
+          "title_mn": "Зөв бичлэгийг сонго",
+          "prompt_mn": "«гол мөрөн» гэсэн үг аль үсгээр эхэлдэг вэ?",
+          "options": [
+            {
+              "id": "r",
+              "text": "r"
+            },
+            {
+              "id": "ř",
+              "text": "ř"
+            },
+            {
+              "id": "ž",
+              "text": "ž"
+            }
+          ],
+          "answer_id": "ř",
+          "feedback_mn": "řeka — ř үсгээр эхэлнэ."
+        },
+        {
+          "step_id": "L07-S03",
+          "type": "flashcards",
+          "title_mn": "Таамаглаад карт нээ",
+          "prompt_mn": "Утгыг харахаас өмнө өөрөө бод. Карт бүрийг эргүүлээд өөрийгөө шалга.",
+          "items": [
+            {
+              "text_cs": "ruka",
+              "meaning_mn": "гар",
+              "focus": "r",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "řeka",
+              "meaning_mn": "гол мөрөн",
+              "focus": "ř",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "ráno",
+              "meaning_mn": "өглөө",
+              "focus": "r",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "řidič",
+              "meaning_mn": "жолооч",
+              "focus": "ř",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "ryba",
+              "meaning_mn": "загас",
+              "focus": "r",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            }
+          ],
+          "completion_rule": "ALL_CARDS_OPENED_NOT_MASTERY"
+        },
+        {
+          "step_id": "L07-S04",
+          "type": "listen_choice",
+          "title_mn": "Чихээр сонсох оролдлого",
+          "prompt_mn": "Сонсох товчийг дараад тохирох Чех бичвэрийг сонго. Төхөөрөмжийн хоолой түр орлуулга.",
+          "utterance": {
+            "text_cs": "řeka",
+            "audio_asset_id": null,
+            "tts_fallback_locale": "cs-CZ",
+            "production_audio_status": "MISSING_UNVERIFIED"
+          },
+          "options": [
+            {
+              "id": "ruka",
+              "text": "ruka"
+            },
+            {
+              "id": "řeka",
+              "text": "řeka"
+            },
+            {
+              "id": "ryba",
+              "text": "ryba"
+            }
+          ],
+          "answer_id": "řeka",
+          "feedback_mn": "řeka — сонсголын туршилтын сонголт. Дуудлагын баталгаажуулалт хүлээгдэж байна.",
+          "evidence_gate": "AUDIO_PLAY_EVENT_REQUIRED",
+          "production_verified": false
+        },
+        {
+          "step_id": "L07-S05",
+          "type": "match",
+          "title_mn": "Үг ба утгыг тааруул",
+          "prompt_mn": "Чех хэллэгийг Монгол утгатай нь зөв холбож шалга.",
+          "pairs": [
+            {
+              "text_cs": "ruka",
+              "meaning_mn": "гар"
+            },
+            {
+              "text_cs": "řeka",
+              "meaning_mn": "гол мөрөн"
+            },
+            {
+              "text_cs": "ráno",
+              "meaning_mn": "өглөө"
+            },
+            {
+              "text_cs": "řidič",
+              "meaning_mn": "жолооч"
+            },
+            {
+              "text_cs": "ryba",
+              "meaning_mn": "загас"
+            }
+          ],
+          "feedback_mn": "Бүх үгийг зөв утгатай холбосон."
+        },
+        {
+          "step_id": "L07-S06",
+          "type": "order",
+          "title_mn": "Үгийн бүтэц",
+          "prompt_mn": "«гол мөрөн» үгийг үсэг бүрээр эвлүүл. Тэмдэгтэй үсгийг яг хэвээр нь ашигла.",
+          "target_cs": "řeka",
+          "tiles": [
+            {
+              "id": "L07-S06-t0",
+              "text": "a"
+            },
+            {
+              "id": "L07-S06-t1",
+              "text": "k"
+            },
+            {
+              "id": "L07-S06-t2",
+              "text": "e"
+            },
+            {
+              "id": "L07-S06-t3",
+              "text": "ř"
+            }
+          ],
+          "correct_sequence": [
+            "ř",
+            "e",
+            "k",
+            "a"
+          ],
+          "feedback_mn": "Зөв Чех бичлэг: řeka"
+        },
+        {
+          "step_id": "L07-S07",
+          "type": "cloze",
+          "title_mn": "Дутуу тэмдэглэгээг нөх",
+          "prompt_mn": "_uka — гар. Хоосон үсгийг тэмдэгтэй нь нөх.",
+          "pattern_cs": "_uka",
+          "answer_cs": "r",
+          "feedback_mn": "Зөв хариулт: r. Тэмдэгтэй үсгийг тусдаа бичдэг."
+        },
+        {
+          "step_id": "L07-S08",
+          "type": "choice",
+          "title_mn": "Шинэ нөхцөлд шилжүүлэх",
+          "prompt_mn": "«říjen» (аравдугаар сар) аль үсгээр эхэлж байна вэ?",
+          "options": [
+            {
+              "id": "r",
+              "text": "r"
+            },
+            {
+              "id": "ř",
+              "text": "ř"
+            },
+            {
+              "id": "ž",
+              "text": "ž"
+            }
+          ],
+          "answer_id": "ř",
+          "feedback_mn": "Өмнө үзээгүй жишээний үсгийг зөв танилаа."
+        },
+        {
+          "step_id": "L07-S09",
+          "type": "speak",
+          "title_mn": "Өөрөө дуудах оролдлого",
+          "prompt_mn": "«řidič» гэдгийг хэлж үз. Бичвэр зөв танигдсан ч авиа бүрийг зөв дуудсан гэсэн дүн биш.",
+          "target_cs": "řidič",
+          "translation_mn": "жолооч",
+          "audio_asset_id": null,
+          "locale": "cs-CZ",
+          "evaluation": "ATTEMPT_ONLY_STT_TRANSCRIPT_NOT_PHONETIC_GRADE",
+          "completion_rule": "MIC_ATTEMPT_OR_UNAVAILABLE_FLAG"
+        }
+      ],
+      "pass_rule": {
+        "automatically_graded_min_correct": 5,
+        "allowed_retries": "UNLIMITED",
+        "completion_requires_all_steps": true,
+        "audio_confidence": "BROWSER_TTS_UNVERIFIED_CANNOT_CERTIFY_PHONEMIC_LISTENING",
+        "pronunciation_certification": false
+      },
+      "source_warnings": [
+        "Original editorial draft; native Czech and phonetic QA pending."
+      ]
+    },
+    {
+      "lesson_id": "A0-T01-L08",
+      "source_micro_skill_id": "A0-T01-L08",
+      "topic_id": "A0-T01",
+      "session_id": "A0-S003",
+      "level": "A0/Pre-A1",
+      "order": 8,
+      "title_mn": "Танил бус үгийг унших сорил",
+      "can_do_mn": "А0 эхний 7 хичээлийн үсгийн ялгааг өмнө харж сураагүй Чех үгсийн бичлэгт шилжүүлэн хэрэглэх.",
+      "focus": [
+        "č/š/ž",
+        "ď/ť/ň",
+        "r/ř",
+        "урт эгшиг"
+      ],
+      "estimated_minutes_trial": [
+        12,
+        18
+      ],
+      "content_status": "ORIGINAL_TEACHING_DRAFT_CZ_MN_EDITOR_PENDING",
+      "approved": false,
+      "published": false,
+      "words": [
+        {
+          "form_cs": "číslo",
+          "meaning_mn_context": "тоо",
+          "audio_asset_id": null,
+          "editorial_status": "PENDING"
+        },
+        {
+          "form_cs": "štěstí",
+          "meaning_mn_context": "аз жаргал",
+          "audio_asset_id": null,
+          "editorial_status": "PENDING"
+        },
+        {
+          "form_cs": "židle",
+          "meaning_mn_context": "сандал",
+          "audio_asset_id": null,
+          "editorial_status": "PENDING"
+        },
+        {
+          "form_cs": "řeka",
+          "meaning_mn_context": "гол мөрөн",
+          "audio_asset_id": null,
+          "editorial_status": "PENDING"
+        },
+        {
+          "form_cs": "kůň",
+          "meaning_mn_context": "морь",
+          "audio_asset_id": null,
+          "editorial_status": "PENDING"
+        }
+      ],
+      "steps": [
+        {
+          "step_id": "L08-S01",
+          "type": "model",
+          "title_mn": "Үгийг бодит хэрэглээнд таних",
+          "description_mn": "Энэ бол давтлагын сорил. Үгийн утгыг хараад ямар тэмдэглэгээтэйг анзаар; хэцүү байвал алдаагаа засаж үргэлжлүүл.",
+          "examples": [
+            {
+              "text_cs": "číslo",
+              "meaning_mn": "тоо",
+              "focus": "č",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "štěstí",
+              "meaning_mn": "аз жаргал",
+              "focus": "š/ť",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "židle",
+              "meaning_mn": "сандал",
+              "focus": "ž",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "řeka",
+              "meaning_mn": "гол мөрөн",
+              "focus": "ř",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "kůň",
+              "meaning_mn": "морь",
+              "focus": "ň",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            }
+          ],
+          "completion_rule": "MODEL_EXAMPLES_OPENED"
+        },
+        {
+          "step_id": "L08-S02",
+          "type": "choice",
+          "title_mn": "Зөв бичлэгийг сонго",
+          "prompt_mn": "«сандал» гэсэн үг аль нь вэ?",
+          "options": [
+            {
+              "id": "zidle",
+              "text": "zidle"
+            },
+            {
+              "id": "židle",
+              "text": "židle"
+            },
+            {
+              "id": "šidle",
+              "text": "šidle"
+            }
+          ],
+          "answer_id": "židle",
+          "feedback_mn": "židle — ž үсгийн тэмдэглэгээг хадгална."
+        },
+        {
+          "step_id": "L08-S03",
+          "type": "flashcards",
+          "title_mn": "Таамаглаад карт нээ",
+          "prompt_mn": "Утгыг харахаас өмнө өөрөө бод. Карт бүрийг эргүүлээд өөрийгөө шалга.",
+          "items": [
+            {
+              "text_cs": "číslo",
+              "meaning_mn": "тоо",
+              "focus": "č",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "štěstí",
+              "meaning_mn": "аз жаргал",
+              "focus": "š/ť",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "židle",
+              "meaning_mn": "сандал",
+              "focus": "ž",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "řeka",
+              "meaning_mn": "гол мөрөн",
+              "focus": "ř",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            },
+            {
+              "text_cs": "kůň",
+              "meaning_mn": "морь",
+              "focus": "ň",
+              "tts_fallback_locale": "cs-CZ",
+              "audio_asset_id": null
+            }
+          ],
+          "completion_rule": "ALL_CARDS_OPENED_NOT_MASTERY"
+        },
+        {
+          "step_id": "L08-S04",
+          "type": "listen_choice",
+          "title_mn": "Чихээр сонсох оролдлого",
+          "prompt_mn": "Сонсох товчийг дараад тохирох Чех бичвэрийг сонго. Төхөөрөмжийн хоолой түр орлуулга.",
+          "utterance": {
+            "text_cs": "číslo",
+            "audio_asset_id": null,
+            "tts_fallback_locale": "cs-CZ",
+            "production_audio_status": "MISSING_UNVERIFIED"
+          },
+          "options": [
+            {
+              "id": "číslo",
+              "text": "číslo"
+            },
+            {
+              "id": "kůň",
+              "text": "kůň"
+            }
+          ],
+          "answer_id": "číslo",
+          "feedback_mn": "číslo — сонсголын туршилтын сонголт. Дуудлагын баталгаажуулалт хүлээгдэж байна.",
+          "evidence_gate": "AUDIO_PLAY_EVENT_REQUIRED",
+          "production_verified": false
+        },
+        {
+          "step_id": "L08-S05",
+          "type": "match",
+          "title_mn": "Үг ба утгыг тааруул",
+          "prompt_mn": "Чех хэллэгийг Монгол утгатай нь зөв холбож шалга.",
+          "pairs": [
+            {
+              "text_cs": "číslo",
+              "meaning_mn": "тоо"
+            },
+            {
+              "text_cs": "štěstí",
+              "meaning_mn": "аз жаргал"
+            },
+            {
+              "text_cs": "židle",
+              "meaning_mn": "сандал"
+            },
+            {
+              "text_cs": "řeka",
+              "meaning_mn": "гол мөрөн"
+            },
+            {
+              "text_cs": "kůň",
+              "meaning_mn": "морь"
+            }
+          ],
+          "feedback_mn": "Бүх үгийг зөв утгатай холбосон."
+        },
+        {
+          "step_id": "L08-S06",
+          "type": "order",
+          "title_mn": "Үгийн бүтэц",
+          "prompt_mn": "«аз жаргал» үгийг үсэг бүрээр эвлүүл. Тэмдэгтэй үсгийг яг хэвээр нь ашигла.",
+          "target_cs": "štěstí",
+          "tiles": [
+            {
+              "id": "L08-S06-t0",
+              "text": "í"
+            },
+            {
+              "id": "L08-S06-t1",
+              "text": "t"
+            },
+            {
+              "id": "L08-S06-t2",
+              "text": "s"
+            },
+            {
+              "id": "L08-S06-t3",
+              "text": "ě"
+            },
+            {
+              "id": "L08-S06-t4",
+              "text": "t"
+            },
+            {
+              "id": "L08-S06-t5",
+              "text": "š"
+            }
+          ],
+          "correct_sequence": [
+            "š",
+            "t",
+            "ě",
+            "s",
+            "t",
+            "í"
+          ],
+          "feedback_mn": "Зөв Чех бичлэг: štěstí"
+        },
+        {
+          "step_id": "L08-S07",
+          "type": "cloze",
+          "title_mn": "Дутуу тэмдэглэгээг нөх",
+          "prompt_mn": "_eka — гол мөрөн. Хоосон үсгийг тэмдэгтэй нь нөх.",
+          "pattern_cs": "_eka",
+          "answer_cs": "ř",
+          "feedback_mn": "Зөв хариулт: ř. Тэмдэгтэй үсгийг тусдаа бичдэг."
+        },
+        {
+          "step_id": "L08-S08",
+          "type": "choice",
+          "title_mn": "Шинэ нөхцөлд шилжүүлэх",
+          "prompt_mn": "Өмнө картанд байгаагүй «žlutý» (шар өнгөтэй) үгийн эхний үсэг аль нь вэ?",
+          "options": [
+            {
+              "id": "z",
+              "text": "z"
+            },
+            {
+              "id": "ž",
+              "text": "ž"
+            },
+            {
+              "id": "š",
+              "text": "š"
+            }
+          ],
+          "answer_id": "ž",
+          "feedback_mn": "Өмнө үзээгүй жишээний үсгийг зөв танилаа."
+        },
+        {
+          "step_id": "L08-S09",
+          "type": "speak",
+          "title_mn": "Өөрөө дуудах оролдлого",
+          "prompt_mn": "«štěstí» гэдгийг хэлж үз. Бичвэр зөв танигдсан ч авиа бүрийг зөв дуудсан гэсэн дүн биш.",
+          "target_cs": "štěstí",
+          "translation_mn": "аз жаргал",
+          "audio_asset_id": null,
+          "locale": "cs-CZ",
+          "evaluation": "ATTEMPT_ONLY_STT_TRANSCRIPT_NOT_PHONETIC_GRADE",
+          "completion_rule": "MIC_ATTEMPT_OR_UNAVAILABLE_FLAG"
+        }
+      ],
+      "pass_rule": {
+        "automatically_graded_min_correct": 5,
+        "allowed_retries": "UNLIMITED",
+        "completion_requires_all_steps": true,
+        "audio_confidence": "BROWSER_TTS_UNVERIFIED_CANNOT_CERTIFY_PHONEMIC_LISTENING",
+        "pronunciation_certification": false
+      },
+      "source_warnings": [
+        "Original editorial draft; native Czech and phonetic QA pending."
+      ]
+    }
+  ]
+}
