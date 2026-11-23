@@ -138,3 +138,81 @@
  #course-lab-overlay .cl-flash,
  #course-lab-overlay .cl-progress>div{transition:none}
 }
+
+
+/* Exercise interaction v2 — clear affordances, responsive touch targets,
+   staged explanation and calm pedagogical feedback. */
+#course-lab-overlay .cl-task-type{
+ display:inline-block;margin:12px 0 0;padding:6px 10px;
+ border:1px solid #705139;border-radius:10px;
+ color:#ffcc9b;background:#2e2522;font-size:11px;
+ font-weight:800;letter-spacing:.08em;
+}
+#course-lab-overlay .cl-task-prompt{font-size:clamp(16px,4.5vw,19px);
+ line-height:1.55;font-weight:670;color:#f1edf1}
+#course-lab-overlay details.cl-goal{margin-top:10px;padding:0;
+ border:1px solid #393b46;border-left:3px solid #c68953;overflow:hidden}
+#course-lab-overlay details.cl-goal summary{
+ list-style:none;padding:11px 14px;cursor:pointer;color:#d9d9df;
+ font-size:12px;font-weight:720;min-height:44px;display:flex;
+ align-items:center;justify-content:space-between;gap:14px
+}
+#course-lab-overlay details.cl-goal summary::-webkit-details-marker{display:none}
+#course-lab-overlay details.cl-goal summary::after{content:"⌄";font-size:17px;color:#dfa16e}
+#course-lab-overlay details.cl-goal[open] summary::after{transform:rotate(180deg)}
+#course-lab-overlay details.cl-goal p{margin:0;padding:0 14px 12px;
+ font-size:13px;line-height:1.6;color:#c6c5cf}
+#course-lab-overlay .cl-model-content{display:flex;flex:1;flex-direction:column;align-items:flex-start;gap:7px;min-width:0}
+#course-lab-overlay .cl-model-reveal{font-size:13px;line-height:1.4;
+ font-weight:650;min-height:44px;padding:9px 12px;max-width:100%;
+ border-radius:11px;background:#343137;border:1px dashed #ae8265;
+ color:#f6bb83;text-align:left;overflow-wrap:anywhere}
+#course-lab-overlay .cl-model-reveal.is-revealed{background:#203a33;
+ color:#d3efdf;border:1px solid #467761}
+#course-lab-overlay .cl-match-instruction{font-size:13px;line-height:1.45;
+ font-weight:740;color:#f1c492;background:#302822;border:1px solid #73523b;
+ border-radius:12px;padding:11px 12px;margin:0 0 15px}
+#course-lab-overlay .cl-match-board{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:10px;align-items:start}
+#course-lab-overlay .cl-match-column{display:grid;gap:10px;min-width:0}
+#course-lab-overlay .cl-match-tile{display:flex;align-items:center;justify-content:center;
+ text-align:center;min-height:68px;padding:10px 8px;background:#2e3038;
+ border:1px solid #595b67;border-bottom:3px solid #15161b;border-radius:14px;
+ font-family:inherit;color:#f8f5f7;font-size:clamp(13px,3.6vw,16px);
+ font-weight:700;line-height:1.4;overflow-wrap:anywhere;hyphens:auto;
+ transition:transform .12s ease,border-color .12s ease}
+#course-lab-overlay .cl-match-tile.is-active{background:#49372b;border-color:#f0a76c;
+ box-shadow:0 0 0 2px #ef9d4955}
+#course-lab-overlay .cl-match-tile.is-paired{background:#1d3730;border-color:#4f9876;
+ color:#c2ead3;opacity:.7;border-bottom-width:1px}
+#course-lab-overlay .cl-match-tile:active:not([disabled]){transform:scale(.98)}
+#course-lab-overlay .cl-match-tile[disabled]{cursor:default}
+#course-lab-overlay .cl-match-progress{font-size:12px;line-height:1.55;color:#c2bdc2;
+ background:#24262c;padding:10px 12px;border:1px solid #44444d;
+ border-radius:12px;margin:15px 0}
+#course-lab-overlay .cl-button.option{display:flex;align-items:center;gap:13px;
+ text-align:left;padding:13px 15px;font-size:clamp(16px,4.2vw,18px);
+ line-height:1.4}
+#course-lab-overlay .cl-choice-marker{display:flex;justify-content:center;
+ align-items:center;flex:0 0 34px;width:34px;height:34px;
+ border:1px solid #64636d;border-radius:10px;background:#36363d;
+ color:#dec8b2;font-size:12px;font-weight:850}
+#course-lab-overlay .cl-button.option.is-correct{border:1px solid #64a883;
+ background:#203b32;color:#e5f4e8;opacity:1}
+#course-lab-overlay .cl-button.option.is-correct .cl-choice-marker{
+ border-color:#64a883;background:#316249;color:#fff}
+#course-lab-overlay .cl-button.option:disabled{cursor:default}
+#course-lab-overlay .cl-button.option:disabled:not(.is-correct){opacity:.44}
+#course-lab-overlay .cl-button.primary:disabled{
+ background:#4a4440;color:#a7a2a0;opacity:.8;cursor:not-allowed}
+#course-lab-overlay .cl-exercise button:focus-visible,
+#course-lab-overlay .cl-goal summary:focus-visible{
+ outline:3px solid #f9bf81;outline-offset:3px}
+@media(max-width:350px){
+ #course-lab-overlay .cl-match-board{gap:7px}
+ #course-lab-overlay .cl-match-column{gap:8px}
+ #course-lab-overlay .cl-match-tile{padding:10px 6px;min-height:64px;font-size:13px}
+}
+@media(prefers-reduced-motion:reduce){
+ #course-lab-overlay .cl-match-tile{transition:none}
+}
