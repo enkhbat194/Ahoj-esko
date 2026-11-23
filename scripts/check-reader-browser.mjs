@@ -408,6 +408,9 @@ try {
             await cp.locator('[data-cl-action="complete-cards"]').click();
             break;
           case "match":{
+             if(li===3)await cp.locator(".cl-match-board").screenshot({
+               path:"test-artifacts/a0-l04-tap-matching-390.png"
+             });
              assert.equal(await cp.locator('select[data-cl-match]').count(),0,
                "Outdated dropdown matching must not remain");
              if(li===0){
