@@ -52,8 +52,8 @@ function asCard(item, cardKey, reason, atMs, phrase) {
   const phraseCard=cardKey.startsWith("phrase:");
   return {
     card_key:cardKey, lexeme_id:item.lexeme_id, form_id:item.form_id,
-    display_cs:phraseCard ? phrase.text_cs : item.surface_form_cs,
-    meaning_mn:phraseCard ? phrase.translation_mn : item.meaning_mn_in_this_context_draft,
+    display_cs:phraseCard ? phrase.text_cs : item.text,
+    meaning_mn:phraseCard ? phrase.translation_mn : item.meaning_mn_draft,
     card_unit:phraseCard?"fixed_phrase":"lexeme_in_context",
     reason_first_queued:reason, created_at_ms:atMs, due_at_ms:atMs+DAY,
     successful_independent_reviews:0, review_interval_index:0,
