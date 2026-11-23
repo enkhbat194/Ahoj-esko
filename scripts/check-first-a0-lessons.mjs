@@ -74,7 +74,7 @@ for(const needle of [
  if(needle==="pronunciation_certification") continue;
  assert.ok(browser.includes(needle),"Lesson engine missing "+needle);
 }
-for(const phrase of ["data-lesson-start","lesson-lab-ui.mjs?v=2","lesson-lab-ui.css?v=1",
+for(const phrase of ["data-lesson-start","lesson-lab-ui.mjs?v=3","lesson-lab-ui.css?v=2",
                      "window.AhojLessonLab?.openLesson"])
  assert.ok(html.includes(phrase),"Missing native Premium course route "+phrase);
 assert.ok(css.includes("#course-lab-overlay"));
