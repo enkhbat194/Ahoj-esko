@@ -86,3 +86,20 @@
 
 /* Keep contextual glossary within the existing reader modal. */
 #readerShell.reader-lab-shell{position:relative}
+
+/* Reader Lab cards integrated INSIDE existing All Stories grid. */
+.lab-in-library{width:100%;min-width:0;max-width:100%;cursor:pointer}
+.lab-in-library .book-cover{overflow:hidden}
+.lab-in-library .lab-cover-glow{font-size:125px;line-height:1;position:absolute;right:-8px;top:12%;opacity:.28;color:#d7edff;pointer-events:none}
+.lab-in-library .cover-main-text{font-size:clamp(16px,4vw,23px);line-height:1.2;overflow-wrap:anywhere}
+.lab-in-library .book-info,.lab-in-library .book-title,.lab-in-library .book-mn-sub{min-width:0;overflow-wrap:anywhere}
+.lab-in-library:focus-visible{outline:2px solid #ed9f61;outline-offset:3px}
+#readerShell.aho-reader-shell .lab-gloss-shade{position:absolute;inset:0;z-index:95;background:#000b;display:flex;justify-content:center;align-items:flex-end;overflow:hidden}
+#readerShell.aho-reader-shell .lab-gloss-shade[hidden]{display:none!important}
+#readerShell.aho-reader-shell .lab-gloss{max-width:100%;width:100%;min-width:0;box-sizing:border-box}
+#readerShell.aho-reader-shell .lab-comprehension{margin:20px 0;padding:16px 0;border-top:1px solid #47454a}
+#readerShell.aho-reader-shell .lab-choice{min-height:42px}
+.lab-tab,.lab-dict-list,.lab-flashcard{min-width:0;max-width:100%}
+.lab-flashcard{overflow-wrap:anywhere}
+.lab-card-actions button{min-height:40px}
+#lab-dict-search{font-size:16px}
