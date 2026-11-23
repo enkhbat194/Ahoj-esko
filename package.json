@@ -9,7 +9,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "clean": "rm -rf dist server.js",
-    "lint": "tsc --noEmit && node scripts/check-cesky-uiux.mjs && node scripts/check-learning-system.mjs && node scripts/test-lesson-engine.mjs && node scripts/test-reader-adaptive.mjs && node scripts/check-reader-lab-integration.mjs"
+    "lint": "tsc --noEmit && node scripts/check-cesky-uiux.mjs && node scripts/check-learning-system.mjs && node scripts/test-lesson-engine.mjs && node scripts/test-reader-adaptive.mjs && node scripts/check-reader-lab-integration.mjs && node scripts/check-first-a0-lessons.mjs"
   },
   "dependencies": {
     "@google/genai": "^3.3.0",
