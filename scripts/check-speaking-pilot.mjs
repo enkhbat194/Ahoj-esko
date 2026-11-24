@@ -7,18 +7,18 @@ const read=p=>readFileSync(base+p,'utf8');
 const context={window:{}};
 new Script(read('speaking-pilot-data.js')).runInNewContext(context);
 const lessons=context.window.AHOJ_SPEAKING_PILOT.lessons;
-assert.equal(lessons.length,18);
-assert.equal(new Set(lessons.map(l=>l.id)).size,18);
-const types=new Set(['learn','match','listen','context','gap','build','dialogue','recall']);
+assert(lessons.length>0);
+assert.equal(new Set(lessons.map(l=>l.id)).size,lessons.length);
+const types=new Set(['learn','match','listen','listen_meaning','context','gap','build','dialogue','recall']);
 const index=read('index.html'), html=read('speaking-pilot.html'),js=read('speaking-pilot.js');
 new Script(js);
 for(const l of lessons){
- assert.equal(l.steps.length,9);assert.equal(l.steps.at(-1).type,'recall');assert(index.includes(l.id));assert(l.steps.some(s=>s.type==='dialogue'));
+ assert(Array.isArray(l.steps)&&l.steps.length>0);assert.equal(l.steps.at(-1).type,'recall');assert(index.includes(l.id));assert(l.steps.some(s=>s.type==='dialogue'));
  for(const s of l.steps){
   assert(types.has(s.type));
   if(s.type==='match'){assert.equal(new Set(s.pairs.map(p=>p[0])).size,s.pairs.length);assert.equal(new Set(s.pairs.map(p=>p[1])).size,s.pairs.length);}
   if(s.type==='context'||s.type==='gap')assert.equal(s.options.filter(o=>o===s.answer).length,1);
-  if(s.type==='listen')for(const item of s.items)assert.equal(item.options.filter(o=>o===item.cz).length,1);
+  if(s.type==='listen'||s.type==='listen_meaning')for(const item of s.items){assert.equal(item.options.filter(o=>o===(s.type==='listen_meaning'?item.answer:item.cz)).length,1);if(s.type==='listen_meaning')assert(item.cz&&item.options.every(o=>/[А-Яа-яӨөҮү]/u.test(o)));}
   if(s.type==='build')assert.equal([...s.tokens].sort().join('|'),[...s.answer].sort().join('|'));
   if(s.type==='dialogue'||s.type==='recall')for(const item of s.items)assert(item.mn&&item.models.length);
  }
@@ -31,7 +31,7 @@ assert.equal(c.speechMatch('Dobry den',['Dobrý den.'],false),'unmatched');
 assert.equal(c.speechMatch('Jsem Jan.',['Jsem Petr.'],true),'ungraded');
 assert.equal(c.buildMatch(['Jak','se','jmenujete?'],['Jak','se','jmenujete?']),true);
 assert.equal(c.buildMatch(['se','Jak'],['Jak','se']),false);
-console.log('Speaking pilot: 18 lessons, 162 steps, syntax, routing, answer integrity, strict Czech diacritics and ungraded open speech passed.');
+console.log('Speaking pilot: '+lessons.length+' lessons, '+lessons.reduce((n,l)=>n+l.steps.length,0)+' steps, structural checks passed.');
 
 const audioContext={window:{}};
 new Script(read('speaking-audio-manifest.js')).runInNewContext(audioContext);
@@ -63,6 +63,7 @@ function unknownExerciseTokens(ls){
   let texts=[];
   if(s.type==='match')texts=s.pairs.map(p=>p[0]);
   if(s.type==='listen')texts=s.items.flatMap(x=>[x.cz,...x.options]);
+  if(s.type==='listen_meaning')texts=s.items.map(x=>x.cz);
   if(s.type==='build')texts=s.tokens;
   if(s.type==='gap')texts=[s.cz,...s.options];
   if(s.type==='context')texts=s.options;
@@ -76,13 +77,19 @@ function unknownExerciseTokens(ls){
 // This does not certify grammar, semantics, speech or pronunciation.
 assert.deepEqual(unknownExerciseTokens(lessons),[]);
 const broken=JSON.parse(JSON.stringify(lessons));
-broken[0].steps[4].items[0].options.push('mléko');
+broken[0].steps.find(s=>s.type==='listen').items[0].options.push('mléko');
 assert(unknownExerciseTokens(broken).some(x=>x.missing.includes('mléko')));
 console.log('Cumulative vocabulary gate passed; negative fixture detected.');
 
-const finalAssessment=lessons.at(-1);
-assert.equal(finalAssessment.id,'A0-T02-L18');assert.equal(finalAssessment.assessment,true);
+const finalAssessment=lessons.find(l=>l.assessment===true);
+assert(finalAssessment);
 assert(!finalAssessment.steps.some(s=>s.type==='learn'),'Final assessment cannot introduce new target material');
 assert(finalAssessment.steps.filter(s=>s.type==='dialogue').length>=2);
 assert(finalAssessment.steps.at(-1).items.some(x=>x.open),'Include learner-supplied name');
 console.log('Final chapter assessment structure passed.');
+
+const pilots=lessons.filter(l=>l.review_status==='pilot_candidate');
+assert(pilots.length>0);assert(lessons.some(l=>l.review_status==='legacy_draft_unvalidated'));
+assert(new Set(lessons.map(l=>l.steps.length)).size>1,'Flexible lesson lengths must be exercised');
+for(const l of pilots){assert(l.revision>=2);assert(l.steps.some(s=>s.type==='listen_meaning'));assert(l.steps.some(s=>s.type==='dialogue'&&s.items.every(i=>!i.partner||i.listenFirst)));}
+console.log('Pilot evidence types and flexible lengths passed.');
