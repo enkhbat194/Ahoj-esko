@@ -54,3 +54,28 @@ assert.equal(audioContext.approvedAudio('Dobrý den.','male'),'./speaking-audio/
 assert.equal(audioContext.approvedAudio('Ahoj!','male'),null);
 assert.equal(audioContext.approvedAudio('Dobry den.','female'),null);
 console.log('Female/male routing and exact diacritics gates passed.');
+
+function unknownExerciseTokens(ls){
+ const known=new Set(['anna','petr']),errors=[];
+ const words=s=>String(s||'').normalize('NFC').toLocaleLowerCase('cs-CZ').match(/\p{L}+/gu)||[];
+ for(const l of ls)for(const [i,s] of l.steps.entries()){
+  if(s.type==='learn'){for(const w of [...words(s.cz),...words(s.example)])known.add(w);continue;}
+  let texts=[];
+  if(s.type==='match')texts=s.pairs.map(p=>p[0]);
+  if(s.type==='listen')texts=s.items.flatMap(x=>[x.cz,...x.options]);
+  if(s.type==='build')texts=s.tokens;
+  if(s.type==='gap')texts=[s.cz,...s.options];
+  if(s.type==='context')texts=s.options;
+  if(s.type==='recall'||s.type==='dialogue')texts=s.items.flatMap(x=>[x.partner,...x.models]);
+  const missing=[...new Set(texts.flatMap(words).filter(w=>!known.has(w)))];
+  if(missing.length)errors.push({lesson:l.id,step:i+1,missing});
+ }
+ return errors;
+}
+// Surface vocabulary prerequisite test; names Anna/Petr are scenario context.
+// This does not certify grammar, semantics, speech or pronunciation.
+assert.deepEqual(unknownExerciseTokens(lessons),[]);
+const broken=JSON.parse(JSON.stringify(lessons));
+broken[0].steps[4].items[0].options.push('mléko');
+assert(unknownExerciseTokens(broken).some(x=>x.missing.includes('mléko')));
+console.log('Cumulative vocabulary gate passed; negative fixture detected.');
