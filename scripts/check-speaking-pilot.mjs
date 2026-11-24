@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {Script} from 'node:vm';
+import {createHash} from 'node:crypto';
 const base='public/cesky-reading-uiux/';
 const read=p=>readFileSync(base+p,'utf8');
 const context={window:{}};
@@ -34,7 +35,7 @@ console.log('Speaking pilot: 6 lessons, 54 steps, syntax, routing, answer integr
 
 const audioContext={window:{}};
 new Script(read('speaking-audio-manifest.js')).runInNewContext(audioContext);
-for(const entry of Object.values(audioContext.window.AHOJ_SPEAKING_AUDIO)){assert.equal(entry.status,'approved');assert(/^\.\/speaking-audio\/[a-zA-Z0-9_-]+\.mp3$/.test(entry.path));assert(readFileSync(base+entry.path.slice(2)).length>0,'Approved audio asset must exist');}
+for(const entry of Object.values(audioContext.window.AHOJ_SPEAKING_AUDIO)){const variants=entry.voices?Object.entries(entry.voices):[['legacy',entry]];assert(variants.length>0);for(const [role,asset] of variants){assert(['female','male','legacy'].includes(role));assert.equal(asset.status,'approved');assert(/^\.\/speaking-audio\/[a-zA-Z0-9_-]+\.mp3$/.test(asset.path));const bytes=readFileSync(base+asset.path.slice(2));assert(bytes.length>0,'Approved audio asset must exist');if(role!=='legacy'){assert(/^[a-f0-9]{64}$/i.test(asset.sha256||''));assert.equal(createHash('sha256').update(bytes).digest('hex'),asset.sha256.toLowerCase());}}}
 audioContext.window.AHOJ_SPEAKING_AUDIO={};
 new Script(js.slice(js.indexOf('function approvedAudio('),js.indexOf('function play(text,onDone)'))).runInNewContext(audioContext);
 assert.equal(audioContext.approvedAudio('Ahoj!'),null);
@@ -46,3 +47,10 @@ assert.equal(audioContext.approvedAudio('Těší mě.'),null);
 assert.equal(audioContext.approvedAudio('Ahoj'),null);
 assert(html.includes('speaking-audio-manifest.js'));
 console.log('Audio registry exact text, approval and safe local path gates passed.');
+
+audioContext.window.AHOJ_SPEAKING_AUDIO={'Dobrý den.':{voices:{female:{status:'approved',path:'./speaking-audio/f01.mp3'},male:{status:'approved',path:'./speaking-audio/m01.mp3'}}},'Ahoj!':{voices:{female:{status:'approved',path:'./speaking-audio/f02.mp3'},male:{status:'pending',path:'./speaking-audio/m02.mp3'}}}};
+assert.equal(audioContext.approvedAudio('Dobrý den.','female'),'./speaking-audio/f01.mp3');
+assert.equal(audioContext.approvedAudio('Dobrý den.','male'),'./speaking-audio/m01.mp3');
+assert.equal(audioContext.approvedAudio('Ahoj!','male'),null);
+assert.equal(audioContext.approvedAudio('Dobry den.','female'),null);
+console.log('Female/male routing and exact diacritics gates passed.');
