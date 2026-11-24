@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 function collectAudio(lessons){
  const map=new Map();
  function add(text,lesson,usage){if(typeof text!=="string"||!text.trim())return;const r=map.get(text)||{text,lessons:[],uses:[]};if(!r.lessons.includes(lesson))r.lessons.push(lesson);if(!r.uses.includes(usage))r.uses.push(usage);map.set(text,r);}
- for(const l of lessons)for(const s of l.steps){if(s.type==="learn"){add(s.cz,l.id,"unit");add(s.example,l.id,"example");}if(s.type==="listen")for(const i of s.items)add(i.cz,l.id,"listen");if(s.type==="dialogue"||s.type==="recall")for(const i of s.items){add(i.partner,l.id,"partner");for(const m of i.models)add(m,l.id,"model");}}
+ for(const l of lessons)for(const s of l.steps){if(s.type==="learn"){add(s.cz,l.id,"unit");add(s.example,l.id,"example");}if(s.type==="listen"||s.type==="listen_meaning")for(const i of s.items)add(i.cz,l.id,"listen");if(s.type==="dialogue"||s.type==="recall")for(const i of s.items){add(i.partner,l.id,"partner");for(const m of i.models)add(m,l.id,"model");}}
  return [...map.values()];
 }
 function auditAudio(demand,records,voiceMap){
