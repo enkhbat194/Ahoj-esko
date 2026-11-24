@@ -31,3 +31,17 @@ assert.equal(c.speechMatch('Jsem Jan.',['Jsem Petr.'],true),'ungraded');
 assert.equal(c.buildMatch(['Jak','se','jmenujete?'],['Jak','se','jmenujete?']),true);
 assert.equal(c.buildMatch(['se','Jak'],['Jak','se']),false);
 console.log('Speaking pilot: 3 lessons, 27 steps, syntax, routing, answer integrity, strict Czech diacritics and ungraded open speech passed.');
+
+const audioContext={window:{}};
+new Script(read('speaking-audio-manifest.js')).runInNewContext(audioContext);
+assert.equal(Object.keys(audioContext.window.AHOJ_SPEAKING_AUDIO).length,0,'No unapproved recordings in public registry');
+new Script(js.slice(js.indexOf('function approvedAudio('),js.indexOf('function play(text,onDone)'))).runInNewContext(audioContext);
+assert.equal(audioContext.approvedAudio('Ahoj!'),null);
+audioContext.window.AHOJ_SPEAKING_AUDIO={'Ahoj!':{status:'approved',path:'./speaking-audio/clip01.mp3'},'Jsem':{status:'pending',path:'./speaking-audio/clip02.mp3'},'A vy?':{status:'approved',path:'https://example.org/temporary.mp3'},'Těší mě.':{status:'approved',path:'./speaking-audio/../private.mp3'}};
+assert.equal(audioContext.approvedAudio('Ahoj!'),'./speaking-audio/clip01.mp3');
+assert.equal(audioContext.approvedAudio('Jsem'),null);
+assert.equal(audioContext.approvedAudio('A vy?'),null);
+assert.equal(audioContext.approvedAudio('Těší mě.'),null);
+assert.equal(audioContext.approvedAudio('Ahoj'),null);
+assert(html.includes('speaking-audio-manifest.js'));
+console.log('Audio registry exact text, approval and safe local path gates passed.');
