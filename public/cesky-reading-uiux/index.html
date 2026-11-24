@@ -3216,10 +3216,11 @@
           const lessonRows = ch.lessons.map((lesson) => {
             const pilotTitle = speakingPilotTitles[lesson.id];
             if (pilotTitle) {
+              const revisedPilot = ["A0-T02-L01","A0-T02-L02","A0-T02-L03"].includes(lesson.id);
               let completed = false;
-              try { completed = JSON.parse(localStorage.getItem("ahoj:speaking-pilot:v1:"+lesson.id)||"{}").completed === true; } catch (_) {}
+              try { completed = JSON.parse(localStorage.getItem("ahoj:speaking-pilot:v"+(revisedPilot?2:1)+":"+lesson.id)||"{}").completed === true; } catch (_) {}
               return '<li style="padding:14px;margin:0 0 8px;border:1px solid #d96c2e66;border-radius:13px;background:#ffffff08;list-style:none">' +
-                '<div style="font-size:11px;color:#eda56e;margin-bottom:5px">'+escapeHtml(lesson.id)+' · '+(completed?'ДАСГАЛ ДУУССАН':'ТУРШИЛТЫН ХИЧЭЭЛ')+'</div>'+
+                '<div style="font-size:11px;color:#eda56e;margin-bottom:5px">'+escapeHtml(lesson.id)+' · '+(revisedPilot?(completed?'ТУРШИЛТ ДУУССАН':'ШИНЭ ЖИШИГ · ТУРШИЛТ'):'ӨМНӨХ НООРОГ · БАТЛААГҮЙ')+'</div>'+
                 '<a style="display:block;min-height:44px;padding:10px 0;color:#fff;text-decoration:none;font-weight:700" href="./speaking-pilot.html?lesson='+encodeURIComponent(lesson.id)+'">'+escapeHtml(pilotTitle)+' →</a></li>';
             }
             return '<li style="padding:12px 14px;margin:0 0 8px;border:1px solid rgba(255,255,255,.1);border-radius:13px;background:rgba(255,255,255,.035);list-style:none">' +
@@ -3234,7 +3235,7 @@
                 '<p style="color:#d8b56a;font-size:11px;letter-spacing:1.2px">A0 • ' + escapeHtml(ch.id) + ' • ХӨТӨЛБӨРИЙН ЗУРАГЛАЛ</p>' +
                 '<h2 style="margin:10px 0 5px;font-size:24px;line-height:1.2">' + escapeHtml(ch.title) + '</h2>' +
                 '<p style="font-size:14px;color:#aaa">' + escapeHtml(ch.subtitle) + '</p>' +
-                '<p style="font-size:13px;margin:15px 0;color:#ccc">' + ch.lessons.length + ' жижиг хичээл төлөвлөсөн. ' + (ch.chapter===1?'18 ярианы хичээл туршилтаар нээгдсэн. Аудио, дуудлагын баталгаа хүлээгдэж байна.':'Аудио, дасгал, ярианы шалгалт хараахан нийтлэгдээгүй.') + '</p>' +
+                '<p style="font-size:13px;margin:15px 0;color:#ccc">' + ch.lessons.length + ' жижиг хичээл төлөвлөсөн. ' + (ch.chapter===1?'Эхний 3 жишиг хичээлийг шинэчилж байна. Үлдсэн 15 нь өмнөх ноорог, эцсийн хөтөлбөр биш. Бодит аудио ба дуудлагын баталгаа хүлээгдэж байна.':'Аудио, дасгал, ярианы шалгалт хараахан нийтлэгдээгүй.') + '</p>' +
               '</div>' +
               '<ol style="padding:0;margin:0">' + lessonRows + '</ol>' +
               '<p style="padding:16px;border-radius:12px;background:#242428;font-size:13px;line-height:1.55;color:#ddd;margin-top:16px"><b>Эцсийн зорилго:</b> ' + escapeHtml(ch.finalTask) + '</p>' +
