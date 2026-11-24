@@ -1,6 +1,6 @@
 window.AHOJ_SPEAKING_PILOT = {
   "version": 1,
-  "source": "Speaking Pilot v1.0; cumulative speaking extension L04–L06 aligned to existing A0-T02 outline, editorial review pending",
+  "source": "Speaking Pilot v1.0; L01–L10 aligned to existing 18-lesson A0-T02 outline; L07–L10 editorial review pending",
   "lessons": [
     {
       "id": "A0-T02-L01",
@@ -860,6 +860,615 @@ window.AHOJ_SPEAKING_PILOT = {
               "models": [
                 "To je Petr."
               ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A0-T02-L07",
+      "title": "Тэр эрэгтэй, тэр эмэгтэй",
+      "goal": "Эрэгтэй, эмэгтэй хүнийг ялган нэрээр нь танилцуулах",
+      "steps": [
+        {
+          "type": "recall",
+          "items": [
+            {
+              "mn": "Энэ хэн бэ?",
+              "models": [
+                "Kdo je to?"
+              ]
+            },
+            {
+              "mn": "Энэ бол Анна.",
+              "models": [
+                "To je Anna."
+              ]
+            }
+          ]
+        },
+        {
+          "type": "learn",
+          "cz": "on",
+          "mn": "тэр (эрэгтэй)",
+          "hint": "Эрэгтэй хүнийг заана."
+        },
+        {
+          "type": "learn",
+          "cz": "ona",
+          "mn": "тэр (эмэгтэй)",
+          "hint": "Эмэгтэй хүнийг заана. Ona je Anna. — Тэр эмэгтэй бол Анна."
+        },
+        {
+          "type": "learn",
+          "cz": "je",
+          "mn": "байна (тэр)",
+          "hint": "On/ona-тай ижил je хэрэглэнэ.",
+          "example": "On je Petr."
+        },
+        {
+          "type": "match",
+          "pairs": [
+            [
+              "on",
+              "тэр (эрэгтэй)"
+            ],
+            [
+              "ona",
+              "тэр (эмэгтэй)"
+            ],
+            [
+              "je",
+              "байна (тэр)"
+            ],
+            [
+              "To je Anna.",
+              "Энэ бол Анна."
+            ],
+            [
+              "Kdo je to?",
+              "Энэ хэн бэ?"
+            ]
+          ]
+        },
+        {
+          "type": "listen",
+          "items": [
+            {
+              "cz": "On je Petr.",
+              "options": [
+                "To je Anna.",
+                "On je Petr.",
+                "Kdo je to?"
+              ]
+            },
+            {
+              "cz": "on",
+              "options": [
+                "ona",
+                "on",
+                "je"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "build",
+          "mn": "Тэр эрэгтэй бол Петр.",
+          "tokens": [
+            "Petr.",
+            "je",
+            "On"
+          ],
+          "answer": [
+            "On",
+            "je",
+            "Petr."
+          ]
+        },
+        {
+          "type": "dialogue",
+          "items": [
+            {
+              "partner": "Kdo je to?",
+              "mn": "Эрэгтэй хүнийг Петр гэж танилцуул.",
+              "models": [
+                "To je Petr.",
+                "On je Petr."
+              ]
+            },
+            {
+              "partner": "Kdo je to?",
+              "mn": "Эмэгтэй хүнийг Анна гэж танилцуул.",
+              "models": [
+                "To je Anna.",
+                "Ona je Anna."
+              ]
+            },
+            {
+              "partner": "Těší mě.",
+              "mn": "Танилцсандаа таатай байгаагаа хэл.",
+              "models": [
+                "Těší mě."
+              ]
+            }
+          ]
+        },
+        {
+          "type": "recall",
+          "items": [
+            {
+              "mn": "Тэр эрэгтэй бол Петр.",
+              "models": [
+                "On je Petr."
+              ]
+            },
+            {
+              "mn": "Тэр эмэгтэй бол Анна.",
+              "models": [
+                "Ona je Anna."
+              ]
+            },
+            {
+              "mn": "Энэ хэн бэ?",
+              "models": [
+                "Kdo je to?"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A0-T02-L08",
+      "title": "Тэр ч бас сайн байна",
+      "goal": "Өөр хүний байдлыг товч хэлж, бас гэсэн утгыг илэрхийлэх",
+      "steps": [
+        {
+          "type": "recall",
+          "items": [
+            {
+              "mn": "Тэр эрэгтэй бол Петр.",
+              "models": [
+                "On je Petr."
+              ]
+            },
+            {
+              "mn": "Та ямар байна?",
+              "models": [
+                "Jak se máte?"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "learn",
+          "cz": "taky",
+          "mn": "бас, мөн",
+          "hint": "Өдөр тутмын ярианд түгээмэл."
+        },
+        {
+          "type": "learn",
+          "cz": "Jak se má?",
+          "mn": "Тэр ямар байна?",
+          "hint": "Гуравдугаар биеийн асуулт."
+        },
+        {
+          "type": "learn",
+          "cz": "Má se dobře.",
+          "mn": "Тэр сайн байгаа.",
+          "hint": "Тогтсон хэллэгээр сурна."
+        },
+        {
+          "type": "match",
+          "pairs": [
+            [
+              "taky",
+              "бас, мөн"
+            ],
+            [
+              "Jak se má?",
+              "Тэр ямар байна?"
+            ],
+            [
+              "Má se dobře.",
+              "Тэр сайн байгаа."
+            ],
+            [
+              "Jak se máte?",
+              "Та ямар байна?"
+            ],
+            [
+              "Dobře, děkuji.",
+              "Сайн, баярлалаа."
+            ]
+          ]
+        },
+        {
+          "type": "listen",
+          "items": [
+            {
+              "cz": "Jak se má?",
+              "options": [
+                "Jak se máte?",
+                "Jak se má?",
+                "Kdo je to?"
+              ]
+            },
+            {
+              "cz": "Má se dobře.",
+              "options": [
+                "Dobře, děkuji.",
+                "Má se dobře.",
+                "Ujde to."
+              ]
+            }
+          ]
+        },
+        {
+          "type": "build",
+          "mn": "Тэр ч бас сайн байгаа.",
+          "tokens": [
+            "dobře.",
+            "Taky",
+            "má",
+            "se"
+          ],
+          "answer": [
+            "Taky",
+            "se",
+            "má",
+            "dobře."
+          ]
+        },
+        {
+          "type": "dialogue",
+          "items": [
+            {
+              "partner": "To je Anna.",
+              "mn": "Анна ямар байгааг асуу.",
+              "models": [
+                "Jak se má?"
+              ]
+            },
+            {
+              "partner": "Má se dobře.",
+              "mn": "Анна сайн байгаа. Петр ч бас сайн байгаа гэж хэл (Петрийг зааж байгаа нөхцөл).",
+              "models": [
+                "Taky se má dobře.",
+                "Má se taky dobře."
+              ]
+            }
+          ]
+        },
+        {
+          "type": "recall",
+          "items": [
+            {
+              "mn": "Тэр ямар байна?",
+              "models": [
+                "Jak se má?"
+              ]
+            },
+            {
+              "mn": "Тэр сайн байгаа.",
+              "models": [
+                "Má se dobře."
+              ]
+            },
+            {
+              "mn": "Тэр ч бас сайн байгаа.",
+              "models": [
+                "Taky se má dobře.",
+                "Má se taky dobře."
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A0-T02-L09",
+      "title": "Чи ба Та",
+      "goal": "Дотно болон хүндэтгэлийн харилцаанд тохирох биеийн хэлбэр сонгох",
+      "steps": [
+        {
+          "type": "recall",
+          "items": [
+            {
+              "mn": "Найзтайгаа мэндэл.",
+              "models": [
+                "Ahoj!"
+              ]
+            },
+            {
+              "mn": "Танихгүй хүнтэй мэндэл.",
+              "models": [
+                "Dobrý den."
+              ]
+            }
+          ]
+        },
+        {
+          "type": "learn",
+          "cz": "ty",
+          "mn": "чи (дотно)",
+          "hint": "Найз, ойр дотнын хүнтэй."
+        },
+        {
+          "type": "learn",
+          "cz": "vy",
+          "mn": "та (хүндэтгэлтэй) / та нар",
+          "hint": "Нэг хүнд хүндэтгэлтэй эсвэл олон хүнд."
+        },
+        {
+          "type": "learn",
+          "cz": "jsi",
+          "mn": "чи байна",
+          "hint": "Дотно харилцаанд ty jsi; хүндэтгэлтэй үед vy jste.",
+          "example": "Jsi Petr?"
+        },
+        {
+          "type": "match",
+          "pairs": [
+            [
+              "ty",
+              "чи (дотно)"
+            ],
+            [
+              "vy",
+              "та / та нар"
+            ],
+            [
+              "jsi",
+              "чи байна"
+            ],
+            [
+              "Jste Petr?",
+              "Та Петр мөн үү?"
+            ],
+            [
+              "Jsi Petr?",
+              "Чи Петр мөн үү?"
+            ]
+          ]
+        },
+        {
+          "type": "listen",
+          "items": [
+            {
+              "cz": "Jsi Petr?",
+              "options": [
+                "Jste Petr?",
+                "Jsi Petr?",
+                "Jsem Petr."
+              ]
+            },
+            {
+              "cz": "Jste Petr?",
+              "options": [
+                "Jsem Petr.",
+                "Jsi Petr?",
+                "Jste Petr?"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "context",
+          "prompt": "Танихгүй насанд хүрсэн хүнээс Петр мөн эсэхийг хүндэтгэлтэй лавла.",
+          "options": [
+            "Jsi Petr?",
+            "Jste Petr?",
+            "Jsem Petr."
+          ],
+          "answer": "Jste Petr?"
+        },
+        {
+          "type": "dialogue",
+          "items": [
+            {
+              "partner": "Ahoj!",
+              "mn": "Мэндлээд найзынхаа нэрийг лавла.",
+              "models": [
+                "Ahoj! Jsi Petr?"
+              ]
+            },
+            {
+              "partner": "Dobrý den.",
+              "mn": "Мэндлээд танихгүй хүнээс Петр мөн эсэхийг лавла.",
+              "models": [
+                "Dobrý den. Jste Petr?"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "recall",
+          "items": [
+            {
+              "mn": "Чи Петр мөн үү?",
+              "models": [
+                "Jsi Petr?"
+              ]
+            },
+            {
+              "mn": "Та Петр мөн үү?",
+              "models": [
+                "Jste Petr?"
+              ]
+            },
+            {
+              "mn": "Найзтайгаа мэндлээд Петр мөн эсэхийг лавла.",
+              "models": [
+                "Ahoj! Jsi Petr?"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A0-T02-L10",
+      "title": "Чамайг, Таныг хэн гэдэг вэ?",
+      "goal": "Албан болон дотно нөхцөлд нэр асууж, харилцан танилцах",
+      "steps": [
+        {
+          "type": "recall",
+          "items": [
+            {
+              "mn": "Таныг хэн гэдэг вэ?",
+              "models": [
+                "Jak se jmenujete?"
+              ]
+            },
+            {
+              "mn": "Чи Петр мөн үү?",
+              "models": [
+                "Jsi Petr?"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "learn",
+          "cz": "Jak se jmenuješ?",
+          "mn": "Чамайг хэн гэдэг вэ?",
+          "hint": "Дотно харилцааны нэр асуух хэлбэр."
+        },
+        {
+          "type": "learn",
+          "cz": "A ty?",
+          "mn": "Харин чи?",
+          "hint": "Дотно харилцаанд асуулт буцаах."
+        },
+        {
+          "type": "match",
+          "pairs": [
+            [
+              "Jak se jmenuješ?",
+              "Чамайг хэн гэдэг вэ?"
+            ],
+            [
+              "Jak se jmenujete?",
+              "Таныг хэн гэдэг вэ?"
+            ],
+            [
+              "A ty?",
+              "Харин чи?"
+            ],
+            [
+              "A vy?",
+              "Харин та?"
+            ],
+            [
+              "Jmenuji se Anna.",
+              "Намайг Анна гэдэг."
+            ]
+          ]
+        },
+        {
+          "type": "listen",
+          "items": [
+            {
+              "cz": "Jak se jmenuješ?",
+              "options": [
+                "Jak se jmenujete?",
+                "Jak se jmenuješ?",
+                "Jak se má?"
+              ]
+            },
+            {
+              "cz": "A ty?",
+              "options": [
+                "A vy?",
+                "A ty?",
+                "Těší mě."
+              ]
+            }
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "Jak se ___? (дотно)",
+          "options": [
+            "jmenuješ",
+            "jmenujete",
+            "máte"
+          ],
+          "answer": "jmenuješ",
+          "cz": "Jak se jmenuješ?"
+        },
+        {
+          "type": "build",
+          "mn": "Сайн уу! Чамайг хэн гэдэг вэ?",
+          "tokens": [
+            "se",
+            "Ahoj!",
+            "jmenuješ?",
+            "Jak"
+          ],
+          "answer": [
+            "Ahoj!",
+            "Jak",
+            "se",
+            "jmenuješ?"
+          ]
+        },
+        {
+          "type": "dialogue",
+          "items": [
+            {
+              "partner": "Ahoj!",
+              "mn": "Дотно мэндлээд нэрийг нь асуу.",
+              "models": [
+                "Ahoj! Jak se jmenuješ?"
+              ]
+            },
+            {
+              "partner": "Jmenuji se Anna. A ty?",
+              "mn": "Петрийн дүрд нэрээ хэл.",
+              "models": [
+                "Jmenuji se Petr.",
+                "Jsem Petr."
+              ]
+            },
+            {
+              "partner": "Těší mě.",
+              "mn": "Танилцсандаа таатай байгаагаа хэл.",
+              "models": [
+                "Těší mě."
+              ]
+            }
+          ]
+        },
+        {
+          "type": "recall",
+          "items": [
+            {
+              "mn": "Чамайг хэн гэдэг вэ?",
+              "models": [
+                "Jak se jmenuješ?"
+              ]
+            },
+            {
+              "mn": "Харин чи?",
+              "models": [
+                "A ty?"
+              ]
+            },
+            {
+              "mn": "Таныг хэн гэдэг вэ?",
+              "models": [
+                "Jak se jmenujete?"
+              ]
+            },
+            {
+              "mn": "Өөрийн нэрээ хэлээд дотно хэлбэрээр хариу асуу.",
+              "models": [
+                "Jmenuji se Petr. A ty?"
+              ],
+              "open": true
             }
           ]
         }
