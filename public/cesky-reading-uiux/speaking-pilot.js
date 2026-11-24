@@ -17,11 +17,20 @@ function add(...els){root.append(...els);}
 function heading(label,title,desc){add(E("div","tag",label),E("h1","",title));if(desc)add(E("p","muted",desc));}
 function footer(...buttons){const f=E("div","foot");f.append(...buttons);add(f);}
 function status(){let p=E("p","status","");p.setAttribute("role","status");add(p);return p;}
-function cleanup(){generation++;audioOK=false;if(recognition){try{recognition.abort();}catch(_){}recognition=null;}if(window.speechSynthesis){try{speechSynthesis.cancel();}catch(_){}}utter=null;audioStatus.textContent="";}
+function cleanup(){generation++;audioOK=false;stopFileAudio();if(recognition){try{recognition.abort();}catch(_){}recognition=null;}if(window.speechSynthesis){try{speechSynthesis.cancel();}catch(_){}}utter=null;audioStatus.textContent="";}
 function next(){cleanup();step++;sub=0;persist();render();}
 function advanceItem(total){if(sub+1>=total)next();else{sub++;render();}}
 function delayNext(fn){const g=generation;setTimeout(()=>{if(g===generation)fn();},650);}
-function play(text,onDone){if(recognition){try{recognition.abort();}catch(_){}recognition=null;}audioStatus.textContent="";audioOK=false;
+let fileAudio=null,playToken=0;
+function stopFileAudio(){playToken++;if(fileAudio){fileAudio.onended=null;fileAudio.onerror=null;fileAudio.pause();fileAudio=null;}}
+function approvedAudio(text){const entry=window.AHOJ_SPEAKING_AUDIO?.[text];if(!entry||entry.status!=="approved"||typeof entry.path!=="string"||!/^\.\/speaking-audio\/[a-zA-Z0-9_-]+\.mp3$/.test(entry.path))return null;return entry.path;}
+function play(text,onDone){stopFileAudio();if(window.speechSynthesis)speechSynthesis.cancel();const url=approvedAudio(text);if(!url){playFallback(text,onDone);return;}
+ if(recognition){try{recognition.abort();}catch(_){}recognition=null;}audioOK=false;const g=generation,t=playToken,a=new Audio(url);fileAudio=a;audioStatus.textContent="Бэлэн аудио · тоглуулж байна";
+ const current=()=>g===generation&&t===playToken&&fileAudio===a;
+ const failed=()=>{if(!current())return;stopFileAudio();playFallback(text,onDone);};
+ a.onended=()=>{if(!current())return;fileAudio=null;audioOK=true;audioStatus.textContent="Аудио дууслаа.";if(onDone)onDone();};a.onerror=failed;a.play().catch(failed);
+}
+function playFallback(text,onDone){if(recognition){try{recognition.abort();}catch(_){}recognition=null;}audioStatus.textContent="";audioOK=false;
  if(!window.speechSynthesis||!window.SpeechSynthesisUtterance){audioStatus.textContent="Энэ төхөөрөмжийн аудио дэмжигдэхгүй.";return;}
  speechSynthesis.cancel();const voice=speechSynthesis.getVoices().find(v=>/^cs(?:-|$)/i.test(v.lang));
  if(!voice){audioStatus.textContent="Чех хэлний төхөөрөмжийн хоолой олдсонгүй. Баталгаажсан аудио хараахан холбоогүй.";return;}
@@ -33,7 +42,7 @@ function play(text,onDone){if(recognition){try{recognition.abort();}catch(_){}re
 function audioButton(text,done){return B("▷  Сонсох",()=>play(text,done));}
 function micPanel(models,open,onAdvance,allowReveal=true){const box=E("section","speak"),feedback=E("p","status","Микрофоныг дарж ярина уу."),model=E("div","card");model.hidden=true;const g=generation;let busy=false,finished=false,revealed=false,result="unverified";
  const mic=B("",start,"mic");mic.setAttribute("aria-label","Чехээр ярих");mic.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="2" width="6" height="13" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4m-5 0h10"/></svg>';
- function start(){if(busy||finished||g!==generation)return;const R=window.SpeechRecognition||window.webkitSpeechRecognition;if(!R){feedback.textContent="Энэ хөтөч яриа танихгүй. Өөрөө хэлж, жишээтэй харьцуулна уу.";return;}if(window.speechSynthesis)speechSynthesis.cancel();let r;try{r=new R();recognition=r;r.lang="cs-CZ";r.interimResults=false;r.maxAlternatives=1;busy=true;mic.disabled=true;feedback.textContent="Микрофон асаж байна…";r.onstart=()=>{if(g===generation)feedback.textContent="Сонсож байна…";};r.onresult=e=>{if(g!==generation)return;const heard=e.results[0]?.[0]?.transcript||"";result=speechMatch(heard,models,open);feedback.textContent="Танигдсан текст: "+heard+(result==="recognized"?" · Загварт таарлаа.":result==="ungraded"?" · Нээлттэй хариуг автоматаар үнэлээгүй.":" · Загварт яг таараагүй. Дахин хэлж болно.")+" Дуудлагын оноо биш.";};r.onerror=e=>{if(g===generation)feedback.textContent="Яриа танилт амжилтгүй ("+e.error+"). Дахин оролдох эсвэл үнэлгээгүй үргэлжлүүлэх боломжтой.";};r.onend=()=>{if(g===generation){busy=false;mic.disabled=false;recognition=null;}};r.start();}catch(_){busy=false;mic.disabled=false;feedback.textContent="Микрофон ажилласангүй.";}}
+ function start(){if(busy||finished||g!==generation)return;const R=window.SpeechRecognition||window.webkitSpeechRecognition;if(!R){feedback.textContent="Энэ хөтөч яриа танихгүй. Өөрөө хэлж, жишээтэй харьцуулна уу.";return;}stopFileAudio();if(window.speechSynthesis)speechSynthesis.cancel();let r;try{r=new R();recognition=r;r.lang="cs-CZ";r.interimResults=false;r.maxAlternatives=1;busy=true;mic.disabled=true;feedback.textContent="Микрофон асаж байна…";r.onstart=()=>{if(g===generation)feedback.textContent="Сонсож байна…";};r.onresult=e=>{if(g!==generation)return;const heard=e.results[0]?.[0]?.transcript||"";result=speechMatch(heard,models,open);feedback.textContent="Танигдсан текст: "+heard+(result==="recognized"?" · Загварт таарлаа.":result==="ungraded"?" · Нээлттэй хариуг автоматаар үнэлээгүй.":" · Загварт яг таараагүй. Дахин хэлж болно.")+" Дуудлагын оноо биш.";};r.onerror=e=>{if(g===generation)feedback.textContent="Яриа танилт амжилтгүй ("+e.error+"). Дахин оролдох эсвэл үнэлгээгүй үргэлжлүүлэх боломжтой.";};r.onend=()=>{if(g===generation){busy=false;mic.disabled=false;recognition=null;}};r.start();}catch(_){busy=false;mic.disabled=false;feedback.textContent="Микрофон ажилласангүй.";}}
  function finish(){if(finished||busy)return;finished=true;if(revealed)stats.assisted++;else stats[result==="ungraded"?"open":result]++;onAdvance();}
  box.append(mic,feedback,E("small","muted","Яриа таних үйлчилгээ ашиглагдаж болно. Энэ нь авиа, дуудлагын нарийвчилсан үнэлгээ биш."));
  if(allowReveal){const reveal=B("Жишээ хариу харах",()=>{revealed=true;model.hidden=false;reveal.disabled=true;});model.append(E("p","",models.join(" / ")),audioButton(models[0]));box.append(reveal,model);}
