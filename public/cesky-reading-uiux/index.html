@@ -3212,7 +3212,7 @@
         function showTopicOutline(ch) {
           window.__goToStage = null;
           window.__syncTrackResize = null;
-          const speakingPilotTitles = {"A0-T02-L01":"Мэндлэх, үдэх","A0-T02-L02":"Өөрийгөө танилцуулах","A0-T02-L03":"Нэр асууж танилцах"};
+          const speakingPilotTitles = {"A0-T02-L01":"Мэндлэх, үдэх","A0-T02-L02":"Өөрийгөө танилцуулах","A0-T02-L03":"Нэр асууж танилцах","A0-T02-L04":"Сонин сайхан юу байна?","A0-T02-L05":"Тийм, үгүй гэж хариулах","A0-T02-L06":"Өөр хүнийг танилцуулах"};
           const lessonRows = ch.lessons.map((lesson) => {
             const pilotTitle = speakingPilotTitles[lesson.id];
             if (pilotTitle) {
@@ -3222,8 +3222,7 @@
                 '<div style="font-size:11px;color:#eda56e;margin-bottom:5px">'+escapeHtml(lesson.id)+' · '+(completed?'ДАСГАЛ ДУУССАН':'ТУРШИЛТЫН ХИЧЭЭЛ')+'</div>'+
                 '<a style="display:block;min-height:44px;padding:10px 0;color:#fff;text-decoration:none;font-weight:700" href="./speaking-pilot.html?lesson='+encodeURIComponent(lesson.id)+'">'+escapeHtml(pilotTitle)+' →</a></li>';
             }
-            return
-            '<li style="padding:12px 14px;margin:0 0 8px;border:1px solid rgba(255,255,255,.1);border-radius:13px;background:rgba(255,255,255,.035);list-style:none">' +
+            return '<li style="padding:12px 14px;margin:0 0 8px;border:1px solid rgba(255,255,255,.1);border-radius:13px;background:rgba(255,255,255,.035);list-style:none">' +
               '<div style="font-size:11px;color:#b8a592;margin-bottom:5px">' + escapeHtml(lesson.id) + ' · ЗУРАГЛАЛ</div>' +
               '<div style="font-size:14px;font-weight:650;color:#fff">' + escapeHtml(lesson.title_mn) + '</div>' +
             '</li>';
