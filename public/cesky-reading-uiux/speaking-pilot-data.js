@@ -1584,7 +1584,7 @@ window.AHOJ_SPEAKING_PILOT = {
           "items": [
             {
               "partner": "Kdo je to?",
-              "mn": "Эрэгтэй хүний нэрийг Петр гэж хэл.",
+              "mn": "Петр гэдэг эрэгтэйг зааж, түүний нэрийг хэл.",
               "models": [
                 "Jeho jméno je Petr.",
                 "On je Petr.",
@@ -1593,7 +1593,7 @@ window.AHOJ_SPEAKING_PILOT = {
             },
             {
               "partner": "Kdo je to?",
-              "mn": "Эмэгтэй хүний нэрийг Анна гэж хэл.",
+              "mn": "Анна гэдэг эмэгтэйг зааж, түүний нэрийг хэл.",
               "models": [
                 "Její jméno je Anna.",
                 "Ona je Anna.",
@@ -1738,8 +1738,8 @@ window.AHOJ_SPEAKING_PILOT = {
           "type": "dialogue",
           "items": [
             {
-              "partner": "To je Anna.",
-              "mn": "Тэр хүний нэрийг асуу.",
+              "partner": "Dobrý den.",
+              "mn": "Хажууд байгаа танихгүй хүний нэрийг асуу.",
               "models": [
                 "Jak se jmenuje?"
               ]
@@ -2495,7 +2495,7 @@ window.AHOJ_SPEAKING_PILOT = {
             },
             {
               "partner": "Ano.",
-              "mn": "Тусалсан хүнд маш их баярлалаа гэж хэл.",
+              "mn": "Харилцагч туслахаар зөвшөөрлөө. Маш их баярлалаа гэж хэл.",
               "models": [
                 "Moc děkuji."
               ]
