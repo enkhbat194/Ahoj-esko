@@ -1,0 +1,33 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {Script} from 'node:vm';
+const base='public/cesky-reading-uiux/';
+const read=p=>readFileSync(base+p,'utf8');
+const context={window:{}};
+new Script(read('speaking-pilot-data.js')).runInNewContext(context);
+const lessons=context.window.AHOJ_SPEAKING_PILOT.lessons;
+assert.equal(lessons.length,3);
+assert.equal(new Set(lessons.map(l=>l.id)).size,3);
+const types=new Set(['learn','match','listen','context','gap','build','dialogue','recall']);
+const index=read('index.html'), html=read('speaking-pilot.html'),js=read('speaking-pilot.js');
+new Script(js);
+for(const l of lessons){
+ assert.equal(l.steps.length,9);assert.equal(l.steps.at(-1).type,'recall');assert(index.includes(l.id));assert(l.steps.some(s=>s.type==='dialogue'));
+ for(const s of l.steps){
+  assert(types.has(s.type));
+  if(s.type==='match'){assert.equal(new Set(s.pairs.map(p=>p[0])).size,s.pairs.length);assert.equal(new Set(s.pairs.map(p=>p[1])).size,s.pairs.length);}
+  if(s.type==='context'||s.type==='gap')assert.equal(s.options.filter(o=>o===s.answer).length,1);
+  if(s.type==='listen')for(const item of s.items)assert.equal(item.options.filter(o=>o===item.cz).length,1);
+  if(s.type==='build')assert.equal([...s.tokens].sort().join('|'),[...s.answer].sort().join('|'));
+  if(s.type==='dialogue'||s.type==='recall')for(const item of s.items)assert(item.mn&&item.models.length);
+ }
+}
+assert(html.includes('speaking-pilot-data.js'));assert(html.includes('speaking-pilot.js'));assert(!html.includes('bottom-nav'));assert(!/<(?:input|textarea)\b/i.test(html));assert(index.includes('./speaking-pilot.html?lesson='));
+const logic=js.slice(js.indexOf('function normalize('),js.indexOf('const lessons='));
+const c={};new Script(logic).runInNewContext(c);
+assert.equal(c.speechMatch('Dobrý den!',['Dobrý den.'],false),'recognized');
+assert.equal(c.speechMatch('Dobry den',['Dobrý den.'],false),'unmatched');
+assert.equal(c.speechMatch('Jsem Jan.',['Jsem Petr.'],true),'ungraded');
+assert.equal(c.buildMatch(['Jak','se','jmenujete?'],['Jak','se','jmenujete?']),true);
+assert.equal(c.buildMatch(['se','Jak'],['Jak','se']),false);
+console.log('Speaking pilot: 3 lessons, 27 steps, syntax, routing, answer integrity, strict Czech diacritics and ungraded open speech passed.');
