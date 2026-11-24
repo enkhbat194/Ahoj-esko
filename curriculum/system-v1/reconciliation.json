@@ -1,0 +1,2396 @@
+{
+  "version": "0.1",
+  "status": "DRAFT_PARTIAL_RECOVERY_NOT_RUNTIME",
+  "source_refs": [
+    {
+      "id": "speaking",
+      "ref": "72520979ff83f2b5be9a7f1131b3d073c8fa768f",
+      "path": "public/cesky-reading-uiux/speaking-pilot-data.js",
+      "blob_sha": "70487d9a091df7a92a5a0af52605114eb91fa27e"
+    },
+    {
+      "id": "greeting",
+      "ref": "586fa7981f0447ca790d1524b46f8aafe4b9b9ad",
+      "path": "curriculum/system-v1/pilots/a0-t02-l01-greetings.draft.json",
+      "blob_sha": "98fe9dfd7bca7529a03027c77d07c5e810d30251"
+    },
+    {
+      "id": "lexicon",
+      "ref": "586fa7981f0447ca790d1524b46f8aafe4b9b9ad",
+      "path": "curriculum/system-v1/lexicon/top100.candidate.json",
+      "blob_sha": "c7b7512bd915b5bcea83ed72a524622c5c2b290f"
+    },
+    {
+      "id": "alphabet1",
+      "ref": "586fa7981f0447ca790d1524b46f8aafe4b9b9ad",
+      "path": "curriculum/system-v1/lessons/a0-t01-l01-to-l03.interactive.draft.json",
+      "blob_sha": "97e694780ca6ac387d58728d59d32db586c8476c"
+    },
+    {
+      "id": "alphabet2",
+      "ref": "586fa7981f0447ca790d1524b46f8aafe4b9b9ad",
+      "path": "curriculum/system-v1/lessons/a0-t01-l04.interactive.draft.json",
+      "blob_sha": "a68e877db6e21631aa5036a22ee23bbae42b80e2"
+    },
+    {
+      "id": "alphabet3",
+      "ref": "586fa7981f0447ca790d1524b46f8aafe4b9b9ad",
+      "path": "curriculum/system-v1/lessons/a0-t01-l05-to-l08.interactive.draft.json",
+      "blob_sha": "9e42683b352b402d95785204d11972010f32e750"
+    },
+    {
+      "id": "catalog",
+      "ref": "586fa7981f0447ca790d1524b46f8aafe4b9b9ad",
+      "path": "curriculum/system-v1/exercise-catalog.json",
+      "blob_sha": "47df70808e59b0ebb22bf6cb3f642914fa5bd952"
+    },
+    {
+      "id": "audio",
+      "ref": "72520979ff83f2b5be9a7f1131b3d073c8fa768f",
+      "path": "public/cesky-reading-uiux/speaking-audio-manifest.js",
+      "blob_sha": "f381c8648523f3a8dbb218de7296ddaa73062c9b"
+    }
+  ],
+  "missing_research_archives": [
+    {
+      "filename": "AHOJ_research_01.zip",
+      "status": "not_found_in_current_container_or_library_search",
+      "drive_search": "not_performed"
+    },
+    {
+      "filename": "AHOJ_research_02.zip",
+      "status": "not_found_in_current_container_or_library_search",
+      "drive_search": "not_performed"
+    },
+    {
+      "filename": "AHOJ_research_03.zip",
+      "status": "not_found_in_current_container_or_library_search",
+      "drive_search": "not_performed"
+    },
+    {
+      "filename": "AHOJ_research_04.zip",
+      "status": "not_found_in_current_container_or_library_search",
+      "drive_search": "not_performed"
+    },
+    {
+      "filename": "AHOJ_research_05.zip",
+      "status": "not_found_in_current_container_or_library_search",
+      "drive_search": "not_performed"
+    }
+  ],
+  "identity_policy": {
+    "lesson": "preserve source lesson ID; revision tracked separately; competing versions cannot both be active",
+    "lexeme": "retain existing CS-LEX IDs as candidate identity; match lemma + POS + sense before aliasing external IDs",
+    "form": "distinct stable ID, exact NFC surface, lexeme/sense relation, grammatical features, source, review status; phrase fragments distinct from full sentences",
+    "utterance": "preserve source utterance IDs; exact text match produces candidates only; context/role/voice approval needed before deduplication",
+    "audio": "text revision + locale + role + asset hash and approval; no private URLs",
+    "step": "source lesson ID + revision + original step ID or ordinal; never use ordinal to migrate mastery across revisions",
+    "event": "immutable attempt ID, target ID, skill, result, assistance, timestamp, source revision; retain old progress separately until explicit migration",
+    "frequency": "unknown stays null; do not infer ranks from teaching order"
+  },
+  "candidate_schema": {
+    "required_entities": {
+      "outcome": [
+        "id",
+        "can_do",
+        "cefr_reference",
+        "requires",
+        "status"
+      ],
+      "lexeme": [
+        "id",
+        "lemma",
+        "pos",
+        "sense_id",
+        "meaning_mn",
+        "frequency_evidence",
+        "status"
+      ],
+      "form": [
+        "id",
+        "lexeme_id",
+        "sense_id",
+        "surface",
+        "features",
+        "status"
+      ],
+      "utterance": [
+        "id",
+        "text_cs",
+        "meaning_mn",
+        "form_ids",
+        "context",
+        "status"
+      ],
+      "lesson": [
+        "id",
+        "revision",
+        "outcome_id",
+        "requires",
+        "step_ids",
+        "status"
+      ],
+      "step": [
+        "id",
+        "kind",
+        "target_ids",
+        "prerequisites",
+        "grading_mode",
+        "source"
+      ],
+      "asset": [
+        "id",
+        "utterance_id",
+        "locale",
+        "role",
+        "text_revision",
+        "sha256",
+        "approval"
+      ],
+      "event": [
+        "id",
+        "target_id",
+        "skill",
+        "result",
+        "assisted",
+        "time",
+        "source_revision"
+      ]
+    },
+    "grading_modes": [
+      "practice_only",
+      "exact_choice",
+      "exact_model",
+      "transcript_match_not_pronunciation",
+      "ungraded_open",
+      "validated_semantic",
+      "validated_acoustic"
+    ],
+    "rule": "Draft only; schema requires implementation and validation before runtime use."
+  },
+  "exercise_mapping": {
+    "learn": [
+      "introduce",
+      "model_repeat"
+    ],
+    "match": [
+      "meaning_match"
+    ],
+    "listen": [
+      "listen_form"
+    ],
+    "context": [
+      "context_choice"
+    ],
+    "gap": [
+      "cloze"
+    ],
+    "listen_meaning": [
+      "listen_meaning"
+    ],
+    "dialogue": [
+      "spoken_dialogue"
+    ],
+    "recall": [
+      "spoken_recall"
+    ],
+    "build": [
+      "model_order"
+    ],
+    "model": [
+      "introduce"
+    ],
+    "choice": [
+      "context_choice"
+    ],
+    "flashcards": [
+      "introduce"
+    ],
+    "listen_choice": [
+      "listen_form"
+    ],
+    "order": [
+      "model_order"
+    ],
+    "cloze": [
+      "cloze"
+    ],
+    "speak": [
+      "model_repeat_or_spoken_recall_review_required"
+    ]
+  },
+  "catalog_mapping": {
+    "context_hook": [
+      "context_choice"
+    ],
+    "word_card": [
+      "introduce"
+    ],
+    "meaning_match": [
+      "meaning_match"
+    ],
+    "sentence_reorder": [
+      "model_order"
+    ],
+    "cloze": [
+      "cloze"
+    ],
+    "guided_dialogue": [
+      "spoken_dialogue"
+    ],
+    "novel_transfer": [
+      "independent_transfer"
+    ],
+    "delayed_review": [
+      "delayed_review"
+    ],
+    "listen_choose": [
+      "listen_form_or_meaning_review_required"
+    ],
+    "listen_repeat": [
+      "model_repeat"
+    ],
+    "spoken_roleplay": [
+      "spoken_dialogue"
+    ],
+    "story_recall": [
+      "independent_transfer_review_required"
+    ]
+  },
+  "speaking_lessons": [
+    {
+      "id": "A0-T02-L01",
+      "revision": 2,
+      "status": "pilot_candidate",
+      "active_candidate": true,
+      "steps": [
+        {
+          "source_ordinal": 1,
+          "source_kind": "learn",
+          "target_kinds": [
+            "introduce",
+            "model_repeat"
+          ]
+        },
+        {
+          "source_ordinal": 2,
+          "source_kind": "learn",
+          "target_kinds": [
+            "introduce",
+            "model_repeat"
+          ]
+        },
+        {
+          "source_ordinal": 3,
+          "source_kind": "learn",
+          "target_kinds": [
+            "introduce",
+            "model_repeat"
+          ]
+        },
+        {
+          "source_ordinal": 4,
+          "source_kind": "match",
+          "target_kinds": [
+            "meaning_match"
+          ]
+        },
+        {
+          "source_ordinal": 5,
+          "source_kind": "listen",
+          "target_kinds": [
+            "listen_form"
+          ]
+        },
+        {
+          "source_ordinal": 6,
+          "source_kind": "context",
+          "target_kinds": [
+            "context_choice"
+          ]
+        },
+        {
+          "source_ordinal": 7,
+          "source_kind": "gap",
+          "target_kinds": [
+            "cloze"
+          ]
+        },
+        {
+          "source_ordinal": 8,
+          "source_kind": "listen_meaning",
+          "target_kinds": [
+            "listen_meaning"
+          ]
+        },
+        {
+          "source_ordinal": 9,
+          "source_kind": "dialogue",
+          "target_kinds": [
+            "spoken_dialogue"
+          ]
+        },
+        {
+          "source_ordinal": 10,
+          "source_kind": "recall",
+          "target_kinds": [
+            "spoken_recall"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A0-T02-L02",
+      "revision": 2,
+      "status": "pilot_candidate",
+      "active_candidate": true,
+      "steps": [
+        {
+          "source_ordinal": 1,
+          "source_kind": "recall",
+          "target_kinds": [
+            "spoken_recall"
+          ]
+        },
+        {
+          "source_ordinal": 2,
+          "source_kind": "learn",
+          "target_kinds": [
+            "introduce",
+            "model_repeat"
+          ]
+        },
+        {
+          "source_ordinal": 3,
+          "source_kind": "learn",
+          "target_kinds": [
+            "introduce",
+            "model_repeat"
+          ]
+        },
+        {
+          "source_ordinal": 4,
+          "source_kind": "learn",
+          "target_kinds": [
+            "introduce",
+            "model_repeat"
+          ]
+        },
+        {
+          "source_ordinal": 5,
+          "source_kind": "match",
+          "target_kinds": [
+            "meaning_match"
+          ]
+        },
+        {
+          "source_ordinal": 6,
+          "source_kind": "gap",
+          "target_kinds": [
+            "cloze"
+          ]
+        },
+        {
+          "source_ordinal": 7,
+          "source_kind": "build",
+          "target_kinds": [
+            "model_order"
+          ]
+        },
+        {
+          "source_ordinal": 8,
+          "source_kind": "listen_meaning",
+          "target_kinds": [
+            "listen_meaning"
+          ]
+        },
+        {
+          "source_ordinal": 9,
+          "source_kind": "dialogue",
+          "target_kinds": [
+            "spoken_dialogue"
+          ]
+        },
+        {
+          "source_ordinal": 10,
+          "source_kind": "recall",
+          "target_kinds": [
+            "spoken_recall"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A0-T02-L03",
+      "revision": 2,
+      "status": "pilot_candidate",
+      "active_candidate": true,
+      "steps": [
+        {
+          "source_ordinal": 1,
+          "source_kind": "recall",
+          "target_kinds": [
+            "spoken_recall"
+          ]
+        },
+        {
+          "source_ordinal": 2,
+          "source_kind": "learn",
+          "target_kinds": [
+            "introduce",
+            "model_repeat"
+          ]
+        },
+        {
+          "source_ordinal": 3,
+          "source_kind": "learn",
+          "target_kinds": [
+            "introduce",
+            "model_repeat"
+          ]
+        },
+        {
+          "source_ordinal": 4,
+          "source_kind": "match",
+          "target_kinds": [
+            "meaning_match"
+          ]
+        },
+        {
+          "source_ordinal": 5,
+          "source_kind": "listen",
+          "target_kinds": [
+            "listen_form"
+          ]
+        },
+        {
+          "source_ordinal": 6,
+          "source_kind": "gap",
+          "target_kinds": [
+            "cloze"
+          ]
+        },
+        {
+          "source_ordinal": 7,
+          "source_kind": "build",
+          "target_kinds": [
+            "model_order"
+          ]
+        },
+        {
+          "source_ordinal": 8,
+          "source_kind": "listen_meaning",
+          "target_kinds": [
+            "listen_meaning"
+          ]
+        },
+        {
+          "source_ordinal": 9,
+          "source_kind": "dialogue",
+          "target_kinds": [
+            "spoken_dialogue"
+          ]
+        },
+        {
+          "source_ordinal": 10,
+          "source_kind": "recall",
+          "target_kinds": [
+            "spoken_recall"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A0-T02-L04",
+      "revision": 1,
+      "status": "legacy_draft_unvalidated",
+      "active_candidate": false,
+      "steps": [
+        {
+          "source_ordinal": 1,
+          "source_kind": "recall",
+          "target_kinds": [
+            "spoken_recall"
+          ]
+        },
+        {
+          "source_ordinal": 2,
+          "source_kind": "learn",
+          "target_kinds": [
+            "introduce",
+            "model_repeat"
+          ]
+        },
+        {
+          "source_ordinal": 3,
+          "source_kind": "learn",
+          "target_kinds": [
+            "introduce",
+            "model_repeat"
+          ]
+        },
+        {
+          "source_ordinal": 4,
+          "source_kind": "learn",
+          "target_kinds": [
+            "introduce",
+            "model_repeat"
+          ]
+        },
+        {
+          "source_ordinal": 5,
+          "source_kind": "match",
+          "target_kinds": [
+            "meaning_match"
+          ]
+        },
+        {
+          "source_ordinal": 6,
+          "source_kind": "listen",
+          "target_kinds": [
+            "listen_form"
+          ]
+        },
+        {
+          "source_ordinal": 7,
+          "source_kind": "build",
+          "target_kinds": [
+            "model_order"
+          ]
+        },
+        {
+          "source_ordinal": 8,
+          "source_kind": "dialogue",
+          "target_kinds": [
+            "spoken_dialogue"
+          ]
+        },
+        {
+          "source_ordinal": 9,
+          "source_kind": "recall",
+          "target_kinds": [
+            "spoken_recall"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A0-T02-L05",
+      "revision": 1,
+      "status": "legacy_draft_unvalidated",
+      "active_candidate": false,
+      "steps": [
+        {
+          "source_ordinal": 1,
+          "source_kind": "recall",
+          "target_kinds": [
+            "spoken_recall"
+          ]
+        },
+        {
+          "source_ordinal": 2,
+          "source_kind": "learn",
+          "target_kinds": [
+            "introduce",
+            "model_repeat"
+          ]
+        },
+        {
+          "source_ordinal": 3,
+          "source_kind": "learn",
+          "target_kinds": [
+            "introduce",
+            "model_repeat"
+          ]
+        },
+        {
+          "source_ordinal": 4,
+          "source_kind": "learn",
+          "target_kinds": [
+            "introduce",
+            "model_repeat"
+          ]
+        },
+        {
+          "source_ordinal": 5,
+          "source_kind": "match",
+          "target_kinds": [
+            "meaning_match"
+          ]
+        },
+        {
+          "source_ordinal": 6,
+          "source_kind": "listen",
+          "target_kinds": [
+            "listen_form"
+          ]
+        },
+        {
+          "source_ordinal": 7,
+          "source_kind": "build",
+          "target_kinds": [
+            "model_order"
+          ]
+        },
+        {
+          "source_ordinal": 8,
+          "source_kind": "dialogue",
+          "target_kinds": [
+            "spoken_dialogue"
+          ]
+        },
+        {
+          "source_ordinal": 9,
+          "source_kind": "recall",
+          "target_kinds": [
+            "spoken_recall"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A0-T02-L06",
+      "revision": 1,
+      "status": "legacy_draft_unvalidated",
+      "active_candidate": false,
+      "steps": [
+        {
+          "source_ordinal": 1,
+          "source_kind": "recall",
+          "target_kinds": [
+            "spoken_recall"
+          ]
+        },
+        {
+          "source_ordinal": 2,
+          "source_kind": "learn",
+          "target_kinds": [
+            "introduce",
+            "model_repeat"
+          ]
+        },
+        {
+          "source_ordinal": 3,
+          "source_kind": "learn",
+          "target_kinds": [
+            "introduce",
+            "model_repeat"
+          ]
+        },
+        {
+          "source_ordinal": 4,
+          "source_kind": "match",
+          "target_kinds": [
+            "meaning_match"
+          ]
+        },
+        {
+          "source_ordinal": 5,
+          "source_kind": "listen",
+          "target_kinds": [
+            "listen_form"
+          ]
+        },
+        {
+          "source_ordinal": 6,
+          "source_kind": "gap",
+          "target_kinds": [
+            "cloze"
+          ]
+        },
+        {
+          "source_ordinal": 7,
+          "source_kind": "build",
+          "target_kinds": [
+            "model_order"
+          ]
+        },
+        {
+          "source_ordinal": 8,
+          "source_kind": "dialogue",
+          "target_kinds": [
+            "spoken_dialogue"
+          ]
+        },
+        {
+          "source_ordinal": 9,
+          "source_kind": "recall",
+          "target_kinds": [
+            "spoken_recall"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A0-T02-L07",
+      "revision": 1,
+      "status": "legacy_draft_unvalidated",
+      "active_candidate": false,
+      "steps": [
+        {
+          "source_ordinal": 1,
+          "source_kind": "recall",
+          "target_kinds": [
+            "spoken_recall"
+          ]
+        },
+        {
+          "source_ordinal": 2,
+          "source_kind": "learn",
+          "target_kinds": [
+            "introduce",
+            "model_repeat"
+          ]
+        },
+        {
+          "source_ordinal": 3,
+          "source_kind": "learn",
+          "target_kinds": [
+            "introduce",
+            "model_repeat"
+          ]
+        },
+        {
+          "source_ordinal": 4,
+          "source_kind": "learn",
+          "target_kinds": [
+            "introduce",
+            "model_repeat"
+          ]
+        },
+        {
+          "source_ordinal": 5,
+          "source_kind": "match",
+          "target_kinds": [
+            "meaning_match"
+          ]
+        },
+        {
+          "source_ordinal": 6,
+          "source_kind": "listen",
+          "target_kinds": [
+            "listen_form"
+          ]
+        },
+        {
+          "source_ordinal": 7,
+          "source_kind": "build",
+          "target_kinds": [
+            "model_order"
+          ]
+        },
+        {
+          "source_ordinal": 8,
+          "source_kind": "dialogue",
+          "target_kinds": [
+            "spoken_dialogue"
+          ]
+        },
+        {
+          "source_ordinal": 9,
+          "source_kind": "recall",
+          "target_kinds": [
+            "spoken_recall"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A0-T02-L08",
+      "revision": 1,
+      "status": "legacy_draft_unvalidated",
+      "active_candidate": false,
+      "steps": [
+        {
+          "source_ordinal": 1,
+          "source_kind": "recall",
+          "target_kinds": [
+            "spoken_recall"
+          ]
+        },
+        {
+          "source_ordinal": 2,
+          "source_kind": "learn",
+          "target_kinds": [
+            "introduce",
+            "model_repeat"
+          ]
+        },
+        {
+          "source_ordinal": 3,
+          "source_kind": "learn",
+          "target_kinds": [
+            "introduce",
+            "model_repeat"
+          ]
+        },
+        {
+          "source_ordinal": 4,
+          "source_kind": "learn",
+          "target_kinds": [
+            "introduce",
+            "model_repeat"
+          ]
+        },
+        {
+          "source_ordinal": 5,
+          "source_kind": "match",
+          "target_kinds": [
+            "meaning_match"
+          ]
+        },
+        {
+          "source_ordinal": 6,
+          "source_kind": "listen",
+          "target_kinds": [
+            "listen_form"
+          ]
+        },
+        {
+          "source_ordinal": 7,
+          "source_kind": "build",
+          "target_kinds": [
+            "model_order"
+          ]
+        },
+        {
+          "source_ordinal": 8,
+          "source_kind": "dialogue",
+          "target_kinds": [
+            "spoken_dialogue"
+          ]
+        },
+        {
+          "source_ordinal": 9,
+          "source_kind": "recall",
+          "target_kinds": [
+            "spoken_recall"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A0-T02-L09",
+      "revision": 1,
+      "status": "legacy_draft_unvalidated",
+      "active_candidate": false,
+      "steps": [
+        {
+          "source_ordinal": 1,
+          "source_kind": "recall",
+          "target_kinds": [
+            "spoken_recall"
+          ]
+        },
+        {
+          "source_ordinal": 2,
+          "source_kind": "learn",
+          "target_kinds": [
+            "introduce",
+            "model_repeat"
+          ]
+        },
+        {
+          "source_ordinal": 3,
+          "source_kind": "learn",
+          "target_kinds": [
+            "introduce",
+            "model_repeat"
+          ]
+        },
+        {
+          "source_ordinal": 4,
+          "source_kind": "learn",
+          "target_kinds": [
+            "introduce",
+            "model_repeat"
+          ]
+        },
+        {
+          "source_ordinal": 5,
+          "source_kind": "match",
+          "target_kinds": [
+            "meaning_match"
+          ]
+        },
+        {
+          "source_ordinal": 6,
+          "source_kind": "listen",
+          "target_kinds": [
+            "listen_form"
+          ]
+        },
+        {
+          "source_ordinal": 7,
+          "source_kind": "context",
+          "target_kinds": [
+            "context_choice"
+          ]
+        },
+        {
+          "source_ordinal": 8,
+          "source_kind": "dialogue",
+          "target_kinds": [
+            "spoken_dialogue"
+          ]
+        },
+        {
+          "source_ordinal": 9,
+          "source_kind": "recall",
+          "target_kinds": [
+            "spoken_recall"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A0-T02-L10",
+      "revision": 1,
+      "status": "legacy_draft_unvalidated",
+      "active_candidate": false,
+      "steps": [
+        {
+          "source_ordinal": 1,
+          "source_kind": "recall",
+          "target_kinds": [
+            "spoken_recall"
+          ]
+        },
+        {
+          "source_ordinal": 2,
+          "source_kind": "learn",
+          "target_kinds": [
+            "introduce",
+            "model_repeat"
+          ]
+        },
+        {
+          "source_ordinal": 3,
+          "source_kind": "learn",
+          "target_kinds": [
+            "introduce",
+            "model_repeat"
+          ]
+        },
+        {
+          "source_ordinal": 4,
+          "source_kind": "match",
+          "target_kinds": [
+            "meaning_match"
+          ]
+        },
+        {
+          "source_ordinal": 5,
+          "source_kind": "listen",
+          "target_kinds": [
+            "listen_form"
+          ]
+        },
+        {
+          "source_ordinal": 6,
+          "source_kind": "gap",
+          "target_kinds": [
+            "cloze"
+          ]
+        },
+        {
+          "source_ordinal": 7,
+          "source_kind": "build",
+          "target_kinds": [
+            "model_order"
+          ]
+        },
+        {
+          "source_ordinal": 8,
+          "source_kind": "dialogue",
+          "target_kinds": [
+            "spoken_dialogue"
+          ]
+        },
+        {
+          "source_ordinal": 9,
+          "source_kind": "recall",
+          "target_kinds": [
+            "spoken_recall"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A0-T02-L11",
+      "revision": 1,
+      "status": "legacy_draft_unvalidated",
+      "active_candidate": false,
+      "steps": [
+        {
+          "source_ordinal": 1,
+          "source_kind": "recall",
+          "target_kinds": [
+            "spoken_recall"
+          ]
+        },
+        {
+          "source_ordinal": 2,
+          "source_kind": "learn",
+          "target_kinds": [
+            "introduce",
+            "model_repeat"
+          ]
+        },
+        {
+          "source_ordinal": 3,
+          "source_kind": "learn",
+          "target_kinds": [
+            "introduce",
+            "model_repeat"
+          ]
+        },
+        {
+          "source_ordinal": 4,
+          "source_kind": "learn",
+          "target_kinds": [
+            "introduce",
+            "model_repeat"
+          ]
+        },
+        {
+          "source_ordinal": 5,
+          "source_kind": "match",
+          "target_kinds": [
+            "meaning_match"
+          ]
+        },
+        {
+          "source_ordinal": 6,
+          "source_kind": "listen",
+          "target_kinds": [
+            "listen_form"
+          ]
+        },
+        {
+          "source_ordinal": 7,
+          "source_kind": "build",
+          "target_kinds": [
+            "model_order"
+          ]
+        },
+        {
+          "source_ordinal": 8,
+          "source_kind": "dialogue",
+          "target_kinds": [
+            "spoken_dialogue"
+          ]
+        },
+        {
+          "source_ordinal": 9,
+          "source_kind": "recall",
+          "target_kinds": [
+            "spoken_recall"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A0-T02-L12",
+      "revision": 1,
+      "status": "legacy_draft_unvalidated",
+      "active_candidate": false,
+      "steps": [
+        {
+          "source_ordinal": 1,
+          "source_kind": "recall",
+          "target_kinds": [
+            "spoken_recall"
+          ]
+        },
+        {
+          "source_ordinal": 2,
+          "source_kind": "learn",
+          "target_kinds": [
+            "introduce",
+            "model_repeat"
+          ]
+        },
+        {
+          "source_ordinal": 3,
+          "source_kind": "learn",
+          "target_kinds": [
+            "introduce",
+            "model_repeat"
+          ]
+        },
+        {
+          "source_ordinal": 4,
+          "source_kind": "match",
+          "target_kinds": [
+            "meaning_match"
+          ]
+        },
+        {
+          "source_ordinal": 5,
+          "source_kind": "listen",
+          "target_kinds": [
+            "listen_form"
+          ]
+        },
+        {
+          "source_ordinal": 6,
+          "source_kind": "gap",
+          "target_kinds": [
+            "cloze"
+          ]
+        },
+        {
+          "source_ordinal": 7,
+          "source_kind": "build",
+          "target_kinds": [
+            "model_order"
+          ]
+        },
+        {
+          "source_ordinal": 8,
+          "source_kind": "dialogue",
+          "target_kinds": [
+            "spoken_dialogue"
+          ]
+        },
+        {
+          "source_ordinal": 9,
+          "source_kind": "recall",
+          "target_kinds": [
+            "spoken_recall"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A0-T02-L13",
+      "revision": 1,
+      "status": "legacy_draft_unvalidated",
+      "active_candidate": false,
+      "steps": [
+        {
+          "source_ordinal": 1,
+          "source_kind": "recall",
+          "target_kinds": [
+            "spoken_recall"
+          ]
+        },
+        {
+          "source_ordinal": 2,
+          "source_kind": "learn",
+          "target_kinds": [
+            "introduce",
+            "model_repeat"
+          ]
+        },
+        {
+          "source_ordinal": 3,
+          "source_kind": "learn",
+          "target_kinds": [
+            "introduce",
+            "model_repeat"
+          ]
+        },
+        {
+          "source_ordinal": 4,
+          "source_kind": "learn",
+          "target_kinds": [
+            "introduce",
+            "model_repeat"
+          ]
+        },
+        {
+          "source_ordinal": 5,
+          "source_kind": "match",
+          "target_kinds": [
+            "meaning_match"
+          ]
+        },
+        {
+          "source_ordinal": 6,
+          "source_kind": "listen",
+          "target_kinds": [
+            "listen_form"
+          ]
+        },
+        {
+          "source_ordinal": 7,
+          "source_kind": "build",
+          "target_kinds": [
+            "model_order"
+          ]
+        },
+        {
+          "source_ordinal": 8,
+          "source_kind": "dialogue",
+          "target_kinds": [
+            "spoken_dialogue"
+          ]
+        },
+        {
+          "source_ordinal": 9,
+          "source_kind": "recall",
+          "target_kinds": [
+            "spoken_recall"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A0-T02-L14",
+      "revision": 1,
+      "status": "legacy_draft_unvalidated",
+      "active_candidate": false,
+      "steps": [
+        {
+          "source_ordinal": 1,
+          "source_kind": "recall",
+          "target_kinds": [
+            "spoken_recall"
+          ]
+        },
+        {
+          "source_ordinal": 2,
+          "source_kind": "learn",
+          "target_kinds": [
+            "introduce",
+            "model_repeat"
+          ]
+        },
+        {
+          "source_ordinal": 3,
+          "source_kind": "learn",
+          "target_kinds": [
+            "introduce",
+            "model_repeat"
+          ]
+        },
+        {
+          "source_ordinal": 4,
+          "source_kind": "learn",
+          "target_kinds": [
+            "introduce",
+            "model_repeat"
+          ]
+        },
+        {
+          "source_ordinal": 5,
+          "source_kind": "match",
+          "target_kinds": [
+            "meaning_match"
+          ]
+        },
+        {
+          "source_ordinal": 6,
+          "source_kind": "listen",
+          "target_kinds": [
+            "listen_form"
+          ]
+        },
+        {
+          "source_ordinal": 7,
+          "source_kind": "build",
+          "target_kinds": [
+            "model_order"
+          ]
+        },
+        {
+          "source_ordinal": 8,
+          "source_kind": "dialogue",
+          "target_kinds": [
+            "spoken_dialogue"
+          ]
+        },
+        {
+          "source_ordinal": 9,
+          "source_kind": "recall",
+          "target_kinds": [
+            "spoken_recall"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A0-T02-L15",
+      "revision": 1,
+      "status": "legacy_draft_unvalidated",
+      "active_candidate": false,
+      "steps": [
+        {
+          "source_ordinal": 1,
+          "source_kind": "recall",
+          "target_kinds": [
+            "spoken_recall"
+          ]
+        },
+        {
+          "source_ordinal": 2,
+          "source_kind": "learn",
+          "target_kinds": [
+            "introduce",
+            "model_repeat"
+          ]
+        },
+        {
+          "source_ordinal": 3,
+          "source_kind": "learn",
+          "target_kinds": [
+            "introduce",
+            "model_repeat"
+          ]
+        },
+        {
+          "source_ordinal": 4,
+          "source_kind": "learn",
+          "target_kinds": [
+            "introduce",
+            "model_repeat"
+          ]
+        },
+        {
+          "source_ordinal": 5,
+          "source_kind": "match",
+          "target_kinds": [
+            "meaning_match"
+          ]
+        },
+        {
+          "source_ordinal": 6,
+          "source_kind": "listen",
+          "target_kinds": [
+            "listen_form"
+          ]
+        },
+        {
+          "source_ordinal": 7,
+          "source_kind": "build",
+          "target_kinds": [
+            "model_order"
+          ]
+        },
+        {
+          "source_ordinal": 8,
+          "source_kind": "dialogue",
+          "target_kinds": [
+            "spoken_dialogue"
+          ]
+        },
+        {
+          "source_ordinal": 9,
+          "source_kind": "recall",
+          "target_kinds": [
+            "spoken_recall"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A0-T02-L16",
+      "revision": 1,
+      "status": "legacy_draft_unvalidated",
+      "active_candidate": false,
+      "steps": [
+        {
+          "source_ordinal": 1,
+          "source_kind": "recall",
+          "target_kinds": [
+            "spoken_recall"
+          ]
+        },
+        {
+          "source_ordinal": 2,
+          "source_kind": "learn",
+          "target_kinds": [
+            "introduce",
+            "model_repeat"
+          ]
+        },
+        {
+          "source_ordinal": 3,
+          "source_kind": "learn",
+          "target_kinds": [
+            "introduce",
+            "model_repeat"
+          ]
+        },
+        {
+          "source_ordinal": 4,
+          "source_kind": "learn",
+          "target_kinds": [
+            "introduce",
+            "model_repeat"
+          ]
+        },
+        {
+          "source_ordinal": 5,
+          "source_kind": "match",
+          "target_kinds": [
+            "meaning_match"
+          ]
+        },
+        {
+          "source_ordinal": 6,
+          "source_kind": "listen",
+          "target_kinds": [
+            "listen_form"
+          ]
+        },
+        {
+          "source_ordinal": 7,
+          "source_kind": "context",
+          "target_kinds": [
+            "context_choice"
+          ]
+        },
+        {
+          "source_ordinal": 8,
+          "source_kind": "dialogue",
+          "target_kinds": [
+            "spoken_dialogue"
+          ]
+        },
+        {
+          "source_ordinal": 9,
+          "source_kind": "recall",
+          "target_kinds": [
+            "spoken_recall"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A0-T02-L17",
+      "revision": 1,
+      "status": "legacy_draft_unvalidated",
+      "active_candidate": false,
+      "steps": [
+        {
+          "source_ordinal": 1,
+          "source_kind": "recall",
+          "target_kinds": [
+            "spoken_recall"
+          ]
+        },
+        {
+          "source_ordinal": 2,
+          "source_kind": "learn",
+          "target_kinds": [
+            "introduce",
+            "model_repeat"
+          ]
+        },
+        {
+          "source_ordinal": 3,
+          "source_kind": "learn",
+          "target_kinds": [
+            "introduce",
+            "model_repeat"
+          ]
+        },
+        {
+          "source_ordinal": 4,
+          "source_kind": "learn",
+          "target_kinds": [
+            "introduce",
+            "model_repeat"
+          ]
+        },
+        {
+          "source_ordinal": 5,
+          "source_kind": "match",
+          "target_kinds": [
+            "meaning_match"
+          ]
+        },
+        {
+          "source_ordinal": 6,
+          "source_kind": "listen",
+          "target_kinds": [
+            "listen_form"
+          ]
+        },
+        {
+          "source_ordinal": 7,
+          "source_kind": "build",
+          "target_kinds": [
+            "model_order"
+          ]
+        },
+        {
+          "source_ordinal": 8,
+          "source_kind": "dialogue",
+          "target_kinds": [
+            "spoken_dialogue"
+          ]
+        },
+        {
+          "source_ordinal": 9,
+          "source_kind": "recall",
+          "target_kinds": [
+            "spoken_recall"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A0-T02-L18",
+      "revision": 1,
+      "status": "legacy_draft_unvalidated",
+      "active_candidate": false,
+      "steps": [
+        {
+          "source_ordinal": 1,
+          "source_kind": "recall",
+          "target_kinds": [
+            "spoken_recall"
+          ]
+        },
+        {
+          "source_ordinal": 2,
+          "source_kind": "listen",
+          "target_kinds": [
+            "listen_form"
+          ]
+        },
+        {
+          "source_ordinal": 3,
+          "source_kind": "context",
+          "target_kinds": [
+            "context_choice"
+          ]
+        },
+        {
+          "source_ordinal": 4,
+          "source_kind": "match",
+          "target_kinds": [
+            "meaning_match"
+          ]
+        },
+        {
+          "source_ordinal": 5,
+          "source_kind": "build",
+          "target_kinds": [
+            "model_order"
+          ]
+        },
+        {
+          "source_ordinal": 6,
+          "source_kind": "gap",
+          "target_kinds": [
+            "cloze"
+          ]
+        },
+        {
+          "source_ordinal": 7,
+          "source_kind": "dialogue",
+          "target_kinds": [
+            "spoken_dialogue"
+          ]
+        },
+        {
+          "source_ordinal": 8,
+          "source_kind": "dialogue",
+          "target_kinds": [
+            "spoken_dialogue"
+          ]
+        },
+        {
+          "source_ordinal": 9,
+          "source_kind": "recall",
+          "target_kinds": [
+            "spoken_recall"
+          ]
+        }
+      ]
+    }
+  ],
+  "alphabet_lessons": [
+    {
+      "id": "A0-T01-L01",
+      "source": "alphabet1",
+      "status": "draft",
+      "steps": [
+        {
+          "source_id": "L01-S01",
+          "source_kind": "model",
+          "target_kinds": [
+            "introduce"
+          ]
+        },
+        {
+          "source_id": "L01-S02",
+          "source_kind": "choice",
+          "target_kinds": [
+            "context_choice"
+          ]
+        },
+        {
+          "source_id": "L01-S03",
+          "source_kind": "flashcards",
+          "target_kinds": [
+            "introduce"
+          ]
+        },
+        {
+          "source_id": "L01-S04",
+          "source_kind": "listen_choice",
+          "target_kinds": [
+            "listen_form"
+          ]
+        },
+        {
+          "source_id": "L01-S05",
+          "source_kind": "match",
+          "target_kinds": [
+            "meaning_match"
+          ]
+        },
+        {
+          "source_id": "L01-S06",
+          "source_kind": "order",
+          "target_kinds": [
+            "model_order"
+          ]
+        },
+        {
+          "source_id": "L01-S07",
+          "source_kind": "cloze",
+          "target_kinds": [
+            "cloze"
+          ]
+        },
+        {
+          "source_id": "L01-S08",
+          "source_kind": "choice",
+          "target_kinds": [
+            "context_choice"
+          ]
+        },
+        {
+          "source_id": "L01-S09",
+          "source_kind": "speak",
+          "target_kinds": [
+            "model_repeat_or_spoken_recall_review_required"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A0-T01-L02",
+      "source": "alphabet1",
+      "status": "draft",
+      "steps": [
+        {
+          "source_id": "L02-S01",
+          "source_kind": "model",
+          "target_kinds": [
+            "introduce"
+          ]
+        },
+        {
+          "source_id": "L02-S02",
+          "source_kind": "choice",
+          "target_kinds": [
+            "context_choice"
+          ]
+        },
+        {
+          "source_id": "L02-S03",
+          "source_kind": "flashcards",
+          "target_kinds": [
+            "introduce"
+          ]
+        },
+        {
+          "source_id": "L02-S04",
+          "source_kind": "listen_choice",
+          "target_kinds": [
+            "listen_form"
+          ]
+        },
+        {
+          "source_id": "L02-S05",
+          "source_kind": "match",
+          "target_kinds": [
+            "meaning_match"
+          ]
+        },
+        {
+          "source_id": "L02-S06",
+          "source_kind": "order",
+          "target_kinds": [
+            "model_order"
+          ]
+        },
+        {
+          "source_id": "L02-S07",
+          "source_kind": "cloze",
+          "target_kinds": [
+            "cloze"
+          ]
+        },
+        {
+          "source_id": "L02-S08",
+          "source_kind": "choice",
+          "target_kinds": [
+            "context_choice"
+          ]
+        },
+        {
+          "source_id": "L02-S09",
+          "source_kind": "speak",
+          "target_kinds": [
+            "model_repeat_or_spoken_recall_review_required"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A0-T01-L03",
+      "source": "alphabet1",
+      "status": "draft",
+      "steps": [
+        {
+          "source_id": "L03-S01",
+          "source_kind": "model",
+          "target_kinds": [
+            "introduce"
+          ]
+        },
+        {
+          "source_id": "L03-S02",
+          "source_kind": "choice",
+          "target_kinds": [
+            "context_choice"
+          ]
+        },
+        {
+          "source_id": "L03-S03",
+          "source_kind": "flashcards",
+          "target_kinds": [
+            "introduce"
+          ]
+        },
+        {
+          "source_id": "L03-S04",
+          "source_kind": "listen_choice",
+          "target_kinds": [
+            "listen_form"
+          ]
+        },
+        {
+          "source_id": "L03-S05",
+          "source_kind": "match",
+          "target_kinds": [
+            "meaning_match"
+          ]
+        },
+        {
+          "source_id": "L03-S06",
+          "source_kind": "order",
+          "target_kinds": [
+            "model_order"
+          ]
+        },
+        {
+          "source_id": "L03-S07",
+          "source_kind": "cloze",
+          "target_kinds": [
+            "cloze"
+          ]
+        },
+        {
+          "source_id": "L03-S08",
+          "source_kind": "choice",
+          "target_kinds": [
+            "context_choice"
+          ]
+        },
+        {
+          "source_id": "L03-S09",
+          "source_kind": "speak",
+          "target_kinds": [
+            "model_repeat_or_spoken_recall_review_required"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A0-T01-L04",
+      "source": "alphabet2",
+      "status": "draft",
+      "steps": [
+        {
+          "source_id": "L04-S01",
+          "source_kind": "model",
+          "target_kinds": [
+            "introduce"
+          ]
+        },
+        {
+          "source_id": "L04-S02",
+          "source_kind": "choice",
+          "target_kinds": [
+            "context_choice"
+          ]
+        },
+        {
+          "source_id": "L04-S03",
+          "source_kind": "flashcards",
+          "target_kinds": [
+            "introduce"
+          ]
+        },
+        {
+          "source_id": "L04-S04",
+          "source_kind": "listen_choice",
+          "target_kinds": [
+            "listen_form"
+          ]
+        },
+        {
+          "source_id": "L04-S05",
+          "source_kind": "match",
+          "target_kinds": [
+            "meaning_match"
+          ]
+        },
+        {
+          "source_id": "L04-S06",
+          "source_kind": "order",
+          "target_kinds": [
+            "model_order"
+          ]
+        },
+        {
+          "source_id": "L04-S07",
+          "source_kind": "cloze",
+          "target_kinds": [
+            "cloze"
+          ]
+        },
+        {
+          "source_id": "L04-S08",
+          "source_kind": "choice",
+          "target_kinds": [
+            "context_choice"
+          ]
+        },
+        {
+          "source_id": "L04-S09",
+          "source_kind": "speak",
+          "target_kinds": [
+            "model_repeat_or_spoken_recall_review_required"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A0-T01-L05",
+      "source": "alphabet3",
+      "status": "draft",
+      "steps": [
+        {
+          "source_id": "L05-S01",
+          "source_kind": "model",
+          "target_kinds": [
+            "introduce"
+          ]
+        },
+        {
+          "source_id": "L05-S02",
+          "source_kind": "choice",
+          "target_kinds": [
+            "context_choice"
+          ]
+        },
+        {
+          "source_id": "L05-S03",
+          "source_kind": "flashcards",
+          "target_kinds": [
+            "introduce"
+          ]
+        },
+        {
+          "source_id": "L05-S04",
+          "source_kind": "listen_choice",
+          "target_kinds": [
+            "listen_form"
+          ]
+        },
+        {
+          "source_id": "L05-S05",
+          "source_kind": "match",
+          "target_kinds": [
+            "meaning_match"
+          ]
+        },
+        {
+          "source_id": "L05-S06",
+          "source_kind": "order",
+          "target_kinds": [
+            "model_order"
+          ]
+        },
+        {
+          "source_id": "L05-S07",
+          "source_kind": "cloze",
+          "target_kinds": [
+            "cloze"
+          ]
+        },
+        {
+          "source_id": "L05-S08",
+          "source_kind": "choice",
+          "target_kinds": [
+            "context_choice"
+          ]
+        },
+        {
+          "source_id": "L05-S09",
+          "source_kind": "speak",
+          "target_kinds": [
+            "model_repeat_or_spoken_recall_review_required"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A0-T01-L06",
+      "source": "alphabet3",
+      "status": "draft",
+      "steps": [
+        {
+          "source_id": "L06-S01",
+          "source_kind": "model",
+          "target_kinds": [
+            "introduce"
+          ]
+        },
+        {
+          "source_id": "L06-S02",
+          "source_kind": "choice",
+          "target_kinds": [
+            "context_choice"
+          ]
+        },
+        {
+          "source_id": "L06-S03",
+          "source_kind": "flashcards",
+          "target_kinds": [
+            "introduce"
+          ]
+        },
+        {
+          "source_id": "L06-S04",
+          "source_kind": "listen_choice",
+          "target_kinds": [
+            "listen_form"
+          ]
+        },
+        {
+          "source_id": "L06-S05",
+          "source_kind": "match",
+          "target_kinds": [
+            "meaning_match"
+          ]
+        },
+        {
+          "source_id": "L06-S06",
+          "source_kind": "order",
+          "target_kinds": [
+            "model_order"
+          ]
+        },
+        {
+          "source_id": "L06-S07",
+          "source_kind": "cloze",
+          "target_kinds": [
+            "cloze"
+          ]
+        },
+        {
+          "source_id": "L06-S08",
+          "source_kind": "choice",
+          "target_kinds": [
+            "context_choice"
+          ]
+        },
+        {
+          "source_id": "L06-S09",
+          "source_kind": "speak",
+          "target_kinds": [
+            "model_repeat_or_spoken_recall_review_required"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A0-T01-L07",
+      "source": "alphabet3",
+      "status": "draft",
+      "steps": [
+        {
+          "source_id": "L07-S01",
+          "source_kind": "model",
+          "target_kinds": [
+            "introduce"
+          ]
+        },
+        {
+          "source_id": "L07-S02",
+          "source_kind": "choice",
+          "target_kinds": [
+            "context_choice"
+          ]
+        },
+        {
+          "source_id": "L07-S03",
+          "source_kind": "flashcards",
+          "target_kinds": [
+            "introduce"
+          ]
+        },
+        {
+          "source_id": "L07-S04",
+          "source_kind": "listen_choice",
+          "target_kinds": [
+            "listen_form"
+          ]
+        },
+        {
+          "source_id": "L07-S05",
+          "source_kind": "match",
+          "target_kinds": [
+            "meaning_match"
+          ]
+        },
+        {
+          "source_id": "L07-S06",
+          "source_kind": "order",
+          "target_kinds": [
+            "model_order"
+          ]
+        },
+        {
+          "source_id": "L07-S07",
+          "source_kind": "cloze",
+          "target_kinds": [
+            "cloze"
+          ]
+        },
+        {
+          "source_id": "L07-S08",
+          "source_kind": "choice",
+          "target_kinds": [
+            "context_choice"
+          ]
+        },
+        {
+          "source_id": "L07-S09",
+          "source_kind": "speak",
+          "target_kinds": [
+            "model_repeat_or_spoken_recall_review_required"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "A0-T01-L08",
+      "source": "alphabet3",
+      "status": "draft",
+      "steps": [
+        {
+          "source_id": "L08-S01",
+          "source_kind": "model",
+          "target_kinds": [
+            "introduce"
+          ]
+        },
+        {
+          "source_id": "L08-S02",
+          "source_kind": "choice",
+          "target_kinds": [
+            "context_choice"
+          ]
+        },
+        {
+          "source_id": "L08-S03",
+          "source_kind": "flashcards",
+          "target_kinds": [
+            "introduce"
+          ]
+        },
+        {
+          "source_id": "L08-S04",
+          "source_kind": "listen_choice",
+          "target_kinds": [
+            "listen_form"
+          ]
+        },
+        {
+          "source_id": "L08-S05",
+          "source_kind": "match",
+          "target_kinds": [
+            "meaning_match"
+          ]
+        },
+        {
+          "source_id": "L08-S06",
+          "source_kind": "order",
+          "target_kinds": [
+            "model_order"
+          ]
+        },
+        {
+          "source_id": "L08-S07",
+          "source_kind": "cloze",
+          "target_kinds": [
+            "cloze"
+          ]
+        },
+        {
+          "source_id": "L08-S08",
+          "source_kind": "choice",
+          "target_kinds": [
+            "context_choice"
+          ]
+        },
+        {
+          "source_id": "L08-S09",
+          "source_kind": "speak",
+          "target_kinds": [
+            "model_repeat_or_spoken_recall_review_required"
+          ]
+        }
+      ]
+    }
+  ],
+  "greeting_collision": {
+    "lesson_id": "A0-T02-L01",
+    "source_versions": [
+      "greeting",
+      "speaking"
+    ],
+    "decision": "PR35 revised speaking sequence is candidate interaction source; PR32 15 functions are reference not second active lesson. Resolve content and language before activation.",
+    "legacy_utterance_ids": [
+      "CZ_A0_T02_L01_U001",
+      "CZ_A0_T02_L01_U002",
+      "CZ_A0_T02_L01_U003",
+      "CZ_A0_T02_L01_U004",
+      "CZ_A0_T02_L01_U005",
+      "CZ_A0_T02_L01_U006",
+      "CZ_A0_T02_L01_U007"
+    ]
+  },
+  "pilot_introduction_candidates": [
+    {
+      "lesson_id": "A0-T02-L01",
+      "ordinal": 1,
+      "exact_source_utterance_ids": [
+        "CZ_A0_T02_L01_U002",
+        "CZ_A0_T02_L01_U006"
+      ],
+      "example_utterance_ids": [],
+      "status": "ambiguous_or_exact_text_candidate_not_approved"
+    },
+    {
+      "lesson_id": "A0-T02-L01",
+      "ordinal": 2,
+      "exact_source_utterance_ids": [
+        "CZ_A0_T02_L01_U001"
+      ],
+      "example_utterance_ids": [],
+      "status": "ambiguous_or_exact_text_candidate_not_approved"
+    },
+    {
+      "lesson_id": "A0-T02-L01",
+      "ordinal": 3,
+      "exact_source_utterance_ids": [
+        "CZ_A0_T02_L01_U003",
+        "CZ_A0_T02_L01_U007"
+      ],
+      "example_utterance_ids": [],
+      "status": "ambiguous_or_exact_text_candidate_not_approved"
+    },
+    {
+      "lesson_id": "A0-T02-L02",
+      "ordinal": 2,
+      "exact_source_utterance_ids": [],
+      "example_utterance_ids": [],
+      "status": "unmapped_form_or_utterance"
+    },
+    {
+      "lesson_id": "A0-T02-L02",
+      "ordinal": 3,
+      "exact_source_utterance_ids": [],
+      "example_utterance_ids": [],
+      "status": "unmapped_form_or_utterance"
+    },
+    {
+      "lesson_id": "A0-T02-L02",
+      "ordinal": 4,
+      "exact_source_utterance_ids": [],
+      "example_utterance_ids": [],
+      "status": "unmapped_form_or_utterance"
+    },
+    {
+      "lesson_id": "A0-T02-L03",
+      "ordinal": 2,
+      "exact_source_utterance_ids": [],
+      "example_utterance_ids": [],
+      "status": "unmapped_form_or_utterance"
+    },
+    {
+      "lesson_id": "A0-T02-L03",
+      "ordinal": 3,
+      "exact_source_utterance_ids": [],
+      "example_utterance_ids": [],
+      "status": "unmapped_form_or_utterance"
+    }
+  ],
+  "lexicon_inventory": {
+    "count": 100,
+    "ids": [
+      "CS-LEX-0001",
+      "CS-LEX-0002",
+      "CS-LEX-0003",
+      "CS-LEX-0004",
+      "CS-LEX-0005",
+      "CS-LEX-0006",
+      "CS-LEX-0007",
+      "CS-LEX-0008",
+      "CS-LEX-0009",
+      "CS-LEX-0010",
+      "CS-LEX-0011",
+      "CS-LEX-0012",
+      "CS-LEX-0013",
+      "CS-LEX-0014",
+      "CS-LEX-0015",
+      "CS-LEX-0016",
+      "CS-LEX-0017",
+      "CS-LEX-0018",
+      "CS-LEX-0019",
+      "CS-LEX-0020",
+      "CS-LEX-0021",
+      "CS-LEX-0022",
+      "CS-LEX-0023",
+      "CS-LEX-0024",
+      "CS-LEX-0025",
+      "CS-LEX-0026",
+      "CS-LEX-0027",
+      "CS-LEX-0028",
+      "CS-LEX-0029",
+      "CS-LEX-0030",
+      "CS-LEX-0031",
+      "CS-LEX-0032",
+      "CS-LEX-0033",
+      "CS-LEX-0034",
+      "CS-LEX-0035",
+      "CS-LEX-0036",
+      "CS-LEX-0037",
+      "CS-LEX-0038",
+      "CS-LEX-0039",
+      "CS-LEX-0040",
+      "CS-LEX-0041",
+      "CS-LEX-0042",
+      "CS-LEX-0043",
+      "CS-LEX-0044",
+      "CS-LEX-0045",
+      "CS-LEX-0046",
+      "CS-LEX-0047",
+      "CS-LEX-0048",
+      "CS-LEX-0049",
+      "CS-LEX-0050",
+      "CS-LEX-0051",
+      "CS-LEX-0052",
+      "CS-LEX-0053",
+      "CS-LEX-0054",
+      "CS-LEX-0055",
+      "CS-LEX-0056",
+      "CS-LEX-0057",
+      "CS-LEX-0058",
+      "CS-LEX-0059",
+      "CS-LEX-0060",
+      "CS-LEX-0061",
+      "CS-LEX-0062",
+      "CS-LEX-0063",
+      "CS-LEX-0064",
+      "CS-LEX-0065",
+      "CS-LEX-0066",
+      "CS-LEX-0067",
+      "CS-LEX-0068",
+      "CS-LEX-0069",
+      "CS-LEX-0070",
+      "CS-LEX-0071",
+      "CS-LEX-0072",
+      "CS-LEX-0073",
+      "CS-LEX-0074",
+      "CS-LEX-0075",
+      "CS-LEX-0076",
+      "CS-LEX-0077",
+      "CS-LEX-0078",
+      "CS-LEX-0079",
+      "CS-LEX-0080",
+      "CS-LEX-0081",
+      "CS-LEX-0082",
+      "CS-LEX-0083",
+      "CS-LEX-0084",
+      "CS-LEX-0085",
+      "CS-LEX-0086",
+      "CS-LEX-0087",
+      "CS-LEX-0088",
+      "CS-LEX-0089",
+      "CS-LEX-0090",
+      "CS-LEX-0091",
+      "CS-LEX-0092",
+      "CS-LEX-0093",
+      "CS-LEX-0094",
+      "CS-LEX-0095",
+      "CS-LEX-0096",
+      "CS-LEX-0097",
+      "CS-LEX-0098",
+      "CS-LEX-0099",
+      "CS-LEX-0100"
+    ],
+    "measured_rank_count": 0,
+    "status": "unapproved_candidate_preserve_ids",
+    "research02_aliases": "blocked_missing_file"
+  },
+  "progress_migration": {
+    "policy": "read-only import later; old keys retained; never convert completion or transcript matches into mastery",
+    "sources": [
+      "ahoj:speaking-pilot:v{revision}:{lessonId}",
+      "ahoj.course.a0.t01.practice.v1",
+      "ahoj.reader.lab.profile.v1",
+      "ahoj.reader.lab.sessions.v1"
+    ],
+    "status": "mapping_pending_field_level_reconciliation"
+  },
+  "audio_manifest": {
+    "approved_count": 0,
+    "status": "empty_source_registry; no archive access"
+  },
+  "unresolved": [
+    "actual Research01–05 archive recovery",
+    "full lemma/sense/form aliases and item-level audio mapping",
+    "exact cross-source prerequisite and grammar validation",
+    "field-level learner event migration",
+    "canonical runtime integration and real audio/device validation"
+  ],
+  "checks": {
+    "status": "PASS_STRUCTURAL_MAPPING_ONLY",
+    "speaking_lessons": 18,
+    "speaking_steps": 165,
+    "pilot_steps": 30,
+    "alphabet_lessons": 8,
+    "alphabet_steps": 72,
+    "catalog_types": 12,
+    "lexeme_ids": 100,
+    "pilot_introductions": 8,
+    "exact_text_candidates": 3,
+    "linguistic_validation": "NOT_DONE",
+    "runtime_validation": "NOT_DONE"
+  }
+}
