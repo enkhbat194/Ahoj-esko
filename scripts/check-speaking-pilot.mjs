@@ -34,7 +34,8 @@ console.log('Speaking pilot: 3 lessons, 27 steps, syntax, routing, answer integr
 
 const audioContext={window:{}};
 new Script(read('speaking-audio-manifest.js')).runInNewContext(audioContext);
-assert.equal(Object.keys(audioContext.window.AHOJ_SPEAKING_AUDIO).length,0,'No unapproved recordings in public registry');
+for(const entry of Object.values(audioContext.window.AHOJ_SPEAKING_AUDIO)){assert.equal(entry.status,'approved');assert(/^\.\/speaking-audio\/[a-zA-Z0-9_-]+\.mp3$/.test(entry.path));assert(readFileSync(base+entry.path.slice(2)).length>0,'Approved audio asset must exist');}
+audioContext.window.AHOJ_SPEAKING_AUDIO={};
 new Script(js.slice(js.indexOf('function approvedAudio('),js.indexOf('function play(text,onDone)'))).runInNewContext(audioContext);
 assert.equal(audioContext.approvedAudio('Ahoj!'),null);
 audioContext.window.AHOJ_SPEAKING_AUDIO={'Ahoj!':{status:'approved',path:'./speaking-audio/clip01.mp3'},'Jsem':{status:'pending',path:'./speaking-audio/clip02.mp3'},'A vy?':{status:'approved',path:'https://example.org/temporary.mp3'},'Těší mě.':{status:'approved',path:'./speaking-audio/../private.mp3'}};
