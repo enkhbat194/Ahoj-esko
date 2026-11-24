@@ -21,31 +21,31 @@ try{
   class R{start(){this.onstart?.();setTimeout(()=>{this.onresult?.({results:[[{transcript:window.__heard||'Dobrý den.'}]]});this.onend?.();},30);}abort(){this.onend?.();}}
   Object.defineProperty(window,'SpeechRecognition',{value:R,configurable:true});
  });
- for(let li=1;li<=18;li++){
+ let lessonCount=0,stepCount=0;for(let li=1;li<=18;li++){
  const id='A0-T02-L'+String(li).padStart(2,'0');
  await page.goto(base+'speaking-pilot.html?lesson='+id);
- await page.waitForFunction(()=>!!window.AHOJ_SPEAKING_PILOT&&document.querySelector('#count').textContent==='1/9');
- const steps=await page.evaluate(id=>window.AHOJ_SPEAKING_PILOT.lessons.find(l=>l.id===id).steps,id);
+ await page.waitForFunction(()=>!!window.AHOJ_SPEAKING_PILOT&&document.querySelector('#count').textContent.startsWith('1/'));
+ const lesson=await page.evaluate(id=>window.AHOJ_SPEAKING_PILOT.lessons.find(l=>l.id===id),id),steps=lesson.steps;lessonCount++;stepCount+=steps.length;
  const clickText=async(text,scope='#exercise')=>page.locator(scope).getByRole('button',{name:text,exact:true}).first().click();
  for(let k=0;k<steps.length;k++){
- const s=steps[k];await page.waitForFunction(k=>document.querySelector('#count').textContent===(k+1)+'/9',k);
+ const s=steps[k];await page.waitForFunction(([k,n])=>document.querySelector('#count').textContent===(k+1)+'/'+n,[k,steps.length]);
  assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'horizontal overflow '+width+' '+id+' '+k);
  assert.equal(await page.locator('input,textarea,.bottom-nav').count(),0);
  if(width===390&&li===1&&k===0)await page.screenshot({path:'test-artifacts/speaking-learn.png',fullPage:true});
  if(s.type==='learn'){await clickText('▷  Сонсох');await page.waitForFunction(()=>document.querySelector('#audioStatus').textContent.includes('дууслаа'));await page.evaluate(v=>window.__heard=v,s.example||s.cz);await page.getByRole('button',{name:'Чехээр ярих'}).click();await page.getByText('Танигдсан текст:',{exact:false}).waitFor();await clickText('Үргэлжлүүлэх');}
  else if(s.type==='match'){if(width===390&&li===1)await page.screenshot({path:'test-artifacts/speaking-match.png',fullPage:true});for(const [a,b] of s.pairs){await clickText(a);await clickText(b);}}
- else if(s.type==='listen'){for(const item of s.items){await clickText('▷  Сонсох');await page.waitForFunction(()=>document.querySelector('#audioStatus').textContent.includes('дууслаа'));await clickText(item.cz);await page.waitForTimeout(750);}}
+ else if(s.type==='listen'||s.type==='listen_meaning'){for(const item of s.items){await clickText('▷  Сонсох');await page.waitForFunction(()=>document.querySelector('#audioStatus').textContent.includes('дууслаа'));await clickText(s.type==='listen_meaning'?item.answer:item.cz);await page.waitForTimeout(750);}}
  else if(s.type==='context'||s.type==='gap'){const wrong=s.options.find(o=>o!==s.answer);if(wrong){await clickText(wrong);await page.getByText('Дахин оролдоорой.',{exact:true}).waitFor();}await clickText(s.answer);}
  else if(s.type==='build'){for(const token of s.answer)await clickText(token,'.bank');}
- else if(s.type==='dialogue'||s.type==='recall'){for(const item of s.items){if(item.partner)await clickText('▷  Сонсох');await page.evaluate(v=>window.__heard=v,item.models[0]);await page.getByRole('button',{name:'Чехээр ярих'}).click();await page.getByText('Танигдсан текст:',{exact:false}).waitFor();await clickText('Үргэлжлүүлэх');}}
+ else if(s.type==='dialogue'||s.type==='recall'){for(const item of s.items){if(item.partner){if(item.listenFirst)assert.equal(await page.locator('.partner p').isVisible(),false);await clickText('▷  Сонсох');await page.waitForFunction(()=>document.querySelector('#audioStatus').textContent.includes('дууслаа'));}await page.evaluate(v=>window.__heard=v,item.models[0]);await page.getByRole('button',{name:'Чехээр ярих'}).click();await page.getByText('Танигдсан текст:',{exact:false}).waitFor();await clickText('Үргэлжлүүлэх');}}
  else throw Error('Unknown step '+s.type);
  }
  await page.getByText('Хичээлийн дасгал дууссан.',{exact:false}).waitFor();
- assert(await page.evaluate(id=>JSON.parse(localStorage.getItem('ahoj:speaking-pilot:v1:'+id)).completed,id));
+ assert(await page.evaluate(([id,rev])=>JSON.parse(localStorage.getItem('ahoj:speaking-pilot:v'+rev+':'+id)).completed,[id,lesson.revision||1]));
  await page.reload();await page.getByText('Хичээлийн дасгал дууссан.',{exact:false}).waitFor();
  if(width===390&&li===18)await page.screenshot({path:'test-artifacts/speaking-result.png',fullPage:true});
  }
- assert.deepEqual(errors,[]);await page.close();console.log('PASS: '+width+'px, 18 lessons, 162 steps, mocked speech/audio, resume, no horizontal overflow');
+ assert.deepEqual(errors,[]);await page.close();console.log('PASS: '+width+'px, '+lessonCount+' lessons, '+stepCount+' steps, mocked speech/audio, resume, no horizontal overflow');
  }
  // Exercise actual main-app entry: click Chapter 1 and confirm link to the pilot.
  const page=await browser.newPage({viewport:{width:390,height:844}});
