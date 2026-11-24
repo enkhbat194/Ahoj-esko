@@ -21,8 +21,11 @@ try{
   class R{start(){this.onstart?.();setTimeout(()=>{this.onresult?.({results:[[{transcript:window.__heard||'Dobrý den.'}]]});this.onend?.();},30);}abort(){this.onend?.();}}
   Object.defineProperty(window,'SpeechRecognition',{value:R,configurable:true});
  });
- let lessonCount=0,stepCount=0;for(let li=1;li<=18;li++){
- const id='A0-T02-L'+String(li).padStart(2,'0');
+ await page.goto(base+'speaking-pilot.html');
+ await page.waitForFunction(()=>!!window.AHOJ_SPEAKING_PILOT?.lessons?.length);
+ const ids=await page.evaluate(()=>window.AHOJ_SPEAKING_PILOT.lessons.map(l=>l.id));
+ let lessonCount=0,stepCount=0;for(const id of ids){
+ const li=lessonCount+1;
  await page.goto(base+'speaking-pilot.html?lesson='+id);
  await page.waitForFunction(()=>!!window.AHOJ_SPEAKING_PILOT&&document.querySelector('#count').textContent.startsWith('1/'));
  const lesson=await page.evaluate(id=>window.AHOJ_SPEAKING_PILOT.lessons.find(l=>l.id===id),id),steps=lesson.steps;lessonCount++;stepCount+=steps.length;
@@ -41,9 +44,13 @@ try{
  else throw Error('Unknown step '+s.type);
  }
  await page.getByText('Хичээлийн дасгал дууссан.',{exact:false}).waitFor();
- assert(await page.evaluate(([id,rev])=>JSON.parse(localStorage.getItem('ahoj:speaking-pilot:v'+rev+':'+id)).completed,[id,lesson.revision||1]));
+ const saved=await page.evaluate(([id,rev])=>JSON.parse(localStorage.getItem('ahoj:speaking-pilot:v'+rev+':'+id)),[id,lesson.revision||1]);
+ assert(saved.completed);assert.equal(saved.step,steps.length);
+ assert.equal(saved.stats.meaningCorrect,steps.filter(s=>s.type==='listen_meaning').reduce((n,s)=>n+s.items.length,0));
+ assert.equal(saved.stats.repeatRecognized,steps.filter(s=>s.type==='learn').length);
+ if(lesson.review_status==='pilot_candidate')assert.equal(saved.stats.dialogueUnaudited,0);
  await page.reload();await page.getByText('Хичээлийн дасгал дууссан.',{exact:false}).waitFor();
- if(width===390&&li===18)await page.screenshot({path:'test-artifacts/speaking-result.png',fullPage:true});
+ if(width===390&&li===ids.length)await page.screenshot({path:'test-artifacts/speaking-result.png',fullPage:true});
  }
  assert.deepEqual(errors,[]);await page.close();console.log('PASS: '+width+'px, '+lessonCount+' lessons, '+stepCount+' steps, mocked speech/audio, resume, no horizontal overflow');
  }
@@ -51,7 +58,8 @@ try{
  const page=await browser.newPage({viewport:{width:390,height:844}});
  await page.goto(base+'index.html?tab=stages');
  await page.locator('[data-chapter-start="1"]').click({force:true});
- for(let i=1;i<=18;i++) await page.locator('a[href="./speaking-pilot.html?lesson=A0-T02-L'+String(i).padStart(2,'0')+'"]').waitFor();
+ const routeIds=await page.locator('a[href^="./speaking-pilot.html?lesson="]').evaluateAll(as=>as.map(a=>new URL(a.href).searchParams.get('lesson')));
+ assert(routeIds.length>0);for(const id of routeIds)assert.equal(await page.locator('a[href="./speaking-pilot.html?lesson='+id+'"]').count(),1);
  await page.close();
  console.log('PASS: existing main app Chapter 1 link');
 }finally{await browser.close();await new Promise(r=>server.close(r));}
