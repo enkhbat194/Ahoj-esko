@@ -21,7 +21,7 @@ try{
   class R{start(){this.onstart?.();setTimeout(()=>{this.onresult?.({results:[[{transcript:window.__heard||'Dobrý den.'}]]});this.onend?.();},30);}abort(){this.onend?.();}}
   Object.defineProperty(window,'SpeechRecognition',{value:R,configurable:true});
  });
- for(let li=1;li<=3;li++){
+ for(let li=1;li<=6;li++){
  const id='A0-T02-L0'+li;
  await page.goto(base+'speaking-pilot.html?lesson='+id);
  await page.waitForFunction(()=>!!window.AHOJ_SPEAKING_PILOT&&document.querySelector('#count').textContent==='1/9');
@@ -43,15 +43,15 @@ try{
  await page.getByText('Хичээлийн дасгал дууссан.',{exact:false}).waitFor();
  assert(await page.evaluate(id=>JSON.parse(localStorage.getItem('ahoj:speaking-pilot:v1:'+id)).completed,id));
  await page.reload();await page.getByText('Хичээлийн дасгал дууссан.',{exact:false}).waitFor();
- if(width===390&&li===3)await page.screenshot({path:'test-artifacts/speaking-result.png',fullPage:true});
+ if(width===390&&li===6)await page.screenshot({path:'test-artifacts/speaking-result.png',fullPage:true});
  }
- assert.deepEqual(errors,[]);await page.close();console.log('PASS: '+width+'px, 3 lessons, 27 steps, mocked speech/audio, resume, no horizontal overflow');
+ assert.deepEqual(errors,[]);await page.close();console.log('PASS: '+width+'px, 6 lessons, 54 steps, mocked speech/audio, resume, no horizontal overflow');
  }
  // Exercise actual main-app entry: click Chapter 1 and confirm link to the pilot.
  const page=await browser.newPage({viewport:{width:390,height:844}});
  await page.goto(base+'index.html?tab=stages');
  await page.locator('[data-chapter-start="1"]').click({force:true});
- await page.locator('a[href="./speaking-pilot.html?lesson=A0-T02-L01"]').waitFor();
+ for(let i=1;i<=6;i++) await page.locator('a[href="./speaking-pilot.html?lesson=A0-T02-L0'+i+'"]').waitFor();
  await page.close();
  console.log('PASS: existing main app Chapter 1 link');
 }finally{await browser.close();await new Promise(r=>server.close(r));}
