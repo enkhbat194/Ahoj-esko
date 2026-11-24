@@ -1,6 +1,6 @@
 window.AHOJ_SPEAKING_PILOT = {
   "version": 1,
-  "source": "Speaking Pilot v1.0; cumulative A0-T02 L01–L18; editorial and real-audio review pending",
+  "source": "Recovered direction audit: L01–L03 revised pilot candidates, L04–L18 preserved drafts; not canonical syllabus.",
   "lessons": [
     {
       "id": "A0-T02-L01",
@@ -85,6 +85,29 @@ window.AHOJ_SPEAKING_PILOT = {
           "cz": "Na shledanou."
         },
         {
+          "type": "listen_meaning",
+          "items": [
+            {
+              "cz": "Dobrý den.",
+              "answer": "Танихгүй хүнтэй өдрийн цагаар мэндэлж байна.",
+              "options": [
+                "Эелдгээр үдэж байна.",
+                "Танихгүй хүнтэй өдрийн цагаар мэндэлж байна.",
+                "Өөрийн нэрийг хэлж байна."
+              ]
+            },
+            {
+              "cz": "Na shledanou.",
+              "answer": "Албан ёсоор үдэж байна.",
+              "options": [
+                "Албан ёсоор үдэж байна.",
+                "Өөрийгөө танилцуулж байна.",
+                "Албан ёсоор мэндэлж байна."
+              ]
+            }
+          ]
+        },
+        {
           "type": "dialogue",
           "items": [
             {
@@ -92,14 +115,16 @@ window.AHOJ_SPEAKING_PILOT = {
               "mn": "Үйлчилгээний ажилтантай мэндэл.",
               "models": [
                 "Dobrý den."
-              ]
+              ],
+              "listenFirst": true
             },
             {
               "partner": "Na shledanou.",
               "mn": "Эелдгээр үд.",
               "models": [
                 "Na shledanou."
-              ]
+              ],
+              "listenFirst": true
             }
           ]
         },
@@ -126,7 +151,9 @@ window.AHOJ_SPEAKING_PILOT = {
             }
           ]
         }
-      ]
+      ],
+      "revision": 2,
+      "review_status": "pilot_candidate"
     },
     {
       "id": "A0-T02-L02",
@@ -218,6 +245,29 @@ window.AHOJ_SPEAKING_PILOT = {
           ]
         },
         {
+          "type": "listen_meaning",
+          "items": [
+            {
+              "cz": "Jmenuji se Anna.",
+              "answer": "Намайг Анна гэдэг.",
+              "options": [
+                "Танилцсандаа таатай байна.",
+                "Намайг Анна гэдэг.",
+                "Баяртай."
+              ]
+            },
+            {
+              "cz": "Těší mě.",
+              "answer": "Танилцсандаа таатай байна.",
+              "options": [
+                "Сайн байна уу.",
+                "Баяртай.",
+                "Танилцсандаа таатай байна."
+              ]
+            }
+          ]
+        },
+        {
           "type": "dialogue",
           "items": [
             {
@@ -226,14 +276,16 @@ window.AHOJ_SPEAKING_PILOT = {
               "models": [
                 "Dobrý den. Jmenuji se Petr.",
                 "Dobrý den. Jsem Petr."
-              ]
+              ],
+              "listenFirst": true
             },
             {
               "partner": "Těší mě.",
               "mn": "Танилцсандаа таатай байгаагаа хэл.",
               "models": [
                 "Těší mě."
-              ]
+              ],
+              "listenFirst": true
             }
           ]
         },
@@ -262,7 +314,9 @@ window.AHOJ_SPEAKING_PILOT = {
             }
           ]
         }
-      ]
+      ],
+      "revision": 2,
+      "review_status": "pilot_candidate"
     },
     {
       "id": "A0-T02-L03",
@@ -369,6 +423,29 @@ window.AHOJ_SPEAKING_PILOT = {
           ]
         },
         {
+          "type": "listen_meaning",
+          "items": [
+            {
+              "cz": "Jak se jmenujete?",
+              "answer": "Таныг хэн гэдэг вэ?",
+              "options": [
+                "Харин та?",
+                "Таныг хэн гэдэг вэ?",
+                "Намайг Анна гэдэг."
+              ]
+            },
+            {
+              "cz": "A vy?",
+              "answer": "Харин та?",
+              "options": [
+                "Таныг хэн гэдэг вэ?",
+                "Танилцсандаа таатай байна.",
+                "Харин та?"
+              ]
+            }
+          ]
+        },
+        {
           "type": "dialogue",
           "items": [
             {
@@ -376,7 +453,8 @@ window.AHOJ_SPEAKING_PILOT = {
               "mn": "Мэндлээд нэрийг нь асуу.",
               "models": [
                 "Dobrý den. Jak se jmenujete?"
-              ]
+              ],
+              "listenFirst": true
             },
             {
               "partner": "Jmenuji se Anna. A vy?",
@@ -385,14 +463,16 @@ window.AHOJ_SPEAKING_PILOT = {
                 "Jmenuji se Petr.",
                 "Jsem Petr."
               ],
-              "open": true
+              "open": true,
+              "listenFirst": true
             },
             {
               "partner": "Těší mě.",
               "mn": "Хариулаад үдээрэй.",
               "models": [
                 "Těší mě. Na shledanou."
-              ]
+              ],
+              "listenFirst": true
             }
           ]
         },
@@ -421,7 +501,9 @@ window.AHOJ_SPEAKING_PILOT = {
             }
           ]
         }
-      ]
+      ],
+      "revision": 2,
+      "review_status": "pilot_candidate"
     },
     {
       "id": "A0-T02-L04",
@@ -573,7 +655,8 @@ window.AHOJ_SPEAKING_PILOT = {
             }
           ]
         }
-      ]
+      ],
+      "review_status": "legacy_draft_unvalidated"
     },
     {
       "id": "A0-T02-L05",
@@ -717,7 +800,8 @@ window.AHOJ_SPEAKING_PILOT = {
             }
           ]
         }
-      ]
+      ],
+      "review_status": "legacy_draft_unvalidated"
     },
     {
       "id": "A0-T02-L06",
@@ -863,7 +947,8 @@ window.AHOJ_SPEAKING_PILOT = {
             }
           ]
         }
-      ]
+      ],
+      "review_status": "legacy_draft_unvalidated"
     },
     {
       "id": "A0-T02-L07",
@@ -1017,7 +1102,8 @@ window.AHOJ_SPEAKING_PILOT = {
             }
           ]
         }
-      ]
+      ],
+      "review_status": "legacy_draft_unvalidated"
     },
     {
       "id": "A0-T02-L08",
@@ -1165,7 +1251,8 @@ window.AHOJ_SPEAKING_PILOT = {
             }
           ]
         }
-      ]
+      ],
+      "review_status": "legacy_draft_unvalidated"
     },
     {
       "id": "A0-T02-L09",
@@ -1306,7 +1393,8 @@ window.AHOJ_SPEAKING_PILOT = {
             }
           ]
         }
-      ]
+      ],
+      "review_status": "legacy_draft_unvalidated"
     },
     {
       "id": "A0-T02-L10",
@@ -1472,7 +1560,8 @@ window.AHOJ_SPEAKING_PILOT = {
             }
           ]
         }
-      ]
+      ],
+      "review_status": "legacy_draft_unvalidated"
     },
     {
       "id": "A0-T02-L11",
@@ -1626,7 +1715,8 @@ window.AHOJ_SPEAKING_PILOT = {
             }
           ]
         }
-      ]
+      ],
+      "review_status": "legacy_draft_unvalidated"
     },
     {
       "id": "A0-T02-L12",
@@ -1784,7 +1874,8 @@ window.AHOJ_SPEAKING_PILOT = {
             }
           ]
         }
-      ]
+      ],
+      "review_status": "legacy_draft_unvalidated"
     },
     {
       "id": "A0-T02-L13",
@@ -1940,7 +2031,8 @@ window.AHOJ_SPEAKING_PILOT = {
             }
           ]
         }
-      ]
+      ],
+      "review_status": "legacy_draft_unvalidated"
     },
     {
       "id": "A0-T02-L14",
@@ -2089,7 +2181,8 @@ window.AHOJ_SPEAKING_PILOT = {
             }
           ]
         }
-      ]
+      ],
+      "review_status": "legacy_draft_unvalidated"
     },
     {
       "id": "A0-T02-L15",
@@ -2236,7 +2329,8 @@ window.AHOJ_SPEAKING_PILOT = {
             }
           ]
         }
-      ]
+      ],
+      "review_status": "legacy_draft_unvalidated"
     },
     {
       "id": "A0-T02-L16",
@@ -2378,7 +2472,8 @@ window.AHOJ_SPEAKING_PILOT = {
             }
           ]
         }
-      ]
+      ],
+      "review_status": "legacy_draft_unvalidated"
     },
     {
       "id": "A0-T02-L17",
@@ -2525,7 +2620,8 @@ window.AHOJ_SPEAKING_PILOT = {
             }
           ]
         }
-      ]
+      ],
+      "review_status": "legacy_draft_unvalidated"
     },
     {
       "id": "A0-T02-L18",
@@ -2726,7 +2822,9 @@ window.AHOJ_SPEAKING_PILOT = {
             }
           ]
         }
-      ]
+      ],
+      "review_status": "legacy_draft_unvalidated"
     }
-  ]
+  ],
+  "curriculum_status": "pilot_only"
 };
