@@ -9,8 +9,9 @@
     "build": "vite build",
     "preview": "vite preview",
     "clean": "rm -rf dist server.js",
-    "lint": "tsc --noEmit && node scripts/check-cesky-uiux.mjs && node scripts/check-alphabet-a0.mjs",
-    "qa:alphabet": "node scripts/check-alphabet-a0.mjs"
+    "lint": "tsc --noEmit && node scripts/check-cesky-uiux.mjs && node scripts/check-alphabet-a0.mjs && node scripts/check-speaking-pilot.mjs && node scripts/audit-speaking-audio.mjs --self-test",
+    "qa:alphabet": "node scripts/check-alphabet-a0.mjs",
+    "qa:speaking-audio": "node scripts/audit-speaking-audio.mjs --demand"
   },
   "dependencies": {
     "@google/genai": "^3.3.0",

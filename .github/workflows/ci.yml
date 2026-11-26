@@ -23,3 +23,16 @@ jobs:
         run: npm run lint
       - name: Build
         run: npm run build
+      - name: Install browser test dependency
+        run: npm install --no-save --no-audit --no-fund playwright-core@1.56.1
+      - name: Speaking pilot mobile browser QA
+        run: |
+          export CHROME_BIN="$(command -v google-chrome || command -v google-chrome-stable)"
+          node scripts/check-speaking-browser.mjs
+      - name: Upload speaking pilot evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: speaking-pilot-browser-evidence
+          path: test-artifacts/speaking-*.png
+          if-no-files-found: ignore
